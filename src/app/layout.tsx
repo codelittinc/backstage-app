@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import QueryProvider from "@/providers/query.provider";
 import AuthProvider from "@/providers/auth.provider";
+import CssBaseline from "@mui/material/CssBaseline";
+import { MaterialUIControllerProvider } from "@/theme";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "@/assets/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +23,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <QueryProvider>{children}</QueryProvider>
+          <MaterialUIControllerProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <QueryProvider>{children}</QueryProvider>
+            </ThemeProvider>
+          </MaterialUIControllerProvider>
         </AuthProvider>
       </body>
     </html>
