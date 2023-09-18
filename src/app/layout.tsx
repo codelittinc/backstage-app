@@ -6,6 +6,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { MaterialUIControllerProvider } from "@/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/assets/theme";
+import LayoutProvider from "@/providers/layout.provider";
+import "material-icons/iconfont/material-icons.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,10 +26,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <MaterialUIControllerProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
+            <LayoutProvider>
               <QueryProvider>{children}</QueryProvider>
-            </ThemeProvider>
+            </LayoutProvider>
           </MaterialUIControllerProvider>
         </AuthProvider>
       </body>
