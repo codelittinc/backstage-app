@@ -67,15 +67,6 @@ function Breadcrumbs({
           {title.replace("-", " ")}
         </Typography>
       </MuiBreadcrumbs>
-      <Typography
-        fontWeight="bold"
-        textTransform="capitalize"
-        variant="h6"
-        color={light ? "white" : "dark"}
-        noWrap
-      >
-        {title.replace("-", " ")}
-      </Typography>
     </Box>
   );
 }
