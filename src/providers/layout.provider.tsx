@@ -91,7 +91,6 @@ export default function App({ children }: { children: React.ReactNode }) {
 
   const displayConfigurator =
     process.env.NEXT_PUBLIC_DISPLAY_LAYOUT_CONFIGURATOR == "true";
-  console.log(displayConfigurator);
 
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>

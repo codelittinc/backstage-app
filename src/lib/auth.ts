@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { getAuthenticatedUser } from "@/api/users";
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -15,14 +16,24 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: ({ session, token }) => {
-      // get user fom the API
+    session: async ({ session, token }) => {
+      const { user } = session;
+      if (!user) {
+        return {};
+      }
+
+      const data = {
+        email: user.email!,
+        google_id: token.id as string,
+        name: user.name!,
+      };
+
+      const u = await getAuthenticatedUser(data);
       return {
-        ...session,
         user: {
-          ...session.user,
-          id: token.id,
-          randomKey: "test",
+          image: session!.user!.image,
+          ...u,
+          name: data.name,
         },
       };
     },
