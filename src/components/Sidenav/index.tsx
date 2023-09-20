@@ -1,11 +1,10 @@
 import { usePathname } from "next/navigation";
 
 import MDAvatar from "@/components/Avatar";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState, ReactNode } from "react";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import Link from "@mui/material/Link";
 import Icon from "@mui/material/Icon";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
@@ -22,6 +21,7 @@ import {
   setTransparentSidenav,
   setWhiteSidenav,
 } from "@/theme";
+import Link from "next/link";
 
 interface Props {
   color?:
@@ -133,7 +133,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
   };
   // Render the all the collpases from the routes.js
   const renderCollapse = (collapses: any) =>
-    collapses.map(({ name, collapse, route, href, key }: any) => {
+    collapses.map(({ name, collapse, route, href, key, onClick }: any) => {
       let returnValue;
 
       if (collapse) {
@@ -153,6 +153,30 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
           >
             {renderNestedCollapse(collapse)}
           </SidenavItem>
+        );
+      } else if (onClick) {
+        returnValue = (
+          <Link
+            href={""}
+            key={key}
+            rel="noreferrer"
+            sx={{ textDecoration: "none" }}
+            onClick={onClick}
+          >
+            <SidenavItem color={color} name={name} active={key === itemName} />
+          </Link>
+        );
+      } else if (route) {
+        returnValue = (
+          <Link
+            href={route}
+            key={key}
+            rel="noreferrer"
+            sx={{ textDecoration: "none" }}
+            onClick={onClick}
+          >
+            <SidenavItem color={color} name={name} active={key === itemName} />
+          </Link>
         );
       } else {
         returnValue = (
@@ -184,20 +208,12 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
         {
           name: "My Profile",
           key: "my-profile",
-          route: "/pages/profile/profile-overview",
-          href: "/users/1",
-        },
-        {
-          name: "Settings",
-          key: "profile-settings",
-          route: "/pages/account/settings",
-          component: <></>,
+          route: "/users/settings",
         },
         {
           name: "Logout",
           key: "logout",
-          route: "/authentication/sign-in/basic",
-          component: <></>,
+          onClick: signOut,
         },
       ],
     },
