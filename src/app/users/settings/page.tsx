@@ -6,8 +6,6 @@ import Sidenav from "./components/Sidenav";
 import Header from "./components/Header";
 import BasicInfo from "./components/BasicInfo";
 import Accounts from "./components/Accounts";
-import { useSession } from "next-auth/react";
-import { useGetCurrentUser } from "@/api/users";
 
 function Settings(): JSX.Element {
   return (

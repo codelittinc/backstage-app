@@ -44,5 +44,5 @@ export const getAuthenticatedUser = async (session_user: SessionUser) => {
 
 export function useGetCurrentUser() {
   const { data } = useSession();
-  return data?.user;
+  return data?.user || {};
 }
