@@ -1,31 +1,9 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React TS - v1.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @material-ui core components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
-
-// Material Dashboard 2 PRO React TS components
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-
-// Settings page components
 import FormField from "../../FormField";
-
-// Data
 import selectData from "./data/selectData";
 
 function BasicInfo(): JSX.Element {
@@ -128,14 +106,16 @@ function BasicInfo(): JSX.Element {
             <FormField label="Language" placeholder="English" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Autocomplete
-              multiple
-              defaultValue={["react", "angular"]}
-              options={selectData.skills}
-              renderInput={(params) => (
-                <FormField {...params} InputLabelProps={{ shrink: true }} />
-              )}
-            />
+            {false && (
+              <Autocomplete
+                multiple
+                defaultValue={["react", "angular"]}
+                options={selectData.skills}
+                renderInput={(params) => (
+                  <FormField {...params} InputLabelProps={{ shrink: true }} />
+                )}
+              />
+            )}
           </Grid>
         </Grid>
       </Box>

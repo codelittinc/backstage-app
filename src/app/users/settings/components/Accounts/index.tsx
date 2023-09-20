@@ -70,7 +70,7 @@ function Accounts(): JSX.Element {
           flexDirection={{ xs: "column", sm: "row" }}
         >
           <MDBox display="flex" alignItems="center">
-            <MDAvatar src={logoSlack} alt="Slack logo" variant="rounded" />
+            <MDAvatar src={logoSlack.src} alt="Slack logo" variant="rounded" />
             <MDBox ml={2}>
               <MDTypography variant="h5" fontWeight="medium">
                 Slack
@@ -176,7 +176,11 @@ function Accounts(): JSX.Element {
           flexDirection={{ xs: "column", sm: "row" }}
         >
           <MDBox display="flex" alignItems="center">
-            <MDAvatar src={logoSpotify} alt="Slack logo" variant="rounded" />
+            <MDAvatar
+              src={logoSpotify.src}
+              alt="Slack logo"
+              variant="rounded"
+            />
             <MDBox ml={2} lineHeight={0}>
               <MDTypography variant="h5" fontWeight="medium">
                 Spotify
@@ -211,7 +215,11 @@ function Accounts(): JSX.Element {
           flexDirection={{ xs: "column", sm: "row" }}
         >
           <MDBox display="flex" alignItems="center">
-            <MDAvatar src={logoAtlassian} alt="Slack logo" variant="rounded" />
+            <MDAvatar
+              src={logoAtlassian.src}
+              alt="Slack logo"
+              variant="rounded"
+            />
             <MDBox ml={2} lineHeight={0}>
               <MDTypography variant="h5" fontWeight="medium">
                 Atlassian
@@ -246,7 +254,7 @@ function Accounts(): JSX.Element {
           flexDirection={{ xs: "column", sm: "row" }}
         >
           <MDBox display="flex" alignItems="center">
-            <MDAvatar src={logoAsana} alt="Slack logo" variant="rounded" />
+            <MDAvatar src={logoAsana.src} alt="Slack logo" variant="rounded" />
             <MDBox ml={2} lineHeight={0}>
               <MDTypography variant="h5" fontWeight="medium">
                 Asana
