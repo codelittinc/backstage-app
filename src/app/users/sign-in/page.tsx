@@ -20,7 +20,7 @@ function Illustration(): JSX.Element {
             color="info"
             size="large"
             fullWidth
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            onClick={() => signIn("google", { callbackUrl: "/users/settings" })}
           >
             Sign in with Google
           </Button>
