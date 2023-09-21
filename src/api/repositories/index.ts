@@ -1,28 +1,54 @@
 import axios from "axios";
-import { getUrl } from "..";
-import { useSession } from "next-auth/react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getRoadrunnerUrl } from "..";
+import { fromApiParser, toApiParser } from "./parser";
 
-const BASE_QUERY_KEY = "repositories";
+export const REPOSITORIES_KEY = "repositories";
 
-interface Repository {
+export interface Repository {
+  id: number;
   name: string;
   owner: string;
   active: boolean;
   slug: string;
+  sourceControlType: string;
+  baseBranch: string;
+  supportsDeploy: boolean;
 }
 
-const ROADRUNNER_URL = "https://api.roadrunner.codelitt.dev";
-
 export const getRepositories = async (query: string) => {
-  const { data } = await axios.get(`${ROADRUNNER_URL}/repositories.json`);
+  const { data } = await axios.get(getRoadrunnerUrl("/repositories.json"));
 
-  return data;
+  return data.map(fromApiParser);
+};
+
+export const updateRepository = async (params: Repository) => {
+  const { data } = await axios.put(
+    getRoadrunnerUrl(`/repositories/${params.id}.json`),
+    toApiParser(params)
+  );
+
+  return fromApiParser(data);
+};
+
+export const getRepository = async (id: string | number) => {
+  const { data } = await axios.get(
+    getRoadrunnerUrl(`/repositories/${id}.json`)
+  );
+
+  return fromApiParser(data);
 };
 
 export function useGetRepositories(query: string) {
   return useQuery({
-    queryKey: [BASE_QUERY_KEY],
+    queryKey: [REPOSITORIES_KEY],
     queryFn: () => getRepositories(query),
+  });
+}
+
+export function useGetRepository(id: string | number) {
+  return useQuery({
+    queryKey: [REPOSITORIES_KEY, id],
+    queryFn: () => getRepository(id),
   });
 }

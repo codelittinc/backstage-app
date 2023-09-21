@@ -8,6 +8,7 @@ import DataTable from "@/components/DataTable";
 import { useGetRepositories } from "@/api/repositories";
 import StatusCell from "@/components/DataTable/StatusCell";
 import Link from "next/link";
+import routes from "@/routes";
 
 function Repositories(): JSX.Element {
   const { data: repositories } = useGetRepositories("");
@@ -23,11 +24,7 @@ function Repositories(): JSX.Element {
         const {
           original: { name, id },
         } = row;
-        return (
-          <Link href={`https://api.roadrunner.codelitt.dev/repositories/${id}`}>
-            {name}
-          </Link>
-        );
+        return <Link href={routes.repository_path(id)}>{name}</Link>;
       },
     },
     { Header: "owner", accessor: "owner", width: "20%" },
