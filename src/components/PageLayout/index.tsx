@@ -13,7 +13,7 @@ function PageLayout({ background = "default", children }: Props): JSX.Element {
 
   useEffect(() => {
     setLayout(dispatch, "page");
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box

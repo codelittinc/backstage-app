@@ -1,27 +1,7 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React TS - v1.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { forwardRef, FC } from "react";
-
-// @mui material components
 import { BoxProps } from "@mui/material";
+import BoxRoot from "./BoxRoot";
 
-// Custom styles for MDBox
-import MDBoxRoot from "./MDBoxRoot";
-
-// declaring props types for MDBox
 interface Props extends BoxProps {
   variant?: "contained" | "gradient";
   bgColor?: string;
@@ -33,21 +13,21 @@ interface Props extends BoxProps {
   [key: string]: any;
 }
 
-const MDBox: FC<Props> = forwardRef(
+const Box: FC<Props> = forwardRef(
   (
     {
-      variant,
-      bgColor,
-      color,
-      opacity,
-      borderRadius,
-      shadow,
-      coloredShadow,
+      variant = "contained",
+      bgColor = "transparent",
+      color = "dark",
+      opacity = 1,
+      borderRadius = "none",
+      shadow = "none",
+      coloredShadow = "none",
       ...rest
     },
     ref
   ) => (
-    <MDBoxRoot
+    <BoxRoot
       {...rest}
       ref={ref}
       ownerState={{
@@ -63,15 +43,6 @@ const MDBox: FC<Props> = forwardRef(
   )
 );
 
-// Declaring default props for MDBox
-MDBox.defaultProps = {
-  variant: "contained",
-  bgColor: "transparent",
-  color: "dark",
-  opacity: 1,
-  borderRadius: "none",
-  shadow: "none",
-  coloredShadow: "none",
-};
+Box.displayName = "Box";
 
-export default MDBox;
+export default Box;

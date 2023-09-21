@@ -8,7 +8,7 @@ function DashboardLayout({ children }: { children: ReactNode }): JSX.Element {
 
   useEffect(() => {
     setLayout(dispatch, "dashboard");
-  }, []);
+  }, [dispatch]);
 
   return (
     <MDBox

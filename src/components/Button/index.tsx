@@ -1,30 +1,8 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { FC, ReactNode, forwardRef } from "react";
-
-// @mui material components
 import { ButtonProps } from "@mui/material";
-
-// Custom styles for MDButton
-import MDButtonRoot from "./MDButtonRoot";
-
-// Material Dashboard 2 PRO React TS contexts
+import ButtonRoot from "./ButtonRoot";
 import { useMaterialUIController } from "@/theme";
 
-// Declaring props types for MDButton
 interface Props extends Omit<ButtonProps, "color" | "variant"> {
   color?:
     | "white"
@@ -45,13 +23,24 @@ interface Props extends Omit<ButtonProps, "color" | "variant"> {
   [key: string]: any;
 }
 
-const MDButton: FC<Props> = forwardRef(
-  ({ color, variant, size, circular, iconOnly, children, ...rest }, ref) => {
+const Button: FC<Props> = forwardRef(
+  (
+    {
+      color = "white",
+      variant = "contained",
+      size = "medium",
+      circular,
+      iconOnly,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
     const [controller] = useMaterialUIController();
     const { darkMode } = controller;
 
     return (
-      <MDButtonRoot
+      <ButtonRoot
         {...rest}
         ref={ref}
         color="primary"
@@ -60,18 +49,11 @@ const MDButton: FC<Props> = forwardRef(
         ownerState={{ color, variant, size, circular, iconOnly, darkMode }}
       >
         {children}
-      </MDButtonRoot>
+      </ButtonRoot>
     );
   }
 );
 
-// Declaring default props for MDButton
-MDButton.defaultProps = {
-  color: "white",
-  variant: "contained",
-  size: "medium",
-  circular: false,
-  iconOnly: false,
-};
+Button.displayName = "Button";
 
-export default MDButton;
+export default Button;

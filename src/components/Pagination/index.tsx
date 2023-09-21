@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React TS - v1.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import {
   ReactNode,
   FC,
@@ -22,16 +7,10 @@ import {
   useMemo,
 } from "react";
 
-// Material Dashboard 2 PRO React TS components
-import MDBox from "@/components/Box";
-
-// Custom styles for MDPagination
-import MDPaginationItemRoot from "./MDPaginationItemRoot";
-
-// The Pagination main context
+import Box from "@/components/Box";
+import PaginationItemRoot from "./PaginationItemRoot";
 const Context = createContext<any>(null);
 
-// Declare props types for MDPagination
 interface Props {
   item?: boolean;
   variant?: "gradient" | "contained";
@@ -51,8 +30,19 @@ interface Props {
   [key: string]: any;
 }
 
-const MDPagination: FC<Props | any> = forwardRef(
-  ({ item, variant, color, size, active, children, ...rest }, ref) => {
+const Pagination: FC<Props | any> = forwardRef(
+  (
+    {
+      item,
+      variant = "gradient",
+      color = "info",
+      size = "medium",
+      active,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
     const context: any = useContext(Context);
     const paginationSize = context ? context.size : undefined;
 
@@ -68,7 +58,7 @@ const MDPagination: FC<Props | any> = forwardRef(
     return (
       <Context.Provider value={providerValue}>
         {item ? (
-          <MDPaginationItemRoot
+          <PaginationItemRoot
             {...rest}
             ref={ref}
             variant={active ? context.variant : "outlined"}
@@ -78,29 +68,22 @@ const MDPagination: FC<Props | any> = forwardRef(
             ownerState={{ variant, active, paginationSize }}
           >
             {children}
-          </MDPaginationItemRoot>
+          </PaginationItemRoot>
         ) : (
-          <MDBox
+          <Box
             display="flex"
             justifyContent="flex-end"
             alignItems="center"
             sx={{ listStyle: "none" }}
           >
             {children}
-          </MDBox>
+          </Box>
         )}
       </Context.Provider>
     );
   }
 );
 
-// Declaring default props for MDPagination
-MDPagination.defaultProps = {
-  item: false,
-  variant: "gradient",
-  color: "info",
-  size: "medium",
-  active: false,
-};
+Pagination.displayName = "Pagination";
 
-export default MDPagination;
+export default Pagination;

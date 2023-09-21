@@ -33,4 +33,6 @@ const NotificationItem: FC<Props> = forwardRef(
   )
 );
 
+NotificationItem.displayName = "NotificationItem";
+
 export default NotificationItem;

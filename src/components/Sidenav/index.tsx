@@ -88,7 +88,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
   useEffect(() => {
     setOpenCollapse(collapseName);
     setOpenNestedCollapse(itemParentName);
-  }, []);
+  }, [collapseName, itemParentName]);
 
   useEffect(() => {
     // A function that sets the mini state of the sidenav.
@@ -114,7 +114,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
 
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleMiniSidenav);
-  }, [dispatch, pathname]);
+  }, [dispatch, pathname, transparentSidenav, whiteSidenav]);
 
   // Render all the nested collapse items from the routes.js
   const renderNestedCollapse = (collapse: any) => {

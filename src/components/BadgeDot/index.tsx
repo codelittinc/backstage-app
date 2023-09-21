@@ -1,25 +1,9 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React TS - v1.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { FC, forwardRef } from "react";
+import Box from "@/components/Box";
+import Typography from "@/components/Typography";
+import { Badge } from "@mui/material";
 
-// Material Dashboard 2 PRO React TS components
-import MDBox from "@/components/Box";
-import MDTypography from "@/components/Typography";
-
-// declaring props types for MDBadgeDot
+// declaring props types for BadgeDot
 interface Props {
   variant?: "gradient" | "contained";
   color?:
@@ -42,8 +26,18 @@ interface Props {
   [key: string]: any;
 }
 
-const MDBadgeDot: FC<Props> = forwardRef(
-  ({ variant, color, size, badgeContent, font = {}, ...rest }, ref) => {
+const BadgeDot: FC<Props> = forwardRef(
+  (
+    {
+      variant = "contained",
+      color = "info",
+      size = "xs",
+      badgeContent,
+      font = {},
+      ...rest
+    },
+    ref
+  ) => {
     let finalSize;
     let fontSize: any;
     let padding;
@@ -80,8 +74,8 @@ const MDBadgeDot: FC<Props> = forwardRef(
     const validColorIndex = validColors.findIndex((el) => el === color);
 
     return (
-      <MDBox ref={ref} display="flex" alignItems="center" p={padding} {...rest}>
-        <MDBox
+      <Box ref={ref} display="flex" alignItems="center" p={padding} {...rest}>
+        <Box
           component="i"
           display="inline-block"
           width={finalSize}
@@ -91,25 +85,19 @@ const MDBadgeDot: FC<Props> = forwardRef(
           variant={variant}
           mr={1}
         />
-        <MDTypography
+        <Typography
           variant={fontSize}
           fontWeight={font.weight ? font.weight : "regular"}
           color={font.color ? font.color : "dark"}
           sx={{ lineHeight: 0 }}
         >
           {badgeContent}
-        </MDTypography>
-      </MDBox>
+        </Typography>
+      </Box>
     );
   }
 );
 
-// Declaring default props for MDBadgeDot
-MDBadgeDot.defaultProps = {
-  variant: "contained",
-  color: "info",
-  size: "xs",
-  font: {},
-};
+BadgeDot.displayName = "BadgeDot";
 
-export default MDBadgeDot;
+export default BadgeDot;

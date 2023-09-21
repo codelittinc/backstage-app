@@ -1,27 +1,7 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React TS - v1.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { FC, forwardRef } from "react";
+import Typography from "@/components/Typography";
+import ProgressRoot from "./ProgressRoot";
 
-// Material Dashboard 2 PRO React TS components
-import MDTypography from "@/components/Typography";
-
-// Custom styles for MDProgress
-import MDProgressRoot from "./MDProgressRoot";
-
-// Delcare props types for MDProgress
 interface Props {
   variant?: "contained" | "gradient";
   color?:
@@ -38,15 +18,18 @@ interface Props {
   [key: string]: any;
 }
 
-const MDProgress: FC<Props> = forwardRef(
-  ({ variant, color, value, label, ...rest }, ref) => (
+const Progress: FC<Props> = forwardRef(
+  (
+    { variant = "contained", color = "info", value = 0, label, ...rest },
+    ref
+  ) => (
     <>
       {label && (
-        <MDTypography variant="button" fontWeight="medium" color="text">
+        <Typography variant="button" fontWeight="medium" color="text">
           {value}%
-        </MDTypography>
+        </Typography>
       )}
-      <MDProgressRoot
+      <ProgressRoot
         {...rest}
         ref={ref}
         variant="determinate"
@@ -57,12 +40,6 @@ const MDProgress: FC<Props> = forwardRef(
   )
 );
 
-// Declaring default props for MDProgress
-MDProgress.defaultProps = {
-  variant: "contained",
-  color: "info",
-  value: 0,
-  label: false,
-};
+Progress.displayName = "Progress";
 
-export default MDProgress;
+export default Progress;

@@ -1,27 +1,6 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React TS - v1.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { FC, ReactNode, forwardRef } from "react";
-
-// @mui material components
 import { BadgeProps } from "@mui/material";
-
-// Custom styles for the MDBadge
 import MDBadgeRoot from "./MDBadgeRoot";
-
-// declaring props types for MDBadge
 interface Props extends Omit<BadgeProps, "color" | "variant"> {
   color?:
     | "primary"
@@ -42,12 +21,12 @@ interface Props extends Omit<BadgeProps, "color" | "variant"> {
   [key: string]: any;
 }
 
-const MDBadge: FC<Props | any> = forwardRef(
+const Badge: FC<Props | any> = forwardRef(
   (
     {
-      color,
-      variant,
-      size,
+      color = "info",
+      variant = "gradient",
+      size = "sm",
       circular,
       indicator,
       border,
@@ -77,16 +56,6 @@ const MDBadge: FC<Props | any> = forwardRef(
   )
 );
 
-// declaring default props for MDBadge
-MDBadge.defaultProps = {
-  color: "info",
-  variant: "gradient",
-  size: "sm",
-  circular: false,
-  indicator: false,
-  border: false,
-  container: false,
-  children: false,
-};
+Badge.displayName = "Badge";
 
-export default MDBadge;
+export default Badge;
