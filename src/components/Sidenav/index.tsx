@@ -220,21 +220,14 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
     { type: "divider", key: "divider-0" },
     {
       type: "collapse",
-      name: "Dashboards",
-      key: "dashboards",
+      name: "Roadrunner",
+      key: "roadrunner",
       icon: <Icon fontSize="medium">dashboard</Icon>,
       collapse: [
         {
-          name: "Analytics",
-          key: "analytics",
-          route: "/dashboards/analytics",
-          component: <></>,
-        },
-        {
-          name: "Sales",
-          key: "sales",
-          route: "/dashboards/sales",
-          component: <></>,
+          name: "Repositories",
+          key: "repositories",
+          route: "/repositories",
         },
       ],
     },
