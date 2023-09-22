@@ -5,6 +5,7 @@ import BaseLayout from "./BaseLayout";
 import Sidenav from "./components/Sidenav";
 import Header from "./components/Header";
 import BasicInfo from "./components/BasicInfo";
+import Applications from "./components/Applications";
 import Accounts from "./components/Accounts";
 import { updateRepository, useGetRepository } from "@/api/repositories";
 import { useParams } from "next/navigation";
@@ -67,6 +68,12 @@ function Settings(): JSX.Element {
                 </Grid>
                 <Grid item xs={12}>
                   <BasicInfo
+                    repository={currentRepository}
+                    onChange={onChangeRepository}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Applications
                     repository={currentRepository}
                     onChange={onChangeRepository}
                   />

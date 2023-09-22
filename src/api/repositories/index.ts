@@ -2,6 +2,7 @@ import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getRoadrunnerUrl } from "..";
 import { fromApiParser, toApiParser } from "./parser";
+import { Application } from "../applications";
 
 export const REPOSITORIES_KEY = "repositories";
 
@@ -14,6 +15,7 @@ export interface Repository {
   sourceControlType: string;
   baseBranch: string;
   supportsDeploy: boolean;
+  applications?: Application[];
 }
 
 export const getRepositories = async (query: string) => {

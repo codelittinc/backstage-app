@@ -9,6 +9,20 @@ export interface ApiRepository {
   id: number;
   base_branch: string;
   supports_deploy: boolean;
+  applications?:
+    | {
+        id: number;
+        environment: string;
+        server?:
+          | {
+              id: number;
+              link: string;
+              supports_health_check: boolean;
+              active: boolean;
+            }
+          | undefined;
+      }[]
+    | undefined;
 }
 
 export function fromApiParser(repository: ApiRepository): Repository {
@@ -21,6 +35,19 @@ export function fromApiParser(repository: ApiRepository): Repository {
     sourceControlType: repository.source_control_type,
     baseBranch: repository.base_branch,
     supportsDeploy: repository.supports_deploy,
+    applications: repository.applications?.map((application) => ({
+      repositoryId: repository.id,
+      id: application.id,
+      environment: application.environment,
+      server: application.server
+        ? {
+            id: application.server.id,
+            link: application.server.link,
+            supportsHealthCheck: application.server.supports_health_check,
+            active: application.server.active,
+          }
+        : undefined,
+    })),
   };
 }
 
