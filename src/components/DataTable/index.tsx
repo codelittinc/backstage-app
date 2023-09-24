@@ -49,12 +49,12 @@ interface Props {
 }
 
 function DataTable({
-  entriesPerPage,
+  entriesPerPage = { defaultValue: 10, entries: [5, 10, 15, 20, 25] },
   canSearch,
-  showTotalEntries,
+  showTotalEntries = true,
   table,
-  pagination,
-  isSorted,
+  pagination = { variant: "gradient", color: "info" },
+  isSorted = true,
   noEndBorder,
 }: Props): JSX.Element {
   let defaultValue: any;
@@ -212,13 +212,10 @@ function DataTable({
       <Table {...getTableProps()}>
         <Box component="thead">
           {headerGroups.map((headerGroup: any, key: any) => (
-            <TableRow key={key} {...headerGroup.getHeaderGroupProps()}>
+            <TableRow key={key}>
               {headerGroup.headers.map((column: any, key: any) => (
                 <DataTableHeadCell
                   key={key}
-                  {...column.getHeaderProps(
-                    isSorted && column.getSortByToggleProps()
-                  )}
                   width={column.width ? column.width : "auto"}
                   align={column.align ? column.align : "left"}
                   sorted={setSortedValue(column)}
@@ -233,13 +230,12 @@ function DataTable({
           {page.map((row: any, key: any) => {
             prepareRow(row);
             return (
-              <TableRow key={key} {...row.getRowProps()}>
+              <TableRow key={key}>
                 {row.cells.map((cell: any, key: any) => (
                   <DataTableBodyCell
                     key={key}
                     noBorder={noEndBorder && rows.length - 1 === key}
                     align={cell.column.align ? cell.column.align : "left"}
-                    {...cell.getCellProps()}
                   >
                     {cell.render("Cell")}
                   </DataTableBodyCell>
@@ -303,15 +299,5 @@ function DataTable({
     </TableContainer>
   );
 }
-
-// Declaring default props for DataTable
-DataTable.defaultProps = {
-  entriesPerPage: { defaultValue: 10, entries: ["5", "10", "15", "20", "25"] },
-  canSearch: false,
-  showTotalEntries: true,
-  pagination: { variant: "gradient", color: "info" },
-  isSorted: true,
-  noEndBorder: false,
-};
 
 export default DataTable;
