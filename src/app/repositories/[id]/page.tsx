@@ -70,6 +70,7 @@ function Settings(): JSX.Element {
                   <BasicInfo
                     repository={currentRepository}
                     onChange={onChangeRepository}
+                    onSave={onSave}
                   />
                 </Grid>
                 <Grid item xs={12}>

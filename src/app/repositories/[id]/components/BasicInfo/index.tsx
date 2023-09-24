@@ -6,13 +6,17 @@ import Typography from "@/components/Typography";
 import FormField from "../../FormField";
 import Checkbox from "@mui/material/Checkbox";
 import { Repository } from "@/api/repositories";
+import { Switch } from "@mui/material";
+import Button from "@/components/Button";
 
 function BasicInfo({
   repository,
   onChange,
+  onSave,
 }: {
   repository: Repository;
   onChange: Function;
+  onSave: Function;
 }): JSX.Element {
   const { name, owner, baseBranch, sourceControlType } = repository;
 
@@ -74,22 +78,52 @@ function BasicInfo({
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={12}>
-            <Checkbox
-              value={repository.supportsDeploy}
-              onChange={({ target: { checked } }) => {
-                console.log(checked);
-                onChange("supportsDeploy", checked);
-              }}
-            />
-            <Typography
-              variant="button"
-              fontWeight="regular"
-              color="text"
-              sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+          <Grid item xs={12} md={6} lg={3}>
+            <Box display="flex" alignItems="center">
+              <Typography variant="caption" fontWeight="regular">
+                {repository.supportsDeploy
+                  ? "Deploys with Roadrunner"
+                  : "Does not deploy with Roadrunner"}
+              </Typography>
+              <Box ml={1}>
+                <Switch
+                  checked={repository.supportsDeploy}
+                  onChange={() =>
+                    onChange("supportsDeploy", !repository.supportsDeploy)
+                  }
+                />
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Box display="flex" alignItems="center" lineHeight={1}>
+              <Typography variant="caption" fontWeight="regular">
+                {repository.active ? "Active" : "Inactive"}
+              </Typography>
+              <Box ml={1}>
+                <Switch
+                  checked={repository.active}
+                  onChange={() => onChange("active", !repository.active)}
+                />
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+            <Box
+              display="flex"
+              justifyContent={{ md: "flex-end" }}
+              alignItems="center"
+              lineHeight={1}
             >
-              &nbsp;&nbsp;Deploys with Roadrunner&nbsp;
-            </Typography>
+              <Button
+                variant="gradient"
+                color="dark"
+                size="small"
+                onClick={() => onSave()}
+              >
+                Save
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </Box>

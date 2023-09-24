@@ -11,14 +11,12 @@ import Button from "@/components/Button";
 
 function Header({
   repository,
-  onChangeActive,
-  onSave,
 }: {
   repository: Repository;
   onChangeActive: Function;
   onSave: Function;
 }): JSX.Element {
-  const { owner, name, sourceControlType, active } = repository;
+  const { owner, name, sourceControlType } = repository;
 
   return (
     <Card id="profile">
@@ -41,41 +39,6 @@ function Header({
                 {sourceControlType.charAt(0).toUpperCase() +
                   sourceControlType.slice(1)}
               </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-            <Box
-              display="flex"
-              justifyContent={{ md: "flex-end" }}
-              alignItems="center"
-              lineHeight={1}
-            >
-              <Button
-                variant="gradient"
-                color="dark"
-                size="small"
-                onClick={() => onSave()}
-              >
-                update repository
-              </Button>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-            <Box
-              display="flex"
-              justifyContent={{ md: "flex-end" }}
-              alignItems="center"
-              lineHeight={1}
-            >
-              <Typography variant="caption" fontWeight="regular">
-                {active ? "Active" : "Disabled"}
-              </Typography>
-              <Box ml={1}>
-                <Switch
-                  checked={active}
-                  onChange={() => onChangeActive(!active)}
-                />
-              </Box>
             </Box>
           </Grid>
         </Grid>
