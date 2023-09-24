@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getRoadrunnerUrl } from "..";
 import { fromApiParser, toApiParser, ApiApplication } from "./parser";
 
@@ -10,6 +10,12 @@ export interface Application {
   environment: string;
   server?: Server;
   repositoryId: number;
+  externalIdentifiers: ExternalIdentifiers[];
+}
+
+export interface ExternalIdentifiers {
+  id?: number;
+  text: string;
 }
 
 export interface Server {

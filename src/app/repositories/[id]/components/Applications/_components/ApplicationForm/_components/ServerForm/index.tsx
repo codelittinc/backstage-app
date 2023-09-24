@@ -4,7 +4,7 @@ import Typography from "@/components/Typography";
 import FormField from "../../../../../../FormField";
 import { useEffect } from "react";
 import { Application } from "@/api/applications";
-import { Switch } from "@mui/material";
+import { Autocomplete, Switch } from "@mui/material";
 
 function ApplicationForm({
   application,
@@ -13,8 +13,6 @@ function ApplicationForm({
   application: Application;
   onChange: Function;
 }): JSX.Element {
-  console.log("application", application);
-  console.log("server", application.server);
   return (
     <>
       <Grid item xs={12} sm={12}>

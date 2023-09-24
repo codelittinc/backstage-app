@@ -92,9 +92,9 @@ function ApplicationForm({
       </Grid>
       <Box component="form" pb={3} px={3}>
         <Grid container spacing={3}>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={3}>
                 <Autocomplete
                   defaultValue="development"
                   value={currentApplication.environment}
@@ -112,6 +112,33 @@ function ApplicationForm({
                       }}
                     />
                   )}
+                />
+              </Grid>
+              <Grid item xs={12} sm={9}>
+                <Autocomplete
+                  freeSolo
+                  multiple
+                  options={[]}
+                  value={
+                    currentApplication.externalIdentifiers?.map(
+                      (e) => e.text
+                    ) || ""
+                  }
+                  renderInput={(params) => (
+                    <FormField
+                      {...params}
+                      label="External identifiers"
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  )}
+                  onChange={(ba, newValue) => {
+                    setCurrentApplication({
+                      ...currentApplication,
+                      externalIdentifiers: newValue.map((e) => ({
+                        text: e,
+                      })),
+                    });
+                  }}
                 />
               </Grid>
             </Grid>

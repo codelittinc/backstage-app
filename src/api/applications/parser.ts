@@ -4,7 +4,8 @@ export interface ApiApplication {
   id?: number;
   environment: string;
   repository_id: number;
-  server_attributes?: ApiServer | undefined;
+  server?: ApiServer | undefined;
+  external_identifiers: ApiExternalIdentifiers[];
 }
 
 export interface ApiServer {
@@ -12,6 +13,11 @@ export interface ApiServer {
   link: string;
   supports_health_check: boolean;
   active: boolean;
+}
+
+export interface ApiExternalIdentifiers {
+  id?: number;
+  text: string;
 }
 
 export function fromApiParser(application: ApiApplication): Application {
@@ -27,6 +33,12 @@ export function fromApiParser(application: ApiApplication): Application {
           active: application.server.active,
         }
       : undefined,
+    externalIdentifiers: application.external_identifiers.map(
+      (externalIdentifier) => ({
+        id: externalIdentifier.id,
+        text: externalIdentifier.text,
+      })
+    ),
   };
 }
 
@@ -42,5 +54,11 @@ export function toApiParser(application: Application): ApiApplication {
           active: application.server.active,
         }
       : undefined,
+    external_identifiers_attributes: application.externalIdentifiers.map(
+      (externalIdentifier) => ({
+        id: externalIdentifier.id,
+        text: externalIdentifier.text,
+      })
+    ),
   };
 }
