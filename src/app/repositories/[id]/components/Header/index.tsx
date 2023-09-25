@@ -1,13 +1,9 @@
-import { useState } from "react";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Switch from "@mui/material/Switch";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import Avatar from "@/components/Avatar";
-import { useGetCurrentUser } from "@/api/users";
 import { Repository } from "@/api/repositories";
-import Button from "@/components/Button";
 
 function Header({
   repository,

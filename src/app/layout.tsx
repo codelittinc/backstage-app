@@ -8,6 +8,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/assets/theme";
 import LayoutProvider from "@/providers/layout.provider";
 import "material-icons/iconfont/material-icons.css";
+import Snackbar from "@/components/Snackbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

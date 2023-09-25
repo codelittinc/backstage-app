@@ -9,20 +9,34 @@ import Applications from "./components/Applications";
 import Accounts from "./components/Accounts";
 import { updateRepository, useGetRepository } from "@/api/repositories";
 import { useParams } from "next/navigation";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAppStore } from "@/lib/store";
 
 function Settings(): JSX.Element {
   const { id } = useParams();
   const { data: repository } = useGetRepository(id as string);
   const [currentRepository, updateCurrentRepository] = useState(repository);
 
+  const { showAlert } = useAppStore();
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: updateRepository,
     onSuccess: () => {
+      showAlert({
+        color: "success",
+        title: "Success!",
+        content: "your repository has been updated",
+      });
       queryClient.invalidateQueries({
         queryKey: ["repositories", currentRepository?.id],
+      });
+    },
+    onError: () => {
+      showAlert({
+        color: "error",
+        title: "Error!",
+        content: "There was an error updating your repository",
       });
     },
   });
@@ -31,7 +45,6 @@ function Settings(): JSX.Element {
     updateCurrentRepository(repository);
   }, [repository]);
 
-  // @TODO: redirect to not found if not found
   if (!currentRepository) {
     return <></>;
   }

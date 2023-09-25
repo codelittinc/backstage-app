@@ -19,6 +19,7 @@ import {
 import brandWhite from "@/assets/images/logo-ct.png";
 import brandDark from "@/assets/images/logo-ct-dark.png";
 import { usePathname } from "next/navigation";
+import Snackbar from "@/components/Snackbar";
 
 export default function App({ children }: { children: React.ReactNode }) {
   const [controller, dispatch] = useMaterialUIController();
@@ -113,6 +114,7 @@ export default function App({ children }: { children: React.ReactNode }) {
           {displayConfigurator && configsButton}
         </>
       )}
+      <Snackbar />
       {children}
     </ThemeProvider>
   );

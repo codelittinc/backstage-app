@@ -4,7 +4,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import FormField from "../../FormField";
-import Checkbox from "@mui/material/Checkbox";
 import { Repository } from "@/api/repositories";
 import { Switch } from "@mui/material";
 import Button from "@/components/Button";

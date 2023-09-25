@@ -32,7 +32,8 @@
     "react-flatpickr": "^3.10.13",
     "react-table": "^7.8.0",
     "stylis-plugin-rtl": "^2.1.1",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@types/draft-convert": "^2.1.4",

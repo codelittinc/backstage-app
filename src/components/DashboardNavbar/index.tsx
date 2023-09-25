@@ -27,6 +27,7 @@ import {
   setOpenConfigurator,
 } from "@/theme";
 import Link from "next/link";
+import Alert from "../Alert";
 
 interface Props {
   absolute?: boolean;

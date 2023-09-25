@@ -1,40 +1,16 @@
-/* eslint-disable react/default-props-match-prop-types */
-/**
-=========================================================
-* Material Dashboard 2 PRO React TS - v1.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { ReactNode } from "react";
-
-// @mui material components
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
 import Divider from "@mui/material/Divider";
 import Fade from "@mui/material/Fade";
 import { SnackbarProps } from "@mui/material";
-
-// Material Dashboard 2 PRO React TS components
 import MDBox from "@/components/Box";
 import MDTypography from "@/components/Typography";
-
-// Custom styles for the MDSnackbar
 import MDSnackbarIconRoot from "./MDSnackbarIconRoot";
-
-// Material Dashboard 2 PRO React context
 import { useMaterialUIController } from "@/theme";
+import { useAppStore } from "@/lib/store";
 
-// Declaring props types for MDSnackbar
 interface Props extends SnackbarProps {
   color?:
     | "primary"
@@ -45,27 +21,26 @@ interface Props extends SnackbarProps {
     | "error"
     | "dark"
     | "light";
-  icon: ReactNode;
+  icon?: ReactNode;
   title: string;
-  dateTime: string;
+  dateTime?: string;
   content: string;
-  close: () => void;
   bgWhite?: boolean;
-  [key: string]: any;
 }
 
-function MDSnackbar({
-  color,
-  icon,
-  title,
-  dateTime,
-  content,
-  close,
-  bgWhite,
-  ...rest
-}: Props): JSX.Element {
+function MDSnackbar(): JSX.Element {
+  const { alert, hideAlert: close } = useAppStore();
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
+
+  const { color, icon, title, dateTime, content, bgWhite } = alert || {
+    color: "info",
+    icon: "notifications",
+    title: "",
+    dateTime: "",
+    content: "",
+    bgWhite: false,
+  };
 
   let titleColor: any;
   let dateTimeColor: any;
@@ -87,13 +62,14 @@ function MDSnackbar({
 
   return (
     <Snackbar
+      open={!!alert}
       TransitionComponent={Fade}
-      autoHideDuration={5000}
+      autoHideDuration={2000}
       anchorOrigin={{
         vertical: "bottom",
         horizontal: "right",
       }}
-      {...rest}
+      onClose={close}
       action={
         <IconButton
           size="small"
@@ -190,11 +166,5 @@ function MDSnackbar({
     </Snackbar>
   );
 }
-
-// Setting default values for the props of MDSnackbar
-MDSnackbar.defaultProps = {
-  bgWhite: false,
-  color: "info",
-};
 
 export default MDSnackbar;
