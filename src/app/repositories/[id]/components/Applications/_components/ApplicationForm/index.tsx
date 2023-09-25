@@ -17,6 +17,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Switch } from "@mui/material";
 import ServerForm from "./_components/ServerForm";
 import { useAppStore } from "@/lib/store";
+import LinksTable from "./_components/ServerForm/_components/LinksTable";
 
 function ApplicationForm({
   repository,
@@ -88,7 +89,7 @@ function ApplicationForm({
       <Box p={3}>
         <Typography variant="h5">Application</Typography>
       </Box>
-      <Box component="form" pb={3} px={3}>
+      <Box pb={3} px={3}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Grid container spacing={3}>
@@ -97,19 +98,21 @@ function ApplicationForm({
                   defaultValue="development"
                   value={currentApplication.environment}
                   options={["dev", "qa", "prod"]}
-                  renderInput={(params) => (
-                    <FormField
-                      {...params}
-                      label="Environment"
-                      InputLabelProps={{ shrink: true }}
-                      onChange={({ target: { value } }) => {
-                        setCurrentApplication({
-                          ...currentApplication,
-                          environment: value,
-                        });
-                      }}
-                    />
-                  )}
+                  renderInput={(params) => {
+                    return (
+                      <FormField
+                        {...params}
+                        label="environment"
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    );
+                  }}
+                  onChange={(_, newValue) => {
+                    setCurrentApplication({
+                      ...currentApplication,
+                      environment: newValue || "dev",
+                    });
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={9}>
@@ -196,6 +199,9 @@ function ApplicationForm({
             />
           ) : (
             <></>
+          )}
+          {application?.externalIdentifiers?.length > 0 && (
+            <LinksTable application={application} />
           )}
         </Grid>
       </Box>
