@@ -33,7 +33,7 @@ export function fromApiParser(application: ApiApplication): Application {
           active: application.server.active,
         }
       : undefined,
-    externalIdentifiers: application.external_identifiers.map(
+    externalIdentifiers: application.external_identifiers?.map(
       (externalIdentifier) => ({
         id: externalIdentifier.id,
         text: externalIdentifier.text,
@@ -54,7 +54,7 @@ export function toApiParser(application: Application): ApiApplication {
           active: application.server.active,
         }
       : undefined,
-    external_identifiers_attributes: application.externalIdentifiers.map(
+    external_identifiers_attributes: application.externalIdentifiers?.map(
       (externalIdentifier) => ({
         id: externalIdentifier.id,
         text: externalIdentifier.text,

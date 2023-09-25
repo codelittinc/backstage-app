@@ -16,18 +16,22 @@ import Button from "@/components/Button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Switch } from "@mui/material";
 import ServerForm from "./_components/ServerForm";
+import { useAppStore } from "@/lib/store";
 
 function ApplicationForm({
   repository,
   application,
+  onCancel,
 }: {
   repository: Repository;
   application: Application;
+  onCancel: Function;
 }): JSX.Element {
   const [currentApplication, setCurrentApplication] =
     useState<Application>(application);
 
   const [hasServer, setHasServer] = useState<boolean>(!!application.server);
+  const { showAlert } = useAppStore();
 
   useEffect(() => {
     setCurrentApplication(application);
@@ -40,6 +44,12 @@ function ApplicationForm({
     {
       onSuccess: () => {
         queryClient.invalidateQueries([APPLICATIONS_KEY, repository.id]);
+        onCancel();
+        showAlert({
+          color: "success",
+          title: "Success!",
+          content: "your server has been created!",
+        });
       },
     }
   );
@@ -58,6 +68,13 @@ function ApplicationForm({
           repository.id,
           application.id,
         ]);
+
+        onCancel();
+        showAlert({
+          color: "success",
+          title: "Success!",
+          content: "your server has been updated!",
+        });
       },
     }
   );
@@ -71,25 +88,6 @@ function ApplicationForm({
       <Box p={3}>
         <Typography variant="h5">Application</Typography>
       </Box>
-      <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-        <Box
-          display="flex"
-          justifyContent={{ md: "flex-end" }}
-          alignItems="center"
-          lineHeight={1}
-        >
-          <Button
-            variant="gradient"
-            color="dark"
-            size="small"
-            onClick={() => {
-              currentApplication.id ? onUpdate() : onSave();
-            }}
-          >
-            update repository
-          </Button>
-        </Box>
-      </Grid>
       <Box component="form" pb={3} px={3}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -122,7 +120,7 @@ function ApplicationForm({
                   value={
                     currentApplication.externalIdentifiers?.map(
                       (e) => e.text
-                    ) || ""
+                    ) || []
                   }
                   renderInput={(params) => (
                     <FormField
@@ -143,7 +141,7 @@ function ApplicationForm({
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={6}>
             <Box display="flex" alignItems="center" lineHeight={1}>
               <Typography variant="caption" fontWeight="regular">
                 {hasServer
@@ -158,6 +156,37 @@ function ApplicationForm({
                   }}
                 />
               </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+            <Box
+              display="flex"
+              justifyContent={{ md: "flex-end" }}
+              alignItems="center"
+              lineHeight={1}
+            >
+              <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+                <Button
+                  variant="gradient"
+                  color="error"
+                  size="small"
+                  onClick={() => onCancel()}
+                >
+                  cancel
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+                <Button
+                  variant="gradient"
+                  color="info"
+                  size="small"
+                  onClick={() => {
+                    currentApplication.id ? onUpdate() : onSave();
+                  }}
+                >
+                  save
+                </Button>
+              </Grid>
             </Box>
           </Grid>
           {hasServer ? (

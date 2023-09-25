@@ -10,7 +10,7 @@ export interface Application {
   environment: string;
   server?: Server;
   repositoryId: number;
-  externalIdentifiers: ExternalIdentifiers[];
+  externalIdentifiers?: ExternalIdentifiers[];
 }
 
 export interface ExternalIdentifiers {

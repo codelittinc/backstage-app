@@ -3,21 +3,12 @@ import Grid from "@mui/material/Grid";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import { Repository } from "@/api/repositories";
-import Link from "next/link";
-import DataTable from "@/components/DataTable";
-import StatusCell from "@/components/DataTable/StatusCell";
 import Button from "@/components/Button";
 import { Icon } from "@mui/material";
 import { useState } from "react";
 import ApplicationForm from "./_components/ApplicationForm";
 import { Application, useGetApplications } from "@/api/applications";
 import ApplicationsTable from "./_components/ApplicationsTable";
-
-const environments = {
-  prod: "production",
-  dev: "development",
-  qa: "qa",
-};
 
 function Applications({
   repository,
@@ -35,40 +26,42 @@ function Applications({
   };
 
   if (!applications) return <div>Loading...</div>;
-
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
       <Box p={3}>
         <Typography variant="h5">Applications</Typography>
-        {!activeApplication && (
-          <Grid item xs={12} md={12} sx={{ textAlign: "right" }}>
-            <Button
-              variant="gradient"
-              color="info"
-              onClick={() => setActiveApplication(defaultApplication)}
-            >
-              <Icon>add</Icon>&nbsp;
-            </Button>
-          </Grid>
-        )}
       </Box>
-      <Box component="form" pb={3} px={3}>
-        {activeApplication && (
+      {activeApplication && (
+        <Box component="form" pb={3} px={3}>
           <ApplicationForm
             repository={repository}
             application={activeApplication}
+            onCancel={() => setActiveApplication(null)}
           />
-        )}
-      </Box>
-      <Box component="form" pb={3} px={3}>
-        <ApplicationsTable
-          applications={applications}
-          repository={repository}
-          handleEdit={(application: Application) => {
-            setActiveApplication(application);
-          }}
-        />
-      </Box>
+        </Box>
+      )}
+      {applications.length !== 0 && (
+        <Box component="form" pb={3} px={3}>
+          <ApplicationsTable
+            applications={applications}
+            repository={repository}
+            handleEdit={(application: Application) => {
+              setActiveApplication(application);
+            }}
+          />
+        </Box>
+      )}
+      <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+        <Box component="form" pb={3} px={3}>
+          <Button
+            variant="gradient"
+            color="info"
+            onClick={() => setActiveApplication(defaultApplication)}
+          >
+            <Icon>add</Icon>&nbsp; Add a application
+          </Button>
+        </Box>
+      </Grid>
     </Card>
   );
 }
