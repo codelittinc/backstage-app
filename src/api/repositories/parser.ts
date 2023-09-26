@@ -23,6 +23,13 @@ export interface ApiRepository {
           | undefined;
       }[]
     | undefined;
+  slack_repository_info: {
+    id?: number;
+    dev_channel: string;
+    deploy_channel: string;
+    feed_channel: string;
+    dev_group: string;
+  };
 }
 
 export function fromApiParser(repository: ApiRepository): Repository {
@@ -48,6 +55,13 @@ export function fromApiParser(repository: ApiRepository): Repository {
           }
         : undefined,
     })),
+    slackRepositoryInfo: {
+      id: repository.slack_repository_info?.id,
+      devChannel: repository.slack_repository_info.dev_channel,
+      deployChannel: repository.slack_repository_info.deploy_channel,
+      feedChannel: repository.slack_repository_info.feed_channel,
+      devGroup: repository.slack_repository_info.dev_group,
+    },
   };
 }
 
@@ -61,5 +75,12 @@ export function toApiParser(repository: Repository): ApiRepository {
     source_control_type: repository.sourceControlType,
     base_branch: repository.baseBranch,
     supports_deploy: repository.supportsDeploy,
+    slack_repository_info_attributes: {
+      id: repository.slackRepositoryInfo?.id,
+      dev_channel: repository.slackRepositoryInfo.devChannel,
+      deploy_channel: repository.slackRepositoryInfo.deployChannel,
+      feed_channel: repository.slackRepositoryInfo.feedChannel,
+      dev_group: repository.slackRepositoryInfo.devGroup,
+    },
   };
 }

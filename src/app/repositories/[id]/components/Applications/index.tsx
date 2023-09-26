@@ -10,12 +10,7 @@ import ApplicationForm from "./_components/ApplicationForm";
 import { Application, useGetApplications } from "@/api/applications";
 import ApplicationsTable from "./_components/ApplicationsTable";
 
-function Applications({
-  repository,
-}: {
-  repository: Repository;
-  onChange: Function;
-}): JSX.Element {
+function Applications({ repository }: { repository: Repository }): JSX.Element {
   const { data: applications } = useGetApplications(repository.id);
   const [activeApplication, setActiveApplication] =
     useState<Application | null>(null);

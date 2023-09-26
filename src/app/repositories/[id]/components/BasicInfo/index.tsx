@@ -7,6 +7,7 @@ import FormField from "../../FormField";
 import { Repository } from "@/api/repositories";
 import { Switch } from "@mui/material";
 import Button from "@/components/Button";
+import { useGetChannels } from "@/api/channels";
 
 function BasicInfo({
   repository,
@@ -18,7 +19,9 @@ function BasicInfo({
   onSave: Function;
 }): JSX.Element {
   const { name, owner, baseBranch, sourceControlType } = repository;
+  const { data: channels } = useGetChannels();
 
+  if (!channels) return <div>loading</div>;
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
       <Box p={3}>
@@ -32,7 +35,10 @@ function BasicInfo({
               placeholder="Codelitt"
               value={owner}
               onChange={({ target: { value } }) => {
-                onChange("owner", value);
+                onChange({
+                  ...repository,
+                  owner: value,
+                });
               }}
             />
           </Grid>
@@ -42,7 +48,10 @@ function BasicInfo({
               placeholder="Backstage"
               value={name}
               onChange={({ target: { value } }) => {
-                onChange("name", value);
+                onChange({
+                  ...repository,
+                  name: value,
+                });
               }}
             />
           </Grid>
@@ -58,11 +67,14 @@ function BasicInfo({
                       {...params}
                       label="Source control"
                       InputLabelProps={{ shrink: true }}
-                      onChange={({ target: { value } }) => {
-                        onChange("sourceControlType", value);
-                      }}
                     />
                   )}
+                  onChange={(_, value) => {
+                    onChange({
+                      ...repository,
+                      sourceControlType: value,
+                    });
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -71,7 +83,10 @@ function BasicInfo({
                   placeholder="master"
                   value={baseBranch}
                   onChange={({ target: { value } }) => {
-                    onChange("baseBranch", value);
+                    onChange({
+                      ...repository,
+                      baseBranch: value,
+                    });
                   }}
                 />
               </Grid>
@@ -88,7 +103,10 @@ function BasicInfo({
                 <Switch
                   checked={repository.supportsDeploy}
                   onChange={() =>
-                    onChange("supportsDeploy", !repository.supportsDeploy)
+                    onChange({
+                      ...repository,
+                      supportsDeploy: !repository.supportsDeploy,
+                    })
                   }
                 />
               </Box>
@@ -102,28 +120,144 @@ function BasicInfo({
               <Box ml={1}>
                 <Switch
                   checked={repository.active}
-                  onChange={() => onChange("active", !repository.active)}
+                  onChange={() =>
+                    onChange({
+                      ...repository,
+                      active: !repository.active,
+                    })
+                  }
                 />
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-            <Box
-              display="flex"
-              justifyContent={{ md: "flex-end" }}
-              alignItems="center"
-              lineHeight={1}
-            >
-              <Button
-                variant="gradient"
-                color="dark"
-                size="small"
-                onClick={() => onSave()}
-              >
-                Save
-              </Button>
-            </Box>
+          <Grid item xs={12} sm={12}>
+            <Grid item xs={12} sm={3}>
+              <Box display="flex" alignItems="center">
+                <FormField
+                  label="Slack dev group"
+                  placeholder="@devs"
+                  value={repository.slackRepositoryInfo?.devGroup || ""}
+                  onChange={({ target: { value } }) => {
+                    onChange({
+                      ...repository,
+                      slackRepositoryInfo: {
+                        ...(repository.slackRepositoryInfo || {}),
+                        devGroup: value,
+                      },
+                    });
+                  }}
+                />
+              </Box>
+            </Grid>
           </Grid>
+          <Grid item xs={12} sm={3}>
+            <Box display="flex" alignItems="center"></Box>
+            <Autocomplete
+              value={
+                channels.find(
+                  (channel) =>
+                    channel.id === repository?.slackRepositoryInfo.devChannel
+                ) || channels[0]
+              }
+              getOptionLabel={(option) => option.name}
+              options={channels}
+              renderInput={(params) => {
+                return (
+                  <FormField
+                    {...params}
+                    label="Development channel"
+                    InputLabelProps={{ shrink: true }}
+                  />
+                );
+              }}
+              onChange={(_, newValue) => {
+                onChange({
+                  ...repository,
+                  slackRepositoryInfo: {
+                    ...(repository.slackRepositoryInfo || {}),
+                    devChannel: newValue.id,
+                  },
+                });
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <Autocomplete
+              value={
+                channels.find(
+                  (channel) =>
+                    channel.id === repository?.slackRepositoryInfo.deployChannel
+                ) || channels[0]
+              }
+              getOptionLabel={(option) => option.name}
+              options={channels}
+              renderInput={(params) => {
+                return (
+                  <FormField
+                    {...params}
+                    label="Deploy channel"
+                    InputLabelProps={{ shrink: true }}
+                  />
+                );
+              }}
+              onChange={(_, newValue) => {
+                onChange({
+                  ...repository,
+                  slackRepositoryInfo: {
+                    ...(repository.slackRepositoryInfo || {}),
+                    deployChannel: newValue.id,
+                  },
+                });
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <Autocomplete
+              value={
+                channels.find(
+                  (channel) =>
+                    channel.id === repository?.slackRepositoryInfo.feedChannel
+                ) || channels[0]
+              }
+              getOptionLabel={(option) => option.name}
+              options={channels}
+              renderInput={(params) => {
+                return (
+                  <FormField
+                    {...params}
+                    label="Feed channel"
+                    InputLabelProps={{ shrink: true }}
+                  />
+                );
+              }}
+              onChange={(_, newValue) => {
+                onChange({
+                  ...repository,
+                  slackRepositoryInfo: {
+                    ...(repository.slackRepositoryInfo || {}),
+                    feedChannel: newValue.id,
+                  },
+                });
+              }}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+          <Box
+            display="flex"
+            justifyContent={{ md: "flex-end" }}
+            alignItems="center"
+            lineHeight={1}
+          >
+            <Button
+              variant="gradient"
+              color="dark"
+              size="small"
+              onClick={() => onSave()}
+            >
+              Save
+            </Button>
+          </Box>
         </Grid>
       </Box>
     </Card>

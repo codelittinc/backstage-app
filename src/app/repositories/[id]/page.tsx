@@ -6,7 +6,6 @@ import Sidenav from "./components/Sidenav";
 import Header from "./components/Header";
 import BasicInfo from "./components/BasicInfo";
 import Applications from "./components/Applications";
-import Accounts from "./components/Accounts";
 import { updateRepository, useGetRepository } from "@/api/repositories";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -49,13 +48,6 @@ function Settings(): JSX.Element {
     return <></>;
   }
 
-  const onChangeRepository = (key: string, value: any) => {
-    updateCurrentRepository({
-      ...currentRepository,
-      [key]: value,
-    });
-  };
-
   const onSave = () => {
     mutation.mutate(currentRepository);
   };
@@ -71,30 +63,17 @@ function Settings(): JSX.Element {
             <MDBox mb={3}>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  <Header
-                    repository={currentRepository}
-                    onChangeActive={(value: boolean) =>
-                      onChangeRepository("active", value)
-                    }
-                    onSave={onSave}
-                  />
+                  <Header repository={currentRepository} />
                 </Grid>
                 <Grid item xs={12}>
                   <BasicInfo
                     repository={currentRepository}
-                    onChange={onChangeRepository}
+                    onChange={updateCurrentRepository}
                     onSave={onSave}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Applications
-                    repository={currentRepository}
-                    onChange={onChangeRepository}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Accounts />
+                  <Applications repository={currentRepository} />
                 </Grid>
               </Grid>
             </MDBox>

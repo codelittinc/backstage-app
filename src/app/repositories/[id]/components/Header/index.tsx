@@ -5,13 +5,7 @@ import Typography from "@/components/Typography";
 import Avatar from "@/components/Avatar";
 import { Repository } from "@/api/repositories";
 
-function Header({
-  repository,
-}: {
-  repository: Repository;
-  onChangeActive: Function;
-  onSave: Function;
-}): JSX.Element {
+function Header({ repository }: { repository: Repository }): JSX.Element {
   const { owner, name, sourceControlType } = repository;
 
   return (

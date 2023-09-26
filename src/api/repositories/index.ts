@@ -16,6 +16,13 @@ export interface Repository {
   baseBranch: string;
   supportsDeploy: boolean;
   applications?: Application[];
+  slackRepositoryInfo: {
+    id?: number;
+    devChannel: string;
+    deployChannel: string;
+    feedChannel: string;
+    devGroup: string;
+  };
 }
 
 export const getRepositories = async (query: string) => {
@@ -27,7 +34,9 @@ export const getRepositories = async (query: string) => {
 export const updateRepository = async (params: Repository) => {
   const { data } = await axios.put(
     getRoadrunnerUrl(`/repositories/${params.id}.json`),
-    toApiParser(params)
+    {
+      repository: toApiParser(params),
+    }
   );
 
   return fromApiParser(data);
