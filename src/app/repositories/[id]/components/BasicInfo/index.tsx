@@ -130,6 +130,27 @@ function BasicInfo({
               </Box>
             </Box>
           </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Box display="flex" alignItems="center" lineHeight={1}>
+              <Typography variant="caption" fontWeight="regular">
+                {repository.filterPullRequestsByBaseBranch
+                  ? "Filters pull request by base branch"
+                  : "Does not filter pull request by base branch"}
+              </Typography>
+              <Box ml={1}>
+                <Switch
+                  checked={repository.filterPullRequestsByBaseBranch}
+                  onChange={() =>
+                    onChange({
+                      ...repository,
+                      filterPullRequestsByBaseBranch:
+                        !repository.filterPullRequestsByBaseBranch,
+                    })
+                  }
+                />
+              </Box>
+            </Box>
+          </Grid>
           <Grid item xs={12} sm={12}>
             <Grid item xs={12} sm={3}>
               <Box display="flex" alignItems="center">

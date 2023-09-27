@@ -23,6 +23,7 @@ export interface Repository {
     feedChannel: string;
     devGroup: string;
   };
+  filterPullRequestsByBaseBranch: boolean;
 }
 
 export const getRepositories = async (query: string) => {
