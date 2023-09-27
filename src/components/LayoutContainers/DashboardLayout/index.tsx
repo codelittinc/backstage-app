@@ -1,5 +1,5 @@
 import { useEffect, ReactNode } from "react";
-import MDBox from "@/components/Box";
+import Box from "@/components/Box";
 import { useMaterialUIController, setLayout } from "@/theme";
 import DashboardNavbar from "@/components/DashboardNavbar";
 import Footer from "@/components/Footer";
@@ -17,7 +17,7 @@ function DashboardLayout({ children }: Props): JSX.Element {
 
   return (
     <>
-      <MDBox
+      <Box
         sx={({ breakpoints, transitions, functions: { pxToRem } }) => ({
           p: 3,
           position: "relative",
@@ -33,7 +33,7 @@ function DashboardLayout({ children }: Props): JSX.Element {
         <DashboardNavbar absolute={false} isMini />
         {children}
         <Footer />
-      </MDBox>
+      </Box>
     </>
   );
 }

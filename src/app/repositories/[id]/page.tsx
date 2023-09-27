@@ -1,7 +1,6 @@
 "use client";
 import Grid from "@mui/material/Grid";
-import MDBox from "@/components/Box";
-import BaseLayout from "./BaseLayout";
+import Box from "@/components/Box";
 import Sidenav from "./components/Sidenav";
 import Header from "./components/Header";
 import BasicInfo from "./components/BasicInfo";
@@ -11,6 +10,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAppStore } from "@/lib/store";
+import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 
 function Settings(): JSX.Element {
   const { id } = useParams();
@@ -53,40 +53,32 @@ function Settings(): JSX.Element {
   };
 
   return (
-    <BaseLayout>
-      <MDBox mt={4}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} lg={3}>
-            <Sidenav />
-          </Grid>
-          <Grid item xs={12} lg={9}>
-            <MDBox mb={3}>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <Header repository={currentRepository} />
-                </Grid>
-                <Grid item xs={12}>
-                  <BasicInfo
-                    repository={currentRepository}
-                    onChange={updateCurrentRepository}
-                    onSave={onSave}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Applications repository={currentRepository} />
-                </Grid>
-              </Grid>
-            </MDBox>
-          </Grid>
+    <DashboardLayout>
+      <Grid container spacing={3}>
+        <Grid item xs={12} lg={3}>
+          <Sidenav />
         </Grid>
-      </MDBox>
-      <MDBox
-        display="flex"
-        justifyContent="space-between"
-        alignItems="flex-end"
-        flexWrap="wrap"
-      ></MDBox>
-    </BaseLayout>
+        <Grid item xs={12} lg={9}>
+          <Box mb={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Header repository={currentRepository} />
+              </Grid>
+              <Grid item xs={12}>
+                <BasicInfo
+                  repository={currentRepository}
+                  onChange={updateCurrentRepository}
+                  onSave={onSave}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Applications repository={currentRepository} />
+              </Grid>
+            </Grid>
+          </Box>
+        </Grid>
+      </Grid>
+    </DashboardLayout>
   );
 }
 
