@@ -7,16 +7,16 @@ import { Application } from "../applications";
 export const REPOSITORIES_KEY = "repositories";
 
 export interface Repository {
-  id: number;
+  id?: number;
   name: string;
   owner: string;
   active: boolean;
-  slug: string;
+  slug?: string;
   sourceControlType: string;
   baseBranch: string;
   supportsDeploy: boolean;
   applications?: Application[];
-  slackRepositoryInfo: {
+  slackRepositoryInfo?: {
     id?: number;
     devChannel: string;
     deployChannel: string;
@@ -32,14 +32,21 @@ export const getRepositories = async (query: string) => {
   return data.map(fromApiParser);
 };
 
-export const updateRepository = async (params: Repository) => {
-  const { data } = await axios.put(
-    getRoadrunnerUrl(`/repositories/${params.id}.json`),
-    {
-      repository: toApiParser(params),
-    }
-  );
+export const saveRepository = async (params: Repository) => {
+  const { id = "" } = params;
 
+  var result = null;
+  if (id) {
+    result = await axios.put(getRoadrunnerUrl(`/repositories/${id}.json`), {
+      repository: toApiParser(params),
+    });
+  } else {
+    result = await axios.post(getRoadrunnerUrl(`/repositories.json`), {
+      repository: toApiParser(params),
+    });
+  }
+
+  const { data } = result;
   return fromApiParser(data);
 };
 

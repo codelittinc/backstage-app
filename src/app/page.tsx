@@ -1,7 +1,5 @@
-import { LoginButton, LogoutButton } from "@/components/buttons.component";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { User } from "@/components/user.component";
 
 // clean up code and make a request to the backend to get the user data
 export default async function Home() {
