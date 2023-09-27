@@ -2,17 +2,18 @@
 import Card from "@mui/material/Card";
 import Box from "@/components/Box";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "@/components/DashboardNavbar";
-import Footer from "@/components/Footer";
 import DataTable from "@/components/DataTable";
 import { useGetRepositories } from "@/api/repositories";
 import StatusCell from "@/components/DataTable/StatusCell";
 import Link from "next/link";
 import routes from "@/routes";
-import { Grid } from "@mui/material";
+import { Grid, Icon } from "@mui/material";
+import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
 
 function Repositories(): JSX.Element {
   const { data: repositories } = useGetRepositories("");
+  const router = useRouter();
   if (!repositories) {
     return <></>;
   }
@@ -54,6 +55,17 @@ function Repositories(): JSX.Element {
     <DashboardLayout>
       <Box>
         <Grid container xs={12}>
+          <Grid item xs={12} md={6}>
+            <Box pb={3}>
+              <Button
+                variant="gradient"
+                color="info"
+                onClick={() => router.push(`/repositories/new`)}
+              >
+                <Icon>add</Icon>&nbsp; Add a repository
+              </Button>
+            </Box>
+          </Grid>
           <Grid item xs={12}>
             <Card>
               <DataTable table={data} entriesPerPage={false} canSearch />
