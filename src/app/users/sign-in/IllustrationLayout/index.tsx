@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import PageLayout from "@/components/PageLayout";
+import PageLayout from "@/components/LayoutContainers/PageLayout";
 import { useMaterialUIController } from "@/theme";
 
 interface Props {
