@@ -26,6 +26,7 @@ interface Props extends SnackbarProps {
   dateTime?: string;
   content: string;
   bgWhite?: boolean;
+  autoHideDuration?: number;
 }
 
 function MDSnackbar(): JSX.Element {
@@ -33,14 +34,16 @@ function MDSnackbar(): JSX.Element {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
-  const { color, icon, title, dateTime, content, bgWhite } = alert || {
-    color: "info",
-    icon: "notifications",
-    title: "",
-    dateTime: "",
-    content: "",
-    bgWhite: false,
-  };
+  const { color, icon, title, dateTime, content, bgWhite, autoHideDuration } =
+    alert || {
+      color: "info",
+      icon: "notifications",
+      title: "",
+      dateTime: "",
+      content: "",
+      bgWhite: false,
+      autoHideDuration: 2000,
+    };
 
   let titleColor: any;
   let dateTimeColor: any;
@@ -64,7 +67,7 @@ function MDSnackbar(): JSX.Element {
     <Snackbar
       open={!!alert}
       TransitionComponent={Fade}
-      autoHideDuration={2000}
+      autoHideDuration={autoHideDuration}
       anchorOrigin={{
         vertical: "bottom",
         horizontal: "right",

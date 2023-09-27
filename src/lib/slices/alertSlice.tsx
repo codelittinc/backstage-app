@@ -7,6 +7,7 @@ interface Alert {
   dateTime?: string;
   content: string;
   bgWhite?: boolean;
+  autoHideDuration?: number;
 }
 
 export interface AlertSlice {

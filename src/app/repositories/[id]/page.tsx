@@ -5,37 +5,73 @@ import Sidenav from "./components/Sidenav";
 import Header from "./components/Header";
 import BasicInfo from "./components/BasicInfo";
 import Applications from "./components/Applications";
-import { updateRepository, useGetRepository } from "@/api/repositories";
-import { useParams } from "next/navigation";
+import {
+  Repository,
+  saveRepository,
+  useGetRepository,
+} from "@/api/repositories";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAppStore } from "@/lib/store";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 
+const defaultRepository = {
+  name: "",
+  owner: "codelittinc",
+  active: true,
+  sourceControlType: "github",
+  baseBranch: "master",
+  supportsDeploy: false,
+  filterPullRequestsByBaseBranch: false,
+  applications: [],
+  slackRepositoryInfo: {
+    devChannel: "",
+    deployChannel: "",
+    feedChannel: "",
+    devGroup: "",
+  },
+};
+
 function Settings(): JSX.Element {
   const { id } = useParams();
-  const { data: repository } = useGetRepository(id as string);
+  var repository: Repository = defaultRepository;
+  const newRepository = id == "new";
+  const router = useRouter();
+
+  if (!newRepository) {
+    const { data } = useGetRepository(id as string); // eslint-disable-line
+    repository = data as Repository;
+  }
+
   const [currentRepository, updateCurrentRepository] = useState(repository);
 
   const { showAlert } = useAppStore();
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: updateRepository,
-    onSuccess: () => {
+    mutationFn: saveRepository,
+    onSuccess: (result) => {
       showAlert({
         color: "success",
         title: "Success!",
-        content: "your repository has been updated",
+        content: `your repository has been ${
+          newRepository ? "created" : "updated"
+        }`,
       });
       queryClient.invalidateQueries({
         queryKey: ["repositories", currentRepository?.id],
       });
+
+      router.push(`/repositories/${result.id}`);
     },
-    onError: () => {
+    onError: (err) => {
       showAlert({
         color: "error",
         title: "Error!",
-        content: "There was an error updating your repository",
+        content: `There was an error updating your repository. Error: ${JSON.stringify(
+          err.response.data
+        )}`,
+        autoHideDuration: 10000,
       });
     },
   });
@@ -71,9 +107,11 @@ function Settings(): JSX.Element {
                   onSave={onSave}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Applications repository={currentRepository} />
-              </Grid>
+              {!newRepository && (
+                <Grid item xs={12}>
+                  <Applications repository={currentRepository} />
+                </Grid>
+              )}
             </Grid>
           </Box>
         </Grid>
