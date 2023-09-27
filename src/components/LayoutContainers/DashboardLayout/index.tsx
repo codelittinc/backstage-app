@@ -5,9 +5,11 @@ import DashboardNavbar from "@/components/DashboardNavbar";
 import Footer from "@/components/Footer";
 
 interface Props {
+  stickyNavbar?: boolean;
   children: ReactNode;
 }
-function DashboardLayout({ children }: Props): JSX.Element {
+
+function DashboardLayout({ children, stickyNavbar }: Props): JSX.Element {
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav } = controller;
 
@@ -30,7 +32,8 @@ function DashboardLayout({ children }: Props): JSX.Element {
           },
         })}
       >
-        <DashboardNavbar absolute={false} isMini />
+        <DashboardNavbar absolute={!stickyNavbar} isMini />
+        <Box mt={10} />
         {children}
         <Footer />
       </Box>
