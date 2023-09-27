@@ -16,8 +16,8 @@ export default async function Home() {
       }}
     >
       <div>
-        <LoginButton />
-        <LogoutButton />
+        Welcome to Codelitt's Backstage! This project is under construction. See
+        the navbar on the left for actions you can already perform.
       </div>
     </main>
   );
