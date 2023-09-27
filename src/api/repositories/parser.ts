@@ -62,6 +62,8 @@ export function fromApiParser(repository: ApiRepository): Repository {
       feedChannel: repository.slack_repository_info.feed_channel,
       devGroup: repository.slack_repository_info.dev_group,
     },
+    filterPullRequestsByBaseBranch:
+      repository.filter_pull_requests_by_base_branch,
   };
 }
 
@@ -82,5 +84,7 @@ export function toApiParser(repository: Repository): ApiRepository {
       feed_channel: repository.slackRepositoryInfo.feedChannel,
       dev_group: repository.slackRepositoryInfo.devGroup,
     },
+    filter_pull_requests_by_base_branch:
+      repository.filterPullRequestsByBaseBranch,
   };
 }
