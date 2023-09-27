@@ -16,8 +16,11 @@ export default async function Home() {
       }}
     >
       <div>
-        Welcome to Codelitt's Backstage! This project is under construction. See
-        the navbar on the left for actions you can already perform.
+        <div>Welcome to Backstage!</div>
+        <div>
+          This project is under construction. See the sidebar on the left for
+          actions you can already perform.
+        </div>
       </div>
     </main>
   );
