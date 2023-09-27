@@ -22,7 +22,7 @@ function Applications({ repository }: { repository: Repository }): JSX.Element {
 
   if (!applications) return <div>Loading...</div>;
   return (
-    <Card id="basic-info" sx={{ overflow: "visible" }}>
+    <Card id="applications" sx={{ overflow: "visible" }}>
       <Box p={3}>
         <Typography variant="h5">Applications</Typography>
       </Box>

@@ -12,7 +12,7 @@ function Sidenav(): JSX.Element {
   const sidenavItems = [
     { icon: "person", label: "profile", href: "profile" },
     { icon: "receipt_long", label: "basic info", href: "basic-info" },
-    { icon: "badge", label: "accounts", href: "accounts" },
+    { icon: "badge", label: "applications", href: "applications" },
   ];
 
   const renderSidenavItems = sidenavItems.map(({ icon, label, href }, key) => {
