@@ -2,8 +2,12 @@ import { useEffect, ReactNode } from "react";
 import MDBox from "@/components/Box";
 import { useMaterialUIController, setLayout } from "@/theme";
 import DashboardNavbar from "@/components/DashboardNavbar";
+import Footer from "@/components/Footer";
 
-function DashboardLayout({ children }: { children: ReactNode }): JSX.Element {
+interface Props {
+  children: ReactNode;
+}
+function DashboardLayout({ children }: Props): JSX.Element {
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav } = controller;
 
@@ -26,8 +30,9 @@ function DashboardLayout({ children }: { children: ReactNode }): JSX.Element {
           },
         })}
       >
-        <DashboardNavbar />
+        <DashboardNavbar absolute={false} isMini />
         {children}
+        <Footer />
       </MDBox>
     </>
   );

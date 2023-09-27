@@ -56,7 +56,6 @@ function Repositories(): JSX.Element {
           <DataTable table={data} entriesPerPage={false} canSearch />
         </Card>
       </Box>
-      <Footer />
     </DashboardLayout>
   );
 }
