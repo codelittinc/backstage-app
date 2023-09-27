@@ -51,7 +51,6 @@ function Repositories(): JSX.Element {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
       <Box my={3}>
         <Card>
           <DataTable table={data} entriesPerPage={false} canSearch />
