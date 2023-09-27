@@ -1,15 +1,15 @@
 "use client";
 import Grid from "@mui/material/Grid";
 import MDBox from "@/components/Box";
-import BaseLayout from "./BaseLayout";
 import Sidenav from "./components/Sidenav";
 import Header from "./components/Header";
 import BasicInfo from "./components/BasicInfo";
 import Accounts from "./components/Accounts";
+import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 
 function Settings(): JSX.Element {
   return (
-    <BaseLayout>
+    <DashboardLayout>
       <MDBox mt={4}>
         <Grid container spacing={3}>
           <Grid item xs={12} lg={3}>
@@ -32,7 +32,7 @@ function Settings(): JSX.Element {
           </Grid>
         </Grid>
       </MDBox>
-    </BaseLayout>
+    </DashboardLayout>
   );
 }
 
