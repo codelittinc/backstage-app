@@ -9,6 +9,7 @@ import { useGetRepositories } from "@/api/repositories";
 import StatusCell from "@/components/DataTable/StatusCell";
 import Link from "next/link";
 import routes from "@/routes";
+import { Grid } from "@mui/material";
 
 function Repositories(): JSX.Element {
   const { data: repositories } = useGetRepositories("");
@@ -51,10 +52,14 @@ function Repositories(): JSX.Element {
 
   return (
     <DashboardLayout>
-      <Box my={3}>
-        <Card>
-          <DataTable table={data} entriesPerPage={false} canSearch />
-        </Card>
+      <Box>
+        <Grid container xs={12}>
+          <Grid item xs={12}>
+            <Card>
+              <DataTable table={data} entriesPerPage={false} canSearch />
+            </Card>
+          </Grid>
+        </Grid>
       </Box>
     </DashboardLayout>
   );
