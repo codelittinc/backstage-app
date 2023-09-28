@@ -3,20 +3,22 @@ import Card from "@mui/material/Card";
 import Box from "@/components/Box";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 import DataTable from "@/components/DataTable";
-import { useGetRepositories } from "@/api/repositories";
 import StatusCell from "@/components/DataTable/StatusCell";
 import Link from "next/link";
 import routes from "@/routes";
 import { Grid, Icon } from "@mui/material";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
+import useRepositoriesController from "./_controllers/useRepositoriesController";
 
 function Repositories(): JSX.Element {
-  const { data: repositories } = useGetRepositories("");
+  const { isLoading, repositories } = useRepositoriesController();
   const router = useRouter();
-  if (!repositories) {
+
+  if (isLoading) {
     return <></>;
   }
+
   const columns = [
     {
       Header: "name",
