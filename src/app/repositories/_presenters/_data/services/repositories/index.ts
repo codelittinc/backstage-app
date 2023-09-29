@@ -1,32 +1,11 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { getRoadrunnerUrl } from "..";
 import { fromApiParser, toApiParser } from "./parser";
-import { Application } from "../applications";
+import { getRoadrunnerUrl } from "@/api";
+import { REPOSITORIES_KEY } from "@/app/repositories/_domain/constants";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 
-export const REPOSITORIES_KEY = "repositories";
-
-export interface Repository {
-  id?: number;
-  name: string;
-  owner: string;
-  active: boolean;
-  slug?: string;
-  sourceControlType: string;
-  baseBranch: string;
-  supportsDeploy: boolean;
-  applications?: Application[];
-  slackRepositoryInfo?: {
-    id?: number;
-    devChannel: string;
-    deployChannel: string;
-    feedChannel: string;
-    devGroup: string;
-  };
-  filterPullRequestsByBaseBranch: boolean;
-}
-
-export const getRepositories = async (query: string) => {
+export const getRepositories = async () => {
   const { data } = await axios.get(getRoadrunnerUrl("/repositories.json"));
 
   return data.map(fromApiParser);
@@ -57,13 +36,6 @@ export const getRepository = async (id: string | number) => {
 
   return fromApiParser(data);
 };
-
-export function useGetRepositories(query: string) {
-  return useQuery({
-    queryKey: [REPOSITORIES_KEY],
-    queryFn: () => getRepositories(query),
-  });
-}
 
 export function useGetRepository(id: string | number) {
   return useQuery({

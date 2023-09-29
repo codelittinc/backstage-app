@@ -2,15 +2,13 @@ import React from "react";
 import DataTable from "@/components/DataTable";
 import Link from "next/link";
 import StatusCell from "@/components/DataTable/StatusCell";
-import {
-  APPLICATIONS_KEY,
-  Application,
-  deleteApplication,
-} from "@/api/applications";
+import { deleteApplication } from "@/app/repositories/[id]/components/Applications/_data/services/applications";
 import Button from "@/components/Button";
 import Icon from "@mui/material/Icon";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Repository } from "@/api/repositories";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+import { Application } from "@/app/repositories/_domain/interfaces/Application";
+import { APPLICATIONS_KEY } from "../../_domain/constants";
 
 interface Props {
   repository: Repository;
@@ -35,7 +33,7 @@ const ApplicationsTable: React.FC<Props> = ({
 
   const queryClient = useQueryClient();
   const deleteMutation = useMutation(
-    (applicationId: number) => deleteApplication(repository.id, applicationId),
+    (applicationId: number) => deleteApplication(repository.id!, applicationId),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([APPLICATIONS_KEY, repository.id]);

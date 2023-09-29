@@ -2,9 +2,8 @@ import Grid from "@mui/material/Grid";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import FormField from "../../../../../../FormField";
-import { useEffect } from "react";
-import { Application } from "@/api/applications";
-import { Autocomplete, Switch } from "@mui/material";
+import { Switch } from "@mui/material";
+import { Application } from "@/app/repositories/_domain/interfaces/Application";
 
 function ApplicationForm({
   application,

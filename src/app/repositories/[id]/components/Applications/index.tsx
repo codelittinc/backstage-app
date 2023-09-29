@@ -2,16 +2,17 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import { Repository } from "@/api/repositories";
 import Button from "@/components/Button";
 import { Icon } from "@mui/material";
 import { useState } from "react";
 import ApplicationForm from "./_components/ApplicationForm";
-import { Application, useGetApplications } from "@/api/applications";
 import ApplicationsTable from "./_components/ApplicationsTable";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+import { Application } from "@/app/repositories/_domain/interfaces/Application";
+import useApplicationsController from "./_controllers/useApplicationsController";
 
 function Applications({ repository }: { repository: Repository }): JSX.Element {
-  const { data: applications } = useGetApplications(repository.id);
+  const { applications } = useApplicationsController(repository.id!);
   const [activeApplication, setActiveApplication] =
     useState<Application | null>(null);
 

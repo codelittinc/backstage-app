@@ -5,16 +5,16 @@ import Sidenav from "./components/Sidenav";
 import Header from "./components/Header";
 import BasicInfo from "./components/BasicInfo";
 import Applications from "./components/Applications";
-import {
-  Repository,
-  saveRepository,
-  useGetRepository,
-} from "@/api/repositories";
-import { redirect, useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAppStore } from "@/lib/store";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
+import { Repository } from "../_domain/interfaces/Repository";
+import {
+  saveRepository,
+  useGetRepository,
+} from "../_presenters/_data/services/repositories";
 
 const defaultRepository = {
   name: "",
