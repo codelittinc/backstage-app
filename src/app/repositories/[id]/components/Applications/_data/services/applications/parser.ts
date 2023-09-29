@@ -1,4 +1,4 @@
-import { Application } from "."; // Adjust the import as per your project structure
+import { Application } from "@/app/repositories/_domain/interfaces/Application";
 
 export interface ApiApplication {
   id?: number;

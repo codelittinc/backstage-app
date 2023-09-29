@@ -1,36 +1,5 @@
-import { Repository } from ".";
-
-export interface ApiRepository {
-  name: string;
-  owner: string;
-  active: boolean;
-  slug: string;
-  source_control_type: string;
-  id: number;
-  base_branch: string;
-  supports_deploy: boolean;
-  applications?:
-    | {
-        id: number;
-        environment: string;
-        server?:
-          | {
-              id: number;
-              link: string;
-              supports_health_check: boolean;
-              active: boolean;
-            }
-          | undefined;
-      }[]
-    | undefined;
-  slack_repository_info: {
-    id?: number;
-    dev_channel: string;
-    deploy_channel: string;
-    feed_channel: string;
-    dev_group: string;
-  };
-}
+import { ApiRepository } from "@/app/repositories/_domain/interfaces/ApiRepository";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 
 export function fromApiParser(repository: ApiRepository): Repository {
   return {

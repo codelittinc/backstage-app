@@ -4,20 +4,14 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import FormField from "../../../../FormField";
-import { Repository } from "@/api/repositories";
 import { useEffect, useState } from "react";
-import {
-  APPLICATIONS_KEY,
-  Application,
-  createApplication,
-  updateApplication,
-} from "@/api/applications";
 import Button from "@/components/Button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Switch } from "@mui/material";
 import ServerForm from "./_components/ServerForm";
-import { useAppStore } from "@/lib/store";
 import LinksTable from "./_components/ServerForm/_components/LinksTable";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+import { Application } from "@/app/repositories/_domain/interfaces/Application";
+import useApplicationsController from "./_controllers/useApplicationFormController";
 
 function ApplicationForm({
   repository,
@@ -32,57 +26,11 @@ function ApplicationForm({
     useState<Application>(application);
 
   const [hasServer, setHasServer] = useState<boolean>(!!application.server);
-  const { showAlert } = useAppStore();
+  const { onSave } = useApplicationsController(repository.id!);
 
   useEffect(() => {
     setCurrentApplication(application);
   }, [application]);
-
-  const queryClient = useQueryClient();
-  const createMutation = useMutation(
-    (currentApplication: Application) =>
-      createApplication(repository.id, currentApplication),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([APPLICATIONS_KEY, repository.id]);
-        onCancel();
-        showAlert({
-          color: "success",
-          title: "Success!",
-          content: "your server has been created!",
-        });
-      },
-    }
-  );
-
-  const onSave = () => {
-    createMutation.mutate(currentApplication);
-  };
-
-  const updateMutation = useMutation(
-    (application: Application) => updateApplication(repository.id, application),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([APPLICATIONS_KEY, repository.id]);
-        queryClient.invalidateQueries([
-          APPLICATIONS_KEY,
-          repository.id,
-          application.id,
-        ]);
-
-        onCancel();
-        showAlert({
-          color: "success",
-          title: "Success!",
-          content: "your server has been updated!",
-        });
-      },
-    }
-  );
-
-  const onUpdate = () => {
-    updateMutation.mutate(currentApplication);
-  };
 
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
@@ -184,7 +132,7 @@ function ApplicationForm({
                   color="info"
                   size="small"
                   onClick={() => {
-                    currentApplication.id ? onUpdate() : onSave();
+                    onSave(currentApplication);
                   }}
                 >
                   save

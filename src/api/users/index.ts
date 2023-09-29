@@ -2,8 +2,6 @@ import axios from "axios";
 import { getUrl } from "..";
 import { useSession } from "next-auth/react";
 
-const BASE_QUERY_KEY = "users";
-
 interface SessionUser {
   email: string;
   google_id: string;

@@ -4,10 +4,10 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import FormField from "../../FormField";
-import { Repository } from "@/api/repositories";
+import { Repository } from "@/app/repositories/_presenters/_data/services";
 import { Switch } from "@mui/material";
 import Button from "@/components/Button";
-import { useGetChannels } from "@/api/channels";
+import { useGetChannels } from "@/app/repositories/_presenters/_data/services/channels";
 
 function BasicInfo({
   repository,

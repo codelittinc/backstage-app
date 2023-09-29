@@ -1,6 +1,5 @@
 import React from "react";
 import DataTable from "@/components/DataTable";
-import { Application } from "@/api/applications";
 import Button from "@/components/Button";
 import Icon from "@mui/material/Icon";
 import Typography from "@/components/Typography";
@@ -8,6 +7,7 @@ import { Grid } from "@mui/material";
 import Box from "@/components/Box";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { getRoadrunnerUrl } from "@/api";
+import { Application } from "@/app/repositories/_domain/interfaces/Application";
 
 interface Props {
   application: Application;
