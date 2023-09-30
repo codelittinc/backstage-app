@@ -28,11 +28,10 @@ export const authOptions: NextAuthOptions = {
         name: user.name!,
       };
 
-      const u = await getAuthenticatedUser(data);
       return {
         user: {
           image: session!.user!.image,
-          ...u,
+          ...data,
         },
       };
     },

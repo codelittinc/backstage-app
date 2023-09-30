@@ -22,7 +22,7 @@ import {
   setWhiteSidenav,
 } from "@/theme";
 import Link from "next/link";
-import { useGetCurrentUser } from "@/app/_presenters/_data/users";
+import currentUserController from "@/app/_presenters/_controller/useCurrentUserController";
 
 interface Props {
   color?:
@@ -194,7 +194,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       return <SidenavList key={key}>{returnValue}</SidenavList>;
     });
 
-  const user = useGetCurrentUser();
+  const { currentUser: user } = currentUserController();
   if (!user) {
     return <></>;
   }
