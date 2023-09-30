@@ -95,9 +95,7 @@ function ApplicationForm({
           <Grid item xs={12} md={6}>
             <Box display="flex" alignItems="center" lineHeight={1}>
               <Typography variant="caption" fontWeight="regular">
-                {hasServer
-                  ? "With server for health check"
-                  : "Without server for health check"}
+                With server for health check
               </Typography>
               <Box ml={1}>
                 <Switch

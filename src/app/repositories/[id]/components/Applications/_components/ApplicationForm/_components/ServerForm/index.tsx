@@ -33,9 +33,7 @@ function ApplicationForm({
       <Grid item xs={12} md={3}>
         <Box display="flex" alignItems="center" lineHeight={1}>
           <Typography variant="caption" fontWeight="regular">
-            {application.server?.supportsHealthCheck
-              ? "Apply Health check"
-              : "Do not apply Health check"}
+            Apply Health check
           </Typography>
           <Box ml={1}>
             <Switch
@@ -58,7 +56,7 @@ function ApplicationForm({
       <Grid item xs={12} md={3}>
         <Box display="flex" alignItems="center" lineHeight={1}>
           <Typography variant="caption" fontWeight="regular">
-            {application.server?.active ? "Active" : "Inactive"}
+            Active
           </Typography>
           <Box ml={1}>
             <Switch
