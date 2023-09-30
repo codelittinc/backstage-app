@@ -5,7 +5,7 @@ import Switch from "@mui/material/Switch";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import Avatar from "@/components/Avatar";
-import { useGetCurrentUser } from "@/api/users";
+import { useGetCurrentUser } from "@/app/_presenters/_data/users";
 
 function Header(): JSX.Element {
   const [active, setActive] = useState<boolean>(true);

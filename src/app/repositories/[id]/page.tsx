@@ -8,7 +8,7 @@ import Applications from "./components/Applications";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAppStore } from "@/lib/store";
+import { useAppStore } from "@/app/_presenters/_data/store/store";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 import { Repository } from "../_domain/interfaces/Repository";
 import {

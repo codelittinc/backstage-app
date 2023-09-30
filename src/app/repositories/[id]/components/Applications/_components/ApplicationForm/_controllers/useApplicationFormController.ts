@@ -1,5 +1,5 @@
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
-import { useAppStore } from "@/lib/store";
+import { useAppStore } from "@/app/_presenters/_data/store/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   createApplication,

@@ -22,6 +22,7 @@ import {
   setWhiteSidenav,
 } from "@/theme";
 import Link from "next/link";
+import { useGetCurrentUser } from "@/app/_presenters/_data/users";
 
 interface Props {
   color?:
@@ -193,16 +194,15 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       return <SidenavList key={key}>{returnValue}</SidenavList>;
     });
 
-  const { data: session } = useSession();
-  if (!session) {
+  const user = useGetCurrentUser();
+  if (!user) {
     return <></>;
   }
-  const { user } = session;
   const routes = [
     {
       type: "collapse",
-      name: user.name,
-      key: user.name,
+      name: user.fullName,
+      key: user.fullName,
       icon: <MDAvatar src={user.image} alt={user.name} size="sm" />,
       collapse: [
         {
