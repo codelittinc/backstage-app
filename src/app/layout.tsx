@@ -9,7 +9,7 @@ import "material-icons/iconfont/material-icons.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Codelitt Backstage",
+  title: "Backstage - Codelitt",
   description: "Our Codelitt everything app!",
 };
 
