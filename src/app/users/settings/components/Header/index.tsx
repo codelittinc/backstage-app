@@ -5,12 +5,15 @@ import Switch from "@mui/material/Switch";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import Avatar from "@/components/Avatar";
-import { useGetCurrentUser } from "@/app/_presenters/_data/users";
+import currentUserController from "@/app/_presenters/_controller/useCurrentUserController";
 
 function Header(): JSX.Element {
   const [active, setActive] = useState<boolean>(true);
   const handleSetActive = () => setActive(!active);
-  const user = useGetCurrentUser();
+  const { currentUser: user } = currentUserController();
+  if (!user) {
+    return <></>;
+  }
   return (
     <Card id="profile">
       <Box p={2}>

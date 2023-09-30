@@ -1,11 +1,13 @@
 import axios from "axios";
 import { getUrl } from "../../../../api";
 import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
 
 interface SessionUser {
   email: string;
   google_id: string;
   name: string;
+  image: string;
 }
 
 interface ApiUser {
@@ -16,8 +18,8 @@ interface ApiUser {
   email: string;
 }
 
-const parseApiResponse = (data: ApiUser): User => {
-  const { google_id, email, first_name, last_name, slug } = data;
+const parseApiResponse = (user: ApiUser, sessionUser: SessionUser): User => {
+  const { google_id, email, first_name, last_name, slug } = user;
 
   return {
     googleId: google_id,
@@ -26,6 +28,7 @@ const parseApiResponse = (data: ApiUser): User => {
     lastName: last_name,
     slug: slug,
     fullName: `${first_name} ${last_name}`,
+    image: sessionUser.image,
   };
 };
 
@@ -44,15 +47,8 @@ export const getAuthenticatedUser = async (
   const authorizationDataJson = JSON.stringify(authorizationData);
   const authorization = btoa(authorizationDataJson);
 
-  const { data } = await axios.get(getUrl("users/me"), {
-    headers: {
-      Authorization: `Bearer ${authorization}`,
-    },
-  });
-  return parseApiResponse(data);
-};
+  axios.defaults.headers.common["Authorization"] = `Bearer ${authorization}`;
 
-export function useGetCurrentUser(): User | {} {
-  const { data } = useSession();
-  return data?.user || {};
-}
+  const { data } = await axios.get(getUrl("users/me"));
+  return parseApiResponse(data, session_user);
+};
