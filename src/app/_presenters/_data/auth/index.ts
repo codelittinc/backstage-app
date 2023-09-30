@@ -1,6 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { getAuthenticatedUser } from "@/api/users";
+import { getAuthenticatedUser } from "@/app/_presenters/_data/users";
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -33,7 +33,6 @@ export const authOptions: NextAuthOptions = {
         user: {
           image: session!.user!.image,
           ...u,
-          name: data.name,
         },
       };
     },
