@@ -95,9 +95,7 @@ function BasicInfo({
           <Grid item xs={12} md={6} lg={3}>
             <Box display="flex" alignItems="center">
               <Typography variant="caption" fontWeight="regular">
-                {repository.supportsDeploy
-                  ? "Deploys with Roadrunner"
-                  : "Does not deploy with Roadrunner"}
+                Deploys with Roadrunner
               </Typography>
               <Box ml={1}>
                 <Switch
@@ -115,7 +113,7 @@ function BasicInfo({
           <Grid item xs={12} md={6} lg={3}>
             <Box display="flex" alignItems="center" lineHeight={1}>
               <Typography variant="caption" fontWeight="regular">
-                {repository.active ? "Active" : "Inactive"}
+                Active
               </Typography>
               <Box ml={1}>
                 <Switch
@@ -133,9 +131,7 @@ function BasicInfo({
           <Grid item xs={12} md={6} lg={3}>
             <Box display="flex" alignItems="center" lineHeight={1}>
               <Typography variant="caption" fontWeight="regular">
-                {repository.filterPullRequestsByBaseBranch
-                  ? "Filters pull request by base branch"
-                  : "Does not filter pull request by base branch"}
+                Filters pull request by base branch
               </Typography>
               <Box ml={1}>
                 <Switch

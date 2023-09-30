@@ -41,7 +41,7 @@ function Header(): JSX.Element {
               lineHeight={1}
             >
               <Typography variant="caption" fontWeight="regular">
-                Switch to {active ? "inactive" : "active"}
+                Active
               </Typography>
               <Box ml={1}>
                 <Switch checked={active} onChange={handleSetActive} />
