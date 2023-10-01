@@ -5,5 +5,5 @@ interface User {
   googleId: string;
   slug: string;
   email: string;
-  image: string;
+  imageUrl: string;
 }

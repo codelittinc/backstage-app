@@ -203,7 +203,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       type: "collapse",
       name: user.fullName,
       key: user.fullName,
-      icon: <MDAvatar src={user.image} alt={user.name} size="sm" />,
+      icon: <MDAvatar src={user.imageUrl} alt={user.name} size="sm" />,
       collapse: [
         {
           name: "My Profile",
