@@ -1,8 +1,6 @@
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import { fromApiParser, toApiParser } from "./parser";
 import { getRoadrunnerUrl } from "@/api";
-import { REPOSITORIES_KEY } from "@/app/repositories/_domain/constants";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 
 export const getRepositories = async () => {
@@ -29,17 +27,13 @@ export const saveRepository = async (params: Repository) => {
   return fromApiParser(data);
 };
 
-export const getRepository = async (id: string | number) => {
+export const getRepository = async (id: number | undefined | string) => {
+  if (!id) {
+    return null;
+  }
   const { data } = await axios.get(
     getRoadrunnerUrl(`/repositories/${id}.json`)
   );
 
   return fromApiParser(data);
 };
-
-export function useGetRepository(id: string | number) {
-  return useQuery({
-    queryKey: [REPOSITORIES_KEY, id],
-    queryFn: () => getRepository(id),
-  });
-}

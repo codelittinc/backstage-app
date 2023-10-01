@@ -10,7 +10,7 @@ const useCurrentUserController = () => {
   const { showAlert } = useAppStore();
   const router = useRouter();
 
-  const { data, isLoading, isError, isLoadingError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["user", session?.user?.email],
     queryFn: () => {
       return getAuthenticatedUser(session?.user);

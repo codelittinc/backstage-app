@@ -10,18 +10,19 @@ import ApplicationsTable from "./_components/ApplicationsTable";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 import useApplicationsController from "./_controllers/useApplicationsController";
+import Loading from "@/components/Loading";
 
 function Applications({ repository }: { repository: Repository }): JSX.Element {
-  const { applications } = useApplicationsController(repository.id!);
+  const { applications, isLoading } = useApplicationsController(repository.id!);
   const [activeApplication, setActiveApplication] =
     useState<Application | null>(null);
 
   const defaultApplication = {
-    repositoryId: repository.id,
+    repositoryId: repository.id!,
     environment: "dev",
   };
 
-  if (!applications) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
   return (
     <Card id="applications" sx={{ overflow: "visible" }}>
       <Box p={3}>
@@ -36,10 +37,10 @@ function Applications({ repository }: { repository: Repository }): JSX.Element {
           />
         </Box>
       )}
-      {applications.length !== 0 && (
+      {applications?.length !== 0 && (
         <Box component="form" pb={3} px={3}>
           <ApplicationsTable
-            applications={applications}
+            applications={applications || []}
             repository={repository}
             handleEdit={(application: Application) => {
               setActiveApplication(application);

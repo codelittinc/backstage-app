@@ -1,20 +1,16 @@
 "use client";
 import Grid from "@mui/material/Grid";
 import Box from "@/components/Box";
-import Sidenav from "./components/Sidenav";
-import Header from "./components/Header";
-import BasicInfo from "./components/BasicInfo";
-import Applications from "./components/Applications";
-import { useParams, useRouter } from "next/navigation";
+import Sidenav from "./_presenters/_components/Sidenav";
+import Header from "./_presenters/_components/Header";
+import BasicInfo from "./_presenters/_components/BasicInfo";
+import Applications from "./_presenters/_components/Applications";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAppStore } from "@/app/_presenters/_data/store/store";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
+import useRepositoryController from "./_presenters/_controllers/useRepositoryController";
+import Loading from "@/components/Loading";
 import { Repository } from "../_domain/interfaces/Repository";
-import {
-  saveRepository,
-  useGetRepository,
-} from "../_presenters/_data/services/repositories";
 
 const defaultRepository = {
   name: "",
@@ -35,58 +31,22 @@ const defaultRepository = {
 
 function Settings(): JSX.Element {
   const { id } = useParams();
-  var repository: Repository = defaultRepository;
   const newRepository = id == "new";
-  const router = useRouter();
-
-  if (!newRepository) {
-    const { data } = useGetRepository(id as string); // eslint-disable-line
-    repository = data as Repository;
-  }
+  const {
+    onSave,
+    isLoading,
+    repository = defaultRepository,
+  } = useRepositoryController(id as string);
 
   const [currentRepository, updateCurrentRepository] = useState(repository);
-
-  const { showAlert } = useAppStore();
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: saveRepository,
-    onSuccess: (result) => {
-      showAlert({
-        color: "success",
-        title: "Success!",
-        content: `your repository has been ${
-          newRepository ? "created" : "updated"
-        }`,
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["repositories", currentRepository?.id],
-      });
-
-      router.push(`/repositories/${result.id}`);
-    },
-    onError: (err) => {
-      showAlert({
-        color: "error",
-        title: "Error!",
-        content: `There was an error updating your repository. Error: ${JSON.stringify(
-          err.response.data
-        )}`,
-        autoHideDuration: 10000,
-      });
-    },
-  });
 
   useEffect(() => {
     updateCurrentRepository(repository);
   }, [repository]);
 
-  if (!currentRepository) {
-    return <></>;
+  if (isLoading) {
+    return <Loading />;
   }
-
-  const onSave = () => {
-    mutation.mutate(currentRepository);
-  };
 
   return (
     <DashboardLayout>
@@ -109,7 +69,7 @@ function Settings(): JSX.Element {
               </Grid>
               {!newRepository && (
                 <Grid item xs={12}>
-                  <Applications repository={currentRepository} />
+                  <Applications repository={currentRepository as Repository} />
                 </Grid>
               )}
             </Grid>

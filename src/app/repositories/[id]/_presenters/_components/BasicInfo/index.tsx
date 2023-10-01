@@ -3,11 +3,12 @@ import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import FormField from "../../FormField";
-import { Repository } from "@/app/repositories/_presenters/_data/services";
+import FormField from "../FormField";
 import { Switch } from "@mui/material";
 import Button from "@/components/Button";
-import { useGetChannels } from "@/app/repositories/_presenters/_data/services/channels";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+import useChannelsController from "./_presenters/_controllers/useChannelsController";
+import Loading from "@/components/Loading";
 
 function BasicInfo({
   repository,
@@ -19,9 +20,9 @@ function BasicInfo({
   onSave: Function;
 }): JSX.Element {
   const { name, owner, baseBranch, sourceControlType } = repository;
-  const { data: channels } = useGetChannels();
+  const { channels, isLoading } = useChannelsController();
 
-  if (!channels) return <div>loading</div>;
+  if (isLoading) return <Loading />;
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
       <Box p={3}>

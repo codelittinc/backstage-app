@@ -2,7 +2,7 @@ import React from "react";
 import DataTable from "@/components/DataTable";
 import Link from "next/link";
 import StatusCell from "@/components/DataTable/StatusCell";
-import { deleteApplication } from "@/app/repositories/[id]/components/Applications/_data/services/applications";
+import { deleteApplication } from "@/app/repositories/[id]/_presenters/_components/Applications/_data/services/applications";
 import Button from "@/components/Button";
 import Icon from "@mui/material/Icon";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
