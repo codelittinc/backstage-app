@@ -20,7 +20,7 @@ function Header(): JSX.Element {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <Avatar
-              src={user.image}
+              src={user.imageUrl}
               alt="profile-image"
               size="xl"
               shadow="sm"

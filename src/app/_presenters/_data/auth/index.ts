@@ -26,11 +26,11 @@ export const authOptions: NextAuthOptions = {
         email: user.email!,
         google_id: token.id as string,
         name: user.name!,
+        image: session!.user!.image,
       };
 
       return {
         user: {
-          image: session!.user!.image,
           ...data,
         },
       };

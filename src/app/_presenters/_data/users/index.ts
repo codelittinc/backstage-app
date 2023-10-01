@@ -1,14 +1,7 @@
-import axios from "axios";
-import { getUrl } from "../../../../api";
-import { useSession } from "next-auth/react";
-import { useQuery } from "@tanstack/react-query";
-
-interface SessionUser {
-  email: string;
-  google_id: string;
-  name: string;
-  image: string;
-}
+import {
+  backstageApiClient,
+  setAuthorizationHeader,
+} from "../auth/backstageApiAxios";
 
 interface ApiUser {
   first_name: string;
@@ -16,10 +9,11 @@ interface ApiUser {
   google_id: string;
   slug: string;
   email: string;
+  image_url: string;
 }
 
-const parseApiResponse = (user: ApiUser, sessionUser: SessionUser): User => {
-  const { google_id, email, first_name, last_name, slug } = user;
+const parseApiResponse = (user: ApiUser): User => {
+  const { google_id, email, first_name, last_name, slug, image_url } = user;
 
   return {
     googleId: google_id,
@@ -28,7 +22,7 @@ const parseApiResponse = (user: ApiUser, sessionUser: SessionUser): User => {
     lastName: last_name,
     slug: slug,
     fullName: `${first_name} ${last_name}`,
-    image: sessionUser.image,
+    imageUrl: image_url,
   };
 };
 
@@ -38,21 +32,8 @@ export const getAuthenticatedUser = async (
   if (!session_user) {
     return null;
   }
+  setAuthorizationHeader(session_user);
 
-  const authorizationData = {
-    user: {
-      google_id: session_user.google_id,
-      email: session_user.email,
-      first_name: session_user.name?.split(" ")[0],
-      last_name: session_user.name?.split(" ")[1],
-    },
-  };
-
-  const authorizationDataJson = JSON.stringify(authorizationData);
-  const authorization = btoa(authorizationDataJson);
-
-  axios.defaults.headers.common["Authorization"] = `Bearer ${authorization}`;
-
-  const { data } = await axios.get(getUrl("users/me"));
-  return parseApiResponse(data, session_user);
+  const { data } = await backstageApiClient.get("/users/me");
+  return parseApiResponse(data);
 };
