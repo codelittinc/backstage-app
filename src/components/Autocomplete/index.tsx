@@ -4,23 +4,33 @@ import { useState } from "react";
 
 interface AutocompleteProps {
   value?: any;
-  defaultValue: any;
+  defaultValue?: any;
   onChange: (value: string) => void;
   options: any[];
+  getOptionLabel?: Function;
 }
 
-const Autocomplete = ({ value, onChange, options }: AutocompleteProps) => {
+const Autocomplete = ({
+  value,
+  onChange,
+  options,
+  getOptionLabel = (value: string) => value,
+}: AutocompleteProps) => {
   const handleChange = (_, newValue) => {
     onChange(newValue);
   };
 
   return (
     <MUIAutocomplete
+      getOptionLabel={getOptionLabel}
       value={value}
       options={options}
       renderOption={(props, option) => (
-        <li {...props} key={option}>
-          {option}
+        <li
+          {...props}
+          key={typeof option != "string" ? JSON.stringify(option) : option}
+        >
+          {getOptionLabel(option)}
         </li>
       )}
       renderInput={(params) => (

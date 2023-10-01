@@ -1,6 +1,5 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import FormField from "../FormField";
@@ -9,6 +8,7 @@ import Button from "@/components/Button";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import useChannelsController from "./_presenters/_controllers/useChannelsController";
 import Loading from "@/components/Loading";
+import Autocomplete from "@/components/Autocomplete";
 
 function BasicInfo({
   repository,
@@ -22,6 +22,7 @@ function BasicInfo({
   const { name, owner, baseBranch, sourceControlType } = repository;
   const { channels, isLoading } = useChannelsController();
 
+  // continue replacing the AutoComplete
   if (isLoading) return <Loading />;
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
@@ -63,14 +64,7 @@ function BasicInfo({
                   defaultValue="github"
                   value={sourceControlType}
                   options={["github", "azure"]}
-                  renderInput={(params) => (
-                    <FormField
-                      {...params}
-                      label="Source control"
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  )}
-                  onChange={(_, value) => {
+                  onChange={(value) => {
                     onChange({
                       ...repository,
                       sourceControlType: value,
@@ -179,16 +173,7 @@ function BasicInfo({
               }
               getOptionLabel={(option) => option.name}
               options={channels}
-              renderInput={(params) => {
-                return (
-                  <FormField
-                    {...params}
-                    label="Development channel"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                );
-              }}
-              onChange={(_, newValue) => {
+              onChange={(newValue) => {
                 onChange({
                   ...repository,
                   slackRepositoryInfo: {
@@ -209,16 +194,7 @@ function BasicInfo({
               }
               getOptionLabel={(option) => option.name}
               options={channels}
-              renderInput={(params) => {
-                return (
-                  <FormField
-                    {...params}
-                    label="Deploy channel"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                );
-              }}
-              onChange={(_, newValue) => {
+              onChange={(newValue) => {
                 onChange({
                   ...repository,
                   slackRepositoryInfo: {
@@ -239,16 +215,7 @@ function BasicInfo({
               }
               getOptionLabel={(option) => option.name}
               options={channels}
-              renderInput={(params) => {
-                return (
-                  <FormField
-                    {...params}
-                    label="Feed channel"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                );
-              }}
-              onChange={(_, newValue) => {
+              onChange={(newValue) => {
                 onChange({
                   ...repository,
                   slackRepositoryInfo: {
