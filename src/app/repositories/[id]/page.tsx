@@ -13,6 +13,7 @@ import Loading from "@/components/Loading";
 import { Repository } from "../_domain/interfaces/Repository";
 
 const defaultRepository = {
+  id: null,
   name: "",
   owner: "codelittinc",
   active: true,
@@ -31,7 +32,6 @@ const defaultRepository = {
 
 function Settings(): JSX.Element {
   const { id } = useParams();
-  const newRepository = id == "new";
   const {
     onSave,
     isLoading,
@@ -47,7 +47,6 @@ function Settings(): JSX.Element {
   if (isLoading) {
     return <Loading />;
   }
-
   return (
     <DashboardLayout>
       <Grid container spacing={3}>
@@ -67,7 +66,7 @@ function Settings(): JSX.Element {
                   onSave={onSave}
                 />
               </Grid>
-              {!newRepository && (
+              {repository?.id && (
                 <Grid item xs={12}>
                   <Applications repository={currentRepository as Repository} />
                 </Grid>

@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import { getRoadrunnerUrl } from "../../../../../../../../../api";
 import { fromApiParser, toApiParser, ApiApplication } from "./parser";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
-import { APPLICATIONS_KEY } from "../../../_domain/constants";
 
 export const getApplications = async (repositoryId: number) => {
+  if (!repositoryId) return null;
+
   const { data } = await axios.get<ApiApplication[]>(
     getRoadrunnerUrl(`/repositories/${repositoryId}/applications.json`)
   );
