@@ -33,8 +33,12 @@ const parseApiResponse = (user: ApiUser, sessionUser: SessionUser): User => {
 };
 
 export const getAuthenticatedUser = async (
-  session_user: SessionUser
-): Promise<User> => {
+  session_user: SessionUser | undefined
+): Promise<User | null> => {
+  if (!session_user) {
+    return null;
+  }
+
   const authorizationData = {
     user: {
       google_id: session_user.google_id,

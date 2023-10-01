@@ -1,22 +1,34 @@
+"use client";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { getAuthenticatedUser } from "../_data/users";
+import { useAppStore } from "../_data/store/store";
+import { useRouter } from "next/navigation";
 
 const useCurrentUserController = () => {
   const { data: session } = useSession();
+  const { showAlert } = useAppStore();
+  const router = useRouter();
 
-  const { data: currentUser } = useQuery({
+  const { data, isLoading, isError, isLoadingError } = useQuery({
     queryKey: ["user", session?.user?.email],
     queryFn: () => {
-      if (!session?.user) {
-        return null;
-      }
-      return getAuthenticatedUser(session.user);
+      return getAuthenticatedUser(session?.user);
+    },
+    onError: () => {
+      showAlert({
+        color: "error",
+        title: "Error!",
+        content:
+          "There was an error authenticating your user. Please try signing in again.",
+      });
+      router.push(`/users/sign-in`);
     },
   });
 
   return {
-    currentUser: currentUser,
+    currentUser: data,
+    isLoading: isLoading || !session || !data,
   };
 };
 
