@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { getRoadrunnerUrl } from "../../../../../../../../api";
+import { getRoadrunnerUrl } from "../../../../../../../../../api";
 import { fromApiParser, toApiParser, ApiApplication } from "./parser";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 import { APPLICATIONS_KEY } from "../../../_domain/constants";

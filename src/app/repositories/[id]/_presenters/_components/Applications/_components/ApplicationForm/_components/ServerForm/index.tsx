@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import FormField from "../../../../../../FormField";
+import FormField from "../../../../../FormField";
 import { Switch } from "@mui/material";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 

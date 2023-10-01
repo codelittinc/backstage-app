@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import FormField from "../../../../FormField";
+import FormField from "../../../FormField";
 import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import { Switch } from "@mui/material";

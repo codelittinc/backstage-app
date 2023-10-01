@@ -3,7 +3,7 @@ import Box from "@/components/Box";
 import { useMaterialUIController, setLayout } from "@/theme";
 import DashboardNavbar from "@/components/DashboardNavbar";
 import Footer from "@/components/Footer";
-import useCurrentUserController from "@/app/_presenters/_controller/useCurrentUserController";
+import useCurrentUserController from "@/app/_presenters/_controllers/useCurrentUserController";
 import Loading from "@/components/Loading";
 
 interface Props {
