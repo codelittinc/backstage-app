@@ -63,7 +63,7 @@ function Settings(): JSX.Element {
                 <BasicInfo
                   repository={currentRepository}
                   onChange={updateCurrentRepository}
-                  onSave={onSave}
+                  onSave={() => onSave(currentRepository as Repository)}
                 />
               </Grid>
               {repository?.id && (
