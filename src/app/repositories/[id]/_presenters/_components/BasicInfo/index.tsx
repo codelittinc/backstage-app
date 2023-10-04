@@ -1,6 +1,5 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import FormField from "../FormField";
@@ -9,6 +8,8 @@ import Button from "@/components/Button";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import useChannelsController from "./_presenters/_controllers/useChannelsController";
 import Loading from "@/components/Loading";
+import Autocomplete from "@/components/Autocomplete";
+import Channel from "@/app/repositories/_domain/interfaces/Channel";
 
 function BasicInfo({
   repository,
@@ -19,7 +20,8 @@ function BasicInfo({
   onChange: Function;
   onSave: Function;
 }): JSX.Element {
-  const { name, owner, baseBranch, sourceControlType } = repository;
+  const { name, owner, baseBranch, sourceControlType, slackRepositoryInfo } =
+    repository;
   const { channels, isLoading } = useChannelsController();
 
   if (isLoading) return <Loading />;
@@ -60,22 +62,16 @@ function BasicInfo({
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
                 <Autocomplete
-                  defaultValue="github"
+                  label={"Source control"}
                   value={sourceControlType}
-                  options={["github", "azure"]}
-                  renderInput={(params) => (
-                    <FormField
-                      {...params}
-                      label="Source control"
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  )}
-                  onChange={(_, value) => {
+                  defaultValue="github"
+                  onChange={(value: string) => {
                     onChange({
                       ...repository,
                       sourceControlType: value,
                     });
                   }}
+                  options={["github", "azure"]}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -154,12 +150,12 @@ function BasicInfo({
                 <FormField
                   label="Slack dev group"
                   placeholder="@devs"
-                  value={repository.slackRepositoryInfo?.devGroup || ""}
+                  value={slackRepositoryInfo?.devGroup || ""}
                   onChange={({ target: { value } }) => {
                     onChange({
                       ...repository,
                       slackRepositoryInfo: {
-                        ...(repository.slackRepositoryInfo || {}),
+                        ...(slackRepositoryInfo || {}),
                         devGroup: value,
                       },
                     });
@@ -171,28 +167,20 @@ function BasicInfo({
           <Grid item xs={12} sm={3}>
             <Box display="flex" alignItems="center"></Box>
             <Autocomplete
+              label={"Development channel"}
               value={
                 channels.find(
-                  (channel) =>
-                    channel.id === repository?.slackRepositoryInfo.devChannel
+                  (channel: Channel) =>
+                    channel.id == slackRepositoryInfo?.devChannel
                 ) || channels[0]
               }
               getOptionLabel={(option) => option.name}
               options={channels}
-              renderInput={(params) => {
-                return (
-                  <FormField
-                    {...params}
-                    label="Development channel"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                );
-              }}
-              onChange={(_, newValue) => {
+              onChange={(newValue) => {
                 onChange({
                   ...repository,
                   slackRepositoryInfo: {
-                    ...(repository.slackRepositoryInfo || {}),
+                    ...(slackRepositoryInfo || {}),
                     devChannel: newValue.id,
                   },
                 });
@@ -201,28 +189,20 @@ function BasicInfo({
           </Grid>
           <Grid item xs={12} sm={3}>
             <Autocomplete
+              label="Deploy channel"
               value={
                 channels.find(
-                  (channel) =>
-                    channel.id === repository?.slackRepositoryInfo.deployChannel
+                  (channel: Channel) =>
+                    channel.id === slackRepositoryInfo?.deployChannel
                 ) || channels[0]
               }
               getOptionLabel={(option) => option.name}
               options={channels}
-              renderInput={(params) => {
-                return (
-                  <FormField
-                    {...params}
-                    label="Deploy channel"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                );
-              }}
-              onChange={(_, newValue) => {
+              onChange={(newValue) => {
                 onChange({
                   ...repository,
                   slackRepositoryInfo: {
-                    ...(repository.slackRepositoryInfo || {}),
+                    ...(slackRepositoryInfo || {}),
                     deployChannel: newValue.id,
                   },
                 });
@@ -231,28 +211,20 @@ function BasicInfo({
           </Grid>
           <Grid item xs={12} sm={3}>
             <Autocomplete
+              label="Feed channel"
               value={
                 channels.find(
-                  (channel) =>
-                    channel.id === repository?.slackRepositoryInfo.feedChannel
+                  (channel: Channel) =>
+                    channel.id === slackRepositoryInfo?.feedChannel
                 ) || channels[0]
               }
               getOptionLabel={(option) => option.name}
               options={channels}
-              renderInput={(params) => {
-                return (
-                  <FormField
-                    {...params}
-                    label="Feed channel"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                );
-              }}
-              onChange={(_, newValue) => {
+              onChange={(newValue) => {
                 onChange({
                   ...repository,
                   slackRepositoryInfo: {
-                    ...(repository.slackRepositoryInfo || {}),
+                    ...(slackRepositoryInfo || {}),
                     feedChannel: newValue.id,
                   },
                 });
