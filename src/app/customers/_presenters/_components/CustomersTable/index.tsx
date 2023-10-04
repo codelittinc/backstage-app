@@ -8,7 +8,7 @@ interface Props {
   customers: Customer[];
 }
 
-function Customers({ customers }: Props): JSX.Element {
+function CustomersTable({ customers }: Props): JSX.Element {
   const columns = [
     {
       Header: "name",
@@ -31,4 +31,4 @@ function Customers({ customers }: Props): JSX.Element {
   return <DataTable table={data} entriesPerPage={false} canSearch />;
 }
 
-export default Customers;
+export default CustomersTable;

@@ -1,1 +1,1 @@
-export const CUSTOMERS_KEY = "/customers";
+export const CUSTOMERS_KEY = "customers";
