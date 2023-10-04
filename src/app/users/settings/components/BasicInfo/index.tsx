@@ -3,8 +3,8 @@ import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import FormField from "../../FormField";
 import selectData from "./data/selectData";
+import FormField from "@/components/FormField";
 
 function BasicInfo(): JSX.Element {
   return (

@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import FormField from "../../../FormField";
 import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import { Switch } from "@mui/material";
@@ -12,6 +11,7 @@ import LinksTable from "./_components/ServerForm/_components/LinksTable";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 import useApplicationsController from "./_controllers/useApplicationFormController";
+import FormField from "@/components/FormField";
 
 function ApplicationForm({
   repository,
