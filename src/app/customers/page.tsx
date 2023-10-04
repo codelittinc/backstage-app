@@ -1,45 +1,35 @@
 "use client";
-import Card from "@mui/material/Card";
-import Box from "@/components/Box";
-import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
-import { Grid, Icon } from "@mui/material";
-import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
-import Loading from "@/components/Loading";
 import useCustomersController from "./_presenters/_controllers/useCustomersController";
-import CustomersTable from "./_presenters/_components/CustomersTable";
+import TableLayout from "@/components/LayoutContainers/TableLayout";
+import routes from "@/routes";
+import Link from "next/link";
 
 function Customers(): JSX.Element {
   const { customers = [], isLoading } = useCustomersController();
   const router = useRouter();
+  const columns = [
+    {
+      Header: "name",
+      accessor: "name",
+      width: "20%",
+      Cell: ({ row }: any) => {
+        const {
+          original: { name, id },
+        } = row;
+        return <Link href={routes.customerPath(id)}>{name}</Link>;
+      },
+    },
+  ];
 
   return (
-    <DashboardLayout>
-      <Box>
-        <Grid container>
-          <Grid item xs={12} md={6}>
-            <Box pb={3}>
-              <Button
-                variant="gradient"
-                color="info"
-                onClick={() => router.push(`/customers/new`)}
-              >
-                <Icon>add</Icon>&nbsp; Add a customer
-              </Button>
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
-              {isLoading ? (
-                <Loading />
-              ) : (
-                <CustomersTable customers={customers} />
-              )}
-            </Card>
-          </Grid>
-        </Grid>
-      </Box>
-    </DashboardLayout>
+    <TableLayout
+      onClickNew={() => router.push(routes.newCustomerPath)}
+      buttonLabel="Add a customer"
+      columns={columns}
+      rows={customers}
+      isLoading={isLoading}
+    />
   );
 }
 

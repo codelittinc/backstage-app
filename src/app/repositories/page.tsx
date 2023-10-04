@@ -1,45 +1,51 @@
 "use client";
-import Card from "@mui/material/Card";
-import Box from "@/components/Box";
-import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
-import { Grid, Icon } from "@mui/material";
-import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 import useRepositoriesController from "./_presenters/_controllers/useRepositoriesController";
-import RepositoriesTable from "./_presenters/_components/RepositoriesTable";
-import Loading from "@/components/Loading";
+import TableLayout from "@/components/LayoutContainers/TableLayout";
+import routes from "@/routes";
+import Link from "next/link";
+import StatusCell from "@/components/DataTable/StatusCell";
 
 function Repositories(): JSX.Element {
   const { repositories = [], isLoading } = useRepositoriesController();
   const router = useRouter();
 
+  const columns = [
+    {
+      Header: "name",
+      accessor: "name",
+      width: "20%",
+      Cell: ({ row }: any) => {
+        const {
+          original: { name, id },
+        } = row;
+        return <Link href={routes.repositoryPath(id)}>{name}</Link>;
+      },
+    },
+    { Header: "owner", accessor: "owner", width: "20%" },
+    {
+      Header: "active",
+      accessor: "active",
+      width: "20%",
+      Cell: ({ value }: any) => {
+        let status;
+        if (value) {
+          status = <StatusCell icon="done" color="success" status="active" />;
+        } else {
+          status = <StatusCell icon="close" color="error" status="inactive" />;
+        }
+        return status;
+      },
+    },
+  ];
   return (
-    <DashboardLayout>
-      <Box>
-        <Grid container>
-          <Grid item xs={12} md={6}>
-            <Box pb={3}>
-              <Button
-                variant="gradient"
-                color="info"
-                onClick={() => router.push(`/repositories/new`)}
-              >
-                <Icon>add</Icon>&nbsp; Add a repository
-              </Button>
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
-              {isLoading ? (
-                <Loading />
-              ) : (
-                <RepositoriesTable repositories={repositories} />
-              )}
-            </Card>
-          </Grid>
-        </Grid>
-      </Box>
-    </DashboardLayout>
+    <TableLayout
+      isLoading={isLoading}
+      buttonLabel="Add a repository"
+      onClickNew={() => router.push(routes.newRepositoryPath)}
+      columns={columns}
+      rows={repositories}
+    />
   );
 }
 

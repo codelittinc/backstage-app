@@ -1,6 +1,8 @@
 const routes = {
-  repository_path: (id: number | string) => `/repositories/${id}`,
-  customer_path: (id: number | string) => `/customers/${id}`,
+  repositoryPath: (id: number | string) => `/repositories/${id}`,
+  customerPath: (id: number | string) => `/customers/${id}`,
+  newRepositoryPath: "/repositories/new",
+  newCustomerPath: "/repositories/new",
 };
 
 export default routes;
