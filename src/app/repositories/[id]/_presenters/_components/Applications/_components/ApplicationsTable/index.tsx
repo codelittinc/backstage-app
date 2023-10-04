@@ -24,9 +24,9 @@ const ApplicationsTable: React.FC<Props> = ({
   const applicationsData = applications.map((application) => ({
     id: application.id,
     environment: application.environment,
-    url: application.server?.link,
-    supportsHealthCheck: application.server?.supportsHealthCheck,
-    active: application.server?.active,
+    externalIdentifiers: application.externalIdentifiers
+      ?.map((e) => e.text)
+      .join(", "),
     edit: "",
     delete: "",
   }));
@@ -48,53 +48,14 @@ const ApplicationsTable: React.FC<Props> = ({
       width: "10%",
     },
     {
-      Header: "Supports health check",
-      accessor: "supportsHealthCheck",
-      width: "10%",
-      Cell: ({ value }: any) => {
-        let status;
-        if (value) {
-          status = <StatusCell icon="done" color="success" status="active" />;
-        } else {
-          status = <StatusCell icon="close" color="error" status="inactive" />;
-        }
-        return status;
-      },
-    },
-    {
-      Header: "Server URL",
-      accessor: "url",
-      width: "10%",
-      Cell: ({ value }: any) => {
-        if (value) {
-          return (
-            <Link href={value} target="_blank">
-              {value}
-            </Link>
-          );
-        } else {
-          return <></>;
-        }
-      },
-    },
-    {
-      Header: "Active",
-      accessor: "active",
-      width: "10%",
-      Cell: ({ value }: any) => {
-        let status;
-        if (value) {
-          status = <StatusCell icon="done" color="success" status="active" />;
-        } else {
-          status = <StatusCell icon="close" color="error" status="inactive" />;
-        }
-        return status;
-      },
+      Header: "External identifiers",
+      accessor: "externalIdentifiers",
+      width: "80%",
     },
     {
       Header: "",
       accessor: "edit",
-      width: "10%",
+      width: "5%",
       Cell: ({ row }: any) => {
         const {
           original: { id },
@@ -115,7 +76,7 @@ const ApplicationsTable: React.FC<Props> = ({
     {
       Header: "",
       accessor: "delete",
-      width: "10%",
+      width: "5%",
       Cell: ({ row }: any) => {
         const {
           original: { id },

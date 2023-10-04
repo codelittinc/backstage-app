@@ -30,10 +30,10 @@ function ApplicationForm({
           }}
         />
       </Grid>
-      <Grid item xs={12} md={3}>
+      <Grid item xs={12} md={4}>
         <Box display="flex" alignItems="center" lineHeight={1}>
           <Typography variant="caption" fontWeight="regular">
-            Apply Health check
+            Has a /health for health checks
           </Typography>
           <Box ml={1}>
             <Switch
