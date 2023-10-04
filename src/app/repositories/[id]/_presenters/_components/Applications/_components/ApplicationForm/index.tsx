@@ -11,7 +11,6 @@ import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 import useApplicationFormController from "./_controllers/useApplicationFormController";
 import Autocomplete from "@/components/Autocomplete";
-import useApplicationsFormController from "./_controllers/useApplicationFormController";
 
 function ApplicationForm({
   repository,
