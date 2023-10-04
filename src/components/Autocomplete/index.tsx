@@ -1,4 +1,4 @@
-import { Autocomplete as MUIAutocomplete } from "@mui/material";
+import { Chip, Autocomplete as MUIAutocomplete } from "@mui/material";
 import FormField from "../FormField";
 
 interface AutocompleteProps {
@@ -40,6 +40,18 @@ const Autocomplete = ({
           {getOptionLabel(option)}
         </li>
       )}
+      renderTags={(value, getTagProps) =>
+        value.map((option, index) => {
+          return (
+            <Chip
+              variant="outlined"
+              label={option}
+              {...getTagProps({ index })}
+              key={`${option}-${index}`}
+            />
+          );
+        })
+      }
       renderInput={(params) => (
         <FormField
           {...params}
