@@ -1,6 +1,5 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import { useEffect, useState } from "react";
@@ -11,7 +10,7 @@ import LinksTable from "./_components/ServerForm/_components/LinksTable";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 import useApplicationsController from "./_controllers/useApplicationFormController";
-import FormField from "@/components/FormField";
+import Autocomplete from "@/components/Autocomplete";
 
 function ApplicationForm({
   repository,
@@ -43,19 +42,11 @@ function ApplicationForm({
             <Grid container spacing={3}>
               <Grid item xs={12} sm={3}>
                 <Autocomplete
+                  label="Environment"
                   defaultValue="development"
                   value={currentApplication.environment}
                   options={["dev", "qa", "prod"]}
-                  renderInput={(params) => {
-                    return (
-                      <FormField
-                        {...params}
-                        label="environment"
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    );
-                  }}
-                  onChange={(_, newValue) => {
+                  onChange={(newValue) => {
                     setCurrentApplication({
                       ...currentApplication,
                       environment: newValue || "dev",
@@ -65,6 +56,7 @@ function ApplicationForm({
               </Grid>
               <Grid item xs={12} sm={9}>
                 <Autocomplete
+                  label="External identifiers"
                   freeSolo
                   multiple
                   options={[]}
@@ -73,14 +65,7 @@ function ApplicationForm({
                       (e) => e.text
                     ) || []
                   }
-                  renderInput={(params) => (
-                    <FormField
-                      {...params}
-                      label="External identifiers"
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  )}
-                  onChange={(ba, newValue) => {
+                  onChange={(newValue) => {
                     setCurrentApplication({
                       ...currentApplication,
                       externalIdentifiers: newValue.map((e) => ({
@@ -95,7 +80,7 @@ function ApplicationForm({
           <Grid item xs={12} md={6}>
             <Box display="flex" alignItems="center" lineHeight={1}>
               <Typography variant="caption" fontWeight="regular">
-                With server for health check
+                Has a public URL
               </Typography>
               <Box ml={1}>
                 <Switch

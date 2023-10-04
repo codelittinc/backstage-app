@@ -8,6 +8,8 @@ interface AutocompleteProps {
   options: any[];
   getOptionLabel?: (value: any) => string;
   label: string;
+  freeSolo?: boolean;
+  multiple?: boolean;
 }
 
 const Autocomplete = ({
@@ -16,6 +18,8 @@ const Autocomplete = ({
   options,
   getOptionLabel = (value: any) => value,
   label,
+  freeSolo,
+  multiple,
 }: AutocompleteProps) => {
   const handleChange = (_: any, newValue: any) => {
     onChange(newValue);
@@ -23,6 +27,8 @@ const Autocomplete = ({
 
   return (
     <MUIAutocomplete
+      freeSolo={freeSolo}
+      multiple={multiple}
       getOptionLabel={getOptionLabel}
       value={value}
       options={options}
