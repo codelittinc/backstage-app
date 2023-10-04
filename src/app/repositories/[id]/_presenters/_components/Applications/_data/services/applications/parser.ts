@@ -56,7 +56,6 @@ export function toApiParser(application: Application): ApiApplication {
       : undefined,
     external_identifiers_attributes: application.externalIdentifiers?.map(
       (externalIdentifier) => ({
-        id: externalIdentifier.id,
         text: externalIdentifier.text,
       })
     ),

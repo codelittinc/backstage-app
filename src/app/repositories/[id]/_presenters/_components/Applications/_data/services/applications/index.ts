@@ -14,8 +14,9 @@ export const getApplications = async (repositoryId: number) => {
 
 export const getApplication = async (
   repositoryId: number,
-  applicationId: number
+  applicationId?: number
 ) => {
+  if (!repositoryId || !applicationId) return null;
   const { data } = await axios.get<ApiApplication>(
     getRoadrunnerUrl(
       `/repositories/${repositoryId}/applications/${applicationId}.json`
