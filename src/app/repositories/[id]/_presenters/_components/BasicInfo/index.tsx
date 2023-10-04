@@ -2,7 +2,6 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import FormField from "../FormField";
 import { Switch } from "@mui/material";
 import Button from "@/components/Button";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
@@ -10,6 +9,7 @@ import useChannelsController from "./_presenters/_controllers/useChannelsControl
 import Loading from "@/components/Loading";
 import Autocomplete from "@/components/Autocomplete";
 import Channel from "@/app/repositories/_domain/interfaces/Channel";
+import FormField from "@/components/FormField";
 
 function BasicInfo({
   repository,
