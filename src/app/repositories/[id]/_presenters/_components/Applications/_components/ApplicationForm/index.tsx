@@ -9,8 +9,9 @@ import ServerForm from "./_components/ServerForm";
 import LinksTable from "./_components/ServerForm/_components/LinksTable";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
-import useApplicationsController from "./_controllers/useApplicationFormController";
+import useApplicationFormController from "./_controllers/useApplicationFormController";
 import Autocomplete from "@/components/Autocomplete";
+import useApplicationsFormController from "./_controllers/useApplicationFormController";
 
 function ApplicationForm({
   repository,
@@ -21,15 +22,25 @@ function ApplicationForm({
   application: Application;
   onCancel: Function;
 }): JSX.Element {
+  const { application: serverApplication, onSave } =
+    useApplicationFormController(repository.id!, application.id);
+
   const [currentApplication, setCurrentApplication] =
     useState<Application>(application);
 
-  const [hasServer, setHasServer] = useState<boolean>(!!application.server);
-  const { onSave } = useApplicationsController(repository.id!);
+  const setDefaultServer = () => {
+    setCurrentApplication({
+      ...currentApplication,
+      server: {
+        link: "",
+        supportsHealthCheck: false,
+      },
+    });
+  };
 
   useEffect(() => {
-    setCurrentApplication(application);
-  }, [application]);
+    setCurrentApplication(serverApplication || application);
+  }, [application, serverApplication]);
 
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
@@ -84,9 +95,16 @@ function ApplicationForm({
               </Typography>
               <Box ml={1}>
                 <Switch
-                  checked={hasServer}
+                  checked={!!currentApplication.server}
                   onChange={() => {
-                    setHasServer(!hasServer);
+                    if (application.server) {
+                      setCurrentApplication({
+                        ...currentApplication,
+                        server: undefined,
+                      });
+                    } else {
+                      setDefaultServer();
+                    }
                   }}
                 />
               </Box>
@@ -123,7 +141,7 @@ function ApplicationForm({
               </Grid>
             </Box>
           </Grid>
-          {hasServer ? (
+          {currentApplication.server ? (
             <ServerForm
               application={currentApplication}
               onChange={setCurrentApplication}
