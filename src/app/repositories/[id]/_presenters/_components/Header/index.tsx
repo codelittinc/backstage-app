@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import Avatar from "@/components/Avatar";
-import { Repository } from "@/app/repositories/_presenters/_data/services";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 
 function Header({ repository }: { repository: Repository }): JSX.Element {
   const { owner, name, sourceControlType } = repository;

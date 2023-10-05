@@ -5,17 +5,19 @@ import MDBox from "@/components/Box";
 import MDTypography from "@/components/Typography";
 import { useMaterialUIController } from "@/theme";
 
-function Sidenav(): JSX.Element {
+interface SidenavItem {
+  icon: string;
+  label: string;
+  href: string;
+}
+interface Props {
+  items: SidenavItem[];
+}
+function Sidenav({ items }: Props): JSX.Element {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
-  const sidenavItems = [
-    { icon: "person", label: "profile", href: "profile" },
-    { icon: "receipt_long", label: "basic info", href: "basic-info" },
-    { icon: "badge", label: "accounts", href: "accounts" },
-  ];
-
-  const renderSidenavItems = sidenavItems.map(({ icon, label, href }, key) => {
+  const renderSidenavItems = items.map(({ icon, label, href }, key) => {
     const itemKey = `item-${key}`;
 
     return (
