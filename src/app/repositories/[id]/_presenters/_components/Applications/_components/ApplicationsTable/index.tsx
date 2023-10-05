@@ -9,6 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 import { APPLICATIONS_KEY } from "../../_domain/constants";
+import useApplicationsTableController from "./_presenters/_controllers/useApplicationsTableController";
 
 interface Props {
   repository: Repository;
@@ -21,6 +22,9 @@ const ApplicationsTable: React.FC<Props> = ({
   repository,
   handleEdit,
 }) => {
+  const { onDelete } = useApplicationsTableController({
+    repository: repository,
+  });
   const applicationsData = applications.map((application) => ({
     id: application.id,
     environment: application.environment,
@@ -30,16 +34,6 @@ const ApplicationsTable: React.FC<Props> = ({
     edit: "",
     delete: "",
   }));
-
-  const queryClient = useQueryClient();
-  const deleteMutation = useMutation(
-    (applicationId: number) => deleteApplication(repository.id!, applicationId),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([APPLICATIONS_KEY, repository.id]);
-      },
-    }
-  );
 
   const columns = [
     {
@@ -82,13 +76,7 @@ const ApplicationsTable: React.FC<Props> = ({
           original: { id },
         } = row;
         return (
-          <Button
-            variant="text"
-            color="error"
-            onClick={() => {
-              deleteMutation.mutate(id);
-            }}
-          >
+          <Button variant="text" color="error" onClick={() => onDelete(id)}>
             <Icon>delete</Icon>
           </Button>
         );

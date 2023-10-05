@@ -2,10 +2,8 @@ import { Application } from "@/app/repositories/_domain/interfaces/Application";
 import { useAppStore } from "@/app/_presenters/_data/store/store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  createApplication,
+  saveApplication,
   getApplication,
-  getApplications,
-  updateApplication,
 } from "../../../_data/services/applications";
 import { APPLICATIONS_KEY } from "../../../_domain/constants";
 
@@ -13,10 +11,10 @@ const useApplicationsFormController = (
   repositoryId: number,
   applicationId: number | undefined
 ) => {
-  const { showAlert } = useAppStore();
+  const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
   const queryClient = useQueryClient();
-  const createMutation = useMutation(
-    (application: Application) => createApplication(repositoryId, application),
+  const saveMutation = useMutation(
+    (application: Application) => saveApplication(repositoryId, application),
     {
       onSuccess: (result) => {
         queryClient.invalidateQueries([
@@ -24,52 +22,10 @@ const useApplicationsFormController = (
           repositoryId,
           result.id,
         ]);
-        showAlert({
-          color: "success",
-          title: "Success!",
-          content: "your application has been created!",
-        });
-      },
-      onError: (err) => {
-        showAlert({
-          color: "error",
-          title: "Error!",
-          content: `There was an error while saving. Error: ${JSON.stringify(
-            err.response.data
-          )}`,
-          autoHideDuration: 10000,
-        });
-      },
-    }
-  );
-
-  const updateMutation = useMutation(
-    (application: Application) => updateApplication(repositoryId, application),
-    {
-      onSuccess: (result) => {
         queryClient.invalidateQueries([APPLICATIONS_KEY, repositoryId]);
-        queryClient.invalidateQueries([
-          APPLICATIONS_KEY,
-          repositoryId,
-          result.id,
-        ]);
-
-        showAlert({
-          color: "success",
-          title: "Success!",
-          content: "your application has been updated!",
-        });
+        showSaveSuccessAlert();
       },
-      onError: (err) => {
-        showAlert({
-          color: "error",
-          title: "Error!",
-          content: `There was an error while saving. Error: ${JSON.stringify(
-            err.response.data
-          )}`,
-          autoHideDuration: 10000,
-        });
-      },
+      onError: (err) => showSaveErrorAlert(err),
     }
   );
 
@@ -82,9 +38,7 @@ const useApplicationsFormController = (
 
   return {
     onSave: (application: Application) => {
-      application.id
-        ? updateMutation.mutate(application)
-        : createMutation.mutate(application);
+      saveMutation.mutate(application);
     },
     application: application,
   };

@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { getAuthenticatedUser } from "../_data/users";
 import { useAppStore } from "../_data/store/store";
 import { useRouter } from "next/navigation";
+import routes from "@/routes";
 
 const useCurrentUserController = () => {
   const { data: session } = useSession();
@@ -18,11 +19,11 @@ const useCurrentUserController = () => {
     onError: () => {
       showAlert({
         color: "error",
-        title: "Error!",
+        title: "Authentication error",
         content:
           "There was an error authenticating your user. Please try signing in again.",
       });
-      router.push(`/users/sign-in`);
+      router.push(routes.signInPath);
     },
   });
 
