@@ -14,6 +14,8 @@ export interface AlertSlice {
   alert: Alert | null;
   showAlert: (alert: Alert) => void;
   hideAlert: () => void;
+  showSaveSuccessAlert: () => void;
+  showSaveErrorAlert: (err: unknown) => void;
 }
 
 export const alertSlice: StateCreator<AlertSlice> = (set) => ({
@@ -23,5 +25,26 @@ export const alertSlice: StateCreator<AlertSlice> = (set) => ({
   },
   hideAlert: async () => {
     set({ alert: null });
+  },
+  showSaveSuccessAlert: async () => {
+    set({
+      alert: {
+        color: "success",
+        title: "Success!",
+        content: `your changes have been saved!`,
+      },
+    });
+  },
+  showSaveErrorAlert: async (err: unknown) => {
+    set({
+      alert: {
+        color: "error",
+        title: "Error!",
+        content: `There was an error while saving. Error: ${JSON.stringify(
+          err!.response.data
+        )}`,
+        autoHideDuration: 10000,
+      },
+    });
   },
 });

@@ -5,38 +5,27 @@ import {
   getRepository,
   saveRepository,
 } from "@/app/repositories/_presenters/_data/services/repositories";
+import routes from "@/routes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const useRepositoryController = (repositoryId: string | number | undefined) => {
   const router = useRouter();
-  const { showAlert } = useAppStore();
+  const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: saveRepository,
     onSuccess: (result) => {
-      showAlert({
-        color: "success",
-        title: "Success!",
-        content: `your changes have been saved!`,
-      });
+      showSaveSuccessAlert();
+
       queryClient.invalidateQueries({
-        queryKey: ["repositories", result.id],
+        queryKey: [REPOSITORIES_KEY, result.id],
       });
 
-      router.push(`/repositories/${result.id}`);
+      router.push(routes.repositoryPath(result.id!));
     },
-    onError: (err) => {
-      showAlert({
-        color: "error",
-        title: "Error!",
-        content: `There was an error while saving. Error: ${JSON.stringify(
-          err.response.data
-        )}`,
-        autoHideDuration: 10000,
-      });
-    },
+    onError: (err) => showSaveErrorAlert(err),
   });
 
   const { data, isLoading } = useQuery({

@@ -25,31 +25,17 @@ export const getApplication = async (
   return fromApiParser(data);
 };
 
-export const createApplication = async (
+export const saveApplication = async (
   repositoryId: number,
   application: Application
 ) => {
-  const { data } = await axios.post<ApiApplication>(
-    getRoadrunnerUrl(`/repositories/${repositoryId}/applications.json`),
-    {
-      application: toApiParser(application),
-    }
-  );
-  return fromApiParser(data);
-};
-
-export const updateApplication = async (
-  repositoryId: number,
-  application: Application
-) => {
-  const { data } = await axios.patch<ApiApplication>(
-    getRoadrunnerUrl(
-      `/repositories/${repositoryId}/applications/${application.id}.json`
-    ),
-    {
-      application: toApiParser(application),
-    }
-  );
+  const httpMethod = application.id ? axios.put : axios.post;
+  const url = application.id
+    ? `/repositories/${repositoryId}/applications/${application.id}.json`
+    : `/repositories/${repositoryId}/applications.json`;
+  const { data } = await httpMethod<ApiApplication>(getRoadrunnerUrl(url), {
+    application: toApiParser(application),
+  });
   return fromApiParser(data);
 };
 
