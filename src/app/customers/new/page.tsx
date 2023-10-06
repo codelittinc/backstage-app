@@ -1,6 +1,6 @@
 "use client";
-import CustomerForm from "../_presenters/_components/CustomerForm/page";
-import useNewCustomerController from "./_presenters/_controllers/useNewCustomerController";
+import CustomerForm from "../_presenters/components/CustomerForm/page";
+import useNewCustomerController from "./_presenters/controllers/useNewCustomerController";
 
 function Page() {
   const defaultCustomer = {

@@ -22,7 +22,7 @@ import {
   setWhiteSidenav,
 } from "@/theme";
 import Link from "next/link";
-import currentUserController from "@/app/_presenters/_controllers/useCurrentUserController";
+import currentUserController from "@/app/_presenters/controllers/useCurrentUserController";
 
 interface Props {
   color?:
