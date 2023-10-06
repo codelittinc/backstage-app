@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import useCustomersController from "./_presenters/_controllers/useCustomersController";
+import useCustomersController from "./_presenters/controllers/useCustomersController";
 import TableLayout from "@/components/LayoutContainers/TableLayout";
 import routes from "@/routes";
 import Link from "next/link";

@@ -9,7 +9,7 @@ import MDBox from "@/components/Box";
 import MDTypography from "@/components/Typography";
 import MDSnackbarIconRoot from "./MDSnackbarIconRoot";
 import { useMaterialUIController } from "@/theme";
-import { useAppStore } from "@/app/_presenters/_data/store/store";
+import { useAppStore } from "@/app/_presenters/data/store/store";
 
 interface Props extends SnackbarProps {
   color?:

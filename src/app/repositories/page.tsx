@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import useRepositoriesController from "./_presenters/_controllers/useRepositoriesController";
+import useRepositoriesController from "./_presenters/controllers/useRepositoriesController";
 import TableLayout from "@/components/LayoutContainers/TableLayout";
 import routes from "@/routes";
 import Link from "next/link";

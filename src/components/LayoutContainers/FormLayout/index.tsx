@@ -2,7 +2,7 @@
 import Box from "@/components/Box";
 import Grid from "@mui/material/Grid";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
-import Sidenav from "./_components/Sidenav";
+import Sidenav from "./_presenters/components/Sidenav";
 
 interface Props {
   children: JSX.Element[];

@@ -1,11 +1,11 @@
 "use client";
 import Grid from "@mui/material/Grid";
-import Header from "./_presenters/_components/Header";
-import BasicInfo from "./_presenters/_components/BasicInfo";
-import Applications from "./_presenters/_components/Applications";
+import Header from "./_presenters/components/Header";
+import BasicInfo from "./_presenters/components/BasicInfo";
+import Applications from "./_presenters/components/Applications";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import useRepositoryController from "./_presenters/_controllers/useRepositoryController";
+import useRepositoryController from "./_presenters/controllers/useRepositoryController";
 import Loading from "@/components/Loading";
 import { Repository } from "../_domain/interfaces/Repository";
 import FormLayout from "@/components/LayoutContainers/FormLayout";
