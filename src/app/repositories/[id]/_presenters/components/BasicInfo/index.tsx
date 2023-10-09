@@ -10,6 +10,8 @@ import Autocomplete from "@/components/Autocomplete";
 import Channel from "@/app/repositories/_domain/interfaces/Channel";
 import FormField from "@/components/FormField";
 import useChannelsController from "./_presenters/controllers/useChannelsController";
+import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
+import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
 
 function BasicInfo({
   repository,
@@ -20,11 +22,19 @@ function BasicInfo({
   onChange: Function;
   onSave: Function;
 }): JSX.Element {
-  const { name, owner, baseBranch, sourceControlType, slackRepositoryInfo } =
-    repository;
+  const {
+    name,
+    owner,
+    baseBranch,
+    sourceControlType,
+    slackRepositoryInfo,
+    projectId,
+  } = repository;
   const { channels, isLoading } = useChannelsController();
+  const { projects, isLoading: isProjectsLoading } = useProjectsController();
 
-  if (isLoading) return <Loading />;
+  if (isLoading || isProjectsLoading) return <Loading />;
+
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
       <Box p={3}>
@@ -32,6 +42,24 @@ function BasicInfo({
       </Box>
       <Box component="form" pb={3} px={3}>
         <Grid container spacing={3}>
+          <Grid item xs={12} sm={2}>
+            <Autocomplete
+              label={"Project"}
+              value={
+                projects.find((project) => project.id === projectId) ||
+                projects[0]
+              }
+              defaultValue={projects[0]}
+              getOptionLabel={(option) => option.name}
+              onChange={(value: Project) => {
+                onChange({
+                  ...repository,
+                  projectId: value.id,
+                });
+              }}
+              options={projects}
+            />
+          </Grid>
           <Grid item xs={12} sm={2}>
             <FormField
               label="Owner"
@@ -45,7 +73,7 @@ function BasicInfo({
               }}
             />
           </Grid>
-          <Grid item xs={12} sm={10}>
+          <Grid item xs={12} sm={8}>
             <FormField
               label="Name"
               placeholder="Backstage"

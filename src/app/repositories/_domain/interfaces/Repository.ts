@@ -18,4 +18,5 @@ export interface Repository {
     devGroup: string;
   };
   filterPullRequestsByBaseBranch: boolean;
+  projectId?: number;
 }

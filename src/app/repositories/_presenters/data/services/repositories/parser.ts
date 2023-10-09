@@ -33,12 +33,13 @@ export function fromApiParser(repository: ApiRepository): Repository {
     },
     filterPullRequestsByBaseBranch:
       repository.filter_pull_requests_by_base_branch,
+    projectId: repository.external_project_id,
   };
 }
 
 export function toApiParser(repository: Repository): ApiRepository {
   return {
-    id: repository.id,
+    id: repository.id!,
     name: repository.name,
     owner: repository.owner,
     active: repository.active,
@@ -55,5 +56,6 @@ export function toApiParser(repository: Repository): ApiRepository {
     },
     filter_pull_requests_by_base_branch:
       repository.filterPullRequestsByBaseBranch,
+    external_project_id: repository.projectId,
   };
 }

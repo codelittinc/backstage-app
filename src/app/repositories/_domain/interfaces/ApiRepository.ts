@@ -1,4 +1,4 @@
-export default interface ApiRepository {
+export interface ApiRepository {
   name: string;
   owner: string;
   active: boolean;
@@ -28,4 +28,5 @@ export default interface ApiRepository {
     feed_channel: string;
     dev_group: string;
   };
+  external_project_id?: number;
 }
