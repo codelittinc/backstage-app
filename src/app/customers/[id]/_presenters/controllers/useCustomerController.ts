@@ -5,12 +5,10 @@ import {
   updateCustomer,
 } from "@/app/customers/_presenters/data/services/customers";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 
 const useCustomerController = (customerId: number) => {
   const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
 
   const mutation = useMutation({
     mutationFn: updateCustomer,
@@ -25,12 +23,12 @@ const useCustomerController = (customerId: number) => {
 
   const { data, isLoading } = useQuery({
     queryKey: [CUSTOMERS_KEY, customerId],
-    queryFn: () => getCustomer(session?.user, customerId),
+    queryFn: () => getCustomer(customerId),
   });
 
   return {
     onSave: (customer: Customer) => {
-      mutation.mutate({ user_session: session?.user, customer });
+      mutation.mutate(customer);
     },
     customer: data,
     isLoading: isLoading || !data,

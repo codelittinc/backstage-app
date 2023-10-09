@@ -1,20 +1,21 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import { getAuthenticatedUser } from "../data/users";
 import { useAppStore } from "../data/store/store";
 import { useRouter } from "next/navigation";
 import routes from "@/routes";
+import useCurrentUserSessionController from "./useCurrentUserSessionController";
 
 const useCurrentUserController = () => {
-  const { data: session } = useSession();
+  const { sessionUser } = useCurrentUserSessionController();
+
   const { showAlert } = useAppStore();
   const router = useRouter();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["user", session?.user?.email],
+    queryKey: ["user", sessionUser?.email],
     queryFn: () => {
-      return getAuthenticatedUser(session?.user);
+      return getAuthenticatedUser();
     },
     onError: () => {
       showAlert({
@@ -25,11 +26,12 @@ const useCurrentUserController = () => {
       });
       router.push(routes.signInPath);
     },
+    enabled: !!sessionUser, // Only enable the query if sessionUser is truthy
   });
 
   return {
     currentUser: data,
-    isLoading: isLoading || !session || !data,
+    isLoading: isLoading || !data,
   };
 };
 
