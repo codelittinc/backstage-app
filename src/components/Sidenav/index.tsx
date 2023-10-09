@@ -239,6 +239,14 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       href: "/customers",
       noCollapse: true,
     },
+    {
+      type: "collapse",
+      name: "Projects",
+      key: "projects",
+      icon: <Icon fontSize="medium">book</Icon>,
+      href: "/projects",
+      noCollapse: true,
+    },
   ];
   const renderRoutes = routes.map(
     ({

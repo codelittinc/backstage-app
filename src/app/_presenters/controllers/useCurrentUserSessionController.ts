@@ -9,7 +9,7 @@ const useCurrentUserSessionController = () => {
 
   useEffect(() => {
     setSessionUser(session?.user);
-  }, [session?.user]);
+  }, [setSessionUser, session?.user]);
 
   return {
     sessionUser: sessionUser,
