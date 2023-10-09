@@ -28,7 +28,7 @@ const useCustomerController = () => {
 
   return {
     onSave: (customer: Customer) => {
-      mutation.mutate({ user_session: session?.user, customer });
+      mutation.mutate(customer);
     },
   };
 };

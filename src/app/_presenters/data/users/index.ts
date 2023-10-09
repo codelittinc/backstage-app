@@ -1,7 +1,4 @@
-import {
-  backstageApiClient,
-  setAuthorizationHeader,
-} from "../auth/backstageApiAxios";
+import { backstageApiClient } from "../auth/backstageApiAxios";
 
 interface ApiUser {
   first_name: string;
@@ -26,14 +23,7 @@ const parseApiResponse = (user: ApiUser): User => {
   };
 };
 
-export const getAuthenticatedUser = async (
-  session_user: SessionUser | undefined
-): Promise<User | null> => {
-  if (!session_user) {
-    return null;
-  }
-  setAuthorizationHeader(session_user);
-
+export const getAuthenticatedUser = async (): Promise<User | null> => {
   const { data } = await backstageApiClient.get("/users/me");
   return parseApiResponse(data);
 };

@@ -1,23 +1,30 @@
 import axios from "axios";
+import { useAppStore } from "../store/store";
 
 export const backstageApiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-export function setAuthorizationHeader(session_user: SessionUser) {
-  const authorizationData = {
-    user: {
-      google_id: session_user.google_id,
-      email: session_user.email,
-      first_name: session_user.name?.split(" ")[0],
-      last_name: session_user.name?.split(" ")[1],
-      image_url: session_user.image,
-    },
-  };
-  const authorizationDataJson = JSON.stringify(authorizationData);
-  const authorization = btoa(authorizationDataJson);
+backstageApiClient.interceptors.request.use((config) => {
+  const { sessionUser } = useAppStore.getState();
 
-  backstageApiClient.defaults.headers[
-    "Authorization"
-  ] = `Bearer ${authorization}`;
-}
+  try {
+    const authorizationData = {
+      user: {
+        google_id: sessionUser!.google_id,
+        email: sessionUser!.email,
+        first_name: sessionUser!.name?.split(" ")[0],
+        last_name: sessionUser!.name?.split(" ")[1],
+        image_url: sessionUser!.image,
+      },
+    };
+    const authorizationDataJson = JSON.stringify(authorizationData);
+    const authorization = btoa(authorizationDataJson);
+
+    config.headers["Authorization"] = `Bearer ${authorization}`;
+  } catch (e) {
+    console.log(e, config);
+  }
+
+  return config;
+});

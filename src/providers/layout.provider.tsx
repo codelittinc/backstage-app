@@ -96,7 +96,7 @@ export default function App({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
-      {layout === "dashboard" && (
+      {layout === "dashboard" && !pathname.startsWith("/users/sign-in") && (
         <>
           <Sidenav
             color={sidenavColor}

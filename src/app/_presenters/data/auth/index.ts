@@ -1,6 +1,5 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { getAuthenticatedUser } from "@/app/_presenters/data/users";
 
 export const authOptions: NextAuthOptions = {
   pages: {

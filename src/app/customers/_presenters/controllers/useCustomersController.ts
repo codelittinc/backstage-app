@@ -5,11 +5,12 @@ import { useSession } from "next-auth/react";
 
 const useCustomersController = () => {
   const { data: session } = useSession();
-  const { user } = session || {};
 
   const { data, isLoading } = useQuery({
-    queryKey: [CUSTOMERS_KEY, user?.email],
-    queryFn: () => getCustomers(user),
+    queryKey: [CUSTOMERS_KEY],
+    queryFn: () => getCustomers(),
+    //@TODO: find a way to remove this session validation
+    enabled: !!session,
   });
 
   return {

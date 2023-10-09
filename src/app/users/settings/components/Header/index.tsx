@@ -11,9 +11,7 @@ function Header(): JSX.Element {
   const [active, setActive] = useState<boolean>(true);
   const handleSetActive = () => setActive(!active);
   const { currentUser: user } = currentUserController();
-  if (!user) {
-    return <></>;
-  }
+
   return (
     <Card id="profile">
       <Box p={2}>
