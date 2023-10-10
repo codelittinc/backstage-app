@@ -1,4 +1,4 @@
-import { ApiProject, fromApiParser, toApiParser } from "./parser";
+import { ApiProjectFrom, fromApiParser, toApiParser } from "./parser";
 import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxios";
 
 export const getProjects = async () => {
@@ -12,9 +12,12 @@ export const getProject = async (id: number) => {
 };
 
 export const createProject = async (project: Project): Promise<Project> => {
-  const { data } = await backstageApiClient.post<ApiProject>(`/projects.json`, {
-    project: toApiParser(project),
-  });
+  const { data } = await backstageApiClient.post<ApiProjectFrom>(
+    `/projects.json`,
+    {
+      project: toApiParser(project),
+    }
+  );
 
   return fromApiParser(data);
 };

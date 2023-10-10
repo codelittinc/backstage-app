@@ -17,7 +17,7 @@ function BasicInfo({
   onChange: Function;
   onSave: Function;
 }): JSX.Element {
-  const { name, customerId } = project;
+  const { name, customer } = project;
   const { customers, isLoading } = useCustomersController();
 
   if (isLoading) {
@@ -47,16 +47,15 @@ function BasicInfo({
             <Autocomplete
               label={"Customer"}
               value={
-                customers.find(
-                  (customer: Customer) => customer.id === customerId
-                ) || customers[0]
+                customers.find((c: Customer) => c.id === customer.id) ||
+                customers[0]
               }
               defaultValue={customers[0]}
               getOptionLabel={(option: Customer) => option.name}
               onChange={(value: Customer) => {
                 onChange({
                   ...project,
-                  customerId: value.id,
+                  customer: value,
                 });
               }}
               options={customers}
