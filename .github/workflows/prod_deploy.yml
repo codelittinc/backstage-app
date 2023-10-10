@@ -2,8 +2,7 @@ name: PROD DEPLOY
 
 on:
   push:
-    branches: ["master"]
-  workflow_dispatch:
+    tags: ["v*"]
 
 jobs:
   deploy-prod:
@@ -21,4 +20,12 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           heroku_app_name: prod-backstage-app
+          branch: ${{ env.RELEASE_VERSION }}
           dontuseforce: false
+
+      - uses: codelittinc/action-roadrunner-notify-deploy@master
+        if: always()
+        with:
+          environment: prod
+          identifier: backstage.codelitt.dev
+
