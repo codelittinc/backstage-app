@@ -46,11 +46,7 @@ function BasicInfo({
           <Grid item xs={12} sm={6}>
             <Autocomplete
               label={"Customer"}
-              value={
-                customers.find((c: Customer) => c.id === customer.id) ||
-                customers[0]
-              }
-              defaultValue={customers[0]}
+              value={customer}
               getOptionLabel={(option: Customer) => option.name}
               onChange={(value: Customer) => {
                 onChange({

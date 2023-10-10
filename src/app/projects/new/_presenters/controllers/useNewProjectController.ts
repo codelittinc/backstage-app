@@ -10,7 +10,6 @@ const useProjectController = () => {
   const router = useRouter();
   const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
 
   const mutation = useMutation({
     mutationFn: createProject,

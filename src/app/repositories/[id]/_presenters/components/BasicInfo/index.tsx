@@ -10,7 +10,6 @@ import Autocomplete from "@/components/Autocomplete";
 import Channel from "@/app/repositories/_domain/interfaces/Channel";
 import FormField from "@/components/FormField";
 import useChannelsController from "./_presenters/controllers/useChannelsController";
-import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
 import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
 
 function BasicInfo({
