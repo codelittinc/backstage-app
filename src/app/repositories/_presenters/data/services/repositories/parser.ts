@@ -57,5 +57,6 @@ export function toApiParser(repository: Repository): ApiRepository {
     filter_pull_requests_by_base_branch:
       repository.filterPullRequestsByBaseBranch,
     external_project_id: repository.projectId,
+    deploy_type: "tag",
   };
 }

@@ -29,4 +29,5 @@ export interface ApiRepository {
     dev_group: string;
   };
   external_project_id?: number;
+  deploy_type: string;
 }
