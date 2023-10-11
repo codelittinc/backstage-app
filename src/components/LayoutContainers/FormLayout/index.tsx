@@ -5,7 +5,7 @@ import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 import Sidenav from "./_presenters/components/Sidenav";
 
 interface Props {
-  children: JSX.Element[];
+  children: JSX.Element[] | JSX.Element;
   sidebarItems: { icon: string; label: string; href: string }[];
 }
 function FormLayout({ children, sidebarItems }: Props): JSX.Element {

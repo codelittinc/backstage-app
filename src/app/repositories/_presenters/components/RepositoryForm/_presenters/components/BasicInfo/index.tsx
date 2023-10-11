@@ -53,7 +53,7 @@ function BasicInfo({
               onChange={(value: Project) => {
                 onChange({
                   ...repository,
-                  projectId: value.id,
+                  projectId: value?.id,
                 });
               }}
               options={projects}
@@ -208,7 +208,7 @@ function BasicInfo({
                   ...repository,
                   slackRepositoryInfo: {
                     ...(slackRepositoryInfo || {}),
-                    devChannel: newValue.id,
+                    devChannel: newValue?.id,
                   },
                 });
               }}
@@ -230,7 +230,7 @@ function BasicInfo({
                   ...repository,
                   slackRepositoryInfo: {
                     ...(slackRepositoryInfo || {}),
-                    deployChannel: newValue.id,
+                    deployChannel: newValue?.id,
                   },
                 });
               }}
@@ -252,7 +252,7 @@ function BasicInfo({
                   ...repository,
                   slackRepositoryInfo: {
                     ...(slackRepositoryInfo || {}),
-                    feedChannel: newValue.id,
+                    feedChannel: newValue?.id,
                   },
                 });
               }}

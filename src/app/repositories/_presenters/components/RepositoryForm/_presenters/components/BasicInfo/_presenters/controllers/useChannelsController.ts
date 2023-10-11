@@ -1,6 +1,6 @@
 import { CHANNELS_KEY } from "@/app/repositories/_domain/constants";
-import { getChannels } from "@/app/repositories/[id]/_presenters/components/BasicInfo/_presenters/data/services/channels";
 import { useQuery } from "@tanstack/react-query";
+import { getChannels } from "../data/services/channels";
 
 const useChannelsController = () => {
   const { data, isLoading } = useQuery({
