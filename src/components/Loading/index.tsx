@@ -3,19 +3,17 @@ import { styled } from "@mui/system";
 import { useState, useEffect } from "react";
 
 const quotes = [
-  "I can do this all day.",
-  "I am Iron Man.",
-  "Avengers, assemble!",
-  "I have an army.",
-  "I'm always angry.",
-  "I understood that reference.",
-  "We have a Hulk.",
-  "I see a suit of armor around the world.",
-  "I'm not afraid to hit an old man.",
-  "I can do anything you can do, better.",
+  "☕ Brewing...",
+  "🧊 Cold brew loading...",
+  "🍵 Steeping info...",
+  "⏳ Coffee's almost ready...",
+  "☕ Latte art loading...",
+  "🔥 Roasting your page...",
+  "☕ Drip... drip... loading...",
+  "🥤 Blending content...",
+  "☕ Espresso-ing data...",
+  "🚀 Energizing your page...",
 ];
-
-const emojis = ["🦸‍♂️", "🦸‍♀️", "🦹‍♂️", "🦹‍♀️", "🕷️", "🕸️", "🦹‍♂️", "🦹‍♀️", "🦸‍♂️", "🦸‍♀️"];
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -42,7 +40,6 @@ export default function Loading() {
   }, []);
 
   const quote = quotes[quoteIndex];
-  const emoji = emojis[quoteIndex];
 
   return (
     <StyledBox>
@@ -55,7 +52,6 @@ export default function Loading() {
         <CircularProgress />
         <Box mt={1} display="flex" justifyContent="space-between">
           <Box>{quote}</Box>
-          <Box>{emoji}</Box>
         </Box>
       </Box>
     </StyledBox>
