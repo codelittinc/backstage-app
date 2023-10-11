@@ -14,7 +14,7 @@ function BasicInfo({
   onChange: Function;
   onSave: Function;
 }): JSX.Element {
-  const { name } = customer;
+  const { name, sourceControlToken, notificationsToken } = customer;
 
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
@@ -23,7 +23,7 @@ function BasicInfo({
       </Box>
       <Box component="form" pb={3} px={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={7}>
             <FormField
               label="Name"
               placeholder="Backstage"
@@ -32,6 +32,32 @@ function BasicInfo({
                 onChange({
                   ...customer,
                   name: value,
+                });
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={7}>
+            <FormField
+              label="Source control token"
+              placeholder="**********"
+              value={sourceControlToken}
+              onChange={({ target: { value } }) => {
+                onChange({
+                  ...customer,
+                  sourceControlToken: value,
+                });
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={7}>
+            <FormField
+              label="Notifications token"
+              placeholder="**********"
+              value={notificationsToken}
+              onChange={({ target: { value } }) => {
+                onChange({
+                  ...customer,
+                  notificationsToken: value,
                 });
               }}
             />

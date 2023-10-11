@@ -8,7 +8,7 @@ export const getCustomers = async () => {
 
 export const getCustomer = async (id: number) => {
   const { data } = await backstageApiClient.get(`/customers/${id}.json`);
-  return data;
+  return fromApiParser(data);
 };
 
 export const createCustomer = async (customer: Customer): Promise<Customer> => {
