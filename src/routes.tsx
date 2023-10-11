@@ -6,6 +6,7 @@ const routes = {
   newCustomerPath: "/customers/new",
   newProjectPath: "/projects/new",
   signInPath: "/users/sign-in",
+  userSettingsPath: "/users/me",
 };
 
 export default routes;

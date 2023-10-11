@@ -3,6 +3,7 @@ import { signIn } from "next-auth/react";
 import Box from "@/components/Box";
 import Button from "@/components/Button";
 import IllustrationLayout from "./IllustrationLayout";
+import routes from "@/routes";
 
 import bgImage from "@/assets/images/illustrations/illustration-reset.jpg";
 
@@ -20,7 +21,9 @@ function Illustration(): JSX.Element {
             color="info"
             size="large"
             fullWidth
-            onClick={() => signIn("google", { callbackUrl: "/users/settings" })}
+            onClick={() =>
+              signIn("google", { callbackUrl: routes.userSettingsPath })
+            }
           >
             Sign in with Google
           </Button>

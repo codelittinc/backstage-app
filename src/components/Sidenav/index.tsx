@@ -13,6 +13,7 @@ import SidenavList from "./SidenavList";
 import SidenavItem from "./SidenavItem";
 import SidenavRoot from "./SidenavRoot";
 import sidenavLogoLabel from "./styles/sidenav";
+import routes from "@/routes";
 
 import codelittLogo from "@/assets/images/logos/codelitt.png";
 import {
@@ -198,7 +199,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
   if (!user) {
     return <></>;
   }
-  const routes = [
+  const sidebarRoutes = [
     {
       type: "collapse",
       name: user.fullName,
@@ -208,7 +209,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
         {
           name: "My Profile",
           key: "my-profile",
-          route: "/users/settings",
+          route: routes.userSettingsPath,
         },
         {
           name: "Logout",
@@ -248,7 +249,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       noCollapse: true,
     },
   ];
-  const renderRoutes = routes.map(
+  const renderRoutes = sidebarRoutes.map(
     ({
       type,
       name,
