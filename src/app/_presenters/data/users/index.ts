@@ -1,29 +1,24 @@
+import User from "@/app/_domain/interfaces/User";
 import { backstageApiClient } from "../auth/backstageApiAxios";
-
-interface ApiUser {
-  first_name: string;
-  last_name: string;
-  google_id: string;
-  slug: string;
-  email: string;
-  image_url: string;
-}
-
-const parseApiResponse = (user: ApiUser): User => {
-  const { google_id, email, first_name, last_name, slug, image_url } = user;
-
-  return {
-    googleId: google_id,
-    email: email,
-    firstName: first_name,
-    lastName: last_name,
-    slug: slug,
-    fullName: `${first_name} ${last_name}`,
-    imageUrl: image_url,
-  };
-};
+import { ApiUser, fromApiParser, toApiParser } from "./parser";
 
 export const getAuthenticatedUser = async (): Promise<User | null> => {
-  const { data } = await backstageApiClient.get("/users/me");
-  return parseApiResponse(data);
+  const { data } = await backstageApiClient.get("/users/me.json");
+  return fromApiParser(data);
+};
+
+export const getUser = async (id: number | string): Promise<User | null> => {
+  const { data } = await backstageApiClient.get(`/users/${id}.json`);
+  return fromApiParser(data);
+};
+
+export const updateUser = async (user: User): Promise<User> => {
+  const { data } = await backstageApiClient.put<ApiUser>(
+    `/users/${user.id}.json`,
+    {
+      user: toApiParser(user),
+    }
+  );
+
+  return fromApiParser(data);
 };

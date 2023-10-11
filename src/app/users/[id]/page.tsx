@@ -1,8 +1,8 @@
 "use client";
 import Grid from "@mui/material/Grid";
-import Header from "./components/Header";
-import BasicInfo from "./components/BasicInfo";
-import Accounts from "./components/Accounts";
+import Header from "./_presenters/components/Header";
+import BasicInfo from "./_presenters/components/BasicInfo";
+import Accounts from "./_presenters/components/Accounts";
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 
 function Settings(): JSX.Element {

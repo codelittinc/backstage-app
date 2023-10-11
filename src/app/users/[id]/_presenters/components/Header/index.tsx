@@ -5,12 +5,19 @@ import Switch from "@mui/material/Switch";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import Avatar from "@/components/Avatar";
-import currentUserController from "@/app/_presenters/controllers/useCurrentUserController";
+import useUserFormController from "../../controllers/useUserFormController";
+import { useParams } from "next/navigation";
+import Loading from "@/components/Loading";
 
 function Header(): JSX.Element {
-  const [active, setActive] = useState<boolean>(true);
-  const handleSetActive = () => setActive(!active);
-  const { currentUser: user } = currentUserController();
+  const { id } = useParams();
+  const { onSave, user, isLoading } = useUserFormController(id as string);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const { active } = user!;
 
   return (
     <Card id="profile">
@@ -30,7 +37,7 @@ function Header(): JSX.Element {
                 {user.firstName} {user.lastName}
               </Typography>
               <Typography variant="button" color="text" fontWeight="medium">
-                CEO / Co-Founder
+                {user?.profession.name}
               </Typography>
             </Box>
           </Grid>
@@ -45,7 +52,12 @@ function Header(): JSX.Element {
                 Active
               </Typography>
               <Box ml={1}>
-                <Switch checked={active} onChange={handleSetActive} />
+                <Switch
+                  checked={active}
+                  onChange={() => {
+                    onSave({ ...user, active: !active });
+                  }}
+                />
               </Box>
             </Box>
           </Grid>
