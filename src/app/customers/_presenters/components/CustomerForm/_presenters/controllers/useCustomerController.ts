@@ -2,7 +2,7 @@ import { useAppStore } from "@/app/_presenters/data/store/store";
 import { CUSTOMERS_KEY } from "@/app/customers/_domain/constants";
 import {
   getCustomer,
-  saveCustomer,
+  createCustomer,
 } from "@/app/customers/_presenters/data/services/customers";
 import routes from "@/routes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ const useCustomerController = (customerId: number | undefined) => {
   const { data: session } = useSession();
 
   const mutation = useMutation({
-    mutationFn: saveCustomer,
+    mutationFn: createCustomer,
     onSuccess: (result) => {
       showSaveSuccessAlert();
 
