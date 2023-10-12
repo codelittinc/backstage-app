@@ -8,6 +8,10 @@ export const backstageApiClient = axios.create({
 backstageApiClient.interceptors.request.use((config) => {
   const { sessionUser } = useAppStore.getState();
 
+  if (!sessionUser) {
+    throw new Error("Session user not found. Aborting request.");
+  }
+
   try {
     const authorizationData = {
       user: {
