@@ -8,15 +8,14 @@ import Avatar from "@/components/Avatar";
 import useUserFormController from "../../controllers/useUserFormController";
 import { useParams } from "next/navigation";
 import Loading from "@/components/Loading";
+import User from "@/app/_domain/interfaces/User";
 
-function Header(): JSX.Element {
-  const { id } = useParams();
-  const { onSave, user, isLoading } = useUserFormController(id as string);
+interface Props {
+  user: User;
+  onSave: (user: User) => void;
+}
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
+function Header({ user, onSave }: Props): JSX.Element {
   const { active } = user!;
 
   return (

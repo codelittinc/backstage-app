@@ -14,4 +14,10 @@ export default interface User {
   profession: Profession;
   fullName: string;
   country: string;
+  servicesIdentifiers: {
+    id?: number;
+    serviceName: string;
+    identifier: string;
+    customer: Customer;
+  }[];
 }

@@ -4,35 +4,21 @@ import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import FormField from "@/components/FormField";
 import Autocomplete from "@/components/Autocomplete";
-import useUserFormController from "../../controllers/useUserFormController";
-import { useParams } from "next/navigation";
-import Loading from "@/components/Loading";
-import { useEffect, useState } from "react";
 import Profession from "@/app/_domain/interfaces/Profession";
 import User from "@/app/_domain/interfaces/User";
 import Button from "@/components/Button";
+import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
+import Loading from "@/components/Loading";
 
-function BasicInfo(): JSX.Element {
-  const { id } = useParams();
-  const { user, professions, isLoading, onSave } = useUserFormController(
-    id as string
-  );
-  const defaultUserValues = {
-    profession: professions ? professions![0] : undefined,
-    seniority: "Senior",
-    contractType: "Salary",
-  };
+interface Props {
+  user: User;
+  onSave: (user: User) => void;
+  onChange: (user: User) => void;
+}
 
-  const [editUser, setEditUser] = useState(user as User);
-
-  useEffect(() => {
-    setEditUser({
-      ...defaultUserValues,
-      ...user,
-    } as User);
-  }, [user]);
-
-  if (isLoading || !editUser?.id) {
+function BasicInfo({ user, onSave, onChange }: Props): JSX.Element {
+  const { professions, isLoading } = useProfessionsController();
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -47,10 +33,10 @@ function BasicInfo(): JSX.Element {
             <FormField
               label="Email"
               placeholder="your.name@codelitt.com"
-              value={editUser?.email}
+              value={user?.email}
               onChange={({ target: { value } }) => {
-                setEditUser({
-                  ...editUser,
+                onChange({
+                  ...user,
                   email: value,
                 });
               }}
@@ -60,10 +46,10 @@ function BasicInfo(): JSX.Element {
             <FormField
               label="First Name"
               placeholder="Alec"
-              value={editUser?.firstName}
+              value={user?.firstName}
               onChange={({ target: { value } }) => {
-                setEditUser({
-                  ...editUser,
+                onChange({
+                  ...user,
                   firstName: value,
                 });
               }}
@@ -73,10 +59,10 @@ function BasicInfo(): JSX.Element {
             <FormField
               label="Last Name"
               placeholder="Thompson"
-              value={editUser?.lastName}
+              value={user?.lastName}
               onChange={({ target: { value } }) => {
-                setEditUser({
-                  ...editUser,
+                onChange({
+                  ...user,
                   lastName: value,
                 });
               }}
@@ -86,13 +72,17 @@ function BasicInfo(): JSX.Element {
             <Grid container spacing={3}>
               <Grid item xs={12} sm={3}>
                 <Autocomplete
+                  isOptionEqualToValue={(
+                    option: Profession,
+                    value: Profession
+                  ) => option.id == value.id}
                   label="Profession"
-                  value={editUser?.profession}
+                  value={user?.profession}
                   getOptionLabel={(option) => option.name}
                   options={professions!}
                   onChange={(value: Profession) => {
-                    setEditUser({
-                      ...editUser,
+                    onChange({
+                      ...user,
                       profession: value,
                     });
                   }}
@@ -101,11 +91,11 @@ function BasicInfo(): JSX.Element {
               <Grid item xs={12} sm={3}>
                 <Autocomplete
                   label="Seniority"
-                  value={editUser?.seniority}
+                  value={user?.seniority}
                   options={["Junior", "Intern", "Midlevel", "Senior"]}
                   onChange={(value: string) => {
-                    setEditUser({
-                      ...editUser,
+                    onChange({
+                      ...user,
                       seniority: value,
                     });
                   }}
@@ -114,12 +104,12 @@ function BasicInfo(): JSX.Element {
               <Grid item xs={12} sm={3}>
                 <Autocomplete
                   label="Contract type"
-                  value={editUser?.contractType}
+                  value={user?.contractType}
                   defaultValue="Hourly"
                   options={["Salary", "Houly"]}
                   onChange={(value: string) => {
-                    setEditUser({
-                      ...editUser,
+                    onChange({
+                      ...user,
                       contractType: value,
                     });
                   }}
@@ -131,10 +121,10 @@ function BasicInfo(): JSX.Element {
             <FormField
               label="Country"
               placeholder="Australia"
-              value={editUser?.country || ""}
+              value={user?.country || ""}
               onChange={({ target: { value } }) => {
-                setEditUser({
-                  ...editUser,
+                onChange({
+                  ...user,
                   country: value,
                 });
               }}
@@ -151,7 +141,7 @@ function BasicInfo(): JSX.Element {
                 variant="gradient"
                 color="dark"
                 size="small"
-                onClick={() => onSave(editUser)}
+                onClick={() => onSave(user)}
               >
                 Save
               </Button>

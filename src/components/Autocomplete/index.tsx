@@ -10,6 +10,7 @@ interface AutocompleteProps {
   label: string;
   freeSolo?: boolean;
   multiple?: boolean;
+  isOptionEqualToValue?: (option: any, value: any) => boolean;
 }
 
 const Autocomplete = ({
@@ -20,6 +21,7 @@ const Autocomplete = ({
   label,
   freeSolo,
   multiple,
+  isOptionEqualToValue,
 }: AutocompleteProps) => {
   const handleChange = (_: any, newValue: any) => {
     onChange(newValue);
@@ -27,6 +29,7 @@ const Autocomplete = ({
 
   return (
     <MUIAutocomplete
+      isOptionEqualToValue={isOptionEqualToValue}
       freeSolo={freeSolo}
       multiple={multiple}
       getOptionLabel={getOptionLabel}
