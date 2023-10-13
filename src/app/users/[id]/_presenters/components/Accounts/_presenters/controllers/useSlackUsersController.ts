@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const useSlackUsersController = (customer: Customer | undefined) => {
   const { showAlert } = useAppStore();
 
-  const { data, isLoading, isError, isLoadingError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["slackUsers", customer?.id],
     queryFn: () => {
       return getSlackUsers(customer!);
@@ -15,7 +15,6 @@ const useSlackUsersController = (customer: Customer | undefined) => {
     retry: false,
   });
 
-  console.log(isError, isLoadingError);
   useEffect(() => {
     if (isError) {
       showAlert({

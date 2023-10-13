@@ -11,6 +11,7 @@ import Channel from "@/app/repositories/_domain/interfaces/Channel";
 import FormField from "@/components/FormField";
 import useChannelsController from "./_presenters/controllers/useChannelsController";
 import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
+import { useEffect, useState } from "react";
 
 function BasicInfo({
   repository,
@@ -29,8 +30,20 @@ function BasicInfo({
     slackRepositoryInfo,
     projectId,
   } = repository;
-  const { channels, isLoading } = useChannelsController();
+  const [currentCustomer, setCurrentCustomer] = useState<Customer | null>(null);
+  const { channels, isLoading } = useChannelsController(currentCustomer);
   const { projects, isLoading: isProjectsLoading } = useProjectsController();
+
+  var project;
+  if (projects) {
+    project =
+      projects?.find((project) => project.id === projectId) || projects[0];
+  }
+
+  useEffect(() => {
+    const customer = project?.customer;
+    setCurrentCustomer(customer);
+  }, [project?.id, project?.customer]);
 
   if (isLoading || isProjectsLoading) return <Loading />;
 
@@ -44,11 +57,7 @@ function BasicInfo({
           <Grid item xs={12} sm={2}>
             <Autocomplete
               label={"Project"}
-              value={
-                projects.find((project) => project.id === projectId) ||
-                projects[0]
-              }
-              defaultValue={projects[0]}
+              value={project || projects[0]}
               getOptionLabel={(option) => option.name}
               onChange={(value: Project) => {
                 onChange({
