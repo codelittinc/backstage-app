@@ -4,11 +4,11 @@ import { getChannels } from "../data/services/channels";
 import { useEffect } from "react";
 import { useAppStore } from "@/app/_presenters/data/store/store";
 
-const useChannelsController = (customer: Customer) => {
+const useChannelsController = (customer: Customer | null) => {
   const { showAlert } = useAppStore();
   const { data, isLoading, isError } = useQuery({
     queryKey: [CHANNELS_KEY, customer?.id],
-    queryFn: () => getChannels(customer),
+    queryFn: () => getChannels(customer!),
     enabled: !!customer,
     retry: false,
   });
