@@ -9,9 +9,8 @@ import Loading from "@/components/Loading";
 import Autocomplete from "@/components/Autocomplete";
 import Channel from "@/app/repositories/_domain/interfaces/Channel";
 import FormField from "@/components/FormField";
-import useChannelsController from "./_presenters/controllers/useChannelsController";
-import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
 import { useEffect, useState } from "react";
+import useRepositoryFormBasicInfoController from "./_presenters/controllers/useRepositoryFormBasicInfoController";
 
 function BasicInfo({
   repository,
@@ -31,13 +30,14 @@ function BasicInfo({
     projectId,
   } = repository;
   const [currentCustomer, setCurrentCustomer] = useState<Customer | null>(null);
-  const { channels, isLoading } = useChannelsController(currentCustomer);
-  const { projects, isLoading: isProjectsLoading } = useProjectsController();
+
+  const { channels, projects, isLoading } =
+    useRepositoryFormBasicInfoController(currentCustomer);
 
   var project;
   if (projects) {
     project =
-      projects?.find((project) => project.id === projectId) || projects[0];
+      projects?.find((p: Project) => p.id === projectId) ?? projects?.[0];
   }
 
   useEffect(() => {
@@ -45,7 +45,8 @@ function BasicInfo({
     setCurrentCustomer(customer);
   }, [project?.id, project?.customer]);
 
-  if (isLoading || isProjectsLoading) return <Loading />;
+  if (isLoading) return <Loading />;
+  if (!channels) return <></>;
 
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
@@ -57,7 +58,7 @@ function BasicInfo({
           <Grid item xs={12} sm={2}>
             <Autocomplete
               label={"Project"}
-              value={project || projects[0]}
+              value={project}
               getOptionLabel={(option) => option.name}
               onChange={(value: Project) => {
                 onChange({
@@ -205,7 +206,7 @@ function BasicInfo({
             <Autocomplete
               label={"Development channel"}
               value={
-                channels.find(
+                channels?.find(
                   (channel: Channel) =>
                     channel.id == slackRepositoryInfo?.devChannel
                 ) || channels[0]
