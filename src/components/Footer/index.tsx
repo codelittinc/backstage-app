@@ -35,6 +35,7 @@ function Footer(): JSX.Element {
       flexDirection={{ xs: "column", lg: "row" }}
       justifyContent="space-between"
       alignItems="center"
+      pt={2}
       px={1.5}
     >
       <Box
