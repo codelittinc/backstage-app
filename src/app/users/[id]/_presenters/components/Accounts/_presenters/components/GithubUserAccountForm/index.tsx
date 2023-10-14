@@ -2,20 +2,24 @@ import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import { Grid } from "@mui/material";
 import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
-import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
 import FormField from "@/components/FormField";
 import Avatar from "@/components/Avatar";
+import Profession from "@/app/_domain/interfaces/Profession";
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;
   serviceIdentifier: ServiceIdentifier;
+  profession: Profession;
 }
 
 function GithubUserAccountForm({
   serviceIdentifier,
   onChange,
+  profession,
 }: Props): JSX.Element {
-  const { customers } = useCustomersController();
+  if (profession.name != "Engineer") {
+    return <></>;
+  }
 
   return (
     <>
@@ -40,12 +44,9 @@ function GithubUserAccountForm({
           </Box>
         </Box>
       </Box>
-      <Box ml={2} pl={6} pt={2} lineHeight={1}>
-        <Typography variant="button" color="text">
-          Set your Github username
-        </Typography>
-        <Box ml={2} pl={6} pt={2} lineHeight={1}>
-          <Grid container spacing={3}>
+      <Box ml={2} pl={6} lineHeight={1}>
+        <Box pb={2} lineHeight={1}>
+          <Grid pt={2} container spacing={3}>
             <Grid item xs={12} sm={3}>
               <FormField
                 label="Github username"
