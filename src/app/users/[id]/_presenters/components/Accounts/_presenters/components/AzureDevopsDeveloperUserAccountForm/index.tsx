@@ -6,13 +6,14 @@ import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
 import useSlackUserAccountFormController from "./_presenters/controllers/useSlackUserAccountFormController";
 import Avatar from "@/components/Avatar";
 import logoSlack from "@/assets/images/small-logos/logo-slack.svg";
+import FormField from "@/components/FormField";
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;
   serviceIdentifier: ServiceIdentifier;
 }
 
-function SlackUserAccountForm({
+function AzureDevopsDeveloperUserAccountForm({
   serviceIdentifier,
   onChange,
 }: Props): JSX.Element {
@@ -29,17 +30,24 @@ function SlackUserAccountForm({
         flexDirection={{ xs: "column", sm: "row" }}
       >
         <Box display="flex" alignItems="center">
-          <Avatar src={logoSlack.src} alt="Slack logo" variant="rounded" />
+          <Avatar
+            src={
+              "https://seeklogo.com/images/A/azure-devops-logo-E7364216A7-seeklogo.com.png"
+            }
+            alt="Slack logo"
+            variant="rounded"
+          />
           <Box ml={2}>
             <Typography variant="h5" fontWeight="medium">
-              Slack
+              Azure Devops Dev
             </Typography>
           </Box>
         </Box>
       </Box>
       <Box ml={2} pl={6} pt={2} lineHeight={1}>
         <Typography variant="button" color="text">
-          Select your Slack username and the customer you are using it for.
+          Set your Azure Devops ID. In case of doubt, ask your team leader how
+          to fetch it.
         </Typography>
         <Box ml={2} pl={6} pt={2} lineHeight={1}>
           <Grid container spacing={3}>
@@ -59,16 +67,16 @@ function SlackUserAccountForm({
               />
             </Grid>
             <Grid item xs={12} sm={3}>
-              <Autocomplete
-                label={"User"}
+              <FormField
+                label="Azure Devops ID"
+                placeholder="Devops ID"
                 value={serviceIdentifier.identifier}
-                onChange={(value) => {
+                onChange={({ target: { value } }) => {
                   onChange({
                     ...serviceIdentifier,
                     identifier: value,
                   });
                 }}
-                options={slackUsers}
               />
             </Grid>
           </Grid>
@@ -78,4 +86,4 @@ function SlackUserAccountForm({
   );
 }
 
-export default SlackUserAccountForm;
+export default AzureDevopsDeveloperUserAccountForm;
