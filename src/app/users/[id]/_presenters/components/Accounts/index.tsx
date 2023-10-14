@@ -10,6 +10,7 @@ import useCustomersController from "@/app/customers/_presenters/controllers/useC
 import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
 import SlackUserAccountForm from "./_presenters/components/SlackUserAccountForm";
 import GithubUserAccountForm from "./_presenters/components/GithubUserAccountForm";
+import AzureDevopsDeveloperUserAccountForm from "./_presenters/components/AzureDevopsDeveloperUserAccountForm";
 
 interface Props {
   user: User;
@@ -65,6 +66,12 @@ function Accounts({ user, onSave, onChange }: Props): JSX.Element {
     "github"
   );
 
+  const azureDevopsDevIdentifier = getIdentifier(
+    servicesIdentifiers,
+    customers,
+    "azure-devops-dev"
+  );
+
   const onChangeIdentifier = (serviceIdentifier: ServiceIdentifier) => {
     const serviceIdentifierExists = servicesIdentifiers.find(
       (currentServiceIdentifier: ServiceIdentifier) =>
@@ -111,6 +118,10 @@ function Accounts({ user, onSave, onChange }: Props): JSX.Element {
         <GithubUserAccountForm
           onChange={onChangeIdentifier}
           serviceIdentifier={githubIdentifier}
+        />
+        <AzureDevopsDeveloperUserAccountForm
+          onChange={onChangeIdentifier}
+          serviceIdentifier={azureDevopsDevIdentifier}
         />
 
         <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
