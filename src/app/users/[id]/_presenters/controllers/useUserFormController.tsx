@@ -24,7 +24,7 @@ const useUserFormController = (userId: number | string) => {
     onError: (err) => showSaveErrorAlert(err),
   });
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading: isUserLoading } = useQuery({
     queryKey: [USERS_KEY, userId],
     queryFn: () => getUser(userId),
   });
@@ -37,7 +37,7 @@ const useUserFormController = (userId: number | string) => {
       mutation.mutate(user);
     },
     user: data,
-    isLoading: isLoading || isProfessionsLoading,
+    isLoading: isUserLoading || isProfessionsLoading,
     professions: professions,
   };
 };

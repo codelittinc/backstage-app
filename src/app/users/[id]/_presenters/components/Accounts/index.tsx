@@ -3,57 +3,96 @@ import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
-import logoSlack from "@/assets/images/small-logos/logo-slack.svg";
 import User from "@/app/_domain/interfaces/User";
 import { Grid } from "@mui/material";
-import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
 import Loading from "@/components/Loading";
-import Autocomplete from "@/components/Autocomplete";
-import useSlackUsersController from "./_presenters/controllers/useSlackUsersController";
-import { useEffect, useState } from "react";
+import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
+import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
+import SlackUserAccountForm from "./_presenters/components/SlackUserAccountForm";
+import GithubUserAccountForm from "./_presenters/components/GithubUserAccountForm";
 
 interface Props {
   user: User;
   onSave: (user: User) => void;
   onChange: (user: User) => void;
 }
+const getIdentifier = (
+  servicesIdentifiers: ServiceIdentifier[],
+  customers: Customer[],
+  serviceName: string
+): ServiceIdentifier => {
+  const defaultCustomer = customers.find(
+    (customer: Customer) => customer.name == "Codelitt"
+  );
 
-//@TODO: allow to have multiple accounts
-function Accounts({ user, onSave, onChange }: Props): JSX.Element {
-  const [selectedCustomer, setSelectedCustomer] = useState<Customer>();
-  const { servicesIdentifiers } = user;
+  const slackIdentifierFound = servicesIdentifiers.find(
+    (serviceIdentifier: ServiceIdentifier) =>
+      serviceIdentifier.serviceName == serviceName
+  );
 
-  const { customers, isLoading } = useCustomersController();
-
-  const { slackUsers, isLoading: isSlackUsersLoading } =
-    useSlackUsersController(selectedCustomer);
-
-  useEffect(() => {
-    if (servicesIdentifiers.length > 0) {
-      setSelectedCustomer(servicesIdentifiers[0].customer);
-    }
-  }, [servicesIdentifiers]);
-
-  if (isLoading || isSlackUsersLoading) {
-    return <Loading />;
-  }
-
-  const defaultValue = {
-    serviceName: "slack",
-    customer: customers.find(
-      (customer: Customer) => customer.name == "Codelitt"
-    ),
+  const defaultSlackIdentifier = {
+    id: `${serviceName}-${
+      (slackIdentifierFound?.customer || defaultCustomer)?.id
+    }`,
+    serviceName: serviceName,
+    customer: defaultCustomer!,
     identifier: "",
   };
 
-  if (!servicesIdentifiers) {
-    onChange({
-      ...user,
-      servicesIdentifiers: [defaultValue],
-    });
+  return {
+    ...defaultSlackIdentifier,
+    ...slackIdentifierFound,
+  };
+};
+
+function Accounts({ user, onSave, onChange }: Props): JSX.Element {
+  const { customers, isLoading } = useCustomersController();
+  const { servicesIdentifiers } = user;
+
+  if (isLoading) {
+    return <Loading />;
   }
 
-  const slackIdentifier = servicesIdentifiers[0];
+  const slackIdentifier = getIdentifier(
+    servicesIdentifiers,
+    customers,
+    "slack"
+  );
+
+  const githubIdentifier = getIdentifier(
+    servicesIdentifiers,
+    customers,
+    "github"
+  );
+
+  const onChangeIdentifier = (serviceIdentifier: ServiceIdentifier) => {
+    const serviceIdentifierExists = servicesIdentifiers.find(
+      (currentServiceIdentifier: ServiceIdentifier) =>
+        currentServiceIdentifier.id == serviceIdentifier.id
+    );
+
+    var newServiceIdentifiers = [];
+
+    if (serviceIdentifierExists) {
+      newServiceIdentifiers = servicesIdentifiers.map(
+        (currentServiceIdentifier: ServiceIdentifier) => {
+          if (currentServiceIdentifier.id == serviceIdentifier.id) {
+            return serviceIdentifier;
+          }
+
+          return currentServiceIdentifier;
+        }
+      );
+    } else {
+      newServiceIdentifiers = [...servicesIdentifiers, serviceIdentifier];
+    }
+
+    onChange({
+      ...user,
+      servicesIdentifiers: newServiceIdentifiers,
+    });
+  };
+
   return (
     <Card id="accounts">
       <Box p={3} lineHeight={1}>
@@ -65,87 +104,50 @@ function Accounts({ user, onSave, onChange }: Props): JSX.Element {
         </Typography>
       </Box>
       <Box pt={2} pb={3} px={3}>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems={{ xs: "flex-start", sm: "center" }}
-          flexDirection={{ xs: "column", sm: "row" }}
-        >
-          <Box display="flex" alignItems="center">
-            <Avatar src={logoSlack.src} alt="Slack logo" variant="rounded" />
-            <Box ml={2}>
-              <Typography variant="h5" fontWeight="medium">
-                Slack
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-        <Box ml={2} pl={6} pt={2} lineHeight={1}>
-          <Typography variant="button" color="text">
-            Select your Slack username and the customer you are using it for.
-          </Typography>
-          <Box ml={2} pl={6} pt={2} lineHeight={1}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={3}>
-                <Autocomplete
-                  label={"Customer"}
-                  value={slackIdentifier.customer}
-                  getOptionLabel={(option) => option.name}
-                  isOptionEqualToValue={(option, value) =>
-                    option.id == value.id
+        <SlackUserAccountForm
+          onChange={onChangeIdentifier}
+          serviceIdentifier={slackIdentifier}
+        />
+        <GithubUserAccountForm
+          onChange={onChangeIdentifier}
+          serviceIdentifier={githubIdentifier}
+        />
+
+        <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+          <Box
+            display="flex"
+            justifyContent={{ md: "flex-end" }}
+            alignItems="center"
+            lineHeight={1}
+          >
+            <Button
+              variant="gradient"
+              color="dark"
+              size="small"
+              onClick={() => {
+                const serviceIdentifiers = user.servicesIdentifiers.map(
+                  (servicesIdentifiers: ServiceIdentifier) => {
+                    if (typeof servicesIdentifiers.id == "string") {
+                      return {
+                        ...servicesIdentifiers,
+                        id: undefined,
+                      };
+                    }
+
+                    return servicesIdentifiers;
                   }
-                  onChange={(value: Customer) => {
-                    onChange({
-                      ...user,
-                      servicesIdentifiers: [
-                        {
-                          ...slackIdentifier,
-                          customer: value,
-                        },
-                      ],
-                    });
-                  }}
-                  options={customers}
-                />
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <Autocomplete
-                  label={"User"}
-                  value={slackIdentifier.identifier}
-                  onChange={(value) => {
-                    onChange({
-                      ...user,
-                      servicesIdentifiers: [
-                        {
-                          ...slackIdentifier,
-                          identifier: value,
-                        },
-                      ],
-                    });
-                  }}
-                  options={slackUsers}
-                />
-              </Grid>
-              <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-                <Box
-                  display="flex"
-                  justifyContent={{ md: "flex-end" }}
-                  alignItems="center"
-                  lineHeight={1}
-                >
-                  <Button
-                    variant="gradient"
-                    color="dark"
-                    size="small"
-                    onClick={() => onSave(user)}
-                  >
-                    Save
-                  </Button>
-                </Box>
-              </Grid>
-            </Grid>
+                );
+
+                onSave({
+                  ...user,
+                  servicesIdentifiers: serviceIdentifiers,
+                });
+              }}
+            >
+              Save
+            </Button>
           </Box>
-        </Box>
+        </Grid>
       </Box>
     </Card>
   );

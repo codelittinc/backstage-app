@@ -31,13 +31,15 @@ function Settings(): JSX.Element {
       contractType: "Salary",
     };
 
-    setEditUser({
+    const mixedUser = {
       ...defaultUserValues,
       ...user,
-    } as User);
+      profession: user?.profession || professions?.[0] || {},
+    };
+    setEditUser(mixedUser as User);
   }, [user, professions]);
 
-  if (isLoading || !editUser?.id) {
+  if (isLoading || !editUser?.id || (professions && professions.length == 0)) {
     return <Loading />;
   }
 
