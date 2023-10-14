@@ -37,12 +37,9 @@ function SlackUserAccountForm({
           </Box>
         </Box>
       </Box>
-      <Box ml={2} pl={6} pt={2} lineHeight={1}>
-        <Typography variant="button" color="text">
-          Select your Slack username and the customer you are using it for.
-        </Typography>
-        <Box ml={2} pl={6} pt={2} lineHeight={1}>
-          <Grid container spacing={3}>
+      <Box ml={2} pl={6} lineHeight={1}>
+        <Box pb={2} lineHeight={1}>
+          <Grid pt={2} container spacing={3}>
             <Grid item xs={12} sm={3}>
               <Autocomplete
                 label={"Customer"}

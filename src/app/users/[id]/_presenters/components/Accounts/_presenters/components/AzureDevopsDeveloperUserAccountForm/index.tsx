@@ -3,23 +3,27 @@ import Typography from "@/components/Typography";
 import { Grid } from "@mui/material";
 import Autocomplete from "@/components/Autocomplete";
 import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
-import useSlackUserAccountFormController from "./_presenters/controllers/useSlackUserAccountFormController";
 import Avatar from "@/components/Avatar";
-import logoSlack from "@/assets/images/small-logos/logo-slack.svg";
 import FormField from "@/components/FormField";
+import Profession from "@/app/_domain/interfaces/Profession";
+import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;
   serviceIdentifier: ServiceIdentifier;
+  profession: Profession;
 }
 
 function AzureDevopsDeveloperUserAccountForm({
   serviceIdentifier,
   onChange,
+  profession,
 }: Props): JSX.Element {
-  const { slackUsers, customers } = useSlackUserAccountFormController(
-    serviceIdentifier?.customer
-  );
+  const { customers } = useCustomersController();
+
+  if (profession.name != "Engineer") {
+    return <></>;
+  }
 
   return (
     <>
@@ -44,13 +48,9 @@ function AzureDevopsDeveloperUserAccountForm({
           </Box>
         </Box>
       </Box>
-      <Box ml={2} pl={6} pt={2} lineHeight={1}>
-        <Typography variant="button" color="text">
-          Set your Azure Devops ID. In case of doubt, ask your team leader how
-          to fetch it.
-        </Typography>
-        <Box ml={2} pl={6} pt={2} lineHeight={1}>
-          <Grid container spacing={3}>
+      <Box ml={2} pl={6} lineHeight={1}>
+        <Box pb={2} lineHeight={1}>
+          <Grid pt={2} container spacing={3}>
             <Grid item xs={12} sm={3}>
               <Autocomplete
                 label={"Customer"}
