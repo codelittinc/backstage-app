@@ -1,4 +1,5 @@
 import Profession from "./Profession";
+import { ServiceIdentifier } from "./ServiceIdentifier";
 
 export default interface User {
   id?: number;
@@ -14,10 +15,5 @@ export default interface User {
   profession: Profession;
   fullName: string;
   country: string;
-  servicesIdentifiers: {
-    id?: number;
-    serviceName: string;
-    identifier: string;
-    customer: Customer;
-  }[];
+  servicesIdentifiers: ServiceIdentifier[];
 }

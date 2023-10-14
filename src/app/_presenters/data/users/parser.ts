@@ -78,7 +78,9 @@ export const fromApiParser = (user: ApiUser): User => {
     seniority: seniority,
     slug: slug,
     googleId: google_id,
-    profession: professionFromApiParser(profession!),
+    profession: profession?.id
+      ? professionFromApiParser(profession)
+      : undefined,
     fullName: `${first_name} ${last_name}`,
     country: country,
     servicesIdentifiers: user_service_identifiers.map((service) => ({
