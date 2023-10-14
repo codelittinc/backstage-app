@@ -17,7 +17,7 @@ function FormLayout({ children, sidebarItems }: Props): JSX.Element {
             <Sidenav items={sidebarItems} />
           </Grid>
           <Grid item xs={12} lg={9}>
-            <Box mb={3}>
+            <Box>
               <Grid container spacing={3}>
                 {children}
               </Grid>
