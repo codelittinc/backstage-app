@@ -4,6 +4,7 @@ import { useState } from "react";
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Header from "./_presenters/components/Header";
 import BasicInfo from "./_presenters/components/BasicInfo";
+import SidenavForm from "@/components/SidenavForm";
 
 interface Props {
   project: Project;
@@ -19,7 +20,7 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
   ];
 
   return (
-    <FormLayout sidebarItems={sidenavItems}>
+    <SidenavForm sidebarItems={sidenavItems}>
       <Grid item xs={12}>
         <Header project={project} />
       </Grid>
@@ -32,7 +33,7 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
           }}
         />
       </Grid>
-    </FormLayout>
+    </SidenavForm>
   );
 }
 
