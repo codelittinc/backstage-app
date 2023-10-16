@@ -48,12 +48,15 @@ const Analytics = ({ project }: { project: Project }) => {
   if (isLoading) return <div>Loading...</div>;
 
   const pullRequestsGrouped = groupByMonth(pullRequests);
+  const sortedLabels = pullRequestsGrouped.map((pr) => pr.date).sort();
 
   const tasks = {
-    labels: pullRequestsGrouped.map((pr) => pr.date),
+    labels: sortedLabels,
     datasets: {
       label: "Pull requests",
-      data: pullRequestsGrouped.map((pr) => pr.count),
+      data: sortedLabels.map(
+        (label) => pullRequestsGrouped.find((pr) => pr.date === label)?.count
+      ),
     },
   };
 
