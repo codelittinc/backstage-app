@@ -5,6 +5,7 @@ import useNewProjectController from "./_presenters/controllers/useProjectControl
 import Loading from "@/components/Loading";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 import TabsLayout from "@/components/LayoutContainers/TabsLayout";
+import Analytics from "./_presenters/components/Analytics";
 
 function Page() {
   const { id } = useParams();
@@ -19,8 +20,12 @@ function Page() {
     <TabsLayout
       tabs={["Profile", "Analytics"]}
       tabsChildren={[
-        <ProjectForm project={project} onSave={onSave} />,
-        <div>Analytics</div>,
+        <ProjectForm
+          project={project!}
+          onSave={onSave}
+          key={"profile-component"}
+        />,
+        <Analytics project={project!} key={"analytics-component"} />,
       ]}
     />
   );

@@ -23,7 +23,7 @@ const getTabs = (
             }}
           >
             {tabs.map((tab) => (
-              <Tab label={tab} />
+              <Tab label={tab} key={tab} />
             ))}
           </Tabs>
         </AppBar>

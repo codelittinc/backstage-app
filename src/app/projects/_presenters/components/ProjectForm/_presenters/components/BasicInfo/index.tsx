@@ -47,6 +47,9 @@ function BasicInfo({
             <Autocomplete
               label={"Customer"}
               value={customer}
+              isOptionEqualToValue={(option: Customer, value: Customer) =>
+                option.id === value.id
+              }
               getOptionLabel={(option: Customer) => option.name}
               onChange={(value: Customer) => {
                 onChange({
