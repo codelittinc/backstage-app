@@ -64,6 +64,7 @@ function BasicInfo({
             display="flex"
             justifyContent={{ md: "flex-end" }}
             alignItems="center"
+            pt={2}
           >
             <Button
               variant="gradient"

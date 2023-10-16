@@ -3,6 +3,7 @@ import useCustomersController from "@/app/customers/_presenters/controllers/useC
 import ProjectForm from "../_presenters/components/ProjectForm";
 import useNewProjectController from "./_presenters/controllers/useNewProjectController";
 import Loading from "@/components/Loading";
+import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 
 function Page() {
   const { customers, isLoading } = useCustomersController();
@@ -16,7 +17,11 @@ function Page() {
     customer: customers[0],
   };
 
-  return <ProjectForm project={defaultProject} onSave={onSave} />;
+  return (
+    <DashboardLayout>
+      <ProjectForm project={defaultProject} onSave={onSave} />
+    </DashboardLayout>
+  );
 }
 
 export default Page;
