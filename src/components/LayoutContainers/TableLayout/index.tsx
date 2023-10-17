@@ -11,8 +11,8 @@ interface Props {
   columns: any[];
   rows: any[];
   isLoading: boolean;
-  onClickNew: () => void;
-  buttonLabel: string;
+  onClickNew?: () => void;
+  buttonLabel?: string;
 }
 
 function TableLayout({
@@ -33,9 +33,13 @@ function TableLayout({
         <Grid container>
           <Grid item xs={12} md={6}>
             <Box pb={3}>
-              <Button variant="gradient" color="info" onClick={onClickNew}>
-                <Icon>add</Icon>&nbsp; {buttonLabel}
-              </Button>
+              {buttonLabel ? (
+                <Button variant="gradient" color="info" onClick={onClickNew}>
+                  <Icon>add</Icon>&nbsp; {buttonLabel}
+                </Button>
+              ) : (
+                <></>
+              )}
             </Box>
           </Grid>
           <Grid item xs={12}>
