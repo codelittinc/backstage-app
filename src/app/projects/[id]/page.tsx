@@ -16,19 +16,26 @@ function Page() {
     return <Loading />;
   }
 
-  return (
-    <TabsLayout
-      tabs={["Profile", "Analytics"]}
-      tabsChildren={[
+  const displayAnalytics = process.env.NEXT_PUBLIC_DISPLAY_ANALYTICS == "true";
+  const tabs = displayAnalytics ? ["Profile", "Analytics"] : ["Profile"];
+
+  const tabsChildren = displayAnalytics
+    ? [
         <ProjectForm
           project={project!}
           onSave={onSave}
           key={"profile-component"}
         />,
         <Analytics project={project!} key={"analytics-component"} />,
-      ]}
-    />
-  );
+      ]
+    : [
+        <ProjectForm
+          project={project!}
+          onSave={onSave}
+          key={"profile-component"}
+        />,
+      ];
+  return <TabsLayout tabs={tabs} tabsChildren={tabsChildren} />;
 }
 
 export default Page;
