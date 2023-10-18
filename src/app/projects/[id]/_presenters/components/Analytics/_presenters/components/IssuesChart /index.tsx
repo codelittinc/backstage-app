@@ -1,12 +1,12 @@
-import usePullRequestsController from "../../controllers/usePullRequestsController";
+import useIssuesController from "../../controllers/useIssuesController"; // Updated import
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 
-function getUniqueBackstageUserIds(objects) {
+function getUniqueUserIds(objects) {
   const userIds = new Set();
 
   objects.forEach((obj) => {
-    userIds.add(obj.backstage_user_id);
+    userIds.add(obj.user_id); // Updated to user_id
   });
 
   return [...userIds];
@@ -17,8 +17,8 @@ function groupByUserIdAndMonth(objects) {
 
   objects.forEach((obj) => {
     // Extract the year and month (YYYY-MM) from the timestamp
-    const monthYear = obj.created_at.substring(0, 7);
-    const key = `${obj.backstage_user_id}_${monthYear}`;
+    const monthYear = obj.closed_date.substring(0, 7);
+    const key = `${obj.user_id}_${monthYear}`;
     if (grouped[key]) {
       grouped[key].push(obj);
     } else {
@@ -31,7 +31,7 @@ function groupByUserIdAndMonth(objects) {
   for (const [key, group] of Object.entries(grouped)) {
     const [userId, monthYear] = key.split("_");
     resultList.push({
-      backstage_user_id: userId,
+      user_id: userId,
       date: monthYear,
       objects: group,
     });
@@ -40,17 +40,19 @@ function groupByUserIdAndMonth(objects) {
   return resultList;
 }
 
-const AllPullRequestsChart = ({ project }: { project: Project }) => {
-  const { pullRequests, isLoading } = usePullRequestsController(project);
+const AllIssuesChart = ({ project }: { project: Project }) => {
+  // Updated function name
+  const { issues, isLoading } = useIssuesController(project); // Updated variable names
   const { users, isLoading: isLoadingUsers } = useUsersController();
   if (isLoading || isLoadingUsers) return <div>Loading...</div>;
 
-  const pullRequestsGrouped = groupByUserIdAndMonth(pullRequests);
+  const issuesGrouped = groupByUserIdAndMonth(issues); // Updated variable names
   const sortedLabels = [
-    ...new Set(pullRequestsGrouped.map((pr) => pr.date).sort()),
+    ...new Set(issuesGrouped.map((issue) => issue.date).sort()), // Updated variable name
   ];
 
-  const userIds = getUniqueBackstageUserIds(pullRequests).filter(
+  const userIds = getUniqueUserIds(issues).filter(
+    // Updated function call
     (userId) => userId
   );
 
@@ -74,21 +76,20 @@ const AllPullRequestsChart = ({ project }: { project: Project }) => {
         label: user.fullName,
         color: colors[i],
         data: sortedLabels.map((sortedLabel) => {
-          return pullRequestsGrouped.find(
-            (pr) => pr.date === sortedLabel && pr.backstage_user_id == user.id
+          return issuesGrouped.find(
+            (issue) => issue.date === sortedLabel && issue.user_id == user.id
           )?.objects.length;
         }),
       };
     }),
   };
-  console.log(tasks);
 
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Pull request per user"
+      title="Issues per user" // Updated title
       chart={tasks}
     />
   );
 };
-export default AllPullRequestsChart;
+export default AllIssuesChart; // Updated export

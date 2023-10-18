@@ -23,6 +23,7 @@ function BasicInfo({
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
       <Box p={3}>
