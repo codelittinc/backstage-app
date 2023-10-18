@@ -20,7 +20,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/flatpickr.css";
 
 // Material Dashboard 2 PRO React TS components
-import MDInput from "@/components/Input";
+import MDInput from "@/components/FormField";
 
 // types
 interface Props {
@@ -33,16 +33,18 @@ interface Props {
 function MDDatePicker({ input, ...rest }: Props): JSX.Element {
   return (
     <Flatpickr
+      multiple={false}
       {...rest}
-      render={({ defaultValue }: any, ref: any) => (
-        <MDInput {...input} defaultValue={defaultValue} inputRef={ref} />
+      render={({ defaultValue, label }: any, ref: any) => (
+        <MDInput
+          {...input}
+          label={label}
+          defaultValue={defaultValue}
+          inputRef={ref}
+        />
       )}
     />
   );
 }
-
-MDDatePicker.defaultProps = {
-  input: {},
-};
 
 export default MDDatePicker;
