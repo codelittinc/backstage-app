@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import Box from "@/components/Box";
 import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
+import Loading from "@/components/Loading";
 
 function groupByDay(objects) {
   const grouped = {};
@@ -44,9 +45,23 @@ function groupByMonth(objects) {
   return resultList;
 }
 
-const AllPullRequestsChart = ({ project }: { project: Project }) => {
-  const { pullRequests, isLoading } = usePullRequestsController(project);
-  if (isLoading) return <div>Loading...</div>;
+interface Props {
+  project: Project;
+  startDateFilter?: string | undefined;
+  endDateFilter?: string | undefined;
+}
+
+const AllPullRequestsChart = ({
+  project,
+  startDateFilter,
+  endDateFilter,
+}: Props) => {
+  const { pullRequests, isLoading } = usePullRequestsController(
+    project,
+    startDateFilter,
+    endDateFilter
+  );
+  if (isLoading) return <Loading />;
 
   const pullRequestsGrouped = groupByMonth(pullRequests);
   const sortedLabels = pullRequestsGrouped.map((pr) => pr.date).sort();

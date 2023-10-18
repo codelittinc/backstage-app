@@ -1,4 +1,4 @@
-import useIssuesController from "../../controllers/useIssuesController"; // Updated import
+import useIssuesController from "../../controllers/useIssuesController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import Loading from "@/components/Loading";
@@ -103,7 +103,6 @@ function groupByUserIdAndMonth(objects) {
 
   return resultList;
 }
-
 interface Props {
   project: Project;
   startDateFilter?: string | undefined;
@@ -125,7 +124,7 @@ const AllIssuesChart = ({
   const { users, isLoading: isLoadingUsers } = useUsersController();
   if (isLoading || isLoadingUsers) return <Loading />;
 
-  var issuesGrouped = {};
+  var issuesGrouped = [];
   if (differenceType === "weeks") {
     issuesGrouped = groupByUserIdAndWeek(issues);
   } else if (differenceType === "month") {
@@ -160,9 +159,10 @@ const AllIssuesChart = ({
         label: user.fullName,
         color: colors[i],
         data: sortedLabels.map((sortedLabel) => {
-          return issuesGrouped.find(
+          const objects = issuesGrouped.find(
             (issue) => issue.date === sortedLabel && issue.user_id == user.id
-          )?.objects.length;
+          )?.objects;
+          return objects?.reduce((sum, item) => sum + item.effort, 0) || 0;
         }),
       };
     }),
@@ -171,9 +171,9 @@ const AllIssuesChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Issues per user" // Updated title
+      title="Effort per user"
       chart={tasks}
     />
   );
 };
-export default AllIssuesChart; // Updated export
+export default AllIssuesChart;

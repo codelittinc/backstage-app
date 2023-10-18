@@ -1,6 +1,7 @@
 import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
+import Loading from "@/components/Loading";
 
 function getUniqueBackstageUserIds(objects) {
   const userIds = new Set();
@@ -40,10 +41,24 @@ function groupByUserIdAndMonth(objects) {
   return resultList;
 }
 
-const AllPullRequestsChart = ({ project }: { project: Project }) => {
-  const { pullRequests, isLoading } = usePullRequestsController(project);
+interface Props {
+  project: Project;
+  startDateFilter?: string | undefined;
+  endDateFilter?: string | undefined;
+}
+
+const AllPullRequestsChart = ({
+  project,
+  startDateFilter,
+  endDateFilter,
+}: Props) => {
+  const { pullRequests, isLoading } = usePullRequestsController(
+    project,
+    startDateFilter,
+    endDateFilter
+  );
   const { users, isLoading: isLoadingUsers } = useUsersController();
-  if (isLoading || isLoadingUsers) return <div>Loading...</div>;
+  if (isLoading || isLoadingUsers) return <Loading />;
 
   const pullRequestsGrouped = groupByUserIdAndMonth(pullRequests);
   const sortedLabels = [
@@ -81,7 +96,6 @@ const AllPullRequestsChart = ({ project }: { project: Project }) => {
       };
     }),
   };
-  console.log(tasks);
 
   return (
     <DefaultLineChart
