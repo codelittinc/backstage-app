@@ -1,7 +1,7 @@
 import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
-import Loading from "@/components/Loading";
+import { getChartItemColor } from "../../utils/colors";
 
 function getUniqueBackstageUserIds(objects) {
   const userIds = new Set();
@@ -52,13 +52,12 @@ const AllPullRequestsChart = ({
   startDateFilter,
   endDateFilter,
 }: Props) => {
-  const { pullRequests, isLoading } = usePullRequestsController(
+  const { pullRequests = [] } = usePullRequestsController(
     project,
     startDateFilter,
     endDateFilter
   );
-  const { users, isLoading: isLoadingUsers } = useUsersController();
-  if (isLoading || isLoadingUsers) return <Loading />;
+  const { users = [] } = useUsersController();
 
   const pullRequestsGrouped = groupByUserIdAndMonth(pullRequests);
   const sortedLabels = [
@@ -69,28 +68,17 @@ const AllPullRequestsChart = ({
     (userId) => userId
   );
 
-  const colors = [
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "light",
-    "dark",
-  ];
-
   const tasks = {
     labels: sortedLabels,
     datasets: userIds.map((userId, i) => {
       const user = users!.find((user) => user.id === userId);
 
       return {
-        label: user.fullName,
-        color: colors[i],
+        label: user?.fullName,
+        color: getChartItemColor(i),
         data: sortedLabels.map((sortedLabel) => {
           return pullRequestsGrouped.find(
-            (pr) => pr.date === sortedLabel && pr.backstage_user_id == user.id
+            (pr) => pr.date === sortedLabel && pr.backstage_user_id == user?.id
           )?.objects.length;
         }),
       };

@@ -2,6 +2,7 @@ import useIssuesController from "../../controllers/useIssuesController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import Loading from "@/components/Loading";
+import { getChartItemColor } from "../../utils/colors";
 
 function getUniqueUserIds(objects) {
   const userIds = new Set();
@@ -116,13 +117,12 @@ const AllIssuesChart = ({
   endDateFilter,
   differenceType,
 }: Props) => {
-  const { issues, isLoading } = useIssuesController(
+  const { issues = [], isLoading } = useIssuesController(
     project,
     startDateFilter,
     endDateFilter
   );
-  const { users, isLoading: isLoadingUsers } = useUsersController();
-  if (isLoading || isLoadingUsers) return <Loading />;
+  const { users = [], isLoading: isLoadingUsers } = useUsersController();
 
   var issuesGrouped = [];
   if (differenceType === "weeks") {
@@ -139,28 +139,17 @@ const AllIssuesChart = ({
 
   const userIds = getUniqueUserIds(issues).filter((userId) => userId);
 
-  const colors = [
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "light",
-    "dark",
-  ];
-
   const tasks = {
     labels: sortedLabels,
     datasets: userIds.map((userId, i) => {
       const user = users!.find((user) => user.id === userId);
 
       return {
-        label: user.fullName,
-        color: colors[i],
+        label: user?.fullName,
+        color: getChartItemColor(i),
         data: sortedLabels.map((sortedLabel) => {
           const objects = issuesGrouped.find(
-            (issue) => issue.date === sortedLabel && issue.user_id == user.id
+            (issue) => issue.date === sortedLabel && issue.user_id == user?.id
           )?.objects;
           return objects?.reduce((sum, item) => sum + item.effort, 0) || 0;
         }),

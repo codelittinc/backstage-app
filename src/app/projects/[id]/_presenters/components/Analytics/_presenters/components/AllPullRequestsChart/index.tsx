@@ -1,31 +1,8 @@
-import ReportsLineChart from "@/components/Charts/ReportsLineChart";
-import { Grid } from "@mui/material";
-import Box from "@/components/Box";
 import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
-import Loading from "@/components/Loading";
-
-function groupByDay(objects) {
-  const grouped = {};
-
-  objects.forEach((obj) => {
-    const day = obj.created_at.split("T")[0]; // Extract the date (YYYY-MM-DD) from the timestamp
-    if (grouped[day]) {
-      grouped[day]++;
-    } else {
-      grouped[day] = 1;
-    }
-  });
-
-  const resultList = [];
-  for (const [day, count] of Object.entries(grouped)) {
-    resultList.push({ date: day, count: count });
-  }
-
-  return resultList;
-}
 
 function groupByMonth(objects) {
+  if (!objects) return [];
   const grouped = {};
 
   objects.forEach((obj) => {
@@ -56,12 +33,11 @@ const AllPullRequestsChart = ({
   startDateFilter,
   endDateFilter,
 }: Props) => {
-  const { pullRequests, isLoading } = usePullRequestsController(
+  const { pullRequests } = usePullRequestsController(
     project,
     startDateFilter,
     endDateFilter
   );
-  if (isLoading) return <Loading />;
 
   const pullRequestsGrouped = groupByMonth(pullRequests);
   const sortedLabels = pullRequestsGrouped.map((pr) => pr.date).sort();
@@ -81,7 +57,7 @@ const AllPullRequestsChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Pull requests on all repositories"
+      title="Pull requests"
       chart={tasks}
     />
   );
