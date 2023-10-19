@@ -7,6 +7,7 @@ import IssuesEffortChart from "./_presenters/components/IssuesEffortChart ";
 import { useState } from "react";
 import DatePicker from "@/components/DatePicker";
 import { Grid } from "@mui/material";
+import Autocomplete from "@/components/Autocomplete";
 
 function dateDifferenceType(date1: Date, date2: Date): string {
   const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
@@ -33,6 +34,9 @@ const Analytics = ({ project }: { project: Project }) => {
     new Date(startDateFilter),
     new Date(endDateFilter)
   );
+
+  const [timeScale, setTimeScale] = useState<string>("weeks");
+
   return (
     <Box>
       <Grid container mb={3} mt={3}>
@@ -54,6 +58,14 @@ const Analytics = ({ project }: { project: Project }) => {
             }}
           />
         </Grid>
+        <Grid item sm={2}>
+          <Autocomplete
+            label={"Time scale"}
+            value={timeScale}
+            options={["days", "weeks", "months"]}
+            onChange={(value) => setTimeScale(value)}
+          />
+        </Grid>
       </Grid>
       <Box>
         <Typography variant="h3">Issues</Typography>
@@ -65,7 +77,7 @@ const Analytics = ({ project }: { project: Project }) => {
               project={project}
               startDateFilter={startDateFilter}
               endDateFilter={endDateFilter}
-              differenceType={differenceType}
+              differenceType={timeScale}
             />
           </Grid>
           <Grid item sm={6}>
@@ -73,7 +85,7 @@ const Analytics = ({ project }: { project: Project }) => {
               project={project}
               startDateFilter={startDateFilter}
               endDateFilter={endDateFilter}
-              differenceType={differenceType}
+              differenceType={timeScale}
             />
           </Grid>
         </Grid>
