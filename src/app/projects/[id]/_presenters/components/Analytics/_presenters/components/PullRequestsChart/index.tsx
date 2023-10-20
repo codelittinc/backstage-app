@@ -1,45 +1,32 @@
 import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
-
-function groupByMonth(objects) {
-  if (!objects) return [];
-  const grouped = {};
-
-  objects.forEach((obj) => {
-    const month = obj.created_at.substring(0, 7);
-    if (grouped[month]) {
-      grouped[month]++;
-    } else {
-      grouped[month] = 1;
-    }
-  });
-
-  const resultList = [];
-  for (const [month, count] of Object.entries(grouped)) {
-    resultList.push({ date: month, count: count });
-  }
-
-  return resultList;
-}
+import { groupByFieldAndInterval } from "../../utils/grouping";
 
 interface Props {
   project: Project;
   startDateFilter?: string | undefined;
   endDateFilter?: string | undefined;
+  interval: string;
 }
 
 const AllPullRequestsChart = ({
   project,
   startDateFilter,
   endDateFilter,
+  interval,
 }: Props) => {
-  const { pullRequests } = usePullRequestsController(
+  const { pullRequests = [] } = usePullRequestsController(
     project,
     startDateFilter,
     endDateFilter
   );
 
-  const pullRequestsGrouped = groupByMonth(pullRequests);
+  const pullRequestsGrouped = groupByFieldAndInterval(
+    pullRequests,
+    "created_at",
+    interval
+  );
+
   const sortedLabels = pullRequestsGrouped.map((pr) => pr.date).sort();
 
   const tasks = {
@@ -47,9 +34,10 @@ const AllPullRequestsChart = ({
     datasets: [
       {
         label: "Pull requests",
-        data: sortedLabels.map(
-          (label) => pullRequestsGrouped.find((pr) => pr.date === label)?.count
-        ),
+        data: sortedLabels.map((label) => {
+          return pullRequestsGrouped.find((pr) => pr.date === label)?.objects
+            .length;
+        }),
       },
     ],
   };
