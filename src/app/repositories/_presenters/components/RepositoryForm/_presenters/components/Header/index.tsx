@@ -26,8 +26,8 @@ function Header({ repository }: { repository: Repository }): JSX.Element {
                 {owner}/{name}
               </Typography>
               <Typography variant="button" color="text" fontWeight="medium">
-                {sourceControlType.charAt(0).toUpperCase() +
-                  sourceControlType.slice(1)}
+                {sourceControlType?.charAt(0)?.toUpperCase() +
+                  sourceControlType?.slice(1)}
               </Typography>
             </Box>
           </Grid>
