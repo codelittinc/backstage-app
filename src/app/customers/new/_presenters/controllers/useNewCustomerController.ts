@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const useCustomerController = () => {
   const router = useRouter();
-  const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
+  const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
   const { data: session } = useSession();
 
@@ -23,7 +23,6 @@ const useCustomerController = () => {
 
       router.push(routes.customerPath(result.id!));
     },
-    onError: (err: any) => showSaveErrorAlert(err),
   });
 
   return {

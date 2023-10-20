@@ -6,7 +6,7 @@ import { getUser, updateUser } from "@/app/_presenters/data/users";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const useUserFormController = (userId: number | string) => {
-  const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
+  const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -21,7 +21,6 @@ const useUserFormController = (userId: number | string) => {
         queryKey: [USERS_KEY, userId],
       });
     },
-    onError: (err) => showSaveErrorAlert(err),
   });
 
   const { data, isLoading: isUserLoading } = useQuery({

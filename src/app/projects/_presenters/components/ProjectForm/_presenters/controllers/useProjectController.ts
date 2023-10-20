@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 const useProjectController = (projectId: number | undefined) => {
   const router = useRouter();
-  const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
+  const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -24,7 +24,6 @@ const useProjectController = (projectId: number | undefined) => {
 
       router.push(routes.projectPath(result.id!));
     },
-    onError: (err) => showSaveErrorAlert(err),
   });
 
   const { data, isLoading } = useQuery({

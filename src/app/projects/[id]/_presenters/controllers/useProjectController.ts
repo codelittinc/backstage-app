@@ -7,7 +7,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const useProjectController = (projectId: number) => {
-  const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
+  const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -18,7 +18,6 @@ const useProjectController = (projectId: number) => {
         queryKey: [PROJETS_KEY, result.id],
       });
     },
-    onError: (err: any) => showSaveErrorAlert(err),
   });
 
   const { data, isLoading } = useQuery({

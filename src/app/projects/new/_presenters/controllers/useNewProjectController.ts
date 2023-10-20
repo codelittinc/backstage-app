@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const useProjectController = () => {
   const router = useRouter();
-  const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
+  const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -22,7 +22,6 @@ const useProjectController = () => {
 
       router.push(routes.projectPath(result.id!));
     },
-    onError: (err: any) => showSaveErrorAlert(err),
   });
 
   return {
