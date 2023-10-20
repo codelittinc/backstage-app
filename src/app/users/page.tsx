@@ -14,9 +14,9 @@ function Users(): JSX.Element {
       width: "20%",
       Cell: ({ row }: any) => {
         const {
-          original: { fullName, id },
+          original: { fullName, slug },
         } = row;
-        return <Link href={routes.userPath(id)}>{fullName}</Link>;
+        return <Link href={routes.userPath(slug)}>{fullName}</Link>;
       },
     },
     {
