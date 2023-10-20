@@ -1,5 +1,4 @@
-import axios from "axios";
-import { getRoadrunnerUrl } from "@/api";
+import { roadrunnerApiClient } from "@/app/_presenters/data/auth/roadrunnerApiAxios";
 
 export const getPullRequests = async ({
   userId,
@@ -14,7 +13,7 @@ export const getPullRequests = async ({
   startDate: string;
   endDate: string;
 }) => {
-  const { data } = await axios.get(getRoadrunnerUrl("/pull_requests.json"), {
+  const { data } = await roadrunnerApiClient.get("/pull_requests.json", {
     params: {
       userId: userId,
       state: state,
