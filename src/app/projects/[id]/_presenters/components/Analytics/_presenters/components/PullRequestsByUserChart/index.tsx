@@ -2,6 +2,7 @@ import usePullRequestsController from "../../controllers/usePullRequestsControll
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import { getChartItemColor } from "../../utils/colors";
+import { groupByFieldAndInterval } from "../../utils/grouping";
 
 function getUniqueBackstageUserIds(objects) {
   const userIds = new Set();
@@ -13,44 +14,18 @@ function getUniqueBackstageUserIds(objects) {
   return [...userIds];
 }
 
-function groupByUserIdAndMonth(objects) {
-  const grouped = {};
-
-  objects.forEach((obj) => {
-    // Extract the year and month (YYYY-MM) from the timestamp
-    const monthYear = obj.created_at.substring(0, 7);
-    const key = `${obj.backstage_user_id}_${monthYear}`;
-    if (grouped[key]) {
-      grouped[key].push(obj);
-    } else {
-      grouped[key] = [obj];
-    }
-  });
-
-  // Convert the grouped object to the desired list format
-  const resultList = [];
-  for (const [key, group] of Object.entries(grouped)) {
-    const [userId, monthYear] = key.split("_");
-    resultList.push({
-      backstage_user_id: userId,
-      date: monthYear,
-      objects: group,
-    });
-  }
-
-  return resultList;
-}
-
 interface Props {
   project: Project;
   startDateFilter?: string | undefined;
   endDateFilter?: string | undefined;
+  interval: string;
 }
 
 const AllPullRequestsChart = ({
   project,
   startDateFilter,
   endDateFilter,
+  interval,
 }: Props) => {
   const { pullRequests = [] } = usePullRequestsController(
     project,
@@ -59,7 +34,12 @@ const AllPullRequestsChart = ({
   );
   const { users = [] } = useUsersController();
 
-  const pullRequestsGrouped = groupByUserIdAndMonth(pullRequests);
+  const pullRequestsGrouped = groupByFieldAndInterval(
+    pullRequests,
+    "created_at",
+    interval,
+    "backstage_user_id"
+  );
   const sortedLabels = [
     ...new Set(pullRequestsGrouped.map((pr) => pr.date).sort()),
   ];

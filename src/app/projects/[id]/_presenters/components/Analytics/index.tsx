@@ -1,5 +1,5 @@
 import Box from "@/components/Box";
-import AllPullRequestsChart from "./_presenters/components/AllPullRequestsChart";
+import AllPullRequestsChart from "./_presenters/components/PullRequestsChart";
 import PullRequestsByUserChart from "./_presenters/components/PullRequestsByUserChart";
 import IssuesChart from "./_presenters/components/IssuesChart ";
 import Typography from "@/components/Typography";
@@ -9,33 +9,12 @@ import DatePicker from "@/components/DatePicker";
 import { Grid } from "@mui/material";
 import Autocomplete from "@/components/Autocomplete";
 
-function dateDifferenceType(date1: Date, date2: Date): string {
-  const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-  const oneWeekInMilliseconds = oneDayInMilliseconds * 7;
-  const oneMonthInMilliseconds = oneDayInMilliseconds * 30; // Approximate value
-
-  const differenceInMilliseconds = Math.abs(date1.getTime() - date2.getTime());
-
-  if (differenceInMilliseconds < oneWeekInMilliseconds * 2) {
-    return "days";
-  } else if (differenceInMilliseconds < oneMonthInMilliseconds * 3) {
-    return "weeks";
-  } else {
-    return "month";
-  }
-}
-
 const Analytics = ({ project }: { project: Project }) => {
   const [startDateFilter, setStartDateFilter] = useState<string>(
     project.start_date!
   );
   const [endDateFilter, setEndDateFilter] = useState<string>(project.end_date!);
-  const differenceType = dateDifferenceType(
-    new Date(startDateFilter),
-    new Date(endDateFilter)
-  );
-
-  const [timeScale, setTimeScale] = useState<string>("weeks");
+  const [dateInterval, setdateInterval] = useState<string>("weeks");
 
   return (
     <Box>
@@ -44,7 +23,7 @@ const Analytics = ({ project }: { project: Project }) => {
           <DatePicker
             label="Start date"
             value={[startDateFilter]}
-            onChange={(e) => {
+            onChange={(e: Array<string>) => {
               setStartDateFilter(e[0]);
             }}
           />
@@ -53,7 +32,7 @@ const Analytics = ({ project }: { project: Project }) => {
           <DatePicker
             label="End date"
             value={endDateFilter}
-            onChange={(e) => {
+            onChange={(e: Array<string>) => {
               setEndDateFilter(e[0]);
             }}
           />
@@ -61,9 +40,9 @@ const Analytics = ({ project }: { project: Project }) => {
         <Grid item sm={2}>
           <Autocomplete
             label={"Time scale"}
-            value={timeScale}
+            value={dateInterval}
             options={["days", "weeks", "months"]}
-            onChange={(value) => setTimeScale(value)}
+            onChange={(value) => setdateInterval(value)}
           />
         </Grid>
       </Grid>
@@ -77,7 +56,7 @@ const Analytics = ({ project }: { project: Project }) => {
               project={project}
               startDateFilter={startDateFilter}
               endDateFilter={endDateFilter}
-              differenceType={timeScale}
+              interval={dateInterval}
             />
           </Grid>
           <Grid item sm={6}>
@@ -85,7 +64,7 @@ const Analytics = ({ project }: { project: Project }) => {
               project={project}
               startDateFilter={startDateFilter}
               endDateFilter={endDateFilter}
-              differenceType={timeScale}
+              interval={dateInterval}
             />
           </Grid>
         </Grid>
@@ -99,6 +78,7 @@ const Analytics = ({ project }: { project: Project }) => {
             project={project}
             startDateFilter={startDateFilter}
             endDateFilter={endDateFilter}
+            interval={dateInterval}
           />
         </Grid>
         <Grid item sm={6}>
@@ -106,6 +86,7 @@ const Analytics = ({ project }: { project: Project }) => {
             project={project}
             startDateFilter={startDateFilter}
             endDateFilter={endDateFilter}
+            interval={dateInterval}
           />
         </Grid>
       </Grid>
