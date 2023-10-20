@@ -14,7 +14,12 @@ function BasicInfo({
   onChange: Function;
   onSave: Function;
 }): JSX.Element {
-  const { name, sourceControlToken, notificationsToken } = customer;
+  const {
+    name,
+    sourceControlToken,
+    notificationsToken,
+    ticketTrackingSystemToken,
+  } = customer;
 
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
@@ -27,7 +32,7 @@ function BasicInfo({
             <FormField
               label="Name"
               placeholder="Backstage"
-              value={name}
+              value={name || ""}
               onChange={({ target: { value } }) => {
                 onChange({
                   ...customer,
@@ -40,7 +45,7 @@ function BasicInfo({
             <FormField
               label="Source control token"
               placeholder="**********"
-              value={sourceControlToken}
+              value={sourceControlToken || ""}
               onChange={({ target: { value } }) => {
                 onChange({
                   ...customer,
@@ -53,11 +58,24 @@ function BasicInfo({
             <FormField
               label="Notifications token"
               placeholder="**********"
-              value={notificationsToken}
+              value={notificationsToken || ""}
               onChange={({ target: { value } }) => {
                 onChange({
                   ...customer,
                   notificationsToken: value,
+                });
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={7}>
+            <FormField
+              label="Ticket tracking system token"
+              placeholder="**********"
+              value={ticketTrackingSystemToken || ""}
+              onChange={({ target: { value } }) => {
+                onChange({
+                  ...customer,
+                  ticketTrackingSystemToken: value,
                 });
               }}
             />

@@ -1,13 +1,9 @@
-import { useState } from "react";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Switch from "@mui/material/Switch";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import Avatar from "@/components/Avatar";
-import useUserFormController from "../../controllers/useUserFormController";
-import { useParams } from "next/navigation";
-import Loading from "@/components/Loading";
 import User from "@/app/_domain/interfaces/User";
 
 interface Props {

@@ -7,6 +7,9 @@ import FormField from "@/components/FormField";
 import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
 import Autocomplete from "@/components/Autocomplete";
 import Loading from "@/components/Loading";
+import DatePicker from "@/components/DatePicker";
+import { Switch } from "@mui/material";
+import useChannelsController from "@/app/repositories/_presenters/components/RepositoryForm/_presenters/components/BasicInfo/_presenters/controllers/useChannelsController";
 
 function BasicInfo({
   project,
@@ -17,10 +20,21 @@ function BasicInfo({
   onChange: Function;
   onSave: Function;
 }): JSX.Element {
-  const { name, customer } = project;
+  const {
+    name,
+    customer,
+    startDate,
+    endDate,
+    billable,
+    metadata,
+    slackChannel,
+  } = project;
   const { customers, isLoading } = useCustomersController();
 
-  if (isLoading) {
+  const { channels, isLoading: isChannelsLoading } =
+    useChannelsController(customer);
+
+  if (isLoading || isChannelsLoading) {
     return <Loading />;
   }
 
@@ -59,6 +73,72 @@ function BasicInfo({
                 });
               }}
               options={customers}
+            />
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <DatePicker
+              label="Start date"
+              value={[startDate]}
+              onChange={(e: Array<string>) => {
+                onChange({
+                  ...project,
+                  startDate: e[0],
+                });
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <DatePicker
+              label="End date"
+              value={[endDate]}
+              onChange={(e: Array<string>) => {
+                onChange({
+                  ...project,
+                  endDate: e[0],
+                });
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={3} lg={3}>
+            <Box display="flex" alignItems="center" lineHeight={1}>
+              <Typography variant="caption" fontWeight="regular">
+                Billable
+              </Typography>
+              <Box ml={1}>
+                <Switch
+                  checked={billable}
+                  onChange={() => {
+                    onChange({ ...project, billable: !billable });
+                  }}
+                />
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Autocomplete
+              label={"Slack channel"}
+              value={channels.find((channel) => channel.id === slackChannel)}
+              getOptionLabel={(option: Customer) => option.name}
+              onChange={(value: any) => {
+                onChange({
+                  ...project,
+                  slackChannel: value.id,
+                });
+              }}
+              options={channels}
+            />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <FormField
+              label="Metadata"
+              placeholder="{'object': 'value'}"
+              value={(metadata || "").toString()}
+              onChange={({ target: { value } }) => {
+                onChange({
+                  ...project,
+                  metadata: value,
+                });
+              }}
             />
           </Grid>
         </Grid>
