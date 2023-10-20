@@ -6,4 +6,5 @@ interface Project {
   startDate: string | null;
   endDate: string | null;
   customer: Customer;
+  slug: string;
 }

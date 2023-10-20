@@ -15,9 +15,9 @@ function Projects(): JSX.Element {
       width: "20%",
       Cell: ({ row }: any) => {
         const {
-          original: { name, id },
+          original: { name, slug },
         } = row;
-        return <Link href={routes.projectPath(id)}>{name}</Link>;
+        return <Link href={routes.projectPath(slug)}>{name}</Link>;
       },
     },
   ];

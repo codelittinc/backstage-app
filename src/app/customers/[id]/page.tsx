@@ -7,7 +7,7 @@ import Loading from "@/components/Loading";
 function Page() {
   const { id } = useParams();
 
-  const { customer, isLoading, onSave } = useNewCustomerController(Number(id));
+  const { customer, isLoading, onSave } = useNewCustomerController(id);
 
   if (isLoading) {
     return <Loading />;

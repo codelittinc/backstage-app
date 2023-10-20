@@ -15,9 +15,9 @@ function Customers(): JSX.Element {
       width: "20%",
       Cell: ({ row }: any) => {
         const {
-          original: { name, id },
+          original: { name, slug },
         } = row;
-        return <Link href={routes.customerPath(id)}>{name}</Link>;
+        return <Link href={routes.customerPath(slug)}>{name}</Link>;
       },
     },
   ];

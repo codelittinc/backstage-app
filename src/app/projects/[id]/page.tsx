@@ -10,7 +10,7 @@ import Analytics from "./_presenters/components/Analytics";
 function Page() {
   const { id } = useParams();
 
-  const { project, isLoading, onSave } = useNewProjectController(Number(id));
+  const { project, isLoading, onSave } = useNewProjectController(id);
 
   if (isLoading) {
     return <Loading />;

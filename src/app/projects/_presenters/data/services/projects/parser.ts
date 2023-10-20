@@ -8,6 +8,7 @@ export interface ApiProjectFrom {
   start_date: string | null;
   end_date: string | null;
   customer: Customer;
+  slug: string;
 }
 
 export interface ApiProjectTo {
@@ -30,6 +31,7 @@ export function fromApiParser(project: ApiProjectFrom): Project {
     slackChannel: project.slack_channel,
     startDate: project.start_date,
     endDate: project.end_date,
+    slug: project.slug,
     customer: customerFromApiParser(customer),
   };
 }
