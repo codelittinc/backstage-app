@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import AllPullRequestsChart from "./_presenters/components/PullRequestsChart";
 import PullRequestsByUserChart from "./_presenters/components/PullRequestsByUserChart";
 import PullRequestReviewsByUserChart from "./_presenters/components/PullRequestReviewsByUserChart";
+import PullRequestsCloseDurationByUserChart from "./_presenters/components/PullRequestsCloseDurationByUserChart";
 
 interface Props {
   project: Project;
@@ -34,6 +35,14 @@ export const PullRequestsSection = ({
         </Grid>
         <Grid item sm={6}>
           <PullRequestsByUserChart
+            project={project}
+            startDateFilter={startDateFilter}
+            endDateFilter={endDateFilter}
+            interval={interval}
+          />
+        </Grid>
+        <Grid item sm={6} mt={2}>
+          <PullRequestsCloseDurationByUserChart
             project={project}
             startDateFilter={startDateFilter}
             endDateFilter={endDateFilter}

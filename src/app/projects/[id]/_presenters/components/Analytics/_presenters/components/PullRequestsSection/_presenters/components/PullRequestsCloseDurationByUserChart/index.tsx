@@ -1,8 +1,9 @@
-import usePullRequestsController from "../PullRequestsSection/_presenters/controllers/usePullRequestsController";
+import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
-import { getChartItemColor } from "../../utils/colors";
-import { groupByFieldAndInterval } from "../../utils/grouping";
+import { getChartItemColor } from "../../../../../utils/colors";
+import { groupByFieldAndInterval } from "../../../../../utils/grouping";
+import getDifferenceInHoursBetweenTwoDateTimes from "./_presenters/utils/getDifferenceInHoursBetweenTwoDateTimes";
 
 function getUniqueBackstageUserIds(objects) {
   const userIds = new Set();
@@ -21,7 +22,7 @@ interface Props {
   interval: string;
 }
 
-const AllPullRequestsChart = ({
+const PullRequestsCloseDurationByUserChart = ({
   project,
   startDateFilter,
   endDateFilter,
@@ -57,9 +58,24 @@ const AllPullRequestsChart = ({
         label: user?.fullName,
         color: getChartItemColor(i),
         data: sortedLabels.map((sortedLabel) => {
-          return pullRequestsGrouped.find(
+          const objects = pullRequestsGrouped.find(
             (pr) => pr.date === sortedLabel && pr.backstage_user_id == user?.id
-          )?.objects.length;
+          )?.objects;
+
+          if (!objects) return undefined;
+
+          const differenceInHours = objects.map((object) => {
+            const createdAt = new Date(object.created_at);
+            const closedAt = new Date(object.merged_at);
+
+            return getDifferenceInHoursBetweenTwoDateTimes(closedAt, createdAt);
+          });
+
+          console.log(differenceInHours);
+          return (
+            differenceInHours.reduce((a, b) => a + b, 0) /
+            differenceInHours.length
+          );
         }),
       };
     }),
@@ -68,9 +84,9 @@ const AllPullRequestsChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Pull request per user"
+      title="Pull requests close duration by user"
       chart={tasks}
     />
   );
 };
-export default AllPullRequestsChart;
+export default PullRequestsCloseDurationByUserChart;
