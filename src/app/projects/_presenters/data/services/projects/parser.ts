@@ -7,7 +7,6 @@ export interface ApiProjectFrom {
   slack_channel: string | null;
   start_date: string | null;
   end_date: string | null;
-  metadata: any | null;
   customer: Customer;
 }
 
@@ -18,7 +17,6 @@ export interface ApiProjectTo {
   slack_channel: string | null;
   start_date: string | null;
   end_date: string | null;
-  metadata: any | null;
   customer_id: number;
 }
 
@@ -32,12 +30,12 @@ export function fromApiParser(project: ApiProjectFrom): Project {
     slackChannel: project.slack_channel,
     startDate: project.start_date,
     endDate: project.end_date,
-    metadata: project.metadata,
     customer: customerFromApiParser(customer),
   };
 }
 
 export function toApiParser(project: Project): ApiProjectTo {
+  const metadata = project.metadata;
   return {
     id: project.id,
     name: project.name,
@@ -45,7 +43,6 @@ export function toApiParser(project: Project): ApiProjectTo {
     slack_channel: project.slackChannel,
     start_date: project.startDate,
     end_date: project.endDate,
-    metadata: project.metadata,
     customer_id: project.customer.id!,
   };
 }

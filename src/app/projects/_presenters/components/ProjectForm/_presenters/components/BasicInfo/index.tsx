@@ -20,15 +20,8 @@ function BasicInfo({
   onChange: Function;
   onSave: Function;
 }): JSX.Element {
-  const {
-    name,
-    customer,
-    startDate,
-    endDate,
-    billable,
-    metadata,
-    slackChannel,
-  } = project;
+  const { name, customer, startDate, endDate, billable, slackChannel } =
+    project;
   const { customers, isLoading } = useCustomersController();
 
   const { channels, isLoading: isChannelsLoading } =
@@ -126,19 +119,6 @@ function BasicInfo({
                 });
               }}
               options={channels}
-            />
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <FormField
-              label="Metadata"
-              placeholder="{'object': 'value'}"
-              value={(metadata || "").toString()}
-              onChange={({ target: { value } }) => {
-                onChange({
-                  ...project,
-                  metadata: value,
-                });
-              }}
             />
           </Grid>
         </Grid>
