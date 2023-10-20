@@ -1,8 +1,8 @@
 import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
-import { getChartItemColor } from "../../utils/colors";
-import { groupByFieldAndInterval } from "../../utils/grouping";
+import { getChartItemColor } from "../../../../../utils/colors";
+import { groupByFieldAndInterval } from "../../../../../utils/grouping";
 
 function getUniqueBackstageUserIds(objects) {
   const userIds = new Set();
@@ -32,24 +32,10 @@ const AllPullRequestsChart = ({
     startDateFilter,
     endDateFilter
   );
-
-  const pullRequestsWithReviews = pullRequests.filter(
-    (pr) => pr.reviews.length > 0
-  );
-  const reviews = pullRequestsWithReviews.flatMap((pr) => {
-    return pr.reviews.map((review) => {
-      return {
-        ...review,
-        created_at: pr.created_at,
-      };
-    });
-  });
-  console.log(reviews);
-
   const { users = [] } = useUsersController();
 
   const pullRequestsGrouped = groupByFieldAndInterval(
-    reviews,
+    pullRequests,
     "created_at",
     interval,
     "backstage_user_id"
@@ -58,14 +44,15 @@ const AllPullRequestsChart = ({
     ...new Set(pullRequestsGrouped.map((pr) => pr.date).sort()),
   ];
 
-  const userIds = getUniqueBackstageUserIds(reviews).filter((userId) => userId);
+  const userIds = getUniqueBackstageUserIds(pullRequests).filter(
+    (userId) => userId
+  );
 
   const tasks = {
     labels: sortedLabels,
     datasets: userIds.map((userId, i) => {
       const user = users!.find((user) => user.id === userId);
 
-      console.log("user", user);
       return {
         label: user?.fullName,
         color: getChartItemColor(i),
@@ -81,7 +68,7 @@ const AllPullRequestsChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Pull request reviews per user"
+      title="Pull request per user"
       chart={tasks}
     />
   );
