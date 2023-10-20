@@ -8,9 +8,9 @@ import { PullRequestsSection } from "./_presenters/components/PullRequestsSectio
 
 const Analytics = ({ project }: { project: Project }) => {
   const [startDateFilter, setStartDateFilter] = useState<string>(
-    project.start_date!
+    project.startDate!
   );
-  const [endDateFilter, setEndDateFilter] = useState<string>(project.end_date!);
+  const [endDateFilter, setEndDateFilter] = useState<string>(project.endDate!);
   const [dateInterval, setdateInterval] = useState<string>("weeks");
 
   const showIssues = !!project.customer.ticketTrackingSystemToken;
