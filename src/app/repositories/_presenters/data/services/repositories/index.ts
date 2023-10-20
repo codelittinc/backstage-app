@@ -1,10 +1,9 @@
-import axios from "axios";
 import { fromApiParser, toApiParser } from "./parser";
-import { getRoadrunnerUrl } from "@/api";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+import { roadrunnerApiClient } from "@/app/_presenters/data/auth/roadrunnerApiAxios";
 
 export const getRepositories = async () => {
-  const { data } = await axios.get(getRoadrunnerUrl("/repositories.json"));
+  const { data } = await roadrunnerApiClient.get("/repositories.json");
 
   return data.map(fromApiParser);
 };
@@ -14,11 +13,11 @@ export const saveRepository = async (params: Repository) => {
 
   var result = null;
   if (id) {
-    result = await axios.put(getRoadrunnerUrl(`/repositories/${id}.json`), {
+    result = await roadrunnerApiClient.put(`/repositories/${id}.json`, {
       repository: toApiParser(params),
     });
   } else {
-    result = await axios.post(getRoadrunnerUrl(`/repositories.json`), {
+    result = await roadrunnerApiClient.post(`/repositories.json`, {
       repository: toApiParser(params),
     });
   }
@@ -31,9 +30,7 @@ export const getRepository = async (id: number | undefined | string) => {
   if (!id) {
     return null;
   }
-  const { data } = await axios.get(
-    getRoadrunnerUrl(`/repositories/${id}.json`)
-  );
+  const { data } = await roadrunnerApiClient.get(`/repositories/${id}.json`);
 
   return fromApiParser(data);
 };

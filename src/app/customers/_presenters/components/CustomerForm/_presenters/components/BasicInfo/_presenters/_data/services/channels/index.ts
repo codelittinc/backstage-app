@@ -1,7 +1,6 @@
-import axios from "axios";
-import { getRoadrunnerUrl } from "../../../../../../../../../../api";
+import { roadrunnerApiClient } from "@/app/_presenters/data/auth/roadrunnerApiAxios";
 
 export const getChannels = async () => {
-  const { data } = await axios.get(getRoadrunnerUrl("/channels.json"));
+  const { data } = await roadrunnerApiClient.get("/channels.json");
   return data;
 };
