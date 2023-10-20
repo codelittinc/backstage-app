@@ -6,7 +6,7 @@ export const getProjects = async () => {
   return data.map(fromApiParser);
 };
 
-export const getProject = async (id: number) => {
+export const getProject = async (id: number | string) => {
   const { data } = await backstageApiClient.get(`/projects/${id}.json`);
   return fromApiParser(data);
 };

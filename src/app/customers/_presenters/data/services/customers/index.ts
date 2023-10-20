@@ -6,7 +6,7 @@ export const getCustomers = async () => {
   return data.map(fromApiParser);
 };
 
-export const getCustomer = async (id: number) => {
+export const getCustomer = async (id: number | string) => {
   const { data } = await backstageApiClient.get(`/customers/${id}.json`);
   return fromApiParser(data);
 };

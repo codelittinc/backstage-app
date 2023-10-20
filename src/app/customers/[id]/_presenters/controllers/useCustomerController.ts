@@ -6,7 +6,7 @@ import {
 } from "@/app/customers/_presenters/data/services/customers";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-const useCustomerController = (customerId: number) => {
+const useCustomerController = (customerId: number | string) => {
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 

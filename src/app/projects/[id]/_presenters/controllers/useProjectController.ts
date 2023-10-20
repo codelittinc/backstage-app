@@ -6,7 +6,7 @@ import {
 } from "@/app/projects/_presenters/data/services/projects";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-const useProjectController = (projectId: number) => {
+const useProjectController = (projectId: number | string) => {
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 

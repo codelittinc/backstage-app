@@ -71,7 +71,6 @@ const PullRequestsCloseDurationByUserChart = ({
             return getDifferenceInHoursBetweenTwoDateTimes(closedAt, createdAt);
           });
 
-          console.log(differenceInHours);
           return (
             differenceInHours.reduce((a, b) => a + b, 0) /
             differenceInHours.length
