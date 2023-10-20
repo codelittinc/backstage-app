@@ -1,6 +1,6 @@
 import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
-import { groupByFieldAndInterval } from "../../utils/grouping";
+import { groupByFieldAndInterval } from "../../../../../utils/grouping";
 
 interface Props {
   project: Project;

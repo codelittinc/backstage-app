@@ -1,8 +1,8 @@
 import useIssuesController from "../../controllers/useIssuesController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
-import { getChartItemColor } from "../../utils/colors";
-import { groupByFieldAndInterval } from "../../utils/grouping";
+import { getChartItemColor } from "../../../../../utils/colors";
+import { groupByFieldAndInterval } from "../../../../../utils/grouping";
 
 function getUniqueUserIds(objects) {
   if (!objects) return [];

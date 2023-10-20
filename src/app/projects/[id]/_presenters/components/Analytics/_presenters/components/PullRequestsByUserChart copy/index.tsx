@@ -1,14 +1,14 @@
-import useIssuesController from "../../controllers/useIssuesController";
+import usePullRequestsController from "../PullRequestsSection/_presenters/controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import { getChartItemColor } from "../../utils/colors";
 import { groupByFieldAndInterval } from "../../utils/grouping";
 
-function getUniqueUserIds(objects) {
+function getUniqueBackstageUserIds(objects) {
   const userIds = new Set();
 
   objects.forEach((obj) => {
-    userIds.add(obj.user_id);
+    userIds.add(obj.backstage_user_id);
   });
 
   return [...userIds];
@@ -21,31 +21,32 @@ interface Props {
   interval: string;
 }
 
-const IssuesEffortChart = ({
+const AllPullRequestsChart = ({
   project,
   startDateFilter,
   endDateFilter,
   interval,
 }: Props) => {
-  const { issues = [] } = useIssuesController(
+  const { pullRequests = [] } = usePullRequestsController(
     project,
     startDateFilter,
     endDateFilter
   );
   const { users = [] } = useUsersController();
 
-  const issuesGrouped = groupByFieldAndInterval(
-    issues,
-    "closed_date",
+  const pullRequestsGrouped = groupByFieldAndInterval(
+    pullRequests,
+    "created_at",
     interval,
-    "user_id"
+    "backstage_user_id"
   );
-
   const sortedLabels = [
-    ...new Set(issuesGrouped.map((issue) => issue.date).sort()),
+    ...new Set(pullRequestsGrouped.map((pr) => pr.date).sort()),
   ];
 
-  const userIds = getUniqueUserIds(issues).filter((userId) => userId);
+  const userIds = getUniqueBackstageUserIds(pullRequests).filter(
+    (userId) => userId
+  );
 
   const tasks = {
     labels: sortedLabels,
@@ -56,10 +57,9 @@ const IssuesEffortChart = ({
         label: user?.fullName,
         color: getChartItemColor(i),
         data: sortedLabels.map((sortedLabel) => {
-          const objects = issuesGrouped.find(
-            (issue) => issue.date === sortedLabel && issue.user_id == user?.id
-          )?.objects;
-          return objects?.reduce((sum, item) => sum + item.effort, 0) || 0;
+          return pullRequestsGrouped.find(
+            (pr) => pr.date === sortedLabel && pr.backstage_user_id == user?.id
+          )?.objects.length;
         }),
       };
     }),
@@ -68,9 +68,9 @@ const IssuesEffortChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Effort per user"
+      title="Pull request per user"
       chart={tasks}
     />
   );
 };
-export default IssuesEffortChart;
+export default AllPullRequestsChart;

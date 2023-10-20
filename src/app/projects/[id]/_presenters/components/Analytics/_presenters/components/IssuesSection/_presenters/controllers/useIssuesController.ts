@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { getIssues } from "../data/services/issues"; // Adjusted the import
-import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUserController";
 
 const useIssuesController = (
   project: Project,
