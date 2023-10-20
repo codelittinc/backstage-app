@@ -8,6 +8,7 @@ import { useState } from "react";
 import DatePicker from "@/components/DatePicker";
 import { Grid } from "@mui/material";
 import Autocomplete from "@/components/Autocomplete";
+import PullRequestReviewsByUserChart from "./_presenters/components/PullRequestReviewsByUserChart";
 
 const Analytics = ({ project }: { project: Project }) => {
   const [startDateFilter, setStartDateFilter] = useState<string>(
@@ -83,6 +84,19 @@ const Analytics = ({ project }: { project: Project }) => {
         </Grid>
         <Grid item sm={6}>
           <PullRequestsByUserChart
+            project={project}
+            startDateFilter={startDateFilter}
+            endDateFilter={endDateFilter}
+            interval={dateInterval}
+          />
+        </Grid>
+      </Grid>
+      <Box mb={5} mt={3}>
+        <Typography variant="h3">Pull request reviews</Typography>
+      </Box>
+      <Grid container spacing={3}>
+        <Grid item sm={6}>
+          <PullRequestReviewsByUserChart
             project={project}
             startDateFilter={startDateFilter}
             endDateFilter={endDateFilter}

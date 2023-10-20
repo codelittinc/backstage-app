@@ -1,4 +1,4 @@
-import useIssuesController from "../../controllers/useIssuesController"; // Updated import
+import useIssuesController from "../../controllers/useIssuesController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import { getChartItemColor } from "../../utils/colors";
