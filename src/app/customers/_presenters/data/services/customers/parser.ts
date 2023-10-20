@@ -17,6 +17,7 @@ export function fromApiParser(customer: ApiCustomer): Customer {
 }
 
 export function toApiParser(customer: Customer): ApiCustomer {
+  console.log("po ta to", customer);
   return {
     id: customer.id,
     name: customer.name,
