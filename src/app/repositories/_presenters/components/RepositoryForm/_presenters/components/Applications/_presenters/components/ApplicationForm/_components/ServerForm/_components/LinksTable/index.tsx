@@ -6,7 +6,6 @@ import Typography from "@/components/Typography";
 import { Grid } from "@mui/material";
 import Box from "@/components/Box";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { getRoadrunnerUrl } from "@/api";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 
 interface Props {
@@ -45,6 +44,10 @@ const ApplicationsTable: React.FC<Props> = ({ application }) => {
       },
     },
   ];
+
+  const ROADRUNNER_API_URL = process.env.NEXT_PUBLIC_ROADRUNNER_API_URL;
+  const getRoadrunnerUrl = (path: string): string =>
+    `${ROADRUNNER_API_URL}${path}`;
 
   const getDeployNotificationUrl = (
     externalIdentifier: string,
