@@ -49,20 +49,71 @@ const IssuesEffortChart = ({
 
   const tasks = {
     labels: sortedLabels,
-    datasets: userIds.map((userId, i) => {
-      const user = users!.find((user) => user.id === userId);
-
-      return {
-        label: user?.fullName,
-        color: getChartItemColor(i),
+    datasets: [
+      {
+        label: "Average",
+        color: "black",
         data: sortedLabels.map((sortedLabel) => {
-          const objects = issuesGrouped.find(
-            (issue) => issue.date === sortedLabel && issue.user_id == user?.id
-          )?.objects;
-          return objects?.reduce((sum, item) => sum + item.effort, 0) || 0;
+          const allObjectsForDate = issuesGrouped.filter(
+            (issue) => issue.date === sortedLabel
+          );
+
+          let totalEffort = 0;
+          let totalCount = 0;
+          allObjectsForDate.forEach((issue) => {
+            const effortForUser =
+              issue.objects?.reduce((sum, item) => sum + item.effort, 0) || 0;
+            totalEffort += effortForUser;
+            if (effortForUser !== 0) {
+              totalCount++;
+            }
+          });
+
+          return totalCount === 0 ? null : totalEffort / totalCount;
         }),
-      };
-    }),
+      },
+      {
+        label: "Median",
+        color: "grey",
+        data: sortedLabels.map((sortedLabel) => {
+          const allEffortsForDate = issuesGrouped
+            .filter((issue) => issue.date === sortedLabel)
+            .map(
+              (issue) =>
+                issue.objects?.reduce((sum, item) => sum + item.effort, 0) || 0
+            )
+            .sort((a, b) => a - b); // Sort the efforts
+
+          const middleIndex = Math.floor(allEffortsForDate.length / 2);
+          if (allEffortsForDate.length % 2 === 0) {
+            // Even number of efforts
+            return (
+              (allEffortsForDate[middleIndex - 1] +
+                allEffortsForDate[middleIndex]) /
+              2
+            );
+          } else {
+            // Odd number of efforts
+            return allEffortsForDate[middleIndex];
+          }
+        }),
+      },
+      ...userIds.map((userId, i) => {
+        const user = users!.find((user) => user.id === userId);
+
+        return {
+          label: user?.fullName,
+          color: getChartItemColor(i),
+          data: sortedLabels.map((sortedLabel) => {
+            const objects = issuesGrouped.find(
+              (issue) => issue.date === sortedLabel && issue.user_id == user?.id
+            )?.objects;
+            return objects?.reduce((sum, item) => sum + item.effort, 0) || null;
+          }),
+        };
+      }),
+      // Adding the median dataset
+    ],
   };
 
   return (
