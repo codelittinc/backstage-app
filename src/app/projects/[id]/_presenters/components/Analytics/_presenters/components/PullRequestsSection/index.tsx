@@ -21,11 +21,12 @@ export const PullRequestsSection = ({
 }: Props) => {
   return (
     <>
-      <Box mb={5} mt={3}>
+      <Box mt={3}>
         <Typography variant="h3">Pull requests</Typography>
       </Box>
+      <Box mt={1}> </Box>
       <Grid container spacing={3}>
-        <Grid item sm={6}>
+        <Grid item sm={6} xs={12} mt={3}>
           <AllPullRequestsChart
             project={project}
             startDateFilter={startDateFilter}
@@ -33,7 +34,7 @@ export const PullRequestsSection = ({
             interval={interval}
           />
         </Grid>
-        <Grid item sm={6}>
+        <Grid item sm={6} xs={12} mt={3}>
           <PullRequestsByUserChart
             project={project}
             startDateFilter={startDateFilter}
@@ -41,7 +42,7 @@ export const PullRequestsSection = ({
             interval={interval}
           />
         </Grid>
-        <Grid item sm={6} mt={2}>
+        <Grid item sm={6} xs={12} mt={3}>
           <PullRequestsCloseDurationByUserChart
             project={project}
             startDateFilter={startDateFilter}
@@ -49,12 +50,7 @@ export const PullRequestsSection = ({
             interval={interval}
           />
         </Grid>
-      </Grid>
-      <Box mb={5} mt={3}>
-        <Typography variant="h3">Pull request reviews</Typography>
-      </Box>
-      <Grid container spacing={3}>
-        <Grid item sm={6}>
+        <Grid item sm={6} xs={12} mt={3}>
           <PullRequestReviewsByUserChart
             project={project}
             startDateFilter={startDateFilter}

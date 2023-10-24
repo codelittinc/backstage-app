@@ -3,6 +3,8 @@ import Typography from "@/components/Typography";
 import { Grid } from "@mui/material";
 import IssuesChart from "./_presenters/components/IssuesChart ";
 import IssuesEffortChart from "./_presenters/components/IssuesEffortChart ";
+import AllIssuesEffortChart from "./_presenters/components/AllIssuesEffortChart";
+import AllIssuesChart from "./_presenters/components/AllIssuesChart";
 
 interface Props {
   project: Project;
@@ -22,26 +24,41 @@ const IssuesSection = ({
       <Box>
         <Typography variant="h3">Issues</Typography>
       </Box>
-      <Box mt={5}>
-        <Grid container spacing={3}>
-          <Grid item sm={6}>
-            <IssuesChart
-              project={project}
-              startDateFilter={startDateFilter}
-              endDateFilter={endDateFilter}
-              interval={interval}
-            />
-          </Grid>
-          <Grid item sm={6}>
-            <IssuesEffortChart
-              project={project}
-              startDateFilter={startDateFilter}
-              endDateFilter={endDateFilter}
-              interval={interval}
-            />
-          </Grid>
+      <Box mt={1}> </Box>
+      <Grid container spacing={3}>
+        <Grid item sm={6} xs={12} mt={3}>
+          <AllIssuesChart
+            project={project}
+            startDateFilter={startDateFilter}
+            endDateFilter={endDateFilter}
+            interval={interval}
+          />
         </Grid>
-      </Box>
+        <Grid item sm={6} xs={12} mt={3}>
+          <AllIssuesEffortChart
+            project={project}
+            startDateFilter={startDateFilter}
+            endDateFilter={endDateFilter}
+            interval={interval}
+          />
+        </Grid>
+        <Grid item sm={6} xs={12} mt={3}>
+          <IssuesChart
+            project={project}
+            startDateFilter={startDateFilter}
+            endDateFilter={endDateFilter}
+            interval={interval}
+          />
+        </Grid>
+        <Grid item sm={6} xs={12} mt={3}>
+          <IssuesEffortChart
+            project={project}
+            startDateFilter={startDateFilter}
+            endDateFilter={endDateFilter}
+            interval={interval}
+          />
+        </Grid>
+      </Grid>
     </>
   );
 };

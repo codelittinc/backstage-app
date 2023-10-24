@@ -119,7 +119,7 @@ const IssuesEffortChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Effort per user"
+      title="Effort of completed issues by user"
       chart={tasks}
     />
   );
