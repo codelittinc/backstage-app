@@ -1,3 +1,4 @@
+import Permission from "@/app/_domain/interfaces/Permission";
 import Profession from "@/app/_domain/interfaces/Profession";
 import User from "@/app/_domain/interfaces/User";
 import { fromApiParser as professionFromApiParser } from "@/app/_presenters/data/professions/parser";
@@ -24,6 +25,7 @@ export interface ApiUser {
     customer_id?: number;
     id?: number;
   }[];
+  permissions: Permission[];
 }
 
 export const toApiParser = (user: User): ApiUser => {
@@ -89,5 +91,6 @@ export const fromApiParser = (user: ApiUser): User => {
       serviceName: service.service_name,
       identifier: service.identifier,
     })),
+    permissions: user.permissions,
   };
 };

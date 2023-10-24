@@ -9,6 +9,8 @@ import User from "@/app/_domain/interfaces/User";
 import Button from "@/components/Button";
 import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
 import Loading from "@/components/Loading";
+import ProtectedComponent from "@/components/ProtectedComponent";
+import { abilities, targets } from "@/permissions";
 
 interface Props {
   user: User;
@@ -101,20 +103,25 @@ function BasicInfo({ user, onSave, onChange }: Props): JSX.Element {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} sm={3}>
-                <Autocomplete
-                  label="Contract type"
-                  value={user?.contractType}
-                  defaultValue="Hourly"
-                  options={["Salary", "Houly"]}
-                  onChange={(value: string) => {
-                    onChange({
-                      ...user,
-                      contractType: value,
-                    });
-                  }}
-                />
-              </Grid>
+              <ProtectedComponent
+                ability={abilities.change}
+                target={targets.financial}
+              >
+                <Grid item xs={12} sm={3}>
+                  <Autocomplete
+                    label="Contract type"
+                    value={user?.contractType}
+                    defaultValue="Hourly"
+                    options={["Salary", "Houly"]}
+                    onChange={(value: string) => {
+                      onChange({
+                        ...user,
+                        contractType: value,
+                      });
+                    }}
+                  />
+                </Grid>
+              </ProtectedComponent>
             </Grid>
           </Grid>
           <Grid item xs={12} sm={6}>

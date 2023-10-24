@@ -15,6 +15,7 @@ const Analytics = ({ project }: { project: Project }) => {
 
   const showIssues = !!project.customer.ticketTrackingSystemToken;
   const showPullRequests = !!project.customer.sourceControlToken;
+
   return (
     <Box>
       <Grid container mb={3} mt={3}>

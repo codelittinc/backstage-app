@@ -16,7 +16,6 @@ import {
   navbarContainer,
   navbarRow,
   navbarIconButton,
-  navbarDesktopMenu,
   navbarMobileMenu,
 } from "./styles";
 
@@ -27,7 +26,6 @@ import {
   setOpenConfigurator,
 } from "@/theme";
 import Link from "next/link";
-import Alert from "../Alert";
 
 interface Props {
   absolute?: boolean;
