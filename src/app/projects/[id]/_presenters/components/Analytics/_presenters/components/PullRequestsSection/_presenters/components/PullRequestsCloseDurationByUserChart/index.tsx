@@ -122,7 +122,7 @@ const PullRequestsCloseDurationByUserChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Pull requests close duration by user"
+      title="Interval between creating and merging pull requests by user"
       chart={tasks}
     />
   );

@@ -1,4 +1,4 @@
-import usePullRequestsController from "../../controllers/usePullRequestsController";
+import useIssuesController from "../../controllers/useIssuesController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import { groupByFieldAndInterval } from "../../../../../utils/grouping";
 
@@ -9,34 +9,28 @@ interface Props {
   interval: string;
 }
 
-const AllPullRequestsChart = ({
+const IssuesChart = ({
   project,
   startDateFilter,
   endDateFilter,
   interval,
 }: Props) => {
-  const { pullRequests = [] } = usePullRequestsController(
+  const { issues = [] } = useIssuesController(
     project,
     startDateFilter,
     endDateFilter
   );
+  var issuesGrouped = groupByFieldAndInterval(issues, "closed_date", interval);
 
-  const pullRequestsGrouped = groupByFieldAndInterval(
-    pullRequests,
-    "merged_at",
-    interval
-  );
-
-  const sortedLabels = pullRequestsGrouped.map((pr) => pr.date).sort();
+  const sortedLabels = issuesGrouped.map((issue) => issue.date).sort();
 
   const tasks = {
     labels: sortedLabels,
     datasets: [
       {
-        label: "Pull requests",
+        label: "Issues",
         data: sortedLabels.map((label) => {
-          return pullRequestsGrouped.find((pr) => pr.date === label)?.objects
-            .length;
+          return issuesGrouped.find((pr) => pr.date === label)?.objects.length;
         }),
       },
     ],
@@ -45,9 +39,10 @@ const AllPullRequestsChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Merged pull requests"
+      title="All completed issues"
       chart={tasks}
     />
   );
 };
-export default AllPullRequestsChart;
+
+export default IssuesChart; // Updated export

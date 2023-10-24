@@ -36,7 +36,7 @@ const AllPullRequestsChart = ({
 
   const pullRequestsGrouped = groupByFieldAndInterval(
     pullRequests,
-    "created_at",
+    "merged_at",
     interval,
     "backstage_user_id"
   );
@@ -95,7 +95,7 @@ const AllPullRequestsChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Pull request per user"
+      title="Merged pull request by user"
       chart={tasks}
     />
   );

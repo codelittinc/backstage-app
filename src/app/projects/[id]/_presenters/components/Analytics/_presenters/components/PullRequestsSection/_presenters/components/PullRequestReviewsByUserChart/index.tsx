@@ -110,7 +110,7 @@ const AllPullRequestsChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Pull request reviews per user"
+      title="Pull request reviews per user on merged pull requests"
       chart={tasks}
     />
   );
