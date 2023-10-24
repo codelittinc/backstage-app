@@ -59,61 +59,59 @@ const IssuesChart = ({
             (issue) => issue.date === sortedLabel
           );
 
-          let totalEffort = 0;
+          let totalLength = 0;
           let totalCount = 0;
           allObjectsForDate.forEach((issue) => {
-            const effortForUser =
-              issue.objects?.reduce((sum, item) => sum + item.effort, 0) || 0;
-            totalEffort += effortForUser;
-            if (effortForUser !== 0) {
+            const lengthForUser = issue.objects?.length || 0;
+            totalLength += lengthForUser;
+            if (lengthForUser !== 0) {
               totalCount++;
             }
           });
 
-          return totalCount === 0 ? null : totalEffort / totalCount;
+          return totalCount === 0 ? null : totalLength / totalCount;
         }),
       },
+      // Adding the median dataset
       {
         label: "Median",
         color: "grey",
         data: sortedLabels.map((sortedLabel) => {
-          const allEffortsForDate = issuesGrouped
+          const allLengthsForDate = issuesGrouped
             .filter((issue) => issue.date === sortedLabel)
-            .map(
-              (issue) =>
-                issue.objects?.reduce((sum, item) => sum + item.effort, 0) || 0
-            )
-            .sort((a, b) => a - b); // Sort the efforts
+            .map((issue) => issue.objects?.length || 0)
+            .sort((a, b) => a - b); // Sort the lengths
 
-          const middleIndex = Math.floor(allEffortsForDate.length / 2);
-          if (allEffortsForDate.length % 2 === 0) {
-            // Even number of efforts
+          const middleIndex = Math.floor(allLengthsForDate.length / 2);
+          if (allLengthsForDate.length % 2 === 0) {
+            // Even number of lengths
             return (
-              (allEffortsForDate[middleIndex - 1] +
-                allEffortsForDate[middleIndex]) /
+              (allLengthsForDate[middleIndex - 1] +
+                allLengthsForDate[middleIndex]) /
               2
             );
           } else {
-            // Odd number of efforts
-            return allEffortsForDate[middleIndex];
+            // Odd number of lengths
+            return allLengthsForDate[middleIndex];
           }
         }),
       },
       ...userIds.map((userId, i) => {
-        const user = users!.find((user) => user.id === userId);
+        const user = users?.find((user) => user.id === userId);
 
         return {
           label: user?.fullName,
           color: getChartItemColor(i),
           data: sortedLabels.map((sortedLabel) => {
-            const objects = issuesGrouped.find(
-              (issue) => issue.date === sortedLabel && issue.user_id == user?.id
-            )?.objects;
-            return objects?.reduce((sum, item) => sum + item.effort, 0) || null;
+            return (
+              issuesGrouped.find(
+                (issue) =>
+                  issue.date === sortedLabel && issue.user_id == user?.id
+              )?.objects.length || null
+            );
           }),
         };
       }),
-      // Adding the median dataset
     ],
   };
 
