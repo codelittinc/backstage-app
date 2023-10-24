@@ -1,3 +1,4 @@
+import Permission from "./Permission";
 import Profession from "./Profession";
 import { ServiceIdentifier } from "./ServiceIdentifier";
 
@@ -16,4 +17,5 @@ export default interface User {
   fullName: string;
   country: string;
   servicesIdentifiers: ServiceIdentifier[];
+  permissions: Permission[];
 }
