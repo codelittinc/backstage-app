@@ -40,7 +40,7 @@ const Analytics = ({ project }: { project: Project }) => {
           <Autocomplete
             label={"Time scale"}
             value={dateInterval}
-            options={["days", "weeks", "months"]}
+            options={["absolute", "days", "weeks", "months"]}
             onChange={(value) => setdateInterval(value)}
           />
         </Grid>
