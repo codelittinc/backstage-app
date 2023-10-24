@@ -22,9 +22,17 @@ function configs(labels: any, datasets: any) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      spanGaps: true,
       plugins: {
         legend: {
-          display: false,
+          display: true,
+          position: "right" as const,
+          labels: {
+            boxWidth: 2,
+            boxHeight: 2,
+            borderRadius: 1,
+            useBorderRadius: true,
+          },
         },
       },
       interaction: {

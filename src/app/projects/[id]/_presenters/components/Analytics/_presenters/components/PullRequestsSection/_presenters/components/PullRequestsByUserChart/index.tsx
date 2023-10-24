@@ -50,19 +50,46 @@ const AllPullRequestsChart = ({
 
   const tasks = {
     labels: sortedLabels,
-    datasets: userIds.map((userId, i) => {
-      const user = users!.find((user) => user.id === userId);
-
-      return {
-        label: user?.fullName,
-        color: getChartItemColor(i),
+    datasets: [
+      // Adding the average dataset for the team
+      {
+        label: "Average",
+        // You can set a different color for the average
+        color: "black",
         data: sortedLabels.map((sortedLabel) => {
-          return pullRequestsGrouped.find(
-            (pr) => pr.date === sortedLabel && pr.backstage_user_id == user?.id
-          )?.objects.length;
+          // Find all pull requests for the specific date
+          const allObjectsForDate = pullRequestsGrouped.filter(
+            (pr) => pr.date === sortedLabel
+          );
+
+          let totalPRs = 0;
+          allObjectsForDate.forEach((pr) => {
+            totalPRs += pr.objects?.length || 0;
+          });
+
+          // Calculate the average
+          return allObjectsForDate.length === 0
+            ? null
+            : totalPRs / allObjectsForDate.length;
         }),
-      };
-    }),
+      },
+      ...userIds.map((userId, i) => {
+        const user = users!.find((user) => user.id === userId);
+
+        return {
+          label: user?.fullName,
+          color: getChartItemColor(i),
+          data: sortedLabels.map((sortedLabel) => {
+            return (
+              pullRequestsGrouped.find(
+                (pr) =>
+                  pr.date === sortedLabel && pr.backstage_user_id == user?.id
+              )?.objects.length || null
+            );
+          }),
+        };
+      }),
+    ],
   };
 
   return (

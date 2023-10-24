@@ -51,33 +51,72 @@ const PullRequestsCloseDurationByUserChart = ({
 
   const tasks = {
     labels: sortedLabels,
-    datasets: userIds.map((userId, i) => {
-      const user = users!.find((user) => user.id === userId);
-
-      return {
-        label: user?.fullName,
-        color: getChartItemColor(i),
+    datasets: [
+      {
+        label: "Average",
+        // You can set a different color for the average
+        color: "black",
         data: sortedLabels.map((sortedLabel) => {
-          const objects = pullRequestsGrouped.find(
-            (pr) => pr.date === sortedLabel && pr.backstage_user_id == user?.id
-          )?.objects;
+          // Find all pull requests for the specific date
+          const allObjectsForDate = pullRequestsGrouped.filter(
+            (pr) => pr.date === sortedLabel
+          );
 
-          if (!objects) return undefined;
+          let totalDifference = 0;
+          let totalCount = 0;
+          allObjectsForDate.forEach((pr) => {
+            const prDifferenceInHours = pr.objects?.map((object) => {
+              const createdAt = new Date(object.created_at);
+              const closedAt = new Date(object.merged_at);
+              return getDifferenceInHoursBetweenTwoDateTimes(
+                closedAt,
+                createdAt
+              );
+            });
 
-          const differenceInHours = objects.map((object) => {
-            const createdAt = new Date(object.created_at);
-            const closedAt = new Date(object.merged_at);
-
-            return getDifferenceInHoursBetweenTwoDateTimes(closedAt, createdAt);
+            if (prDifferenceInHours && prDifferenceInHours.length > 0) {
+              totalDifference += prDifferenceInHours.reduce((a, b) => a + b, 0);
+              totalCount += prDifferenceInHours.length;
+            }
           });
 
-          return (
-            differenceInHours.reduce((a, b) => a + b, 0) /
-            differenceInHours.length
-          );
+          // Calculate the average
+          return totalCount === 0 ? null : totalDifference / totalCount;
         }),
-      };
-    }),
+      },
+      ...userIds.map((userId, i) => {
+        const user = users!.find((user) => user.id === userId);
+
+        return {
+          label: user?.fullName,
+          color: getChartItemColor(i),
+          data: sortedLabels.map((sortedLabel) => {
+            const objects = pullRequestsGrouped.find(
+              (pr) =>
+                pr.date === sortedLabel && pr.backstage_user_id == user?.id
+            )?.objects;
+
+            if (!objects) return undefined;
+
+            const differenceInHours = objects.map((object) => {
+              const createdAt = new Date(object.created_at);
+              const closedAt = new Date(object.merged_at);
+
+              return getDifferenceInHoursBetweenTwoDateTimes(
+                closedAt,
+                createdAt
+              );
+            });
+
+            return (
+              differenceInHours.reduce((a, b) => a + b, 0) /
+              differenceInHours.length
+            );
+          }),
+        };
+      }),
+      // Adding the average dataset for the team
+    ],
   };
 
   return (

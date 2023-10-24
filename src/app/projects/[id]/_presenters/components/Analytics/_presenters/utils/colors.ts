@@ -6,7 +6,6 @@ export const getChartItemColor = (index: number) => {
     "success",
     "warning",
     "error",
-    "light",
     "dark",
   ];
 
