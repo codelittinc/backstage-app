@@ -7,13 +7,7 @@ import StatementsOfWorkTable from "./_presenters/components/StatementsOfWorkTabl
 import { useRouter } from "next/navigation";
 import routes from "@/routes";
 
-function StatementsOfWork({
-  project,
-}: {
-  project: Project;
-  onChange: Function;
-  onSave: Function;
-}): JSX.Element {
+function StatementsOfWork({ project }: { project: Project }): JSX.Element {
   const router = useRouter();
 
   return (
@@ -34,7 +28,9 @@ function StatementsOfWork({
               variant="gradient"
               color="info"
               size="small"
-              onClick={() => router.push(routes.newStatementOfWorkPath)}
+              onClick={() =>
+                router.push(routes.newStatementOfWorkPath(project.id!))
+              }
             >
               + New contract
             </Button>
