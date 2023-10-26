@@ -8,6 +8,8 @@ const routes = {
   newProjectPath: "/projects/new",
   signInPath: "/users/sign-in",
   userSettingsPath: "/users/me",
+  statementOfWorkPath: (id: number) => `/statements-of-work/${id}`,
+  newStatementOfWorkPath: "/statements-of-work/new",
 };
 
 export default routes;

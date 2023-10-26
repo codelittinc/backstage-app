@@ -5,6 +5,7 @@ import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Header from "./_presenters/components/Header";
 import BasicInfo from "./_presenters/components/BasicInfo";
 import SidenavForm from "@/components/SidenavForm";
+import StatementsOfWork from "./_presenters/components/StatementsOfWork";
 
 interface Props {
   project: Project;
@@ -26,6 +27,15 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
       </Grid>
       <Grid item xs={12}>
         <BasicInfo
+          project={currentProject}
+          onChange={updateCurrentProject}
+          onSave={() => {
+            onSave(currentProject);
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <StatementsOfWork
           project={currentProject}
           onChange={updateCurrentProject}
           onSave={() => {
