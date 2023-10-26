@@ -3,26 +3,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   deleteStatementOfWork,
   getStatementOfWorks,
-  updateStatementOfWork,
 } from "../data/services/statementsOfWork";
+import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
 
 const useStatementsOfWorkController = (projectId: number | string) => {
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 
-  const updateMutation = useMutation({
-    mutationFn: updateStatementOfWork,
-    onSuccess: (result: StatementOfWork) => {
-      showSaveSuccessAlert();
-      queryClient.invalidateQueries({
-        queryKey: ["statement_of_work", result.id],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ["statements_of_work", projectId],
-      });
-    },
-  });
+  const { projects, isLoading: isProjectsLoading } = useProjectsController();
 
   const deleteMutation = useMutation({
     mutationFn: deleteStatementOfWork,
@@ -42,14 +30,12 @@ const useStatementsOfWorkController = (projectId: number | string) => {
   });
 
   return {
-    onSave: (statementOfWork: StatementOfWork) => {
-      updateMutation.mutate({ projectId, statementOfWork });
-    },
     onDelete: (statementOfWork: StatementOfWork) => {
       deleteMutation.mutate({ projectId, statementOfWork });
     },
     statementsOfWork: data,
-    isLoading: isLoading || !data,
+    projects: projects,
+    isLoading: isLoading || !data || isProjectsLoading,
   };
 };
 

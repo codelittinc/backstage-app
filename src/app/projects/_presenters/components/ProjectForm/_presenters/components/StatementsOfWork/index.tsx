@@ -29,7 +29,7 @@ function StatementsOfWork({ project }: { project: Project }): JSX.Element {
               color="info"
               size="small"
               onClick={() =>
-                router.push(routes.newStatementOfWorkPath(project.id!))
+                router.push(routes.newStatementOfWorkPath(project.slug!))
               }
             >
               + New contract

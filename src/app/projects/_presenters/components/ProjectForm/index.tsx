@@ -52,13 +52,7 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
 
       <ProtectedComponent ability={abilities.change} target={targets.financial}>
         <Grid item xs={12}>
-          <StatementsOfWork
-            project={currentProject}
-            onChange={updateCurrentProject}
-            onSave={() => {
-              onSave(currentProject);
-            }}
-          />
+          <StatementsOfWork project={currentProject} />
         </Grid>
       </ProtectedComponent>
     </SidenavForm>

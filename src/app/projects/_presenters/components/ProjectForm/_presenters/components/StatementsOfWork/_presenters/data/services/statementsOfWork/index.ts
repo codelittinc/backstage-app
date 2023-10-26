@@ -9,9 +9,12 @@ export const getStatementOfWorks = async (projectId: string | number) => {
   return data.map(fromApiParser);
 };
 
-export const getStatementOfWork = async (id: number | string) => {
+export const getStatementOfWork = async (
+  id: number | string,
+  projectId: number | string
+) => {
   const { data } = await backstageApiClient.get(
-    `/statement_of_works/${id}.json`
+    `/projects/${projectId}/statement_of_works/${id}.json`
   );
 
   return fromApiParser(data);

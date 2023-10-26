@@ -2,9 +2,10 @@ import React from "react";
 import DataTable from "@/components/DataTable";
 import Button from "@/components/Button";
 import Icon from "@mui/material/Icon";
-import useStatementsOfWorkController from "../../controllers/statementsOfWorkController";
+import useStatementsOfWorkController from "../../controllers/useStatementsOfWorkController";
 import routes from "@/routes";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/Loading";
 
 function formatDateToMonthDayYear(isoDate: string): string {
   const date = new Date(isoDate);
@@ -19,12 +20,12 @@ interface Props {
 }
 
 const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
-  const { statementsOfWork, isLoading, onDelete } =
+  const { statementsOfWork, isLoading, onDelete, projects } =
     useStatementsOfWorkController(project.id!);
   const router = useRouter();
 
   if (isLoading) {
-    return <></>;
+    return <Loading />;
   }
 
   const columns = [
@@ -46,14 +47,17 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
       width: "5%",
       Cell: ({ row }: any) => {
         const {
-          original: { id },
+          original: { id, projectId },
         } = row;
+        const projectSlug = projects.find(
+          (project) => project.id === projectId
+        ).slug;
         return (
           <Button
             variant="text"
             color="info"
             onClick={() => {
-              router.push(routes.statementOfWorkPath(id));
+              router.push(routes.statementOfWorkPath(id, projectSlug));
             }}
           >
             <Icon>edit</Icon>
