@@ -1,5 +1,5 @@
 interface StatementOfWork {
-  id: number;
+  id?: number;
   endDate: string;
   hourDeliverySchedule: string;
   hourlyRevenue?: number | null;
@@ -8,5 +8,5 @@ interface StatementOfWork {
   startDate: string;
   totalHours?: number | null;
   totalRevenue: number;
-  projectId: number;
+  projectId: number | string;
 }
