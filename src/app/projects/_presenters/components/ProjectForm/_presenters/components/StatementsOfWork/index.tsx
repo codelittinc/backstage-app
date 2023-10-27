@@ -16,7 +16,7 @@ function StatementsOfWork({ project }: { project: Project }): JSX.Element {
         <Typography variant="h5">Contracts</Typography>
       </Box>
 
-      <Box px={3}>
+      <Box px={3} pb={2}>
         <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
           <Box
             display="flex"
