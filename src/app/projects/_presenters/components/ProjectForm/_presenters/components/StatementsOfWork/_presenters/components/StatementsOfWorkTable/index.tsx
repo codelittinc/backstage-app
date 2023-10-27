@@ -89,6 +89,10 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
     rows: statementsOfWork,
   };
 
+  if (statementsOfWork.length == 0) {
+    return <></>;
+  }
+
   return (
     <DataTable
       table={data}
