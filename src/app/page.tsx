@@ -1,20 +1,25 @@
+"use client";
+import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
+
 export default async function Home() {
   return (
-    <main
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "70vh",
-      }}
-    >
-      <div>
-        <div>Welcome to Backstage!</div>
+    <DashboardLayout>
+      <main
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "70vh",
+        }}
+      >
         <div>
-          This project is under construction. See the sidebar on the left for
-          actions you can already perform.
+          <div>Welcome to Backstage!</div>
+          <div>
+            This project is under construction. See the sidebar on the left for
+            actions you can already perform.
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </DashboardLayout>
   );
 }
