@@ -24,6 +24,7 @@ import {
 } from "@/theme";
 import Link from "next/link";
 import currentUserController from "@/app/_presenters/controllers/useCurrentUserController";
+import Loading from "../Loading";
 
 interface Props {
   color?:
@@ -195,9 +196,9 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       return <SidenavList key={key}>{returnValue}</SidenavList>;
     });
 
-  const { currentUser: user } = currentUserController();
-  if (!user) {
-    return <></>;
+  const { currentUser: user, isLoading } = currentUserController();
+  if (isLoading) {
+    return <Loading />;
   }
   const sidebarRoutes = [
     {
