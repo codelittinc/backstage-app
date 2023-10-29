@@ -17,8 +17,8 @@ function getUniqueBackstageUserIds(objects) {
 
 interface Props {
   project: Project;
-  startDateFilter?: string | undefined;
-  endDateFilter?: string | undefined;
+  startDateFilter: string;
+  endDateFilter: string;
   interval: string;
 }
 
