@@ -1,6 +1,7 @@
 import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import { groupByFieldAndInterval } from "../../../../../utils/grouping";
+import Loading from "@/components/Loading";
 
 interface Props {
   project: Project;
@@ -15,11 +16,15 @@ const AllPullRequestsChart = ({
   endDateFilter,
   interval,
 }: Props) => {
-  const { pullRequests = [] } = usePullRequestsController(
+  const { pullRequests = [], isLoading } = usePullRequestsController(
     project,
     startDateFilter,
     endDateFilter
   );
+
+  if (isLoading) {
+    return <Loading partial height="19.125rem" />;
+  }
 
   const pullRequestsGrouped = groupByFieldAndInterval(
     pullRequests,

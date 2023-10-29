@@ -1,6 +1,7 @@
 import useIssuesController from "../../controllers/useIssuesController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import { groupByFieldAndInterval } from "../../../../../utils/grouping";
+import Loading from "@/components/Loading";
 
 interface Props {
   project: Project;
@@ -15,11 +16,16 @@ const IssuesChart = ({
   endDateFilter,
   interval,
 }: Props) => {
-  const { issues = [] } = useIssuesController(
+  const { issues = [], isLoading } = useIssuesController(
     project,
     startDateFilter,
     endDateFilter
   );
+
+  if (isLoading) {
+    return <Loading partial height="19.125rem" />;
+  }
+
   var issuesGrouped = groupByFieldAndInterval(issues, "closed_date", interval);
 
   const sortedLabels = issuesGrouped.map((issue) => issue.date).sort();

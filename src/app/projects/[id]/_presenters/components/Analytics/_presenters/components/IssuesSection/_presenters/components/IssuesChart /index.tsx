@@ -3,6 +3,7 @@ import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import { getChartItemColor } from "../../../../../utils/colors";
 import { groupByFieldAndInterval } from "../../../../../utils/grouping";
+import Loading from "@/components/Loading";
 
 function getUniqueUserIds(objects) {
   if (!objects) return [];
@@ -33,7 +34,11 @@ const IssuesChart = ({
     startDateFilter,
     endDateFilter
   );
-  const { users = [] } = useUsersController();
+  const { users = [], isLoading: isUsersLoading } = useUsersController();
+
+  if (isLoading || isUsersLoading) {
+    return <Loading partial height="19.125rem" />;
+  }
 
   var issuesGrouped = groupByFieldAndInterval(
     issues,
