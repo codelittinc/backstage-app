@@ -1,19 +1,7 @@
 import useIssuesController from "../../controllers/useIssuesController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
-import useUsersController from "@/app/_presenters/controllers/useUsersController";
-import { getChartItemColor } from "../../../../../utils/colors";
 import { groupByFieldAndInterval } from "../../../../../utils/grouping";
-
-function getUniqueUserIds(objects) {
-  if (!objects) return [];
-  const userIds = new Set();
-
-  objects.forEach((obj) => {
-    userIds.add(obj.user_id); // Updated to user_id
-  });
-
-  return [...userIds];
-}
+import Loading from "@/components/Loading";
 
 interface Props {
   project: Project;
@@ -33,6 +21,11 @@ const IssuesChart = ({
     startDateFilter,
     endDateFilter
   );
+
+  if (isLoading) {
+    return <Loading partial height="19.125rem" />;
+  }
+
   var issuesGrouped = groupByFieldAndInterval(issues, "closed_date", interval);
 
   const sortedLabels = issuesGrouped.map((issue) => issue.date).sort();

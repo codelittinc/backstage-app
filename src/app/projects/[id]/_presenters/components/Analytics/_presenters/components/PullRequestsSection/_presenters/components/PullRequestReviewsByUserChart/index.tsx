@@ -3,6 +3,7 @@ import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import { getChartItemColor } from "../../../../../utils/colors";
 import { groupByFieldAndInterval } from "../../../../../utils/grouping";
+import Loading from "@/components/Loading";
 
 function getUniqueBackstageUserIds(objects) {
   const userIds = new Set();
@@ -27,7 +28,7 @@ const AllPullRequestsChart = ({
   endDateFilter,
   interval,
 }: Props) => {
-  const { pullRequests = [] } = usePullRequestsController(
+  const { pullRequests = [], isLoading } = usePullRequestsController(
     project,
     startDateFilter,
     endDateFilter
@@ -45,7 +46,11 @@ const AllPullRequestsChart = ({
     });
   });
 
-  const { users = [] } = useUsersController();
+  const { users = [], isLoading: isUsersLoading } = useUsersController();
+
+  if (isLoading || isUsersLoading) {
+    return <Loading partial height="19.125rem" />;
+  }
 
   const pullRequestsGrouped = groupByFieldAndInterval(
     reviews,

@@ -1,5 +1,4 @@
-import { CircularProgress, Box } from "@mui/material";
-import { styled } from "@mui/system";
+import { CircularProgress, Box, BoxProps } from "@mui/material";
 import { useState, useEffect } from "react";
 
 const quotes = [
@@ -15,20 +14,12 @@ const quotes = [
   "🚀 Energizing your page...",
 ];
 
-const StyledBox = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  height: "100vh",
-  width: "100vw",
-  position: "fixed",
-  top: 0,
-  left: 0,
-  backgroundColor: "rgba(255, 255, 255, 0.5)",
-  zIndex: 9999,
-});
+interface Props {
+  partial?: boolean;
+  height?: string;
+}
 
-export default function Loading() {
+export default function Loading({ partial, height }: Props) {
   const [quoteIndex, setQuoteIndex] = useState(0);
 
   useEffect(() => {
@@ -41,8 +32,21 @@ export default function Loading() {
 
   const quote = quotes[quoteIndex];
 
+  const computedStyles: BoxProps["sx"] = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: partial ? height ?? "100%" : "100vh",
+    width: partial ? "100%" : "100vw",
+    position: partial ? undefined : "fixed",
+    top: partial ? undefined : 0,
+    left: partial ? undefined : 0,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    zIndex: 9999,
+  };
+
   return (
-    <StyledBox>
+    <Box sx={computedStyles}>
       <Box
         display="flex"
         flexDirection="column"
@@ -54,6 +58,6 @@ export default function Loading() {
           <Box>{quote}</Box>
         </Box>
       </Box>
-    </StyledBox>
+    </Box>
   );
 }
