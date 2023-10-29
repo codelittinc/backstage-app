@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DashboardLayout from "../DashboardLayout";
 import { AppBar, Grid, Tab, Tabs } from "@mui/material";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   tabs: string[];
