@@ -1,15 +1,16 @@
 "use client";
+import { Switch } from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import { useState } from "react";
+
+import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
-import Typography from "@/components/Typography";
-import FormField from "@/components/FormField";
 import Button from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
-import Autocomplete from "@/components/Autocomplete";
-import { useState } from "react";
+import FormField from "@/components/FormField";
 import FormLayout from "@/components/LayoutContainers/FormLayout";
-import { Switch } from "@mui/material";
+import Typography from "@/components/Typography";
 
 interface StatementOfWorkProps {
   onSave: (statementOfWork: StatementOfWork) => void;

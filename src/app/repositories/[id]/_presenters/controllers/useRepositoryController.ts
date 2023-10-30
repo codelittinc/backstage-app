@@ -1,6 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
+
 import { REPOSITORIES_KEY } from "@/app/repositories/_domain/constants";
 import { getRepository } from "@/app/repositories/_presenters/data/services/repositories";
-import { useQuery } from "@tanstack/react-query";
 
 const useRepositoryController = (repositoryId: string | number | undefined) => {
   const { data, isLoading } = useQuery({

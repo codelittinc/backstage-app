@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Avatar from "@mui/material/Avatar";
-import { styled, Theme } from "@mui/material/styles";
+import { Theme, styled } from "@mui/material/styles";
 
 export default styled(Avatar)(
   ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {

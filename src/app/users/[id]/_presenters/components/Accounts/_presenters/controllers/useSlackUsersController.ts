@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getSlackUsers } from "../data/slackUsers";
-import { useAppStore } from "@/app/_presenters/data/store/store";
 import { useEffect } from "react";
+
+import { useAppStore } from "@/app/_presenters/data/store/store";
+
+import { getSlackUsers } from "../data/slackUsers";
 
 const useSlackUsersController = (customer: Customer | undefined) => {
   const { showAlert } = useAppStore();

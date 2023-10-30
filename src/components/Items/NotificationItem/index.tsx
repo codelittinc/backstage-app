@@ -1,9 +1,11 @@
-import { forwardRef, FC, ReactNode } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import Link from "@mui/material/Link";
 import { MenuItemProps } from "@mui/material";
+import Link from "@mui/material/Link";
+import MenuItem from "@mui/material/MenuItem";
+import { FC, ReactNode, forwardRef } from "react";
+
 import MDBox from "@/components/Box";
 import MDTypography from "@/components/Typography";
+
 import menuItem from "./styles";
 
 interface Props extends MenuItemProps {

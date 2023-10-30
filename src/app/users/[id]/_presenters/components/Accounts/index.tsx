@@ -1,16 +1,18 @@
-import Card from "@mui/material/Card";
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
-import Avatar from "@/components/Avatar";
-import Button from "@/components/Button";
-import User from "@/app/_domain/interfaces/User";
 import { Grid } from "@mui/material";
-import Loading from "@/components/Loading";
-import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
+import Card from "@mui/material/Card";
+
 import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
-import SlackUserAccountForm from "./_presenters/components/SlackUserAccountForm";
-import GithubUserAccountForm from "./_presenters/components/GithubUserAccountForm";
+import User from "@/app/_domain/interfaces/User";
+import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
+import Avatar from "@/components/Avatar";
+import Box from "@/components/Box";
+import Button from "@/components/Button";
+import Loading from "@/components/Loading";
+import Typography from "@/components/Typography";
+
 import AzureDevopsDeveloperUserAccountForm from "./_presenters/components/AzureDevopsDeveloperUserAccountForm";
+import GithubUserAccountForm from "./_presenters/components/GithubUserAccountForm";
+import SlackUserAccountForm from "./_presenters/components/SlackUserAccountForm";
 
 interface Props {
   onChange: (user: User) => void;

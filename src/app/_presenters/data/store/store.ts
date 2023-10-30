@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { alertSlice, AlertSlice } from "./slices/alertSlice";
-import { sessionUserSlice, SessionUserSlice } from "./slices/sessionUserSlice";
+
+import { AlertSlice, alertSlice } from "./slices/alertSlice";
+import { SessionUserSlice, sessionUserSlice } from "./slices/sessionUserSlice";
 
 type StoreState = AlertSlice & SessionUserSlice;
 

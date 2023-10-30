@@ -1,10 +1,12 @@
-import { useMemo, ReactNode } from "react";
-import { Line } from "react-chartjs-2";
+import Card from "@mui/material/Card";
 import { Chart } from "chart.js";
 import { LinearScale } from "chart.js/auto";
-import Card from "@mui/material/Card";
+import { ReactNode, useMemo } from "react";
+import { Line } from "react-chartjs-2";
+
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
+
 import configs from "./configs";
 
 Chart.register(LinearScale);

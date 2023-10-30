@@ -1,12 +1,14 @@
 "use client";
 import { useParams } from "next/navigation";
-import ProjectForm from "../_presenters/components/ProjectForm";
-import useNewProjectController from "./_presenters/controllers/useProjectController";
-import Loading from "@/components/Loading";
+
 import TabsLayout from "@/components/LayoutContainers/TabsLayout";
-import Analytics from "./_presenters/components/Analytics";
+import Loading from "@/components/Loading";
 import usePermissionsController from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
-import { targets, abilities } from "@/permissions";
+import { abilities, targets } from "@/permissions";
+
+import Analytics from "./_presenters/components/Analytics";
+import useNewProjectController from "./_presenters/controllers/useProjectController";
+import ProjectForm from "../_presenters/components/ProjectForm";
 
 function Page() {
   const { id } = useParams();

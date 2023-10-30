@@ -1,10 +1,11 @@
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
 import { Grid } from "@mui/material";
-import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
-import FormField from "@/components/FormField";
-import Avatar from "@/components/Avatar";
+
 import Profession from "@/app/_domain/interfaces/Profession";
+import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
+import Avatar from "@/components/Avatar";
+import Box from "@/components/Box";
+import FormField from "@/components/FormField";
+import Typography from "@/components/Typography";
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;

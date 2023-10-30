@@ -1,6 +1,7 @@
-import { fromApiParser, toApiParser } from "./parser";
-import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import { roadrunnerApiClient } from "@/app/_presenters/data/auth/roadrunnerApiAxios";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+
+import { fromApiParser, toApiParser } from "./parser";
 
 export const getRepositories = async () => {
   const { data } = await roadrunnerApiClient.get("/repositories.json");

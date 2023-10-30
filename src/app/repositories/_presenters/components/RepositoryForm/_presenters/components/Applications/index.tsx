@@ -1,16 +1,18 @@
+import { Icon } from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
-import Button from "@/components/Button";
-import { Icon } from "@mui/material";
 import { useState } from "react";
-import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+import Box from "@/components/Box";
+import Button from "@/components/Button";
 import Loading from "@/components/Loading";
-import useApplicationsController from "./_presenters/controllers/useApplicationsController";
+import Typography from "@/components/Typography";
+
 import ApplicationForm from "./_presenters/components/ApplicationForm";
 import ApplicationsTable from "./_presenters/components/ApplicationsTable";
+import useApplicationsController from "./_presenters/controllers/useApplicationsController";
 
 function Applications({ repository }: { repository: Repository }): JSX.Element {
   const { applications, isLoading } = useApplicationsController(repository.id!);

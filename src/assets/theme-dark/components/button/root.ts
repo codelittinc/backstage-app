@@ -14,8 +14,8 @@ Coded by www.creative-tim.com
 */
 
 // Material Dashboard 2 PRO React TS Base Styles
-import typography from "@/assets/theme-dark/base/typography";
 import borders from "@/assets/theme-dark/base/borders";
+import typography from "@/assets/theme-dark/base/typography";
 
 // Material Dashboard 2 PRO React TS Helper Functions
 import pxToRem from "@/assets/theme-dark/functions/pxToRem";

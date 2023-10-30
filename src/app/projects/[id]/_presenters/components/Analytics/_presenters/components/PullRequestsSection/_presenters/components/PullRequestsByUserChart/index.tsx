@@ -1,9 +1,10 @@
-import usePullRequestsController from "../../controllers/usePullRequestsController";
-import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
+import DefaultLineChart from "@/components/Charts/DefaultLineChart";
+import Loading from "@/components/Loading";
+
 import { getChartItemColor } from "../../../../../utils/colors";
 import { groupByFieldAndInterval } from "../../../../../utils/grouping";
-import Loading from "@/components/Loading";
+import usePullRequestsController from "../../controllers/usePullRequestsController";
 
 function getUniqueBackstageUserIds(objects) {
   const userIds = new Set();

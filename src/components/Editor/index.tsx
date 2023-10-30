@@ -1,34 +1,13 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React TS - v1.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import React from "react";
-
-// prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
-
-// draft-js
-import { EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
 import { convertToHTML } from "draft-convert";
+import { EditorState } from "draft-js";
+import PropTypes from "prop-types";
+import React from "react";
+import { Editor } from "react-draft-wysiwyg";
+
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
-// Custom styles for the MDEditor
-import MDEditorRoot from "./MDEditorRoot";
-
-// Material Dashboard 2 PRO React context
 import { useMaterialUIController } from "@/theme";
+
+import MDEditorRoot from "./MDEditorRoot";
 
 function MDEditor({ value }: any) {
   const [controller] = useMaterialUIController();

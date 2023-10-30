@@ -1,11 +1,13 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { getAuthenticatedUser } from "../data/users";
-import { useAppStore } from "../data/store/store";
 import { useRouter } from "next/navigation";
-import routes from "@/routes";
-import useCurrentUserSessionController from "./useCurrentUserSessionController";
+
 import { USERS_KEY } from "@/app/_domain/constants";
+import routes from "@/routes";
+
+import useCurrentUserSessionController from "./useCurrentUserSessionController";
+import { useAppStore } from "../data/store/store";
+import { getAuthenticatedUser } from "../data/users";
 
 const useCurrentUserController = () => {
   const { sessionUser } = useCurrentUserSessionController();

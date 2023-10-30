@@ -1,7 +1,8 @@
+import { Badge } from "@mui/material";
 import { FC, forwardRef } from "react";
+
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import { Badge } from "@mui/material";
 
 // declaring props types for BadgeDot
 interface Props {

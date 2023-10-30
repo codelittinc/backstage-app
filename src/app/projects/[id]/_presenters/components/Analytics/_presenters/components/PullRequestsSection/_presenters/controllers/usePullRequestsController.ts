@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPullRequests } from "../data/services/pullRequests";
+
 import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUserController";
+
+import { getPullRequests } from "../data/services/pullRequests";
 
 const useRepositoriesController = (
   project: Project,

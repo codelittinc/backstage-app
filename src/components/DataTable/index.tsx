@@ -1,23 +1,25 @@
-import { useMemo, useEffect, useState } from "react";
-import {
-  useTable,
-  usePagination,
-  useGlobalFilter,
-  useAsyncDebounce,
-  useSortBy,
-} from "react-table";
+import Autocomplete from "@mui/material/Autocomplete";
+import Icon from "@mui/material/Icon";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
-import Icon from "@mui/material/Icon";
-import Autocomplete from "@mui/material/Autocomplete";
+import { useEffect, useMemo, useState } from "react";
+import {
+  useAsyncDebounce,
+  useGlobalFilter,
+  usePagination,
+  useSortBy,
+  useTable,
+} from "react-table";
+
 import Box from "@/components/Box";
-import Typography from "@/components/Typography";
 import Input from "@/components/Input";
 import Pagination from "@/components/Pagination";
-import DataTableHeadCell from "./DataTableHeadCell";
+import Typography from "@/components/Typography";
+
 import DataTableBodyCell from "./DataTableBodyCell";
+import DataTableHeadCell from "./DataTableHeadCell";
 
 interface Props {
   canSearch?: boolean;

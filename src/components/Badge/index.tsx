@@ -1,5 +1,6 @@
-import { FC, ReactNode, forwardRef } from "react";
 import { BadgeProps } from "@mui/material";
+import { FC, ReactNode, forwardRef } from "react";
+
 import MDBadgeRoot from "./MDBadgeRoot";
 interface Props extends Omit<BadgeProps, "color" | "variant"> {
   [key: string]: any;

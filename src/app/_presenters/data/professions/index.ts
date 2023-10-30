@@ -1,6 +1,7 @@
 import Profession from "@/app/_domain/interfaces/Profession";
-import { backstageApiClient } from "../auth/backstageApiAxios";
+
 import { fromApiParser } from "./parser";
+import { backstageApiClient } from "../auth/backstageApiAxios";
 
 export const getProfessions = async (): Promise<Profession[] | null> => {
   const { data } = await backstageApiClient.get("/professions");

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import QueryProvider from "@/providers/query.provider";
+
 import AuthProvider from "@/providers/auth.provider";
-import { MaterialUIControllerProvider } from "@/theme";
 import LayoutProvider from "@/providers/layout.provider";
+import QueryProvider from "@/providers/query.provider";
+import { MaterialUIControllerProvider } from "@/theme";
 import "material-icons/iconfont/material-icons.css";
 
 const inter = Inter({ subsets: ["latin"] });

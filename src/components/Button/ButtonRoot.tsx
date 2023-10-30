@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Button from "@mui/material/Button";
-import { styled, Theme } from "@mui/material/styles";
+import { Theme, styled } from "@mui/material/styles";
 
 export default styled(Button)(
   ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {

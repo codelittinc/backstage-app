@@ -1,22 +1,24 @@
-import { useMemo, ReactNode } from "react";
-import { Line } from "react-chartjs-2";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
-import configs from "./configs";
-import colors from "@/assets/theme/base/colors";
-
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LineElement,
   LinearScale,
   PointElement,
-  LineElement,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js";
+import { ReactNode, useMemo } from "react";
+import { Line } from "react-chartjs-2";
+
+import colors from "@/assets/theme/base/colors";
+import Box from "@/components/Box";
+import Typography from "@/components/Typography";
+
+import configs from "./configs";
+
 
 ChartJS.register(
   CategoryScale,

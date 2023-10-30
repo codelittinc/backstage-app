@@ -1,8 +1,10 @@
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 import TableLayout from "@/components/LayoutContainers/TableLayout";
 import routes from "@/routes";
-import Link from "next/link";
+
 import useUsersController from "../_presenters/controllers/useUsersController";
 
 function Users(): JSX.Element {

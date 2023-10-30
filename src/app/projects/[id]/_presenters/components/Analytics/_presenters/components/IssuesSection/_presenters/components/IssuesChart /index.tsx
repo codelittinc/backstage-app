@@ -1,9 +1,10 @@
-import useIssuesController from "../../controllers/useIssuesController";
-import DefaultLineChart from "@/components/Charts/DefaultLineChart";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
+import DefaultLineChart from "@/components/Charts/DefaultLineChart";
+import Loading from "@/components/Loading";
+
 import { getChartItemColor } from "../../../../../utils/colors";
 import { groupByFieldAndInterval } from "../../../../../utils/grouping";
-import Loading from "@/components/Loading";
+import useIssuesController from "../../controllers/useIssuesController";
 
 function getUniqueUserIds(objects) {
   if (!objects) return [];

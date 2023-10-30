@@ -1,12 +1,14 @@
-import { ReactNode } from "react";
 import Collapse from "@mui/material/Collapse";
+import Icon from "@mui/material/Icon";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import Icon from "@mui/material/Icon";
 import { Theme } from "@mui/material/styles";
+import { ReactNode } from "react";
+
 import MDBox from "@/components/Box";
-import { item, itemContent, itemArrow } from "./styles/sidenavItem";
 import { useMaterialUIController } from "@/theme";
+
+import { item, itemArrow, itemContent } from "./styles/sidenavItem";
 
 interface Props {
   [key: string]: any;

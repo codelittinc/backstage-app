@@ -1,9 +1,11 @@
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import useCustomersController from "./_presenters/controllers/useCustomersController";
+
 import TableLayout from "@/components/LayoutContainers/TableLayout";
 import routes from "@/routes";
-import Link from "next/link";
+
+import useCustomersController from "./_presenters/controllers/useCustomersController";
 
 function Customers(): JSX.Element {
   const { customers = [], isLoading } = useCustomersController();

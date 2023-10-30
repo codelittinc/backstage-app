@@ -1,7 +1,9 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { getUsers } from "../data/users";
+
 import { USERS_KEY } from "@/app/_domain/constants";
+
+import { getUsers } from "../data/users";
 
 const useUsersController = () => {
   const { data, isLoading } = useQuery({

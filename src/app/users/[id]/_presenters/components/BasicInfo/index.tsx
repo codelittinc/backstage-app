@@ -1,15 +1,16 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
-import FormField from "@/components/FormField";
-import Autocomplete from "@/components/Autocomplete";
+
 import Profession from "@/app/_domain/interfaces/Profession";
 import User from "@/app/_domain/interfaces/User";
-import Button from "@/components/Button";
 import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
+import Autocomplete from "@/components/Autocomplete";
+import Box from "@/components/Box";
+import Button from "@/components/Button";
+import FormField from "@/components/FormField";
 import Loading from "@/components/Loading";
 import ProtectedComponent from "@/components/ProtectedComponent";
+import Typography from "@/components/Typography";
 import { abilities, targets } from "@/permissions";
 
 interface Props {

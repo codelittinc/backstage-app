@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
+
 import { PROJETS_KEY } from "../../_domain/constants";
 import { getProjects } from "../data/services/projects";
-import { useSession } from "next-auth/react";
 
 const useProjectsController = () => {
   const { data: session } = useSession();

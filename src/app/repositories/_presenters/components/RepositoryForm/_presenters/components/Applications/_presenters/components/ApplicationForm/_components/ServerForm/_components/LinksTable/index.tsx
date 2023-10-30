@@ -1,13 +1,14 @@
-import React from "react";
-import DataTable from "@/components/DataTable";
-import Button from "@/components/Button";
-import Icon from "@mui/material/Icon";
-import Typography from "@/components/Typography";
 import { Grid } from "@mui/material";
-import Box from "@/components/Box";
+import Icon from "@mui/material/Icon";
+import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+
 import { getRoadrunnerUrl } from "@/api";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
+import Box from "@/components/Box";
+import Button from "@/components/Button";
+import DataTable from "@/components/DataTable";
+import Typography from "@/components/Typography";
 
 interface Props {
   application: Application;

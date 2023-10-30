@@ -1,9 +1,10 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+
 import Box from "@/components/Box";
-import Typography from "@/components/Typography";
 import Button from "@/components/Button";
 import FormField from "@/components/FormField";
+import Typography from "@/components/Typography";
 
 function BasicInfo({
   customer,

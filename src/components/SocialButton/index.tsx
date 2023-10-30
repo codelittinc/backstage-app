@@ -1,5 +1,6 @@
-import { FC, ReactNode, forwardRef } from "react";
 import { ButtonProps } from "@mui/material";
+import { FC, ReactNode, forwardRef } from "react";
+
 import SocialButtonRoot from "./SocialButtonRoot";
 
 interface Props extends Omit<ButtonProps, "color" | "variant"> {

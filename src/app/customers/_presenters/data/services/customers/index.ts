@@ -1,5 +1,6 @@
-import { fromApiParser, toApiParser } from "./parser";
 import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxios";
+
+import { fromApiParser, toApiParser } from "./parser";
 
 export const getCustomers = async () => {
   const { data } = await backstageApiClient.get("/customers.json");

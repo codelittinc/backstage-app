@@ -105,15 +105,15 @@ interface Types {
   h5: {
     color: string;
     fontFamily: string;
-    fontWeight: number;
     fontSize: string;
+    fontWeight: number;
     lineHeight: number;
   };
   h6: {
     color: string;
     fontFamily: string;
-    fontWeight: number;
     fontSize: string;
+    fontWeight: number;
     lineHeight: number;
   };
   lineHeight: {

@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Box from "@mui/material/Box";
-import { styled, Theme } from "@mui/material/styles";
+import { Theme, styled } from "@mui/material/styles";
 
 export default styled(Box)(
   ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {

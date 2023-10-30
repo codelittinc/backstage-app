@@ -1,5 +1,6 @@
-import { FC, forwardRef } from "react";
 import { AvatarProps } from "@mui/material";
+import { FC, forwardRef } from "react";
+
 import MDAvatarRoot from "./MDAvatarRoot";
 
 interface Props extends AvatarProps {

@@ -18,10 +18,10 @@ import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 
 // Material Dashboard 2 PRO React TS components
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
-import Button from "@/components/Button";
 import Badge from "@/components/Badge";
+import Box from "@/components/Box";
+import Button from "@/components/Button";
+import Typography from "@/components/Typography";
 
 function Authentication(): JSX.Element {
   return (

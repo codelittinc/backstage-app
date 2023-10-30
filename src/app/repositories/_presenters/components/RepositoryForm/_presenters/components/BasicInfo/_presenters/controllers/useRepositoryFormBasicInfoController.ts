@@ -1,5 +1,6 @@
-import useChannelsController from "./useChannelsController";
 import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
+
+import useChannelsController from "./useChannelsController";
 
 const useRepositoryFormBasicInfoController = (customer: Customer | null) => {
   const { channels, isLoading: isChannelsLoading } =

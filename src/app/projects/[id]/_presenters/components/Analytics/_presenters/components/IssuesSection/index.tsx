@@ -1,10 +1,12 @@
+import { Grid } from "@mui/material";
+
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import { Grid } from "@mui/material";
+
+import AllIssuesChart from "./_presenters/components/AllIssuesChart";
+import AllIssuesEffortChart from "./_presenters/components/AllIssuesEffortChart";
 import IssuesChart from "./_presenters/components/IssuesChart ";
 import IssuesEffortChart from "./_presenters/components/IssuesEffortChart ";
-import AllIssuesEffortChart from "./_presenters/components/AllIssuesEffortChart";
-import AllIssuesChart from "./_presenters/components/AllIssuesChart";
 
 interface Props {
   endDateFilter?: string | undefined;

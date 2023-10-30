@@ -1,9 +1,10 @@
-import Grid from "@mui/material/Grid";
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
 import { Switch } from "@mui/material";
+import Grid from "@mui/material/Grid";
+
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
+import Box from "@/components/Box";
 import FormField from "@/components/FormField";
+import Typography from "@/components/Typography";
 
 function ApplicationForm({
   application,

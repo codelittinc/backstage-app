@@ -1,11 +1,14 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
-import Button from "@/components/Button";
-import StatementsOfWorkTable from "./_presenters/components/StatementsOfWorkTable";
 import { useRouter } from "next/navigation";
+
+import Box from "@/components/Box";
+import Button from "@/components/Button";
+import Typography from "@/components/Typography";
 import routes from "@/routes";
+
+import StatementsOfWorkTable from "./_presenters/components/StatementsOfWorkTable";
+
 
 function StatementsOfWork({ project }: { project: Project }): JSX.Element {
   const router = useRouter();

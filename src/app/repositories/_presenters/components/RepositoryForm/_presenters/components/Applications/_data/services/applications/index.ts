@@ -1,7 +1,9 @@
 import axios from "axios";
-import { fromApiParser, toApiParser, ApiApplication } from "./parser";
-import { Application } from "@/app/repositories/_domain/interfaces/Application";
+
 import { roadrunnerApiClient } from "@/app/_presenters/data/auth/roadrunnerApiAxios";
+import { Application } from "@/app/repositories/_domain/interfaces/Application";
+
+import { ApiApplication, fromApiParser, toApiParser } from "./parser";
 
 export const getApplications = async (repositoryId: number) => {
   if (!repositoryId) return null;

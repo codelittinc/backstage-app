@@ -1,7 +1,10 @@
-import { FC, ReactNode, forwardRef } from "react";
 import { TypographyProps } from "@mui/material";
-import TypographyRoot from "./TypographyRoot";
+import { FC, ReactNode, forwardRef } from "react";
+
 import { useMaterialUIController } from "@/theme";
+
+import TypographyRoot from "./TypographyRoot";
+
 
 interface Props extends TypographyProps {
   [key: string]: any;

@@ -1,7 +1,8 @@
-import useIssuesController from "../../controllers/useIssuesController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
-import { groupByFieldAndInterval } from "../../../../../utils/grouping";
 import Loading from "@/components/Loading";
+
+import { groupByFieldAndInterval } from "../../../../../utils/grouping";
+import useIssuesController from "../../controllers/useIssuesController";
 
 interface Props {
   endDateFilter?: string | undefined;

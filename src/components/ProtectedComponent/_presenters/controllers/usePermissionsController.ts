@@ -1,5 +1,5 @@
-import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUserController";
 import Permission from "@/app/_domain/interfaces/Permission";
+import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUserController";
 
 interface Props {
   ability: string;

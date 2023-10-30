@@ -1,9 +1,10 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import Avatar from "@/components/Avatar";
-import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 
 function Header({ repository }: { repository: Repository }): JSX.Element {
   const { owner, name, sourceControlType } = repository;

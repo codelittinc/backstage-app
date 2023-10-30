@@ -1,50 +1,22 @@
-/* eslint-disable no-param-reassign */
-/**
-=========================================================
-* Material Dashboard 2 PRO React TS - v1.0.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-2-pro-react-ts
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import { useState, useEffect, ReactNode, Fragment } from "react";
-
-// react-router components
-//import { Link } from "react-router-dom";
-
-// @mui material components
-import Icon from "@mui/material/Icon";
-import Popper from "@mui/material/Popper";
-import Grow, { GrowProps } from "@mui/material/Grow";
-import Grid from "@mui/material/Grid";
-import Divider from "@mui/material/Divider";
-import MuiLink from "@mui/material/Link";
 import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import Grow, { GrowProps } from "@mui/material/Grow";
+import Icon from "@mui/material/Icon";
+import MuiLink from "@mui/material/Link";
+import Popper from "@mui/material/Popper";
 import { Theme } from "@mui/material/styles";
+import { Fragment, ReactNode, useEffect, useState } from "react";
 
-// Material Dashboard 2 PRO React TS components
+import breakpoints from "@/assets/theme/base/breakpoints";
 import MDBox from "@/components/Box";
-import MDTypography from "@/components/Typography";
 import MDButton from "@/components/Button";
+import MDTypography from "@/components/Typography";
+import { useMaterialUIController } from "@/theme";
 
-// Material Dashboard 2 PRO React TS examples components
 import DefaultNavbarDropdown from ".//DefaultNavbarDropdown";
 import DefaultNavbarMobile from ".//DefaultNavbarMobile";
 
-// Material Dashboard 2 PRO React TS Base Styles
-import breakpoints from "@/assets/theme/base/breakpoints";
-
-// Material Dashboard 2 PRO React context
-import { useMaterialUIController } from "@/theme";
-
-// Declaring props types for DefaultNavbar
 interface Props {
   action?: {
     color:

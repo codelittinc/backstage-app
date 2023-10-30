@@ -1,16 +1,18 @@
+import { Switch } from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
 import { useEffect, useState } from "react";
-import Button from "@/components/Button";
-import { Switch } from "@mui/material";
-import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import Autocomplete from "@/components/Autocomplete";
-import useApplicationFormController from "./_controllers/useApplicationFormController";
+import Box from "@/components/Box";
+import Button from "@/components/Button";
+import Typography from "@/components/Typography";
+
 import ServerForm from "./_components/ServerForm";
 import LinksTable from "./_components/ServerForm/_components/LinksTable";
+import useApplicationFormController from "./_controllers/useApplicationFormController";
 
 function ApplicationForm({
   repository,

@@ -1,11 +1,13 @@
 "use client";
 import { signIn } from "next-auth/react";
-import Box from "@/components/Box";
-import Button from "@/components/Button";
-import IllustrationLayout from "./IllustrationLayout";
-import routes from "@/routes";
 
 import bgImage from "@/assets/images/illustrations/illustration-reset.jpg";
+import Box from "@/components/Box";
+import Button from "@/components/Button";
+import routes from "@/routes";
+
+import IllustrationLayout from "./IllustrationLayout";
+
 
 function Illustration(): JSX.Element {
   return (

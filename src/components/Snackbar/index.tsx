@@ -1,15 +1,17 @@
-import { ReactNode } from "react";
-import Snackbar from "@mui/material/Snackbar";
-import IconButton from "@mui/material/IconButton";
-import Icon from "@mui/material/Icon";
+import { SnackbarProps } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Fade from "@mui/material/Fade";
-import { SnackbarProps } from "@mui/material";
+import Icon from "@mui/material/Icon";
+import IconButton from "@mui/material/IconButton";
+import Snackbar from "@mui/material/Snackbar";
+import { ReactNode } from "react";
+
+import { useAppStore } from "@/app/_presenters/data/store/store";
 import MDBox from "@/components/Box";
 import MDTypography from "@/components/Typography";
-import MDSnackbarIconRoot from "./MDSnackbarIconRoot";
 import { useMaterialUIController } from "@/theme";
-import { useAppStore } from "@/app/_presenters/data/store/store";
+
+import MDSnackbarIconRoot from "./MDSnackbarIconRoot";
 
 interface Props extends SnackbarProps {
   autoHideDuration?: number;

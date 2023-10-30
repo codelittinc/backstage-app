@@ -1,9 +1,11 @@
-import Typography from "@/components/Typography";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
-import AllPullRequestsChart from "./_presenters/components/PullRequestsChart";
-import PullRequestsByUserChart from "./_presenters/components/PullRequestsByUserChart";
+
+import Typography from "@/components/Typography";
+
 import PullRequestReviewsByUserChart from "./_presenters/components/PullRequestReviewsByUserChart";
+import PullRequestsByUserChart from "./_presenters/components/PullRequestsByUserChart";
+import AllPullRequestsChart from "./_presenters/components/PullRequestsChart";
 import PullRequestsCloseDurationByUserChart from "./_presenters/components/PullRequestsCloseDurationByUserChart";
 
 interface Props {
