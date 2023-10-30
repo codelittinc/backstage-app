@@ -1,7 +1,8 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useAppStore } from "../data/store/store";
 import { useEffect } from "react";
+
+import { useAppStore } from "../data/store/store";
 
 const useCurrentUserSessionController = () => {
   const { data: session } = useSession();

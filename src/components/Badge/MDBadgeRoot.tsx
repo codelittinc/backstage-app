@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Badge from "@mui/material/Badge";
-import { styled, Theme } from "@mui/material/styles";
+import { Theme, styled } from "@mui/material/styles";
 
 export default styled(Badge)(
   ({ theme, ownerState }: { ownerState: any, theme?: Theme; }) => {

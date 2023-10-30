@@ -1,25 +1,24 @@
 "use client";
-import { useState, useEffect } from "react";
-
-import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
-import Box from "@/components/Box";
-import Sidenav from "@/components/Sidenav";
-import Configurator from "@/components/Configurator";
+import { ThemeProvider } from "@mui/material/styles";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
+
+import brandDark from "@/assets/images/logo-ct-dark.png";
+import brandWhite from "@/assets/images/logo-ct.png";
 import theme from "@/assets/theme";
 import themeDark from "@/assets/theme-dark";
-
+import Box from "@/components/Box";
+import Configurator from "@/components/Configurator";
+import Sidenav from "@/components/Sidenav";
+import Snackbar from "@/components/Snackbar";
 import {
-  useMaterialUIController,
   setMiniSidenav,
   setOpenConfigurator,
+  useMaterialUIController,
 } from "@/theme";
-
-import brandWhite from "@/assets/images/logo-ct.png";
-import brandDark from "@/assets/images/logo-ct-dark.png";
-import { usePathname } from "next/navigation";
-import Snackbar from "@/components/Snackbar";
 
 export default function App({ children }: { children: React.ReactNode }) {
   const [controller, dispatch] = useMaterialUIController();

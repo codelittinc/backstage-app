@@ -1,5 +1,7 @@
 import { FC, forwardRef } from "react";
+
 import Typography from "@/components/Typography";
+
 import ProgressRoot from "./ProgressRoot";
 
 interface Props {

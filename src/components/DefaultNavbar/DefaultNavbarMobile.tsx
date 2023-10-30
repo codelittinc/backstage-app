@@ -13,7 +13,6 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
 
 // react-router components
 // import { Link } from "react-router-dom";
@@ -22,6 +21,7 @@ import { useState } from "react";
 import Collapse from "@mui/material/Collapse";
 import MuiLink from "@mui/material/Link";
 import { Theme } from "@mui/material/styles";
+import { useState } from "react";
 
 // Material Dashboard 2 PRO React TS components
 import MDBox from "@/components/Box";

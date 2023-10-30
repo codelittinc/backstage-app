@@ -1,9 +1,11 @@
 "use client";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
+
 import FormLayout from "@/components/LayoutContainers/FormLayout";
-import Header from "./_presenters/components/Header";
+
 import BasicInfo from "./_presenters/components/BasicInfo";
+import Header from "./_presenters/components/Header";
 
 interface Props {
   customer: Customer;

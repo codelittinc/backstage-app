@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { getIssues } from "../data/services/issues"; // Adjusted the import
 
 const useIssuesController = (

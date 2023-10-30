@@ -1,8 +1,10 @@
-import { CHANNELS_KEY } from "@/app/repositories/_domain/constants";
 import { useQuery } from "@tanstack/react-query";
-import { getChannels } from "../data/services/channels";
 import { useEffect } from "react";
+
 import { useAppStore } from "@/app/_presenters/data/store/store";
+import { CHANNELS_KEY } from "@/app/repositories/_domain/constants";
+
+import { getChannels } from "../data/services/channels";
 
 const useChannelsController = (customer: Customer | null) => {
   const { showAlert } = useAppStore();

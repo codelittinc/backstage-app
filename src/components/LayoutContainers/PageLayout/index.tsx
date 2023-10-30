@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
+
 import Box from "@/components/Box";
-import { useMaterialUIController, setLayout } from "@/theme";
+import { setLayout, useMaterialUIController } from "@/theme";
 
 interface Props {
   background?: "white" | "light" | "default";

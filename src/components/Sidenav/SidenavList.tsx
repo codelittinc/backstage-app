@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
 import List from "@mui/material/List";
+import { ReactNode } from "react";
 
 function SidenavList({ children }: { children: ReactNode }): JSX.Element {
   return (

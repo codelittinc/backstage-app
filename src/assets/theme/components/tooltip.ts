@@ -17,9 +17,9 @@ Coded by www.creative-tim.com
 import Fade from "@mui/material/Fade";
 
 // Material Dashboard 2 PRO React TS Base Styles
+import borders from "@/assets/theme/base/borders";
 import colors from "@/assets/theme/base/colors";
 import typography from "@/assets/theme/base/typography";
-import borders from "@/assets/theme/base/borders";
 
 // Material Dashboard 2 PRO React TS Helper Functions
 import pxToRem from "@/assets/theme/functions/pxToRem";

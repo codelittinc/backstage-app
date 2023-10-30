@@ -1,20 +1,20 @@
-import { ReactNode } from "react";
 import Collapse from "@mui/material/Collapse";
+import Icon from "@mui/material/Icon";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Icon from "@mui/material/Icon";
+import { ReactNode } from "react";
+
 import MDBox from "@/components/Box";
+import { useMaterialUIController } from "@/theme";
 
 import {
-  collapseItem,
-  collapseIconBox,
-  collapseIcon,
-  collapseText,
   collapseArrow,
+  collapseIcon,
+  collapseIconBox,
+  collapseItem,
+  collapseText,
 } from "./styles/sidenavCollapse";
-
-import { useMaterialUIController } from "@/theme";
 
 interface Props {
   [key: string]: any;

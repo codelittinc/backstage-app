@@ -1,12 +1,13 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import { PROJETS_KEY } from "@/app/projects/_domain/constants";
 import {
-  getProject,
   createProject,
+  getProject,
 } from "@/app/projects/_presenters/data/services/projects";
 import routes from "@/routes";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 const useProjectController = (projectId: number | undefined) => {
   const router = useRouter();

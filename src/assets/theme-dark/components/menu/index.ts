@@ -14,10 +14,10 @@ Coded by www.creative-tim.com
 */
 
 // Material Dashboard 2 PRO React TS Base Styles
-import boxShadows from "@/assets/theme-dark/base/boxShadows";
-import typography from "@/assets/theme-dark/base/typography";
-import colors from "@/assets/theme-dark/base/colors";
 import borders from "@/assets/theme-dark/base/borders";
+import boxShadows from "@/assets/theme-dark/base/boxShadows";
+import colors from "@/assets/theme-dark/base/colors";
+import typography from "@/assets/theme-dark/base/typography";
 
 // Material Dashboard 2 PRO React TS Helper Functions
 import pxToRem from "@/assets/theme-dark/functions/pxToRem";

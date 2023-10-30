@@ -1,7 +1,8 @@
-import usePullRequestsController from "../../controllers/usePullRequestsController";
 import DefaultLineChart from "@/components/Charts/DefaultLineChart";
-import { groupByFieldAndInterval } from "../../../../../utils/grouping";
 import Loading from "@/components/Loading";
+
+import { groupByFieldAndInterval } from "../../../../../utils/grouping";
+import usePullRequestsController from "../../controllers/usePullRequestsController";
 
 interface Props {
   endDateFilter?: string | undefined;

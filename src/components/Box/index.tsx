@@ -1,5 +1,6 @@
-import { forwardRef, FC } from "react";
 import { BoxProps } from "@mui/material";
+import { FC, forwardRef } from "react";
+
 import BoxRoot from "./BoxRoot";
 
 interface Props extends BoxProps {

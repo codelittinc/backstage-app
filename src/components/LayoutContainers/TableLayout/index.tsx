@@ -1,11 +1,12 @@
 "use client";
-import Card from "@mui/material/Card";
-import Box from "@/components/Box";
-import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 import { Grid, Icon } from "@mui/material";
+import Card from "@mui/material/Card";
+
+import Box from "@/components/Box";
 import Button from "@/components/Button";
-import Loading from "@/components/Loading";
 import DataTable from "@/components/DataTable";
+import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
+import Loading from "@/components/Loading";
 
 interface Props {
   buttonLabel?: string;

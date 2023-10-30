@@ -1,12 +1,13 @@
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
 import { Grid } from "@mui/material";
-import Autocomplete from "@/components/Autocomplete";
-import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
-import Avatar from "@/components/Avatar";
-import FormField from "@/components/FormField";
+
 import Profession from "@/app/_domain/interfaces/Profession";
+import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
 import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
+import Autocomplete from "@/components/Autocomplete";
+import Avatar from "@/components/Avatar";
+import Box from "@/components/Box";
+import FormField from "@/components/FormField";
+import Typography from "@/components/Typography";
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;

@@ -1,26 +1,26 @@
-import { useState, useEffect } from "react";
 
 import Divider from "@mui/material/Divider";
-import Switch from "@mui/material/Switch";
-import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
+import IconButton from "@mui/material/IconButton";
 import { Theme } from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
+import { useEffect, useState } from "react";
 
 import MDBox from "@/components/Box";
-import MDTypography from "@/components/Typography";
 import MDButton from "@/components/Button";
-import ConfiguratorRoot from "./ConfiguratorRoot";
-
+import MDTypography from "@/components/Typography";
 import {
-  useMaterialUIController,
+  setDarkMode,
+  setFixedNavbar,
+  setMiniSidenav,
   setOpenConfigurator,
+  setSidenavColor,
   setTransparentSidenav,
   setWhiteSidenav,
-  setMiniSidenav,
-  setFixedNavbar,
-  setSidenavColor,
-  setDarkMode,
+  useMaterialUIController,
 } from "@/theme";
+
+import ConfiguratorRoot from "./ConfiguratorRoot";
 
 function Configurator(): JSX.Element {
   const [controller, dispatch] = useMaterialUIController();

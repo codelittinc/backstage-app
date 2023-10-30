@@ -1,8 +1,10 @@
 "use client";
 import { useParams } from "next/navigation";
-import CustomerForm from "../_presenters/components/CustomerForm/page";
-import useNewCustomerController from "./_presenters/controllers/useCustomerController";
+
 import Loading from "@/components/Loading";
+
+import useNewCustomerController from "./_presenters/controllers/useCustomerController";
+import CustomerForm from "../_presenters/components/CustomerForm/page";
 
 function Page() {
   const { id } = useParams();

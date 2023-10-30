@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
-import { styled, Theme } from "@mui/material/styles";
+import { Theme, styled } from "@mui/material/styles";
 
 export default styled("div")(({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {
   const { palette, borders, typography } = theme;

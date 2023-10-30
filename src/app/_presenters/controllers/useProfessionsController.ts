@@ -1,7 +1,9 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { getProfessions } from "../data/professions";
+
 import { PROFESSIONS_KEY } from "@/app/_domain/constants";
+
+import { getProfessions } from "../data/professions";
 
 const useProfessionsController = () => {
   const { data, isLoading } = useQuery({

@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
 import { Theme } from "@mui/material/styles";
+import { ReactNode } from "react";
+
 import Box from "@/components/Box";
 
 interface Props {

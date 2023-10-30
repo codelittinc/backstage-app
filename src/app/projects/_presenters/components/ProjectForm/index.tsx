@@ -1,13 +1,15 @@
 "use client";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
-import Header from "./_presenters/components/Header";
-import BasicInfo from "./_presenters/components/BasicInfo";
-import SidenavForm from "@/components/SidenavForm";
-import StatementsOfWork from "./_presenters/components/StatementsOfWork";
-import usePermissions from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
-import { abilities, targets } from "@/permissions";
+
 import ProtectedComponent from "@/components/ProtectedComponent";
+import usePermissions from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
+import SidenavForm from "@/components/SidenavForm";
+import { abilities, targets } from "@/permissions";
+
+import BasicInfo from "./_presenters/components/BasicInfo";
+import Header from "./_presenters/components/Header";
+import StatementsOfWork from "./_presenters/components/StatementsOfWork";
 
 interface Props {
   onSave: (project: Project) => void;

@@ -1,10 +1,13 @@
-import React from "react";
-import DataTable from "@/components/DataTable";
-import Button from "@/components/Button";
 import Icon from "@mui/material/Icon";
-import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
-import { Application } from "@/app/repositories/_domain/interfaces/Application";
+import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+
+import { Application } from "@/app/repositories/_domain/interfaces/Application";
+import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
+import Button from "@/components/Button";
+import DataTable from "@/components/DataTable";
+
+
 import useApplicationsTableController from "./_presenters/_controllers/useApplicationsTableController";
 
 interface Props {

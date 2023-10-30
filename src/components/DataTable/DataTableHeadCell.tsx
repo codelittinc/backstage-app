@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
 import Icon from "@mui/material/Icon";
 import { Theme } from "@mui/material/styles";
+import { ReactNode } from "react";
+
 import Box from "@/components/Box";
 import { useMaterialUIController } from "@/theme";
 

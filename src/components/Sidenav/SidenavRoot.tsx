@@ -1,5 +1,5 @@
 import Drawer from "@mui/material/Drawer";
-import { styled, Theme } from "@mui/material/styles";
+import { Theme, styled } from "@mui/material/styles";
 
 export default styled(Drawer)(
   ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {

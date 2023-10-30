@@ -1,31 +1,32 @@
-import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
-import Icon from "@mui/material/Icon";
-import Box from "@/components/Box";
-import Input from "@/components/Input";
+import Toolbar from "@mui/material/Toolbar";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import Badge from "@/components/Badge";
+import Box from "@/components/Box";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Input from "@/components/Input";
 import NotificationItem from "@/components/Items/NotificationItem";
+import {
+  setMiniSidenav,
+  setOpenConfigurator,
+  setTransparentNavbar,
+  useMaterialUIController,
+} from "@/theme";
 
 import {
   navbar,
   navbarContainer,
-  navbarRow,
   navbarIconButton,
   navbarMobileMenu,
+  navbarRow,
 } from "./styles";
 
-import {
-  useMaterialUIController,
-  setTransparentNavbar,
-  setMiniSidenav,
-  setOpenConfigurator,
-} from "@/theme";
-import Link from "next/link";
 
 interface Props {
   absolute?: boolean;

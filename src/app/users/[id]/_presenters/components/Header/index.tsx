@@ -1,11 +1,12 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Switch from "@mui/material/Switch";
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
-import Avatar from "@/components/Avatar";
+
 import User from "@/app/_domain/interfaces/User";
+import Avatar from "@/components/Avatar";
+import Box from "@/components/Box";
 import ProtectedComponent from "@/components/ProtectedComponent";
+import Typography from "@/components/Typography";
 import { abilities, targets } from "@/permissions";
 
 interface Props {

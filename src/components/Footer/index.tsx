@@ -1,8 +1,9 @@
-import Link from "@mui/material/Link";
 import Icon from "@mui/material/Icon";
+import Link from "@mui/material/Link";
+
+import typography from "@/assets/theme/base/typography";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import typography from "@/assets/theme/base/typography";
 
 const defaultData = {
   company: { href: "https://codelitt.com/", name: "Codelitt" },

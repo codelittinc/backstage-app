@@ -1,5 +1,5 @@
-import { CircularProgress, Box, BoxProps } from "@mui/material";
-import { useState, useEffect } from "react";
+import { Box, BoxProps, CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const quotes = [
   "☕ Brewing...",

@@ -14,8 +14,8 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
-import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 
 export default styled(Typography)(({ theme, ownerState }: any): any => {
   const { palette, typography, functions }: any = theme;

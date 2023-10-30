@@ -1,5 +1,6 @@
-import useSlackUsersController from "../../../../controllers/useSlackUsersController";
 import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
+
+import useSlackUsersController from "../../../../controllers/useSlackUsersController";
 
 const useUserAccountsController = (customer: Customer | undefined) => {
   const { slackUsers, isLoading: isSlackUsersLoading } =

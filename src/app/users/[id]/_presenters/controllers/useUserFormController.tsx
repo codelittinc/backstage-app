@@ -1,9 +1,10 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { USERS_KEY } from "@/app/_domain/constants";
 import User from "@/app/_domain/interfaces/User";
 import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import { getUser, updateUser } from "@/app/_presenters/data/users";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const useUserFormController = (userId: number | string) => {
   const { showSaveSuccessAlert } = useAppStore();

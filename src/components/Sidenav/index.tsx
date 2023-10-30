@@ -1,29 +1,29 @@
-import { usePathname } from "next/navigation";
-
-import MDAvatar from "@/components/Avatar";
-import { signOut, useSession } from "next-auth/react";
-import { useEffect, useState, ReactNode } from "react";
-import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
+import List from "@mui/material/List";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
+import { ReactNode, useEffect, useState } from "react";
+
+import currentUserController from "@/app/_presenters/controllers/useCurrentUserController";
+import codelittLogo from "@/assets/images/logos/codelitt.png";
+import MDAvatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import SidenavCollapse from "./SidenavCollapse";
-import SidenavList from "./SidenavList";
-import SidenavItem from "./SidenavItem";
-import SidenavRoot from "./SidenavRoot";
-import sidenavLogoLabel from "./styles/sidenav";
 import routes from "@/routes";
-
-import codelittLogo from "@/assets/images/logos/codelitt.png";
 import {
-  useMaterialUIController,
   setMiniSidenav,
   setTransparentSidenav,
   setWhiteSidenav,
+  useMaterialUIController,
 } from "@/theme";
-import Link from "next/link";
-import currentUserController from "@/app/_presenters/controllers/useCurrentUserController";
+
+import SidenavCollapse from "./SidenavCollapse";
+import SidenavItem from "./SidenavItem";
+import SidenavList from "./SidenavList";
+import SidenavRoot from "./SidenavRoot";
+import sidenavLogoLabel from "./styles/sidenav";
 import Loading from "../Loading";
 
 interface Props {

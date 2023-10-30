@@ -14,8 +14,8 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
-import { styled, Theme } from "@mui/material/styles";
 import LinearProgress from "@mui/material/LinearProgress";
+import { Theme, styled } from "@mui/material/styles";
 
 export default styled(LinearProgress)(
   ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {

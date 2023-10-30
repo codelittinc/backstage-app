@@ -1,10 +1,12 @@
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import useRepositoriesController from "./_presenters/controllers/useRepositoriesController";
+
+import StatusCell from "@/components/DataTable/StatusCell";
 import TableLayout from "@/components/LayoutContainers/TableLayout";
 import routes from "@/routes";
-import Link from "next/link";
-import StatusCell from "@/components/DataTable/StatusCell";
+
+import useRepositoriesController from "./_presenters/controllers/useRepositoriesController";
 
 function Repositories(): JSX.Element {
   const { repositories = [], isLoading } = useRepositoriesController();

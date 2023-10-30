@@ -1,11 +1,14 @@
+import { Grid } from "@mui/material";
+
+import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
+import logoSlack from "@/assets/images/small-logos/logo-slack.svg";
+import Autocomplete from "@/components/Autocomplete";
+import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import { Grid } from "@mui/material";
-import Autocomplete from "@/components/Autocomplete";
-import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
+
 import useSlackUserAccountFormController from "./_presenters/controllers/useSlackUserAccountFormController";
-import Avatar from "@/components/Avatar";
-import logoSlack from "@/assets/images/small-logos/logo-slack.svg";
+
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;

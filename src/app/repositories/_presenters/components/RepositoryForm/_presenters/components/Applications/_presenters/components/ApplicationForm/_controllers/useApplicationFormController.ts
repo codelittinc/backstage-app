@@ -1,9 +1,11 @@
-import { Application } from "@/app/repositories/_domain/interfaces/Application";
-import { useAppStore } from "@/app/_presenters/data/store/store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { useAppStore } from "@/app/_presenters/data/store/store";
+import { Application } from "@/app/repositories/_domain/interfaces/Application";
+
 import {
-  saveApplication,
   getApplication,
+  saveApplication,
 } from "../../../../_data/services/applications";
 import { APPLICATIONS_KEY } from "../../../../_domain/constants";
 

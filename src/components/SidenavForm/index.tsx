@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
-import Box from "../Box";
+
 import Sidenav from "./Sidenav";
+import Box from "../Box";
 
 interface SidenavFormProps {
   children: React.ReactNode;

@@ -1,15 +1,16 @@
+import { Switch } from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import Box from "@/components/Box";
-import Typography from "@/components/Typography";
-import Button from "@/components/Button";
-import FormField from "@/components/FormField";
+
 import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
-import Autocomplete from "@/components/Autocomplete";
-import Loading from "@/components/Loading";
-import DatePicker from "@/components/DatePicker";
-import { Switch } from "@mui/material";
 import useChannelsController from "@/app/repositories/_presenters/components/RepositoryForm/_presenters/components/BasicInfo/_presenters/controllers/useChannelsController";
+import Autocomplete from "@/components/Autocomplete";
+import Box from "@/components/Box";
+import Button from "@/components/Button";
+import DatePicker from "@/components/DatePicker";
+import FormField from "@/components/FormField";
+import Loading from "@/components/Loading";
+import Typography from "@/components/Typography";
 
 function BasicInfo({
   project,

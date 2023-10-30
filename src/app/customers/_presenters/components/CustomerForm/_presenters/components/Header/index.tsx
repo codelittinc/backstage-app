@@ -1,8 +1,9 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+
+import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
-import Avatar from "@/components/Avatar";
 
 function Header({ customer }: { customer: Customer }): JSX.Element {
   const { name } = customer;

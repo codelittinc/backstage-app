@@ -1,14 +1,16 @@
 "use client";
 import Grid from "@mui/material/Grid";
-import Header from "./_presenters/components/Header";
-import BasicInfo from "./_presenters/components/BasicInfo";
-import Accounts from "./_presenters/components/Accounts";
-import FormLayout from "@/components/LayoutContainers/FormLayout";
 import { useParams } from "next/navigation";
-import useUserFormController from "./_presenters/controllers/useUserFormController";
 import { useEffect, useState } from "react";
+
 import User from "@/app/_domain/interfaces/User";
+import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Loading from "@/components/Loading";
+
+import Accounts from "./_presenters/components/Accounts";
+import BasicInfo from "./_presenters/components/BasicInfo";
+import Header from "./_presenters/components/Header";
+import useUserFormController from "./_presenters/controllers/useUserFormController";
 
 const sidenavItems = [
   { icon: "person", label: "profile", href: "profile" },

@@ -18,8 +18,8 @@ import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 PRO React TS components
 import Box from "@/components/Box";
-import Typography from "@/components/Typography";
 import Button from "@/components/Button";
+import Typography from "@/components/Typography";
 
 // Declaring props types for StatusCell
 interface Props {

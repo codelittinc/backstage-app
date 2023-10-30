@@ -1,10 +1,11 @@
-import { useEffect, ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
+
+import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUserController";
 import Box from "@/components/Box";
-import { useMaterialUIController, setLayout } from "@/theme";
 import DashboardNavbar from "@/components/DashboardNavbar";
 import Footer from "@/components/Footer";
-import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUserController";
 import Loading from "@/components/Loading";
+import { setLayout, useMaterialUIController } from "@/theme";
 
 interface Props {
   children: ReactNode;
