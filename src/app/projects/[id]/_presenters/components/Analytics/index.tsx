@@ -5,23 +5,26 @@ import Box from "@/components/Box";
 import DatePicker from "@/components/DatePicker";
 import IssuesSection from "./_presenters/components/IssuesSection";
 import { PullRequestsSection } from "./_presenters/components/PullRequestsSection";
+import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 
 const Analytics = ({ project }: { project: Project }) => {
-  const [startDateFilter, setStartDateFilter] = useState<string>(
-    project.startDate!
-  );
-  const [endDateFilter, setEndDateFilter] = useState<string>(project.endDate!);
+  const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
+    useQueryParamController("startDate", project.startDate!);
+
+  const { paramValue: endDateFilter, setParamValue: setEndDateFilter } =
+    useQueryParamController("endDate", project.endDate!);
+
   const [dateInterval, setdateInterval] = useState<string>("weeks");
 
   const showIssues = !!project.customer.ticketTrackingSystemToken;
   const showPullRequests = !!project.customer.sourceControlToken;
 
-  const updateEndDateFilter = (value: string) => {
-    setEndDateFilter(value);
+  const updateEndDateFilter = (value: Date) => {
+    setEndDateFilter(value.toDateString());
   };
 
-  const updateStartDateFilter = (value: string) => {
-    setStartDateFilter(value);
+  const updateStartDateFilter = (value: Date) => {
+    setStartDateFilter(value.toDateString());
   };
 
   return (
@@ -30,8 +33,8 @@ const Analytics = ({ project }: { project: Project }) => {
         <Grid item mr={2}>
           <DatePicker
             label="Start date"
-            value={[startDateFilter]}
-            onChange={(e: Array<string>) => {
+            value={[new Date(startDateFilter)]}
+            onChange={(e: Array<Date>) => {
               updateStartDateFilter(e[0]);
             }}
           />
@@ -39,8 +42,8 @@ const Analytics = ({ project }: { project: Project }) => {
         <Grid item>
           <DatePicker
             label="End date"
-            value={endDateFilter}
-            onChange={(e: Array<string>) => {
+            value={new Date(endDateFilter)}
+            onChange={(e: Array<Date>) => {
               updateEndDateFilter(e[0]);
             }}
           />
