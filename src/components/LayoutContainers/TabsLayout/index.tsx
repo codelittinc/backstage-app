@@ -1,8 +1,8 @@
 import { AppBar, Grid, Tab, Tabs } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import DashboardLayout from "../DashboardLayout";
+import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 
 interface Props {
   tabs: string[];
@@ -20,7 +20,7 @@ const getTabs = (
         <AppBar position="static">
           <Tabs
             value={active}
-            onChange={(event: React.SyntheticEvent, value: number) => {
+            onChange={(_: React.SyntheticEvent, value: number) => {
               onChange(value);
             }}
           >
@@ -35,28 +35,18 @@ const getTabs = (
 };
 
 function TabsLayout({ tabs, tabsChildren }: Props): JSX.Element {
-  const params = useSearchParams();
-  const router = useRouter();
+  const { paramValue, setParamValue } = useQueryParamController("tab", 0);
 
-  const tab = params.get("tab") ? Number(params.get("tab")) : 0;
-
-  const [activeTab, setActiveTab] = useState(tab);
-
-  const updateQueryParam = (key: string, value: string) => {
-    const currentParams = new URLSearchParams(params.toString());
-    currentParams.set(key, value);
-    router.replace(`?${currentParams.toString()}`, { scroll: false });
-  };
+  const tab = Number(paramValue);
 
   const updateActiveTab = (value: number) => {
-    setActiveTab(value);
-    updateQueryParam("tab", value.toString());
+    setParamValue(value);
   };
 
   return (
     <DashboardLayout>
-      {getTabs(tabs, updateActiveTab, activeTab)}
-      {tabsChildren[activeTab]}
+      {getTabs(tabs, updateActiveTab, tab)}
+      {tabsChildren[tab]}
     </DashboardLayout>
   );
 }

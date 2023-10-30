@@ -16,6 +16,14 @@ const Analytics = ({ project }: { project: Project }) => {
   const showIssues = !!project.customer.ticketTrackingSystemToken;
   const showPullRequests = !!project.customer.sourceControlToken;
 
+  const updateEndDateFilter = (value: string) => {
+    setEndDateFilter(value);
+  };
+
+  const updateStartDateFilter = (value: string) => {
+    setStartDateFilter(value);
+  };
+
   return (
     <Box>
       <Grid container mb={3} mt={3}>
@@ -24,7 +32,7 @@ const Analytics = ({ project }: { project: Project }) => {
             label="Start date"
             value={[startDateFilter]}
             onChange={(e: Array<string>) => {
-              setStartDateFilter(e[0]);
+              updateStartDateFilter(e[0]);
             }}
           />
         </Grid>
@@ -33,7 +41,7 @@ const Analytics = ({ project }: { project: Project }) => {
             label="End date"
             value={endDateFilter}
             onChange={(e: Array<string>) => {
-              setEndDateFilter(e[0]);
+              updateEndDateFilter(e[0]);
             }}
           />
         </Grid>
