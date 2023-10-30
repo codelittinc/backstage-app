@@ -19,7 +19,6 @@ Coded by www.creative-tim.com
  * You can customized the colors for the entire Material Dashboard 2 PRO React TSUI Dashboard PRO Material using thie file.
  */
 
-// types
 interface ColorsTypes {
   focus: string;
   main: string;

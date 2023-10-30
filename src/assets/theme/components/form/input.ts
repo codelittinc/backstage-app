@@ -13,7 +13,6 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// Material Dashboard 2 PRO React TS Base Styles
 import borders from "@/assets/theme/base/borders";
 import colors from "@/assets/theme/base/colors";
 import typography from "@/assets/theme/base/typography";
@@ -22,7 +21,6 @@ const { info, inputBorderColor, dark } = colors;
 const { size } = typography;
 const { borderWidth } = borders;
 
-// types
 type Types = any;
 
 const input: Types = {

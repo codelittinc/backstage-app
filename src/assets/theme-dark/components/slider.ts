@@ -13,12 +13,9 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// Material Dashboard 2 PRO React TS Base Styles
 import borders from "@/assets/theme/base/borders";
 import boxShadows from "@/assets/theme/base/boxShadows";
 import colors from "@/assets/theme/base/colors";
-
-// Material Dashboard 2 PRO React TS Helper Functions
 import boxShadow from "@/assets/theme/functions/boxShadow";
 import pxToRem from "@/assets/theme/functions/pxToRem";
 
@@ -26,7 +23,6 @@ const { grey, white, black, info } = colors;
 const { borderRadius, borderWidth } = borders;
 const { sliderBoxShadow } = boxShadows;
 
-// types
 type Types = any;
 
 const slider: Types = {

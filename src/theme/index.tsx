@@ -29,13 +29,10 @@ import {
   useReducer,
 } from "react";
 
-// The Material Dashboard 2 PRO React TSUI Dashboard PRO Material main context
 const MaterialUI = createContext<any>(null);
 
-// Setting custom name for the context which is visible on react dev tools
 MaterialUI.displayName = "MaterialUIContext";
 
-// types
 interface StateTypes {
   darkMode: boolean;
   direction: "ltr" | "rtl";
@@ -72,7 +69,6 @@ interface ActionTypes {
   value: any;
 }
 
-// Material Dashboard 2 PRO React reducer
 function reducer(state: StateTypes, action: ActionTypes) {
   switch (action.type) {
     case "MINI_SIDENAV": {
@@ -111,7 +107,6 @@ function reducer(state: StateTypes, action: ActionTypes) {
   }
 }
 
-// Material Dashboard 2 PRO React context provider
 function MaterialUIControllerProvider({
   children,
 }: {
@@ -137,7 +132,6 @@ function MaterialUIControllerProvider({
   return <MaterialUI.Provider value={value}>{children}</MaterialUI.Provider>;
 }
 
-// Material Dashboard 2 PRO React custom hook for using context
 function useMaterialUIController() {
   const context = useContext(MaterialUI);
 
@@ -150,7 +144,6 @@ function useMaterialUIController() {
   return context;
 }
 
-// Context module functions
 const setMiniSidenav = (
   dispatch: (arg: { type: "MINI_SIDENAV"; value: boolean }) => void,
   value: boolean

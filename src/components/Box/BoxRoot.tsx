@@ -13,12 +13,11 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
 import Box from "@mui/material/Box";
 import { Theme, styled } from "@mui/material/styles";
 
 export default styled(Box)(
-  ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {
+  ({ theme, ownerState }: { ownerState: any; theme?: Theme | any }) => {
     const { palette, functions, borders, boxShadows } = theme;
     const {
       variant,

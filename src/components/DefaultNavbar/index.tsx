@@ -630,7 +630,6 @@ function DefaultNavbar({
   );
 }
 
-// Declaring default props for DefaultNavbar
 DefaultNavbar.defaultProps = {
   brand: "Material Dashboard PRO",
   transparent: false,

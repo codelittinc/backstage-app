@@ -13,12 +13,10 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// Material Dashboard 2 PRO React TS Base Styles
 import borders from "@/assets/theme/base/borders";
 
 const { borderRadius } = borders;
 
-// types
 type Types = any;
 
 const avatar: Types = {

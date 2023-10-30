@@ -10,7 +10,7 @@ import Typography from "@/components/Typography";
 import configs from "./configs";
 
 Chart.register(LinearScale);
-// Declaring props types for ReportsLineChart
+
 interface Props {
   [key: string]: any;
   chart: {

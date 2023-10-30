@@ -13,7 +13,6 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// Material Dashboard 2 PRO React TS Base Styles
 import borders from "@/assets/theme-dark/base/borders";
 import boxShadows from "@/assets/theme-dark/base/boxShadows";
 import colors from "@/assets/theme-dark/base/colors";
@@ -22,7 +21,6 @@ const { transparent } = colors;
 const { lg } = boxShadows;
 const { borderRadius } = borders;
 
-// types
 type Types = any;
 
 const popover: Types = {

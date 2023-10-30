@@ -13,12 +13,11 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
 import Avatar from "@mui/material/Avatar";
 import { Theme, styled } from "@mui/material/styles";
 
 export default styled(Avatar)(
-  ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {
+  ({ theme, ownerState }: { ownerState: any; theme?: Theme | any }) => {
     const { palette, functions, typography, boxShadows } = theme;
     const { shadow, bgColor, size } = ownerState;
 

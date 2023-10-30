@@ -19,15 +19,11 @@ Coded by www.creative-tim.com
  * You can customized the box-shadow for the entire Material Dashboard 2 PRO React TSUI Dashboard PRO Material using thie file.
  */
 
-// Material Dashboard 2 PRO React TS Base Styles
 import colors from "@/assets/theme/base/colors";
-
-// Material Dashboard 2 PRO React TS Helper Functions
 import boxShadow from "@/assets/theme/functions/boxShadow";
 
 const { black, white, tabs, coloredShadows } = colors;
 
-// types
 interface Types {
   colored:
     | {

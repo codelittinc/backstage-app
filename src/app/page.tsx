@@ -1,7 +1,7 @@
 "use client";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 
-export default async function Home() {
+export default function Home() {
   return (
     <DashboardLayout>
       <main

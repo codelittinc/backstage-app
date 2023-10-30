@@ -15,12 +15,12 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
 import { Theme } from "@mui/material/styles";
 
 function item(theme: Theme | any, ownerState: any) {
   const { palette, borders, functions, transitions } = theme;
-  const { active, color, transparentSidenav, whiteSidenav, darkMode } = ownerState;
+  const { active, color, transparentSidenav, whiteSidenav, darkMode } =
+    ownerState;
 
   const { transparent, white, grey } = palette;
   const { borderRadius } = borders;
@@ -59,14 +59,26 @@ function item(theme: Theme | any, ownerState: any) {
     "&:hover, &:focus": {
       backgroundColor:
         !active &&
-        rgba((transparentSidenav && !darkMode) || whiteSidenav ? grey[400] : white.main, 0.2),
+        rgba(
+          (transparentSidenav && !darkMode) || whiteSidenav
+            ? grey[400]
+            : white.main,
+          0.2
+        ),
     },
   };
 }
 
 function itemContent(theme: Theme, ownerState: any) {
   const { palette, typography, transitions, functions } = theme;
-  const { miniSidenav, name, active, transparentSidenav, whiteSidenav, darkMode } = ownerState;
+  const {
+    miniSidenav,
+    name,
+    active,
+    transparentSidenav,
+    whiteSidenav,
+    darkMode,
+  } = ownerState;
 
   const { white, dark } = palette;
   const { size, fontWeightRegular, fontWeightLight } = typography;
@@ -84,7 +96,8 @@ function itemContent(theme: Theme, ownerState: any) {
 
     "& span": {
       color:
-        ((transparentSidenav && !darkMode) || whiteSidenav) && (active === "isParent" || !active)
+        ((transparentSidenav && !darkMode) || whiteSidenav) &&
+        (active === "isParent" || !active)
           ? dark.main
           : white.main,
       fontWeight: active ? fontWeightRegular : fontWeightLight,
@@ -99,7 +112,8 @@ function itemContent(theme: Theme, ownerState: any) {
     "&::before": {
       content: `"${name[0]}"`,
       color:
-        ((transparentSidenav && !darkMode) || whiteSidenav) && (active === "isParent" || !active)
+        ((transparentSidenav && !darkMode) || whiteSidenav) &&
+        (active === "isParent" || !active)
           ? dark.main
           : white.main,
       fontWeight: fontWeightRegular,
@@ -118,8 +132,15 @@ function itemContent(theme: Theme, ownerState: any) {
 
 function itemArrow(theme: Theme, ownerState: any) {
   const { palette, typography, transitions, breakpoints, functions } = theme;
-  const { noCollapse, transparentSidenav, whiteSidenav, miniSidenav, open, active, darkMode } =
-    ownerState;
+  const {
+    noCollapse,
+    transparentSidenav,
+    whiteSidenav,
+    miniSidenav,
+    open,
+    active,
+    darkMode,
+  } = ownerState;
 
   const { white, dark } = palette;
   const { size } = typography;

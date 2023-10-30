@@ -19,7 +19,6 @@ import Typography from "@/components/Typography";
 
 import configs from "./configs";
 
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -30,7 +29,6 @@ ChartJS.register(
   Legend
 );
 
-// Declaring props types for DefaultLineChart
 interface Props {
   [key: string]: any;
   chart: {

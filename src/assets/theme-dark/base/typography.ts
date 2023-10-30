@@ -19,15 +19,11 @@ Coded by www.creative-tim.com
  * You can customized the typography styles for the entire Material Dashboard 2 PRO React TSUI Dashboard PRO Material using thie file.
  */
 
-// Material Dashboard 2 PRO React TS Base Styles
 import colors from "@/assets/theme-dark/base/colors";
-
-// Material Dashboard 2 PRO React TS Helper Functions
 import pxToRem from "@/assets/theme-dark/functions/pxToRem";
 
 const { white } = colors;
 
-// types
 interface DisplayTypes {
   color: string;
   fontFamily: string;

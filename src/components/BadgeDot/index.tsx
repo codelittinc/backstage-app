@@ -4,7 +4,6 @@ import { FC, forwardRef } from "react";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
-// declaring props types for BadgeDot
 interface Props {
   [key: string]: any;
   badgeContent: string;

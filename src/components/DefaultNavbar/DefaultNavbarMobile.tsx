@@ -13,24 +13,16 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-
-// react-router components
-// import { Link } from "react-router-dom";
-
-// @mui material components
 import Collapse from "@mui/material/Collapse";
 import MuiLink from "@mui/material/Link";
 import { Theme } from "@mui/material/styles";
 import { useState } from "react";
 
-// Material Dashboard 2 PRO React TS components
 import MDBox from "@/components/Box";
 import MDTypography from "@/components/Typography";
 
-// Material Dashboard 2 PRO React TS exampless
 import DefaultNavbarDropdown from "./DefaultNavbarDropdown";
 
-// Declaring props types for DefaultNavbarMobile
 interface Props {
   open: any;
   routes: any;

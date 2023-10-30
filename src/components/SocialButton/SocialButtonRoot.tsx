@@ -13,12 +13,11 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
 import { Button } from "@mui/material";
 import { Theme, styled } from "@mui/material/styles";
 
 export default styled(Button)(
-  ({ theme, ownerState }: { ownerState: any, theme?: Theme; }) => {
+  ({ theme, ownerState }: { ownerState: any; theme?: Theme }) => {
     const { palette, functions } = theme;
     const { color, size, iconOnly, circular } = ownerState;
 
