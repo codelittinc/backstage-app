@@ -1,6 +1,6 @@
-import User from "@/app/_domain/interfaces/User";
+import { ApiUser, User } from "@/app/_domain/interfaces/User";
 
-import { ApiUser, fromApiParser, toApiParser } from "./parser";
+import { fromApiParser, toApiParser } from "./parser";
 import { backstageApiClient } from "../auth/backstageApiAxios";
 
 export const getAuthenticatedUser = async (): Promise<User | null> => {

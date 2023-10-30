@@ -1,12 +1,8 @@
 import { Grid } from "@mui/material";
 import { useState } from "react";
-
 import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
 import DatePicker from "@/components/DatePicker";
-
-
-
 import IssuesSection from "./_presenters/components/IssuesSection";
 import { PullRequestsSection } from "./_presenters/components/PullRequestsSection";
 
