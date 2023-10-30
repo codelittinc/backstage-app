@@ -1,8 +1,9 @@
 import { AppBar, Grid, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 
-import DashboardLayout from "../DashboardLayout";
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
+
+import DashboardLayout from "../DashboardLayout";
 
 interface Props {
   tabs: string[];

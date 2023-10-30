@@ -1,11 +1,13 @@
 import { Grid } from "@mui/material";
 import { useState } from "react";
+
+import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
 import DatePicker from "@/components/DatePicker";
+
 import IssuesSection from "./_presenters/components/IssuesSection";
 import { PullRequestsSection } from "./_presenters/components/PullRequestsSection";
-import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 
 const Analytics = ({ project }: { project: Project }) => {
   const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
@@ -14,7 +16,8 @@ const Analytics = ({ project }: { project: Project }) => {
   const { paramValue: endDateFilter, setParamValue: setEndDateFilter } =
     useQueryParamController("endDate", project.endDate!);
 
-  const [dateInterval, setdateInterval] = useState<string>("weeks");
+  const { paramValue: dateInterval, setParamValue: setdateInterval } =
+    useQueryParamController("interval", "weeks");
 
   const showIssues = !!project.customer.ticketTrackingSystemToken;
   const showPullRequests = !!project.customer.sourceControlToken;
