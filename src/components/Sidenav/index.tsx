@@ -27,6 +27,9 @@ import currentUserController from "@/app/_presenters/controllers/useCurrentUserC
 import Loading from "../Loading";
 
 interface Props {
+  [key: string]: any;
+  brand?: string;
+  brandName: string;
   color?:
     | "primary"
     | "secondary"
@@ -35,8 +38,6 @@ interface Props {
     | "warning"
     | "error"
     | "dark";
-  brand?: string;
-  brandName: string;
   routes: {
     [key: string]:
       | ReactNode
@@ -50,7 +51,6 @@ interface Props {
               }[];
         }[];
   }[];
-  [key: string]: any;
 }
 
 function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {

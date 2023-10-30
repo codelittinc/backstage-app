@@ -2,7 +2,7 @@ import Drawer from "@mui/material/Drawer";
 import { styled, Theme } from "@mui/material/styles";
 
 export default styled(Drawer)(
-  ({ theme, ownerState }: { theme?: Theme | any; ownerState: any }) => {
+  ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {
     const { palette, boxShadows, transitions, breakpoints, functions } = theme;
     const { transparentSidenav, whiteSidenav, miniSidenav, darkMode } =
       ownerState;

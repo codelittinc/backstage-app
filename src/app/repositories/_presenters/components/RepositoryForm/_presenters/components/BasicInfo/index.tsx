@@ -17,9 +17,9 @@ function BasicInfo({
   onChange,
   onSave,
 }: {
-  repository: Repository;
   onChange: Function;
   onSave: Function;
+  repository: Repository;
 }): JSX.Element {
   const {
     name,

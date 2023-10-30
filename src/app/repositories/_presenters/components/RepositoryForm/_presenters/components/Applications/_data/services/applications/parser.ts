@@ -1,18 +1,18 @@
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 
 export interface ApiApplication {
-  id?: number;
   environment: string;
+  external_identifiers: ApiExternalIdentifiers[];
+  id?: number;
   repository_id: number;
   server?: ApiServer | undefined;
-  external_identifiers: ApiExternalIdentifiers[];
 }
 
 export interface ApiServer {
+  active: boolean;
   id?: number;
   link: string;
   supports_health_check: boolean;
-  active: boolean;
 }
 
 export interface ApiExternalIdentifiers {

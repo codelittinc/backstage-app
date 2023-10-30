@@ -4,7 +4,7 @@ import SidenavForm from "@/components/SidenavForm";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
-  sidebarItems: { icon: string; label: string; href: string }[];
+  sidebarItems: { href: string, icon: string; label: string; }[];
 }
 function FormLayout({ children, sidebarItems }: Props): JSX.Element {
   return (

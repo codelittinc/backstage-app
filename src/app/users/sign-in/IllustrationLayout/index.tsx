@@ -6,11 +6,11 @@ import PageLayout from "@/components/LayoutContainers/PageLayout";
 import { useMaterialUIController } from "@/theme";
 
 interface Props {
-  header?: ReactNode;
-  title?: string;
-  description?: string;
   children: ReactNode;
+  description?: string;
+  header?: ReactNode;
   illustration?: string;
+  title?: string;
 }
 
 function IllustrationLayout({

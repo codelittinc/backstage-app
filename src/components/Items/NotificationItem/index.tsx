@@ -7,9 +7,9 @@ import MDTypography from "@/components/Typography";
 import menuItem from "./styles";
 
 interface Props extends MenuItemProps {
+  [key: string]: any;
   icon: ReactNode;
   title: string;
-  [key: string]: any;
 }
 
 const NotificationItem: FC<Props> = forwardRef(

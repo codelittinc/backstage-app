@@ -1,5 +1,5 @@
 export default interface Permission {
-  id: number;
   ability: string;
+  id: number;
   target: string;
 }

@@ -17,9 +17,9 @@ function ApplicationForm({
   application,
   onCancel,
 }: {
-  repository: Repository;
   application: Application;
   onCancel: Function;
+  repository: Repository;
 }): JSX.Element {
   const { application: serverApplication, onSave } =
     useApplicationFormController(repository.id!, application.id);

@@ -29,32 +29,32 @@ const { black, white, tabs, coloredShadows } = colors;
 
 // types
 interface Types {
-  xs: string;
-  sm: string;
-  md: string;
-  lg: string;
-  xl: string;
-  xxl: string;
-  inset: string;
   colored:
     | {
+        dark: string;
+        error: string;
+        info: string;
+        light: string;
         primary: string;
         secondary: string;
-        info: string;
         success: string;
         warning: string;
-        error: string;
-        light: string;
-        dark: string;
       }
     | any;
+  inset: string;
+  lg: string;
+  md: string;
   navbarBoxShadow: string;
   sliderBoxShadow: {
     thumb: string;
   };
+  sm: string;
   tabsBoxShadow: {
     indicator: string;
   };
+  xl: string;
+  xs: string;
+  xxl: string;
 }
 
 const boxShadows: Types = {

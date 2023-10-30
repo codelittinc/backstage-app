@@ -1,21 +1,21 @@
 import { StateCreator } from "zustand";
 
 interface Alert {
+  autoHideDuration?: number;
+  bgWhite?: boolean;
   color?: string;
+  content: string;
+  dateTime?: string;
   icon?: string;
   title: string;
-  dateTime?: string;
-  content: string;
-  bgWhite?: boolean;
-  autoHideDuration?: number;
 }
 
 export interface AlertSlice {
   alert: Alert | null;
-  showAlert: (alert: Alert) => void;
   hideAlert: () => void;
-  showSaveSuccessAlert: () => void;
+  showAlert: (alert: Alert) => void;
   showSaveErrorAlert: (err: unknown) => void;
+  showSaveSuccessAlert: () => void;
 }
 
 export const alertSlice: StateCreator<AlertSlice> = (set) => ({

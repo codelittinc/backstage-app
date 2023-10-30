@@ -2,15 +2,15 @@ import { Chip, Autocomplete as MUIAutocomplete } from "@mui/material";
 import FormField from "../FormField";
 
 interface AutocompleteProps {
-  value?: any;
   defaultValue?: any;
+  freeSolo?: boolean;
+  getOptionLabel?: (value: any) => string;
+  isOptionEqualToValue?: (option: any, value: any) => boolean;
+  label: string;
+  multiple?: boolean;
   onChange: (value: any) => void;
   options: any[];
-  getOptionLabel?: (value: any) => string;
-  label: string;
-  freeSolo?: boolean;
-  multiple?: boolean;
-  isOptionEqualToValue?: (option: any, value: any) => boolean;
+  value?: any;
 }
 
 const Autocomplete = ({

@@ -5,27 +5,27 @@ import { fromApiParser as professionFromApiParser } from "@/app/_presenters/data
 import { fromApiParser as customerFromApiParser } from "@/app/customers/_presenters/data/services/customers/parser";
 
 export interface ApiUser {
-  id?: number;
   active: boolean;
   contract_type?: string;
+  country: string;
   email: string;
   first_name: string;
+  google_id: string;
+  id?: number;
   image_url: string;
   last_name: string;
-  seniority?: string;
-  slug: string;
-  google_id: string;
+  permissions: Permission[];
   profession?: Profession;
   profession_id?: number;
-  country: string;
+  seniority?: string;
+  slug: string;
   user_service_identifiers: {
-    service_name: string;
-    identifier: string;
     customer?: Customer;
     customer_id?: number;
     id?: number;
+    identifier: string;
+    service_name: string;
   }[];
-  permissions: Permission[];
 }
 
 export const toApiParser = (user: User): ApiUser => {

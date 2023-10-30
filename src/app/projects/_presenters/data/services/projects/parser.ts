@@ -1,24 +1,24 @@
 import { fromApiParser as customerFromApiParser } from "@/app/customers/_presenters/data/services/customers/parser";
 
 export interface ApiProjectFrom {
+  billable: boolean;
+  customer: Customer;
+  end_date: string | null;
   id?: number;
   name: string;
-  billable: boolean;
   slack_channel: string | null;
-  start_date: string | null;
-  end_date: string | null;
-  customer: Customer;
   slug: string;
+  start_date: string | null;
 }
 
 export interface ApiProjectTo {
+  billable: boolean;
+  customer_id: number;
+  end_date: string | null;
   id?: number;
   name: string;
-  billable: boolean;
   slack_channel: string | null;
   start_date: string | null;
-  end_date: string | null;
-  customer_id: number;
 }
 
 export function fromApiParser(project: ApiProjectFrom): Project {

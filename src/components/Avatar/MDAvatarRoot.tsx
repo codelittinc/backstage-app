@@ -18,7 +18,7 @@ import Avatar from "@mui/material/Avatar";
 import { styled, Theme } from "@mui/material/styles";
 
 export default styled(Avatar)(
-  ({ theme, ownerState }: { theme?: Theme | any; ownerState: any }) => {
+  ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {
     const { palette, functions, typography, boxShadows } = theme;
     const { shadow, bgColor, size } = ownerState;
 

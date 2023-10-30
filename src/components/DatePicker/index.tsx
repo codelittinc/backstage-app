@@ -24,10 +24,10 @@ import MDInput from "@/components/FormField";
 
 // types
 interface Props {
+  [key: string]: any;
   input?: {
     [key: string]: any;
   };
-  [key: string]: any;
 }
 
 function MDDatePicker({ input, ...rest }: Props): JSX.Element {

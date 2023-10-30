@@ -7,10 +7,10 @@ import PullRequestReviewsByUserChart from "./_presenters/components/PullRequestR
 import PullRequestsCloseDurationByUserChart from "./_presenters/components/PullRequestsCloseDurationByUserChart";
 
 interface Props {
-  project: Project;
-  startDateFilter?: string | undefined;
   endDateFilter?: string | undefined;
   interval: string;
+  project: Project;
+  startDateFilter?: string | undefined;
 }
 
 export const PullRequestsSection = ({

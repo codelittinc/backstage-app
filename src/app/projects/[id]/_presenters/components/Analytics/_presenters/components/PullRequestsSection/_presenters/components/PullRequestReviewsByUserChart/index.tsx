@@ -16,10 +16,10 @@ function getUniqueBackstageUserIds(objects) {
 }
 
 interface Props {
-  project: Project;
-  startDateFilter: string;
   endDateFilter: string;
   interval: string;
+  project: Project;
+  startDateFilter: string;
 }
 
 const AllPullRequestsChart = ({

@@ -13,9 +13,9 @@ import ProtectedComponent from "@/components/ProtectedComponent";
 import { abilities, targets } from "@/permissions";
 
 interface Props {
-  user: User;
-  onSave: (user: User) => void;
   onChange: (user: User) => void;
+  onSave: (user: User) => void;
+  user: User;
 }
 
 function BasicInfo({ user, onSave, onChange }: Props): JSX.Element {

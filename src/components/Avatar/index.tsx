@@ -3,6 +3,7 @@ import { AvatarProps } from "@mui/material";
 import MDAvatarRoot from "./MDAvatarRoot";
 
 interface Props extends AvatarProps {
+  [key: string]: any;
   bgColor?:
     | "transparent"
     | "primary"
@@ -13,9 +14,8 @@ interface Props extends AvatarProps {
     | "error"
     | "light"
     | "dark";
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
   shadow?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "inset";
-  [key: string]: any;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 }
 
 const Avatar: FC<Props> = forwardRef(

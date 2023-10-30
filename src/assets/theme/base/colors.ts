@@ -21,8 +21,8 @@ Coded by www.creative-tim.com
 
 // types
 interface ColorsTypes {
-  main: string;
   focus: string;
+  main: string;
 }
 
 interface GradientsTypes {
@@ -31,8 +31,8 @@ interface GradientsTypes {
 }
 
 interface SocialMediaColorsTypes {
-  main: string;
   dark: string;
+  main: string;
 }
 
 interface BadgeColorsTypes {
@@ -43,89 +43,28 @@ interface BadgeColorsTypes {
 interface Types {
   background:
     | {
+        card?: string;
         default: string;
         sidenav?: string;
-        card?: string;
-      }
-    | any;
-  white:
-    | {
-        main: string;
-        focus: string;
-      }
-    | any;
-  text:
-    | {
-        main: string;
-        focus: string;
-        primary?: string;
-        secondary?: string;
-        disabled?: string;
-      }
-    | any;
-  transparent:
-    | {
-        main: string;
-      }
-    | any;
-  black:
-    | {
-        light: string;
-        main: string;
-        focus: string;
-      }
-    | any;
-  primary: ColorsTypes | any;
-  secondary: ColorsTypes | any;
-  info: ColorsTypes | any;
-  success: ColorsTypes | any;
-  warning: ColorsTypes | any;
-  error: ColorsTypes | any;
-  light: ColorsTypes | any;
-  dark: ColorsTypes | any;
-  grey:
-    | {
-        [key: string | number]: string;
-      }
-    | any;
-  gradients:
-    | {
-        primary: GradientsTypes;
-        secondary: GradientsTypes;
-        info: GradientsTypes;
-        success: GradientsTypes;
-        warning: GradientsTypes;
-        error: GradientsTypes;
-        light: GradientsTypes;
-        dark: GradientsTypes;
-      }
-    | any;
-  socialMediaColors:
-    | {
-        facebook: SocialMediaColorsTypes;
-        twitter: SocialMediaColorsTypes;
-        instagram: SocialMediaColorsTypes;
-        linkedin: SocialMediaColorsTypes;
-        pinterest: SocialMediaColorsTypes;
-        youtube: SocialMediaColorsTypes;
-        vimeo: SocialMediaColorsTypes;
-        slack: SocialMediaColorsTypes;
-        dribbble: SocialMediaColorsTypes;
-        github: SocialMediaColorsTypes;
-        reddit: SocialMediaColorsTypes;
-        tumblr: SocialMediaColorsTypes;
       }
     | any;
   badgeColors:
     | {
+        dark: BadgeColorsTypes;
+        error: BadgeColorsTypes;
+        info: BadgeColorsTypes;
+        light: BadgeColorsTypes;
         primary: BadgeColorsTypes;
         secondary: BadgeColorsTypes;
-        info: BadgeColorsTypes;
         success: BadgeColorsTypes;
         warning: BadgeColorsTypes;
-        error: BadgeColorsTypes;
-        light: BadgeColorsTypes;
-        dark: BadgeColorsTypes;
+      }
+    | any;
+  black:
+    | {
+        focus: string;
+        light: string;
+        main: string;
       }
     | any;
   coloredShadows:
@@ -133,7 +72,47 @@ interface Types {
         [key: string]: string;
       }
     | any;
+  dark: ColorsTypes | any;
+  error: ColorsTypes | any;
+  gradients:
+    | {
+        dark: GradientsTypes;
+        error: GradientsTypes;
+        info: GradientsTypes;
+        light: GradientsTypes;
+        primary: GradientsTypes;
+        secondary: GradientsTypes;
+        success: GradientsTypes;
+        warning: GradientsTypes;
+      }
+    | any;
+  grey:
+    | {
+        [key: string | number]: string;
+      }
+    | any;
+  info: ColorsTypes | any;
   inputBorderColor: string;
+  light: ColorsTypes | any;
+  primary: ColorsTypes | any;
+  secondary: ColorsTypes | any;
+  socialMediaColors:
+    | {
+        dribbble: SocialMediaColorsTypes;
+        facebook: SocialMediaColorsTypes;
+        github: SocialMediaColorsTypes;
+        instagram: SocialMediaColorsTypes;
+        linkedin: SocialMediaColorsTypes;
+        pinterest: SocialMediaColorsTypes;
+        reddit: SocialMediaColorsTypes;
+        slack: SocialMediaColorsTypes;
+        tumblr: SocialMediaColorsTypes;
+        twitter: SocialMediaColorsTypes;
+        vimeo: SocialMediaColorsTypes;
+        youtube: SocialMediaColorsTypes;
+      }
+    | any;
+  success: ColorsTypes | any;
   tabs:
     | {
         indicator:
@@ -141,6 +120,27 @@ interface Types {
               boxShadow: string;
             }
           | any;
+      }
+    | any;
+  text:
+    | {
+        disabled?: string;
+        focus: string;
+        main: string;
+        primary?: string;
+        secondary?: string;
+      }
+    | any;
+  transparent:
+    | {
+        main: string;
+      }
+    | any;
+  warning: ColorsTypes | any;
+  white:
+    | {
+        focus: string;
+        main: string;
       }
     | any;
 }

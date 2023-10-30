@@ -5,7 +5,8 @@ import { Badge } from "@mui/material";
 
 // declaring props types for BadgeDot
 interface Props {
-  variant?: "gradient" | "contained";
+  [key: string]: any;
+  badgeContent: string;
   color?:
     | "primary"
     | "secondary"
@@ -15,15 +16,14 @@ interface Props {
     | "error"
     | "light"
     | "dark";
-  size?: "xs" | "sm" | "md" | "lg";
-  badgeContent: string;
   font?:
     | {
         color: string;
         weight: string;
       }
     | any;
-  [key: string]: any;
+  size?: "xs" | "sm" | "md" | "lg";
+  variant?: "gradient" | "contained";
 }
 
 const BadgeDot: FC<Props> = forwardRef(

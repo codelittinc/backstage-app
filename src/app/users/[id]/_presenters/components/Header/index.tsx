@@ -9,8 +9,8 @@ import ProtectedComponent from "@/components/ProtectedComponent";
 import { abilities, targets } from "@/permissions";
 
 interface Props {
-  user: User;
   onSave: (user: User) => void;
+  user: User;
 }
 
 function Header({ user, onSave }: Props): JSX.Element {

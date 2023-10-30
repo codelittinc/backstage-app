@@ -10,8 +10,8 @@ import useCustomersController from "@/app/customers/_presenters/controllers/useC
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;
-  serviceIdentifier: ServiceIdentifier;
   profession: Profession;
+  serviceIdentifier: ServiceIdentifier;
 }
 
 function AzureDevopsDeveloperUserAccountForm({

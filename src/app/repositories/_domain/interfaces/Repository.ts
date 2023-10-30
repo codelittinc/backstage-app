@@ -1,22 +1,22 @@
 import { Application } from "./Application";
 
 export interface Repository {
+  active: boolean;
+  applications?: Application[];
+  baseBranch: string;
+  filterPullRequestsByBaseBranch: boolean;
   id?: number;
   name: string;
   owner: string;
-  active: boolean;
+  projectId?: number;
+  slackRepositoryInfo?: {
+    deployChannel: string;
+    devChannel: string;
+    devGroup: string;
+    feedChannel: string;
+    id?: number;
+  };
   slug?: string;
   sourceControlType: string;
-  baseBranch: string;
   supportsDeploy: boolean;
-  applications?: Application[];
-  slackRepositoryInfo?: {
-    id?: number;
-    devChannel: string;
-    deployChannel: string;
-    feedChannel: string;
-    devGroup: string;
-  };
-  filterPullRequestsByBaseBranch: boolean;
-  projectId?: number;
 }

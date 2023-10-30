@@ -7,10 +7,10 @@ import AllIssuesEffortChart from "./_presenters/components/AllIssuesEffortChart"
 import AllIssuesChart from "./_presenters/components/AllIssuesChart";
 
 interface Props {
-  project: Project;
-  startDateFilter?: string | undefined;
   endDateFilter?: string | undefined;
   interval: string;
+  project: Project;
+  startDateFilter?: string | undefined;
 }
 
 const IssuesSection = ({

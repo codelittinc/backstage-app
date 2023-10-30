@@ -18,7 +18,7 @@ import Box from "@mui/material/Box";
 import { styled, Theme } from "@mui/material/styles";
 
 export default styled(Box)(
-  ({ theme, ownerState }: { theme?: Theme | any; ownerState: any }) => {
+  ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {
     const { palette, functions, borders, boxShadows } = theme;
     const {
       variant,

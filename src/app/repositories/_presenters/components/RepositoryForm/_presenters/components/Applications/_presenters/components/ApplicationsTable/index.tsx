@@ -8,9 +8,9 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import useApplicationsTableController from "./_presenters/_controllers/useApplicationsTableController";
 
 interface Props {
-  repository: Repository;
   applications: Application[];
   handleEdit: Function;
+  repository: Repository;
 }
 
 const ApplicationsTable: React.FC<Props> = ({

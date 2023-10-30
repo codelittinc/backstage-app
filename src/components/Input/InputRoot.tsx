@@ -18,7 +18,7 @@ import TextField from "@mui/material/TextField";
 import { styled, Theme } from "@mui/material/styles";
 
 export default styled(TextField)(
-  ({ theme, ownerState }: { theme?: Theme; ownerState: any }) => {
+  ({ theme, ownerState }: { ownerState: any, theme?: Theme; }) => {
     const { palette, functions } = theme;
     const { error, success, disabled } = ownerState;
 

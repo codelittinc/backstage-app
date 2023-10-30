@@ -1,10 +1,10 @@
 interface Project {
+  billable: boolean;
+  customer: Customer;
+  endDate: string | null;
   id?: number;
   name: string;
-  billable: boolean;
   slackChannel: string | null;
-  startDate: string | null;
-  endDate: string | null;
-  customer: Customer;
   slug: string;
+  startDate: string | null;
 }

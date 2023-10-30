@@ -20,20 +20,16 @@ import DataTableHeadCell from "./DataTableHeadCell";
 import DataTableBodyCell from "./DataTableBodyCell";
 
 interface Props {
+  canSearch?: boolean;
   entriesPerPage?:
     | false
     | {
         defaultValue: number;
         entries: number[];
       };
-  canSearch?: boolean;
-  showTotalEntries?: boolean;
-  table: {
-    columns: { [key: string]: any }[];
-    rows: { [key: string]: any }[];
-  };
+  isSorted?: boolean;
+  noEndBorder?: boolean;
   pagination?: {
-    variant: "contained" | "gradient";
     color:
       | "primary"
       | "secondary"
@@ -43,9 +39,13 @@ interface Props {
       | "error"
       | "dark"
       | "light";
+    variant: "contained" | "gradient";
   };
-  isSorted?: boolean;
-  noEndBorder?: boolean;
+  showTotalEntries?: boolean;
+  table: {
+    columns: { [key: string]: any }[];
+    rows: { [key: string]: any }[];
+  };
 }
 
 function DataTable({

@@ -3,8 +3,8 @@ import Box from "../Box";
 import Sidenav from "./Sidenav";
 
 interface SidenavFormProps {
-  sidebarItems: { icon: string; label: string; href: string }[];
   children: React.ReactNode;
+  sidebarItems: { href: string, icon: string; label: string; }[];
 }
 
 const SidenavForm = ({ sidebarItems, children }: SidenavFormProps) => {

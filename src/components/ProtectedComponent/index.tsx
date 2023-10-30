@@ -3,8 +3,8 @@ import Permission from "@/app/_domain/interfaces/Permission";
 import usePermissionsController from "./_presenters/controllers/usePermissionsController";
 
 interface Props {
-  children: React.ReactNode | React.ReactNode[];
   ability: string;
+  children: React.ReactNode | React.ReactNode[];
   target: string;
 }
 

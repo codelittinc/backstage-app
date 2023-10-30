@@ -17,7 +17,7 @@ Coded by www.creative-tim.com
 import Drawer from "@mui/material/Drawer";
 import { styled, Theme } from "@mui/material/styles";
 
-export default styled(Drawer)(({ theme, ownerState }: { theme?: Theme; ownerState: any }) => {
+export default styled(Drawer)(({ theme, ownerState }: { ownerState: any, theme?: Theme; }) => {
   const { boxShadows, functions, transitions } = theme;
   const { openConfigurator } = ownerState;
 

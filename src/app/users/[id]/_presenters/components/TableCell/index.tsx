@@ -21,11 +21,11 @@ import MDTypography from "@/components/Typography";
 
 // Declaring props types for TableCell
 interface Props {
-  width?: string;
-  children: ReactNode;
   align?: string | any;
-  padding?: number[];
+  children: ReactNode;
   noBorder?: boolean;
+  padding?: number[];
+  width?: string;
 }
 
 function TableCell({

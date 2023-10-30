@@ -3,7 +3,7 @@ import Typography from "@/components/Typography";
 import ProgressRoot from "./ProgressRoot";
 
 interface Props {
-  variant?: "contained" | "gradient";
+  [key: string]: any;
   color?:
     | "primary"
     | "secondary"
@@ -13,9 +13,9 @@ interface Props {
     | "error"
     | "light"
     | "dark";
-  value: number;
   label?: boolean;
-  [key: string]: any;
+  value: number;
+  variant?: "contained" | "gradient";
 }
 
 const Progress: FC<Props> = forwardRef(

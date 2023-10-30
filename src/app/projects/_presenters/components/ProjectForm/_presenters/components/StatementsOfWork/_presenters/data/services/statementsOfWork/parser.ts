@@ -1,27 +1,27 @@
 export interface ApiStatementOfWorkFrom {
-  id: number;
   end_date: Date;
   hour_delivery_schedule: string;
   hourly_revenue?: number | null;
+  id: number;
   limit_by_delivery_schedule: boolean;
   model: string;
+  project_id: number;
   start_date: Date;
   total_hours?: number | null;
   total_revenue: number;
-  project_id: number;
 }
 
 export interface ApiStatementOfWorkTo {
-  id: number;
   end_date: Date;
   hour_delivery_schedule: string;
   hourly_revenue?: number | null;
+  id: number;
   limit_by_delivery_schedule: boolean;
   model: string;
+  project_id: number;
   start_date: Date;
   total_hours?: number | null;
   total_revenue: number;
-  project_id: number;
 }
 
 export function fromApiParser(sow: ApiStatementOfWorkFrom): StatementOfWork {

@@ -3,19 +3,19 @@ import Profession from "./Profession";
 import { ServiceIdentifier } from "./ServiceIdentifier";
 
 export default interface User {
-  id?: number;
   active?: boolean;
   contractType?: string;
+  country: string;
   email: string;
   firstName: string;
+  fullName: string;
+  googleId: string;
+  id?: number;
   imageUrl: string;
   lastName: string;
-  seniority?: string;
-  slug: string;
-  googleId: string;
-  profession: Profession;
-  fullName: string;
-  country: string;
-  servicesIdentifiers: ServiceIdentifier[];
   permissions: Permission[];
+  profession: Profession;
+  seniority?: string;
+  servicesIdentifiers: ServiceIdentifier[];
+  slug: string;
 }

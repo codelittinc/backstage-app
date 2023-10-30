@@ -18,7 +18,7 @@ import { styled, Theme } from "@mui/material/styles";
 import LinearProgress from "@mui/material/LinearProgress";
 
 export default styled(LinearProgress)(
-  ({ theme, ownerState }: { theme?: Theme | any; ownerState: any }) => {
+  ({ theme, ownerState }: { ownerState: any, theme?: Theme | any; }) => {
     const { palette, functions } = theme;
     const { color, value, variant } = ownerState;
 

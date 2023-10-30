@@ -37,9 +37,12 @@ MaterialUI.displayName = "MaterialUIContext";
 
 // types
 interface StateTypes {
+  darkMode: boolean;
+  direction: "ltr" | "rtl";
+  fixedNavbar: boolean;
+  layout: "dashboard" | "page";
   miniSidenav: boolean;
-  transparentSidenav: boolean;
-  whiteSidenav: boolean;
+  openConfigurator: boolean;
   sidenavColor:
     | "primary"
     | "secondary"
@@ -50,11 +53,8 @@ interface StateTypes {
     | "light"
     | "dark";
   transparentNavbar: boolean;
-  fixedNavbar: boolean;
-  openConfigurator: boolean;
-  direction: "ltr" | "rtl";
-  layout: "dashboard" | "page";
-  darkMode: boolean;
+  transparentSidenav: boolean;
+  whiteSidenav: boolean;
 }
 
 interface ActionTypes {

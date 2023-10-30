@@ -32,8 +32,8 @@ import DefaultNavbarDropdown from "./DefaultNavbarDropdown";
 
 // Declaring props types for DefaultNavbarMobile
 interface Props {
-  routes: any;
   open: any;
+  routes: any;
 }
 
 function DefaultNavbarMobile({ routes, open }: Props): JSX.Element {

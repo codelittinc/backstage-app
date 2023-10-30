@@ -13,9 +13,9 @@ import GithubUserAccountForm from "./_presenters/components/GithubUserAccountFor
 import AzureDevopsDeveloperUserAccountForm from "./_presenters/components/AzureDevopsDeveloperUserAccountForm";
 
 interface Props {
-  user: User;
-  onSave: (user: User) => void;
   onChange: (user: User) => void;
+  onSave: (user: User) => void;
+  user: User;
 }
 const getIdentifier = (
   servicesIdentifiers: ServiceIdentifier[],

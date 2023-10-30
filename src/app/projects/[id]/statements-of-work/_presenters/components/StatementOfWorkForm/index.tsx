@@ -12,8 +12,8 @@ import FormLayout from "@/components/LayoutContainers/FormLayout";
 import { Switch } from "@mui/material";
 
 interface StatementOfWorkProps {
-  statementOfWork: StatementOfWork;
   onSave: (statementOfWork: StatementOfWork) => void;
+  statementOfWork: StatementOfWork;
 }
 
 const fieldsToDisplay = {
