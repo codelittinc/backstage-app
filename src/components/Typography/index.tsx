@@ -4,6 +4,8 @@ import TypographyRoot from "./TypographyRoot";
 import { useMaterialUIController } from "@/theme";
 
 interface Props extends TypographyProps {
+  [key: string]: any;
+  children: ReactNode;
   color?:
     | "inherit"
     | "primary"
@@ -17,6 +19,8 @@ interface Props extends TypographyProps {
     | "text"
     | "white";
   fontWeight?: "light" | "regular" | "medium" | "bold" | undefined;
+  opacity?: number;
+  textGradient?: boolean;
   textTransform?: "none" | "capitalize" | "uppercase" | "lowercase";
   verticalAlign?:
     | "unset"
@@ -28,10 +32,6 @@ interface Props extends TypographyProps {
     | "middle"
     | "top"
     | "bottom";
-  textGradient?: boolean;
-  children: ReactNode;
-  opacity?: number;
-  [key: string]: any;
 }
 
 const Typography: FC<Props | any> = forwardRef(

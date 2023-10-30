@@ -46,20 +46,7 @@ import { useMaterialUIController } from "@/theme";
 
 // Declaring props types for DefaultNavbar
 interface Props {
-  routes: {
-    [key: string]:
-      | ReactNode
-      | string
-      | {
-          [key: string]: string | any;
-        }[];
-  }[];
-  brand?: string;
-  transparent?: boolean;
-  light?: boolean;
   action?: {
-    type: "external" | "internal";
-    route: string;
     color:
       | "primary"
       | "secondary"
@@ -70,12 +57,25 @@ interface Props {
       | "dark"
       | "light";
     label: string;
+    route: string;
+    type: "external" | "internal";
   };
+  brand?: string;
+  light?: boolean;
+  routes: {
+    [key: string]:
+      | ReactNode
+      | string
+      | {
+          [key: string]: string | any;
+        }[];
+  }[];
+  transparent?: boolean;
 }
 
 interface NewGrowTypes extends GrowProps {
-  sx: any;
   [key: string]: any;
+  sx: any;
 }
 
 function NewGrow(props: NewGrowTypes) {

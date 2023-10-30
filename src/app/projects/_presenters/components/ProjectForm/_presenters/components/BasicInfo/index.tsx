@@ -16,9 +16,9 @@ function BasicInfo({
   onChange,
   onSave,
 }: {
-  project: Project;
   onChange: Function;
   onSave: Function;
+  project: Project;
 }): JSX.Element {
   const { name, customer, startDate, endDate, billable, slackChannel } =
     project;

@@ -30,6 +30,25 @@ ChartJS.register(
 
 // Declaring props types for DefaultLineChart
 interface Props {
+  [key: string]: any;
+  chart: {
+    datasets: {
+      color:
+        | "primary"
+        | "secondary"
+        | "info"
+        | "success"
+        | "warning"
+        | "error"
+        | "light"
+        | "dark";
+      data: number[];
+      label: string;
+    }[];
+    labels: string[];
+  };
+  description?: string | ReactNode;
+  height?: string | number;
   icon?: {
     color?:
       | "primary"
@@ -43,25 +62,6 @@ interface Props {
     component: ReactNode;
   };
   title?: string;
-  description?: string | ReactNode;
-  height?: string | number;
-  chart: {
-    labels: string[];
-    datasets: {
-      label: string;
-      color:
-        | "primary"
-        | "secondary"
-        | "info"
-        | "success"
-        | "warning"
-        | "error"
-        | "light"
-        | "dark";
-      data: number[];
-    }[];
-  };
-  [key: string]: any;
 }
 
 function DefaultLineChart({

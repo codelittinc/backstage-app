@@ -10,8 +10,8 @@ import { abilities, targets } from "@/permissions";
 import ProtectedComponent from "@/components/ProtectedComponent";
 
 interface Props {
-  project: Project;
   onSave: (project: Project) => void;
+  project: Project;
 }
 
 function ProjectForm({ project, onSave }: Props): JSX.Element {

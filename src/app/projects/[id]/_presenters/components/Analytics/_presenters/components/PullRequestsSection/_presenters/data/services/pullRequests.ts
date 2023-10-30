@@ -7,11 +7,11 @@ export const getPullRequests = async ({
   startDate,
   endDate,
 }: {
-  userId?: number;
-  state: string;
+  endDate: string;
   projectId?: number;
   startDate: string;
-  endDate: string;
+  state: string;
+  userId?: number;
 }) => {
   const { data } = await roadrunnerApiClient.get("/pull_requests.json", {
     params: {

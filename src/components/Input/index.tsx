@@ -4,10 +4,10 @@ import InputRoot from "./InputRoot";
 
 interface Props
   extends Omit<OutlinedTextFieldProps | StandardTextFieldProps, "variant"> {
-  variant?: "standard" | "outlined";
+  disabled?: boolean;
   error?: boolean;
   success?: boolean;
-  disabled?: boolean;
+  variant?: "standard" | "outlined";
 }
 
 const Input: FC<Props | any> = forwardRef(

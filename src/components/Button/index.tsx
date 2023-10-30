@@ -4,6 +4,9 @@ import ButtonRoot from "./ButtonRoot";
 import { useMaterialUIController } from "@/theme";
 
 interface Props extends Omit<ButtonProps, "color" | "variant"> {
+  [key: string]: any;
+  children?: ReactNode;
+  circular?: boolean;
   color?:
     | "white"
     | "primary"
@@ -15,12 +18,9 @@ interface Props extends Omit<ButtonProps, "color" | "variant"> {
     | "light"
     | "dark"
     | "default";
-  variant?: "text" | "contained" | "outlined" | "gradient";
-  size?: "small" | "medium" | "large";
-  circular?: boolean;
   iconOnly?: boolean;
-  children?: ReactNode;
-  [key: string]: any;
+  size?: "small" | "medium" | "large";
+  variant?: "text" | "contained" | "outlined" | "gradient";
 }
 
 const Button: FC<Props> = forwardRef(

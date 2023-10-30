@@ -23,7 +23,6 @@ import Button from "@/components/Button";
 
 // Declaring props types for StatusCell
 interface Props {
-  icon: string;
   color:
     | "primary"
     | "secondary"
@@ -35,6 +34,7 @@ interface Props {
     | "light"
     | "white"
     | "default";
+  icon: string;
   status: string;
 }
 

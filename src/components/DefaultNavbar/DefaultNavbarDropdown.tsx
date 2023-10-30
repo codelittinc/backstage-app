@@ -27,15 +27,15 @@ import MDTypography from "@/components/Typography";
 
 // Declaring props types for DefaultNavbarDropdown
 interface Props {
-  name: string;
-  icon?: ReactNode;
-  children?: ReactNode;
-  collapseStatus?: boolean;
-  light?: boolean;
-  href?: string;
-  route?: string;
-  collapse: boolean;
   [key: string]: any;
+  children?: ReactNode;
+  collapse: boolean;
+  collapseStatus?: boolean;
+  href?: string;
+  icon?: ReactNode;
+  light?: boolean;
+  name: string;
+  route?: string;
 }
 
 function DefaultNavbarDropdown({

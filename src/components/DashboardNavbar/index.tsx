@@ -29,8 +29,8 @@ import Link from "next/link";
 
 interface Props {
   absolute?: boolean;
-  light?: boolean;
   isMini?: boolean;
+  light?: boolean;
 }
 
 function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
@@ -113,8 +113,8 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
     palette: { dark, white, text },
     functions: { rgba },
   }: {
-    palette: any;
     functions: any;
+    palette: any;
   }) => ({
     color: () => {
       let colorValue = light || darkMode ? white.main : dark.main;

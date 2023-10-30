@@ -6,10 +6,10 @@ import { useMaterialUIController } from "@/theme";
 
 // Declaring props types for DataTableHeadCell
 interface Props {
-  width?: string | number;
+  align?: "left" | "right" | "center";
   children: ReactNode;
   sorted?: false | "none" | "asce" | "desc";
-  align?: "left" | "right" | "center";
+  width?: string | number;
 }
 
 function DataTableHeadCell({

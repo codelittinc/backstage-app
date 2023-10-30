@@ -4,10 +4,10 @@ import { groupByFieldAndInterval } from "../../../../../utils/grouping";
 import Loading from "@/components/Loading";
 
 interface Props {
-  project: Project;
-  startDateFilter?: string | undefined;
   endDateFilter?: string | undefined;
   interval: string;
+  project: Project;
+  startDateFilter?: string | undefined;
 }
 
 const IssuesChart = ({

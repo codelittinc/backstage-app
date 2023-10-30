@@ -17,13 +17,13 @@ import {
 import { useMaterialUIController } from "@/theme";
 
 interface Props {
+  [key: string]: any;
+  active?: Boolean;
+  children?: ReactNode;
   icon: ReactNode;
   name: string;
-  children?: ReactNode;
-  active?: Boolean;
   noCollapse?: Boolean;
   open?: Boolean;
-  [key: string]: any;
 }
 
 function SidenavCollapse({

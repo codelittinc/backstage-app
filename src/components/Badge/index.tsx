@@ -2,6 +2,10 @@ import { FC, ReactNode, forwardRef } from "react";
 import { BadgeProps } from "@mui/material";
 import MDBadgeRoot from "./MDBadgeRoot";
 interface Props extends Omit<BadgeProps, "color" | "variant"> {
+  [key: string]: any;
+  border?: boolean;
+  children?: ReactNode;
+  circular?: boolean;
   color?:
     | "primary"
     | "secondary"
@@ -11,14 +15,10 @@ interface Props extends Omit<BadgeProps, "color" | "variant"> {
     | "error"
     | "light"
     | "dark";
-  variant?: "gradient" | "contained";
-  size?: "xs" | "sm" | "md" | "lg";
-  circular?: boolean;
-  indicator?: boolean;
-  border?: boolean;
-  children?: ReactNode;
   container?: boolean;
-  [key: string]: any;
+  indicator?: boolean;
+  size?: "xs" | "sm" | "md" | "lg";
+  variant?: "gradient" | "contained";
 }
 
 const Badge: FC<Props | any> = forwardRef(

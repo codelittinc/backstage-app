@@ -6,9 +6,9 @@ import MDTypography from "@/components/Typography";
 import { useMaterialUIController } from "@/theme";
 
 interface SidenavItem {
+  href: string;
   icon: string;
   label: string;
-  href: string;
 }
 interface Props {
   items: SidenavItem[];

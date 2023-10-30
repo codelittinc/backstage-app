@@ -2,9 +2,9 @@ interface ApiCustomer {
   id?: number;
   name: string;
   notifications_token: string | undefined;
+  slug: string;
   source_control_token: string | undefined;
   ticket_tracking_system_token: string | undefined;
-  slug: string;
 }
 
 export function fromApiParser(customer: ApiCustomer): Customer {

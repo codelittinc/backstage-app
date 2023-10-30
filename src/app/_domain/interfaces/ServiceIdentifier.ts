@@ -1,6 +1,6 @@
 export interface ServiceIdentifier {
-  id?: number;
-  serviceName: string;
-  identifier: string;
   customer: Customer;
+  id?: number;
+  identifier: string;
+  serviceName: string;
 }

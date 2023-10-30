@@ -8,11 +8,11 @@ import Loading from "@/components/Loading";
 import DataTable from "@/components/DataTable";
 
 interface Props {
+  buttonLabel?: string;
   columns: any[];
-  rows: any[];
   isLoading: boolean;
   onClickNew?: () => void;
-  buttonLabel?: string;
+  rows: any[];
 }
 
 function TableLayout({

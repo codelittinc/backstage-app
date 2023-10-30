@@ -29,74 +29,14 @@ const { white } = colors;
 
 // types
 interface DisplayTypes {
-  fontFamily: string;
   color: string;
+  fontFamily: string;
+  fontSize: string;
   fontWeight: number;
   lineHeight: number;
-  fontSize: string;
 }
 
 interface Types {
-  fontFamily: string;
-  fontWeightLighter: number;
-  fontWeightLight: number;
-  fontWeightRegular: number;
-  fontWeightMedium: number;
-  fontWeightBold: number;
-  h1: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    color: string;
-    lineHeight: number;
-  };
-  h2: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    color: string;
-    lineHeight: number;
-  };
-  h3: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    color: string;
-    lineHeight: number;
-  };
-  h4: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    color: string;
-    lineHeight: number;
-  };
-  h5: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    color: string;
-    lineHeight: number;
-  };
-  h6: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    color: string;
-    lineHeight: number;
-  };
-  subtitle1: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    lineHeight: number;
-  };
-  subtitle2: {
-    fontFamily: string;
-    fontSize: string;
-    fontWeight: number;
-    lineHeight: number;
-  };
   body1: {
     fontFamily: string;
     fontSize: string;
@@ -122,29 +62,89 @@ interface Types {
     fontWeight: number;
     lineHeight: number;
   };
-  overline: {
-    fontFamily: string;
-  };
   d1: DisplayTypes;
   d2: DisplayTypes;
   d3: DisplayTypes;
   d4: DisplayTypes;
   d5: DisplayTypes;
   d6: DisplayTypes;
-  size: {
-    xxs: string;
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-    "2xl": string;
-    "3xl": string;
+  fontFamily: string;
+  fontWeightBold: number;
+  fontWeightLight: number;
+  fontWeightLighter: number;
+  fontWeightMedium: number;
+  fontWeightRegular: number;
+  h1: {
+    color: string;
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  h2: {
+    color: string;
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  h3: {
+    color: string;
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  h4: {
+    color: string;
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  h5: {
+    color: string;
+    fontFamily: string;
+    fontWeight: number;
+    fontSize: string;
+    lineHeight: number;
+  };
+  h6: {
+    color: string;
+    fontFamily: string;
+    fontWeight: number;
+    fontSize: string;
+    lineHeight: number;
   };
   lineHeight: {
-    sm: number;
-    md: number;
     lg: number;
+    md: number;
+    sm: number;
+  };
+  overline: {
+    fontFamily: string;
+  };
+  size: {
+    "2xl": string;
+    "3xl": string;
+    lg: string;
+    md: string;
+    sm: string;
+    xl: string;
+    xs: string;
+    xxs: string;
+  };
+  subtitle1: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
+  };
+  subtitle2: {
+    fontFamily: string;
+    fontSize: string;
+    fontWeight: number;
+    lineHeight: number;
   };
 }
 

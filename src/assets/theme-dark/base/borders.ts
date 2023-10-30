@@ -31,6 +31,15 @@ const { white } = colors;
 // types
 interface Types {
   borderColor: string;
+  borderRadius: {
+    lg: string;
+    md: string;
+    section: string;
+    sm: string;
+    xl: string;
+    xs: string;
+    xxl: string;
+  };
   borderWidth: {
     0: number;
     1: string;
@@ -38,15 +47,6 @@ interface Types {
     3: string;
     4: string;
     5: string;
-  };
-  borderRadius: {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-    xxl: string;
-    section: string;
   };
 }
 

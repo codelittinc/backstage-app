@@ -20,7 +20,7 @@ import { styled, Theme } from "@mui/material/styles";
 import MDButton from "@/components/Button";
 
 export default styled(MDButton)(
-  ({ theme, ownerState }: { theme?: Theme; ownerState: any }) => {
+  ({ theme, ownerState }: { ownerState: any, theme?: Theme; }) => {
     const { borders, functions, typography, palette } = theme;
     const { variant, paginationSize, active } = ownerState;
 

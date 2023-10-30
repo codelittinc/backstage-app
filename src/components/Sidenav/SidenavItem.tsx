@@ -9,6 +9,9 @@ import { item, itemContent, itemArrow } from "./styles/sidenavItem";
 import { useMaterialUIController } from "@/theme";
 
 interface Props {
+  [key: string]: any;
+  active?: boolean | string;
+  children?: ReactNode;
   color?:
     | "primary"
     | "secondary"
@@ -18,11 +21,8 @@ interface Props {
     | "error"
     | "dark";
   name: string;
-  active?: boolean | string;
   nested?: boolean;
-  children?: ReactNode;
   open?: boolean;
-  [key: string]: any;
 }
 
 function SidenavItem({

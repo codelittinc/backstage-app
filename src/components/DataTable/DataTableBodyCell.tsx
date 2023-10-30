@@ -3,9 +3,9 @@ import { Theme } from "@mui/material/styles";
 import Box from "@/components/Box";
 
 interface Props {
+  align?: "left" | "right" | "center";
   children: ReactNode;
   noBorder?: boolean;
-  align?: "left" | "right" | "center";
 }
 
 function DataTableBodyCell({

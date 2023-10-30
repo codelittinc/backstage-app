@@ -6,11 +6,11 @@ import Typography from "@/components/Typography";
 import Link from "next/link";
 
 interface Props {
-  icon: ReactNode;
-  title: string;
-  route: string | string[];
-  light?: boolean;
   [key: string]: any;
+  icon: ReactNode;
+  light?: boolean;
+  route: string | string[];
+  title: string;
 }
 
 function Breadcrumbs({

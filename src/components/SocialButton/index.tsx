@@ -3,6 +3,9 @@ import { ButtonProps } from "@mui/material";
 import SocialButtonRoot from "./SocialButtonRoot";
 
 interface Props extends Omit<ButtonProps, "color" | "variant"> {
+  [key: string]: any;
+  children?: ReactNode;
+  circular?: boolean;
   color?:
     | "facebook"
     | "twitter"
@@ -16,11 +19,8 @@ interface Props extends Omit<ButtonProps, "color" | "variant"> {
     | "dribbble"
     | "reddit"
     | "tumblr";
-  size?: "small" | "medium" | "large";
-  circular?: boolean;
   iconOnly?: boolean;
-  children?: ReactNode;
-  [key: string]: any;
+  size?: "small" | "medium" | "large";
 }
 
 const SocialButton: FC<Props> = forwardRef(

@@ -15,8 +15,8 @@ const quotes = [
 ];
 
 interface Props {
-  partial?: boolean;
   height?: string;
+  partial?: boolean;
 }
 
 export default function Loading({ partial, height }: Props) {

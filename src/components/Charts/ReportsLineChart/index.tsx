@@ -10,6 +10,14 @@ import configs from "./configs";
 Chart.register(LinearScale);
 // Declaring props types for ReportsLineChart
 interface Props {
+  [key: string]: any;
+  chart: {
+    datasets: {
+      data: number[];
+      label: string;
+    };
+    labels: string[];
+  };
   color?:
     | "primary"
     | "secondary"
@@ -18,16 +26,8 @@ interface Props {
     | "warning"
     | "error"
     | "dark";
-  title: string;
   description?: string | ReactNode;
-  chart: {
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-    };
-  };
-  [key: string]: any;
+  title: string;
 }
 
 function ReportsLineChart({

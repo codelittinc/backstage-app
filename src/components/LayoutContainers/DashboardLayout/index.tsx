@@ -7,8 +7,8 @@ import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUs
 import Loading from "@/components/Loading";
 
 interface Props {
-  stickyNavbar?: boolean;
   children: ReactNode;
+  stickyNavbar?: boolean;
 }
 
 function DashboardLayout({ children, stickyNavbar }: Props): JSX.Element {

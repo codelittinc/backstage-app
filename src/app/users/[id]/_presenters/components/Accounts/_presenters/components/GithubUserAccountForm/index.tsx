@@ -8,8 +8,8 @@ import Profession from "@/app/_domain/interfaces/Profession";
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;
-  serviceIdentifier: ServiceIdentifier;
   profession: Profession;
+  serviceIdentifier: ServiceIdentifier;
 }
 
 function GithubUserAccountForm({

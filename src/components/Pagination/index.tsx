@@ -12,8 +12,9 @@ import PaginationItemRoot from "./PaginationItemRoot";
 const Context = createContext<any>(null);
 
 interface Props {
-  item?: boolean;
-  variant?: "gradient" | "contained";
+  [key: string]: any;
+  active?: boolean;
+  children: ReactNode;
   color?:
     | "white"
     | "primary"
@@ -24,10 +25,9 @@ interface Props {
     | "error"
     | "light"
     | "dark";
+  item?: boolean;
   size?: "small" | "medium" | "large";
-  active?: boolean;
-  children: ReactNode;
-  [key: string]: any;
+  variant?: "gradient" | "contained";
 }
 
 const Pagination: FC<Props | any> = forwardRef(

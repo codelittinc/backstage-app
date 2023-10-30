@@ -12,6 +12,8 @@ import { useMaterialUIController } from "@/theme";
 import { useAppStore } from "@/app/_presenters/data/store/store";
 
 interface Props extends SnackbarProps {
+  autoHideDuration?: number;
+  bgWhite?: boolean;
   color?:
     | "primary"
     | "secondary"
@@ -21,12 +23,10 @@ interface Props extends SnackbarProps {
     | "error"
     | "dark"
     | "light";
+  content: string;
+  dateTime?: string;
   icon?: ReactNode;
   title: string;
-  dateTime?: string;
-  content: string;
-  bgWhite?: boolean;
-  autoHideDuration?: number;
 }
 
 function MDSnackbar(): JSX.Element {

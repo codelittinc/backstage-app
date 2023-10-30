@@ -1,12 +1,12 @@
 import User from "@/app/_domain/interfaces/User"; // Assuming you have a User interface to represent the user related to an issue.
 
 export interface ApiIssue {
-  id?: number;
   closed_date?: string;
   effort?: number;
+  id?: number;
   state?: string;
-  user_id: number;
   user?: User;
+  user_id: number;
 }
 
 export const toApiParser = (issue: Issue): ApiIssue => {

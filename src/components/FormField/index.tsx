@@ -1,8 +1,8 @@
 import MDInput from "@/components/Input";
 
 interface Props {
-  label?: string;
   [key: string]: any;
+  label?: string;
 }
 
 function FormField({ label = "", ...rest }: Props): JSX.Element {

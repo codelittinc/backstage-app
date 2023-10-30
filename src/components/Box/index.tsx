@@ -3,14 +3,14 @@ import { BoxProps } from "@mui/material";
 import BoxRoot from "./BoxRoot";
 
 interface Props extends BoxProps {
-  variant?: "contained" | "gradient";
-  bgColor?: string;
-  color?: string;
-  opacity?: number;
-  borderRadius?: string;
-  shadow?: string;
-  coloredShadow?: string;
   [key: string]: any;
+  bgColor?: string;
+  borderRadius?: string;
+  color?: string;
+  coloredShadow?: string;
+  opacity?: number;
+  shadow?: string;
+  variant?: "contained" | "gradient";
 }
 
 const Box: FC<Props> = forwardRef(
