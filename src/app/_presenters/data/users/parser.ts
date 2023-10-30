@@ -1,34 +1,8 @@
-import Permission from "@/app/_domain/interfaces/Permission";
-import Profession from "@/app/_domain/interfaces/Profession";
-import User from "@/app/_domain/interfaces/User";
+import { FromApiUser, ToApiUser, User } from "@/app/_domain/interfaces/User";
 import { fromApiParser as professionFromApiParser } from "@/app/_presenters/data/professions/parser";
 import { fromApiParser as customerFromApiParser } from "@/app/customers/_presenters/data/services/customers/parser";
 
-export interface ApiUser {
-  active: boolean;
-  contract_type?: string;
-  country: string;
-  email: string;
-  first_name: string;
-  google_id: string;
-  id?: number;
-  image_url: string;
-  last_name: string;
-  permissions: Permission[];
-  profession?: Profession;
-  profession_id?: number;
-  seniority?: string;
-  slug: string;
-  user_service_identifiers: {
-    customer?: Customer;
-    customer_id?: number;
-    id?: number;
-    identifier: string;
-    service_name: string;
-  }[];
-}
-
-export const toApiParser = (user: User): ApiUser => {
+export const toApiParser = (user: User): ToApiUser => {
   return {
     active: user.active || false,
     contract_type: user.contractType,
@@ -46,14 +20,14 @@ export const toApiParser = (user: User): ApiUser => {
           id: service.id,
           service_name: service.serviceName,
           identifier: service.identifier,
-          customer_id: service.customer.id,
+          customer_id: service.customer.id!,
         };
       }
     ),
   };
 };
 
-export const fromApiParser = (user: ApiUser): User => {
+export const fromApiParser = (user: FromApiUser): User => {
   const {
     id,
     google_id,
@@ -69,6 +43,7 @@ export const fromApiParser = (user: ApiUser): User => {
     profession,
     user_service_identifiers,
   } = user;
+
   return {
     id: id,
     active: active,
@@ -80,9 +55,7 @@ export const fromApiParser = (user: ApiUser): User => {
     seniority: seniority,
     slug: slug,
     googleId: google_id,
-    profession: profession?.id
-      ? professionFromApiParser(profession)
-      : undefined,
+    profession: profession ?? professionFromApiParser(profession!),
     fullName: `${first_name} ${last_name}`,
     country: country,
     servicesIdentifiers: user_service_identifiers.map((service) => ({
