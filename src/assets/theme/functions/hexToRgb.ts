@@ -18,7 +18,6 @@ Coded by www.creative-tim.com
   using chroma-js library.
  */
 
-// chroma-js is a library for all kinds of color conversions and color scales.
 import chroma from "chroma-js";
 
 function hexToRgb(color: string): string {

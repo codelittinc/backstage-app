@@ -44,8 +44,6 @@ import menu from "@/assets/theme-dark/components/menu";
 import menuItem from "@/assets/theme-dark/components/menu/menuItem";
 import popover from "@/assets/theme-dark/components/popover";
 import sidenav from "@/assets/theme-dark/components/sidenav";
-
-// Material Dashboard 2 PRO React TS components base styles for @mui material components
 import slider from "@/assets/theme-dark/components/slider";
 import stepper from "@/assets/theme-dark/components/stepper";
 import step from "@/assets/theme-dark/components/stepper/step";

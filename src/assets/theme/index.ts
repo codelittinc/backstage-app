@@ -14,18 +14,14 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
 import { createTheme } from "@mui/material";
 
-// Material Dashboard 2 PRO React TS Base Styles
 import borders from "@/assets/theme/base/borders";
 import boxShadows from "@/assets/theme/base/boxShadows";
 import breakpoints from "@/assets/theme/base/breakpoints";
 import colors from "@/assets/theme/base/colors";
 import globals from "@/assets/theme/base/globals";
 import typography from "@/assets/theme/base/typography";
-
-// Material Dashboard 2 PRO React TS Helper Functions
 import appBar from "@/assets/theme/components/appBar";
 import avatar from "@/assets/theme/components/avatar";
 import breadcrumbs from "@/assets/theme/components/breadcrumbs";
@@ -64,8 +60,6 @@ import menu from "@/assets/theme/components/menu";
 import menuItem from "@/assets/theme/components/menu/menuItem";
 import popover from "@/assets/theme/components/popover";
 import sidenav from "@/assets/theme/components/sidenav";
-
-// Material Dashboard 2 PRO React TS components base styles for @mui material components
 import slider from "@/assets/theme/components/slider";
 import stepper from "@/assets/theme/components/stepper";
 import step from "@/assets/theme/components/stepper/step";

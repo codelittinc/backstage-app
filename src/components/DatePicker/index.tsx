@@ -13,16 +13,12 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// react-flatpickr components
 import Flatpickr from "react-flatpickr";
 
-// react-flatpickr styles
 import "flatpickr/dist/flatpickr.css";
 
-// Material Dashboard 2 PRO React TS components
 import MDInput from "@/components/FormField";
 
-// types
 interface Props {
   [key: string]: any;
   input?: {

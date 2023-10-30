@@ -13,11 +13,11 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
 import { Theme } from "@mui/material/styles";
 
 function collapseItem(theme: Theme, ownerState: any) {
-  const { palette, transitions, breakpoints, boxShadows, borders, functions } = theme;
+  const { palette, transitions, breakpoints, boxShadows, borders, functions } =
+    theme;
   const { active, transparentSidenav, whiteSidenav, darkMode } = ownerState;
 
   const { white, transparent, dark, grey } = palette;
@@ -41,7 +41,10 @@ function collapseItem(theme: Theme, ownerState: any) {
 
       return backgroundValue;
     },
-    color: (transparentSidenav && !darkMode) || whiteSidenav ? dark.main : white.main,
+    color:
+      (transparentSidenav && !darkMode) || whiteSidenav
+        ? dark.main
+        : white.main,
     display: "flex",
     alignItems: "center",
     width: "100%",
@@ -51,7 +54,8 @@ function collapseItem(theme: Theme, ownerState: any) {
     cursor: "pointer",
     userSelect: "none",
     whiteSpace: "nowrap",
-    boxShadow: active && !whiteSidenav && !darkMode && !transparentSidenav ? md : "none",
+    boxShadow:
+      active && !whiteSidenav && !darkMode && !transparentSidenav ? md : "none",
     [breakpoints.up("xl")]: {
       transition: transitions.create(["box-shadow", "background-color"], {
         easing: transitions.easing.easeInOut,
@@ -79,7 +83,10 @@ function collapseIconBox(theme: Theme, ownerState: any) {
   return {
     minWidth: pxToRem(32),
     minHeight: pxToRem(32),
-    color: (transparentSidenav && !darkMode) || whiteSidenav ? dark.main : white.main,
+    color:
+      (transparentSidenav && !darkMode) || whiteSidenav
+        ? dark.main
+        : white.main,
     borderRadius: borderRadius.md,
     display: "grid",
     placeItems: "center",
@@ -94,7 +101,10 @@ function collapseIconBox(theme: Theme, ownerState: any) {
   };
 }
 
-const collapseIcon = ({ palette: { white, gradients } }: Theme, { active }: any) => ({
+const collapseIcon = (
+  { palette: { white, gradients } }: Theme,
+  { active }: any
+) => ({
   color: active ? white.main : gradients.dark.state,
 });
 
@@ -111,7 +121,8 @@ function collapseText(theme: any, ownerState: any) {
     [breakpoints.up("xl")]: {
       opacity: miniSidenav || (miniSidenav && transparentSidenav) ? 0 : 1,
       maxWidth: miniSidenav || (miniSidenav && transparentSidenav) ? 0 : "100%",
-      marginLeft: miniSidenav || (miniSidenav && transparentSidenav) ? 0 : pxToRem(10),
+      marginLeft:
+        miniSidenav || (miniSidenav && transparentSidenav) ? 0 : pxToRem(10),
       transition: transitions.create(["opacity", "margin"], {
         easing: transitions.easing.easeInOut,
         duration: transitions.duration.standard,
@@ -128,8 +139,15 @@ function collapseText(theme: any, ownerState: any) {
 
 function collapseArrow(theme: Theme, ownerState: any) {
   const { palette, typography, transitions, breakpoints, functions } = theme;
-  const { noCollapse, transparentSidenav, whiteSidenav, miniSidenav, open, active, darkMode } =
-    ownerState;
+  const {
+    noCollapse,
+    transparentSidenav,
+    whiteSidenav,
+    miniSidenav,
+    open,
+    active,
+    darkMode,
+  } = ownerState;
 
   const { white, dark } = palette;
   const { size } = typography;
@@ -167,4 +185,10 @@ function collapseArrow(theme: Theme, ownerState: any) {
   };
 }
 
-export { collapseItem, collapseIconBox, collapseIcon, collapseText, collapseArrow };
+export {
+  collapseItem,
+  collapseIconBox,
+  collapseIcon,
+  collapseText,
+  collapseArrow,
+};

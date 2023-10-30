@@ -13,11 +13,9 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 
-// Material Dashboard 2 PRO React TS components
 import Badge from "@/components/Badge";
 import Box from "@/components/Box";
 import Button from "@/components/Button";

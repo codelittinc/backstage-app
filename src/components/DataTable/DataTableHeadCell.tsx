@@ -5,7 +5,6 @@ import { ReactNode } from "react";
 import Box from "@/components/Box";
 import { useMaterialUIController } from "@/theme";
 
-// Declaring props types for DataTableHeadCell
 interface Props {
   align?: "left" | "right" | "center";
   children: ReactNode;

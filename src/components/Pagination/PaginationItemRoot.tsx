@@ -13,14 +13,12 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
 import { Theme, styled } from "@mui/material/styles";
 
-// Material Dashboard 2 PRO React TS components
 import MDButton from "@/components/Button";
 
 export default styled(MDButton)(
-  ({ theme, ownerState }: { ownerState: any, theme?: Theme; }) => {
+  ({ theme, ownerState }: { ownerState: any; theme?: Theme }) => {
     const { borders, functions, typography, palette } = theme;
     const { variant, paginationSize, active } = ownerState;
 

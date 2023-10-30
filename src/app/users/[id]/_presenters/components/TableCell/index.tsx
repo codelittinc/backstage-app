@@ -15,11 +15,9 @@ Coded by www.creative-tim.com
 
 import { ReactNode } from "react";
 
-// Material Dashboard 2 PRO React TS components
 import MDBox from "@/components/Box";
 import MDTypography from "@/components/Typography";
 
-// Declaring props types for TableCell
 interface Props {
   align?: string | any;
   children: ReactNode;
@@ -56,7 +54,6 @@ function TableCell({
   );
 }
 
-// Declaring default props for TableCell
 TableCell.defaultProps = {
   width: "auto",
   align: "left",

@@ -13,12 +13,11 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// @mui material components
 import { Theme, styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 
 export default styled(TextField)(
-  ({ theme, ownerState }: { ownerState: any, theme?: Theme; }) => {
+  ({ theme, ownerState }: { ownerState: any; theme?: Theme }) => {
     const { palette, functions } = theme;
     const { error, success, disabled } = ownerState;
 

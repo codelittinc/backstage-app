@@ -31,12 +31,10 @@ function MDEditor({ value }: any) {
   );
 }
 
-// Setting default values for the props of MDEditor
 MDEditor.defaultProps = {
   value: () => {},
 };
 
-// Typechecking props for the MDEditor
 MDEditor.propTypes = {
   value: PropTypes.func,
 };

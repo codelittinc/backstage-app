@@ -13,19 +13,13 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-
-// react-router-dom components
-
-// @mui material components
 import Collapse from "@mui/material/Collapse";
 import Icon from "@mui/material/Icon";
 import { ReactNode } from "react";
 
-// Material Dashboard 2 PRO React TS components
 import MDBox from "@/components/Box";
 import MDTypography from "@/components/Typography";
 
-// Declaring props types for DefaultNavbarDropdown
 interface Props {
   [key: string]: any;
   children?: ReactNode;
@@ -111,7 +105,6 @@ function DefaultNavbarDropdown({
   );
 }
 
-// Declaring default props for DefaultNavbarDropdown
 DefaultNavbarDropdown.defaultProps = {
   icon: false,
   children: false,
