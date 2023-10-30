@@ -6,8 +6,8 @@ export type ServiceIdentifier = {
 };
 
 export type ApiServiceIdentifier = {
-  customer_id: number;
   customer: Customer;
+  customer_id: number;
   id?: number;
   identifier: string;
   service_name: string;
