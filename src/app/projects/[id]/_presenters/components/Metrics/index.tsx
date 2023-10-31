@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-import { useState } from "react";
 
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import Autocomplete from "@/components/Autocomplete";
@@ -9,7 +8,7 @@ import DatePicker from "@/components/DatePicker";
 import IssuesSection from "./_presenters/components/IssuesSection";
 import { PullRequestsSection } from "./_presenters/components/PullRequestsSection";
 
-const Analytics = ({ project }: { project: Project }) => {
+const Metrics = ({ project }: { project: Project }) => {
   const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
     useQueryParamController("startDate", project.startDate!);
 
@@ -80,4 +79,4 @@ const Analytics = ({ project }: { project: Project }) => {
     </Box>
   );
 };
-export default Analytics;
+export default Metrics;
