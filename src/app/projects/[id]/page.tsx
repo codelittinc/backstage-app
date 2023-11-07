@@ -7,6 +7,7 @@ import usePermissionsController from "@/components/ProtectedComponent/_presenter
 import { abilities, targets } from "@/permissions";
 
 import Metrics from "./_presenters/components/Metrics";
+import TimeEntries from "./_presenters/components/TimeEntries";
 import useNewProjectController from "./_presenters/controllers/useProjectController";
 import ProjectForm from "../_presenters/components/ProjectForm";
 
@@ -24,7 +25,9 @@ function Page() {
   }
 
   const displayAnalytics = hasPermission;
-  const tabs = displayAnalytics ? ["Profile", "Metrics"] : ["Profile"];
+  const tabs = displayAnalytics
+    ? ["Profile", "Metrics", "Time entries"]
+    : ["Profile"];
 
   const tabsChildren = displayAnalytics
     ? [
@@ -34,6 +37,7 @@ function Page() {
           key={"profile-component"}
         />,
         <Metrics project={project!} key={"metrics-component"} />,
+        <TimeEntries project={project!} key={"finances-component"} />,
       ]
     : [
         <ProjectForm

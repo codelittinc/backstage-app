@@ -1,5 +1,6 @@
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
+import { BarElement, Chart as ChartJS } from "chart.js";
 import { ReactNode, useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 
@@ -8,6 +9,8 @@ import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
 import configs from "./configs";
+
+ChartJS.register(BarElement);
 
 interface Props {
   [key: string]: any;
@@ -45,10 +48,10 @@ interface Props {
 }
 
 function HorizontalBarChart({
-  icon,
-  title,
-  description,
-  height,
+  icon = { color: "info", component: "" },
+  title = "",
+  description = "",
+  height = "19.125rem",
   chart,
 }: Props): JSX.Element {
   const chartDatasets = chart.datasets
@@ -105,20 +108,12 @@ function HorizontalBarChart({
             <Bar data={data} options={options} />
           </Box>
         ),
-        [chart, height, data, options]
+        [height, data, options]
       )}
     </Box>
   );
 
   return title || description ? <Card>{renderChart}</Card> : renderChart;
 }
-
-// Declaring default props HorizontalBarChart
-HorizontalBarChart.defaultProps = {
-  icon: { color: "info", component: "" },
-  title: "",
-  description: "",
-  height: "19.125rem",
-};
 
 export default HorizontalBarChart;
