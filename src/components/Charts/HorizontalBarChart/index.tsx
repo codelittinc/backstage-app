@@ -4,7 +4,12 @@ import {
   BarElement,
   CategoryScale,
   Chart as ChartJS,
+  Legend,
+  LineElement,
   LinearScale,
+  Tooltip,
+  PointElement,
+  Title,
 } from "chart.js";
 import { ReactNode, useMemo } from "react";
 import { Bar } from "react-chartjs-2";
@@ -15,7 +20,14 @@ import Typography from "@/components/Typography";
 
 import configs from "./configs";
 
-ChartJS.register(BarElement, CategoryScale, LinearScale);
+ChartJS.register(
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface Props {
   [key: string]: any;
