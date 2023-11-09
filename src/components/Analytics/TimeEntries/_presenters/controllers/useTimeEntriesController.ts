@@ -5,12 +5,11 @@ import { getStatementOfWorks } from "@/app/projects/_presenters/components/Proje
 import { getTimeEntriesAnalytics } from "../data/services/timeEntriesAnalytics";
 
 const useTimeEntriesController = (project: Project, startDate, endDate) => {
-  const { data: statementsOfWork, isLoading: isLoadingStatementsOfWork } =
-    useQuery({
-      queryKey: ["statements_of_work", project.id],
-      queryFn: () => getStatementOfWorks(project.id!),
-      enabled: !!project.id,
-    });
+  const { data: statementsOfWork } = useQuery({
+    queryKey: ["statements_of_work", project.id],
+    queryFn: () => getStatementOfWorks(project.id!),
+    enabled: !!project.id,
+  });
 
   const statementOfWorkId = statementsOfWork?.[0]?.id;
 

@@ -7,7 +7,7 @@ import usePermissionsController from "@/components/ProtectedComponent/_presenter
 import { abilities, targets } from "@/permissions";
 
 import Metrics from "./_presenters/components/Metrics";
-import TimeEntries from "./_presenters/components/TimeEntries";
+import TimeEntries from "@/components/Analytics/TimeEntries";
 import useNewProjectController from "./_presenters/controllers/useProjectController";
 import ProjectForm from "../_presenters/components/ProjectForm";
 

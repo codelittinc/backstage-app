@@ -1,7 +1,6 @@
 import { Grid, Typography } from "@mui/material";
-
+import { startOfWeek, addDays, subWeeks } from "date-fns";
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
-import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
 import HorizontalBarChart from "@/components/Charts/HorizontalBarChart";
 import DatePicker from "@/components/DatePicker";
@@ -9,15 +8,23 @@ import Loading from "@/components/Loading";
 
 import useTimeEntriesController from "./_presenters/controllers/useTimeEntriesController";
 
+const lastWeekMonday = startOfWeek(subWeeks(new Date(), 1), {
+  weekStartsOn: 1,
+});
+const lastWeekFriday = addDays(lastWeekMonday, 4);
+
 const TimeEntries = ({ project }: { project: Project }) => {
   const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
-    useQueryParamController("startDate", project.startDate!);
+    useQueryParamController(
+      "startDate",
+      lastWeekMonday.toISOString().split("T")[0]
+    );
 
   const { paramValue: endDateFilter, setParamValue: setEndDateFilter } =
-    useQueryParamController("endDate", project.endDate!);
-
-  const { paramValue: dateInterval, setParamValue: setdateInterval } =
-    useQueryParamController("interval", "weeks");
+    useQueryParamController(
+      "endDate",
+      lastWeekFriday.toISOString().split("T")[0]
+    );
 
   const updateEndDateFilter = (value: Date) => {
     setEndDateFilter(value.toDateString());
@@ -64,14 +71,6 @@ const TimeEntries = ({ project }: { project: Project }) => {
             onChange={(e: Array<Date>) => {
               updateEndDateFilter(e[0]);
             }}
-          />
-        </Grid>
-        <Grid item sm={2}>
-          <Autocomplete
-            label={"Time scale"}
-            value={dateInterval}
-            options={["absolute", "days", "weeks", "months"]}
-            onChange={(value) => setdateInterval(value)}
           />
         </Grid>
       </Grid>
