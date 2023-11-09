@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
-import { startOfWeek, addDays, subWeeks } from "date-fns";
+import { addDays, startOfWeek, subWeeks } from "date-fns";
+
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import Box from "@/components/Box";
 import HorizontalBarChart from "@/components/Charts/HorizontalBarChart";
@@ -8,12 +9,16 @@ import Loading from "@/components/Loading";
 
 import useTimeEntriesController from "./_presenters/controllers/useTimeEntriesController";
 
+type Props = {
+  project?: Project;
+};
+
 const lastWeekMonday = startOfWeek(subWeeks(new Date(), 1), {
   weekStartsOn: 1,
 });
 const lastWeekFriday = addDays(lastWeekMonday, 4);
 
-const TimeEntries = ({ project }: { project: Project }) => {
+const TimeEntries = ({ project }: Props) => {
   const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
     useQueryParamController(
       "startDate",
@@ -36,9 +41,10 @@ const TimeEntries = ({ project }: { project: Project }) => {
 
   const colors = ["success", "error", "info", "warning", "dark"];
   const { timeEntries: data, isLoading } = useTimeEntriesController(
-    project,
     startDateFilter,
-    endDateFilter
+    endDateFilter,
+    !project?.id,
+    project
   );
 
   if (isLoading) {
@@ -74,9 +80,6 @@ const TimeEntries = ({ project }: { project: Project }) => {
           />
         </Grid>
       </Grid>
-      <Box>
-        <Typography variant="h3">Time entries</Typography>
-      </Box>
       <Box mt={1}> </Box>
       <Grid container spacing={3}>
         <Grid item sm={6} xs={12} mt={3}>

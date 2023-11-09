@@ -25,6 +25,7 @@ import SidenavList from "./SidenavList";
 import SidenavRoot from "./SidenavRoot";
 import sidenavLogoLabel from "./styles/sidenav";
 import Loading from "../Loading";
+import ProtectedComponent from "../ProtectedComponent";
 
 interface Props {
   [key: string]: any;
@@ -235,6 +236,35 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
     },
     {
       type: "collapse",
+      name: "Analytics",
+      key: "analytics",
+      icon: <Icon fontSize="medium">info</Icon>,
+      protectedLink: {
+        ability: "view",
+        target: "analytics",
+      },
+      collapse: [
+        {
+          name: "Time entries",
+          key: "time-entries",
+          route: "/analytics/time-entries",
+        },
+      ],
+    },
+    {
+      type: "collapse",
+      name: "Users",
+      key: "users",
+      icon: <Icon fontSize="medium">receipt_long</Icon>,
+      href: "/users",
+      noCollapse: true,
+      protectedLink: {
+        ability: "change",
+        target: "user",
+      },
+    },
+    {
+      type: "collapse",
       name: "Customers",
       key: "customers",
       icon: <Icon fontSize="medium">receipt_long</Icon>,
@@ -250,6 +280,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       noCollapse: true,
     },
   ];
+
   const renderRoutes = sidebarRoutes.map(
     ({
       type,
@@ -261,6 +292,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       key,
       href,
       route,
+      protectedLink,
     }: any) => {
       let returnValue;
 
@@ -320,6 +352,18 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
               (darkMode && !transparentSidenav && whiteSidenav)
             }
           />
+        );
+      }
+
+      if (protectedLink) {
+        return (
+          <ProtectedComponent
+            ability={protectedLink.ability}
+            target={protectedLink.target}
+            key={key}
+          >
+            {returnValue}
+          </ProtectedComponent>
         );
       }
 

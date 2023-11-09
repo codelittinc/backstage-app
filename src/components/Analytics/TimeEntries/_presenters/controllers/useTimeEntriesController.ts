@@ -4,11 +4,16 @@ import { getStatementOfWorks } from "@/app/projects/_presenters/components/Proje
 
 import { getTimeEntriesAnalytics } from "../data/services/timeEntriesAnalytics";
 
-const useTimeEntriesController = (project: Project, startDate, endDate) => {
+const useTimeEntriesController = (
+  startDate: string,
+  endDate: string,
+  allStatementsOfWork: boolean,
+  project?: Project
+) => {
   const { data: statementsOfWork } = useQuery({
-    queryKey: ["statements_of_work", project.id],
-    queryFn: () => getStatementOfWorks(project.id!),
-    enabled: !!project.id,
+    queryKey: ["statements_of_work", project?.id],
+    queryFn: () => getStatementOfWorks(project?.id!),
+    enabled: !!project?.id,
   });
 
   const statementOfWorkId = statementsOfWork?.[0]?.id;
@@ -23,7 +28,7 @@ const useTimeEntriesController = (project: Project, startDate, endDate) => {
     ],
     queryFn: () =>
       getTimeEntriesAnalytics(statementOfWorkId, startDate, endDate),
-    enabled: !!statementOfWorkId,
+    enabled: !!statementOfWorkId || allStatementsOfWork,
   });
 
   return {
