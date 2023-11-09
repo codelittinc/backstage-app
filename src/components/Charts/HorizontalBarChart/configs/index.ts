@@ -13,6 +13,14 @@ function configs(labels: any, datasets: any) {
           display: true,
           position: "right" as const,
         },
+        datalabels: {
+          color: "white",
+          anchor: "center",
+          formatter: (value: number) => {
+            if (value === 0) return "";
+            return value;
+          },
+        },
       },
       scales: {
         y: {

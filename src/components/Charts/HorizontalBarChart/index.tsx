@@ -5,10 +5,8 @@ import {
   CategoryScale,
   Chart as ChartJS,
   Legend,
-  LineElement,
   LinearScale,
   Tooltip,
-  PointElement,
   Title,
 } from "chart.js";
 import { ReactNode, useMemo } from "react";
@@ -18,6 +16,8 @@ import colors from "@/assets/theme/base/colors";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
 import configs from "./configs";
 
 ChartJS.register(
@@ -26,7 +26,8 @@ ChartJS.register(
   LinearScale,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
 
 interface Props {
