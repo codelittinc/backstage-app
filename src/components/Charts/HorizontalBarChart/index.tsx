@@ -1,6 +1,11 @@
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-import { BarElement, Chart as ChartJS } from "chart.js";
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  LinearScale,
+} from "chart.js";
 import { ReactNode, useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 
@@ -10,7 +15,7 @@ import Typography from "@/components/Typography";
 
 import configs from "./configs";
 
-ChartJS.register(BarElement);
+ChartJS.register(BarElement, CategoryScale, LinearScale);
 
 interface Props {
   [key: string]: any;

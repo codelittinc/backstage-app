@@ -1,13 +1,13 @@
 "use client";
 import { useParams } from "next/navigation";
 
+import TimeEntries from "@/components/Analytics/TimeEntries";
 import TabsLayout from "@/components/LayoutContainers/TabsLayout";
 import Loading from "@/components/Loading";
 import usePermissionsController from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
 import { abilities, targets } from "@/permissions";
 
 import Metrics from "./_presenters/components/Metrics";
-import TimeEntries from "@/components/Analytics/TimeEntries";
 import useNewProjectController from "./_presenters/controllers/useProjectController";
 import ProjectForm from "../_presenters/components/ProjectForm";
 
