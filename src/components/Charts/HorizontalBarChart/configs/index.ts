@@ -36,6 +36,8 @@ function configs(labels: any, datasets: any) {
           },
           ticks: {
             display: true,
+            autoSkip: false,
+
             padding: 10,
             color: "black",
             font: {
