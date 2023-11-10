@@ -1,51 +1,31 @@
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import {
-  BarElement,
-  CategoryScale,
+  ArcElement,
   Chart as ChartJS,
   Legend,
   LinearScale,
   Title,
   Tooltip,
 } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 import { ReactNode, useMemo } from "react";
-import { Bar } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 
-import colors from "@/assets/theme/base/colors";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
-
 import configs from "./configs";
 
-ChartJS.register(
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend,
-  ChartDataLabels
-);
+ChartJS.register(ArcElement, LinearScale, Title, Tooltip, Legend);
 
 interface Props {
   [key: string]: any;
   chart: {
     datasets: {
-      color:
-        | "primary"
-        | "secondary"
-        | "info"
-        | "success"
-        | "warning"
-        | "error"
-        | "light"
-        | "dark";
+      backgroundColors: string[];
       data: number[];
       label: string;
-    }[];
+    };
     labels: string[];
   };
   description?: string | ReactNode;
@@ -64,29 +44,14 @@ interface Props {
   };
   title?: string;
 }
-
-function HorizontalBarChart({
+function PieChart({
   icon = { color: "info", component: "" },
   title = "",
   description = "",
   height = "19.125rem",
   chart,
 }: Props): JSX.Element {
-  const chartDatasets = chart.datasets
-    ? chart.datasets.map((dataset) => ({
-        ...dataset,
-        weight: 5,
-        borderWidth: 0,
-        borderRadius: 4,
-        backgroundColor: colors[dataset.color]
-          ? colors[dataset.color || "dark"].main
-          : colors.dark.main,
-        fill: false,
-        maxBarThickness: 35,
-      }))
-    : [];
-
-  const { data, options } = configs(chart.labels || [], chartDatasets);
+  const { data, options } = configs(chart.labels || [], chart.datasets || {});
 
   const renderChart = (
     <Box py={2} pr={2} pl={icon.component ? 1 : 2}>
@@ -123,10 +88,10 @@ function HorizontalBarChart({
       {useMemo(
         () => (
           <Box height={height}>
-            <Bar data={data} options={options} />
+            <Pie data={data} options={options} />
           </Box>
         ),
-        [height, data, options]
+        [chart, height]
       )}
     </Box>
   );
@@ -134,4 +99,4 @@ function HorizontalBarChart({
   return title || description ? <Card>{renderChart}</Card> : renderChart;
 }
 
-export default HorizontalBarChart;
+export default PieChart;

@@ -18,7 +18,8 @@ function configs(labels: any, datasets: any) {
           anchor: "center",
           formatter: (value: number) => {
             if (value === 0) return "";
-            return value;
+
+            return value.toFixed(1);
           },
         },
       },

@@ -4,6 +4,7 @@ import { addDays, startOfWeek, subWeeks } from "date-fns";
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import Box from "@/components/Box";
 import HorizontalBarChart from "@/components/Charts/HorizontalBarChart";
+import PieChart from "@/components/Charts/PieChart";
 import DatePicker from "@/components/DatePicker";
 import Loading from "@/components/Loading";
 
@@ -40,6 +41,7 @@ const TimeEntries = ({ project }: Props) => {
   };
 
   const colors = ["success", "info", "warning", "dark", "error"];
+
   const { timeEntries: data, isLoading } = useTimeEntriesController(
     startDateFilter,
     endDateFilter,
@@ -53,11 +55,72 @@ const TimeEntries = ({ project }: Props) => {
 
   const cleanedData = {
     ...data,
-    datasets: data.datasets.map((dataset, index) => ({
+    datasets: data.datasets.slice(0, 5).map((dataset, index) => ({
       ...dataset,
       color: colors[index],
     })),
   };
+
+  const worked = data.datasets[0].data.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+  });
+
+  const paidTimeOff = data.datasets[1].data.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue;
+    }
+  );
+
+  const sickLeave = data.datasets[2].data.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue;
+    }
+  );
+
+  const overDelivered = data.datasets[3].data.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue;
+    }
+  );
+
+  const missing = data.datasets[4].data.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+  });
+
+  const expected = data.datasets[5].data.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+  });
+
+  const totalBilled = worked + overDelivered;
+  const totalExpected = expected;
+
+  const totalPercentage = Math.round((totalBilled / totalExpected) * 100);
+
+  const pieChartData = {
+    labels: ["Billings", "Missing bookings"],
+    datasets: {
+      label: "Projects",
+      backgroundColors: ["info", "error"],
+      data: [totalPercentage, 100 - totalPercentage],
+    },
+  };
+
+  const totalHours = worked + paidTimeOff + sickLeave + overDelivered + missing;
+
+  const breakdownPieChartData = {
+    labels: ["Worked", "Paid time off", "Sick leave", "Missing"],
+    datasets: {
+      label: "In %",
+      backgroundColors: ["success", "info", "warning", "error"],
+      data: [
+        Math.round(((worked + overDelivered) / totalHours) * 100),
+        Math.round((paidTimeOff / totalHours) * 100),
+        Math.round((sickLeave / totalHours) * 100),
+        Math.round((missing / totalHours) * 100),
+      ],
+    },
+  };
+
   return (
     <Box>
       <Grid container mb={3} mt={3}>
@@ -80,9 +143,24 @@ const TimeEntries = ({ project }: Props) => {
           />
         </Grid>
       </Grid>
-      <Box mt={1}> </Box>
-      <Grid container spacing={3}>
-        <Grid item sm={6} xs={12} mt={3}>
+      <Grid container spacing={3} md={12} mt={3}>
+        <Grid item xs={12} md={6}>
+          <PieChart
+            icon={{ color: "success", component: "donut_small" }}
+            title="Billings VS Bookings"
+            description="Based on the project requirements"
+            chart={pieChartData}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <PieChart
+            icon={{ color: "success", component: "donut_small" }}
+            title="Time breakdown"
+            description="Based on time entries and time off requests"
+            chart={breakdownPieChartData}
+          />
+        </Grid>
+        <Grid item xs={12}>
           <HorizontalBarChart
             title="Time entries in hours"
             chart={cleanedData}
