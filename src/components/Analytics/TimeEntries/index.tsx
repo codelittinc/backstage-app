@@ -39,7 +39,7 @@ const TimeEntries = ({ project }: Props) => {
     setStartDateFilter(value.toDateString());
   };
 
-  const colors = ["success", "error", "info", "warning", "dark"];
+  const colors = ["success", "info", "warning", "dark", "error"];
   const { timeEntries: data, isLoading } = useTimeEntriesController(
     startDateFilter,
     endDateFilter,
