@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { addDays, startOfWeek, subWeeks } from "date-fns";
 
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
@@ -15,22 +15,16 @@ type Props = {
 };
 
 const lastWeekMonday = startOfWeek(subWeeks(new Date(), 1), {
-  weekStartsOn: 1,
+  weekStartsOn: 0,
 });
-const lastWeekFriday = addDays(lastWeekMonday, 4);
+const lastWeekFriday = addDays(lastWeekMonday, 6);
 
 const TimeEntries = ({ project }: Props) => {
   const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
-    useQueryParamController(
-      "startDate",
-      lastWeekMonday.toISOString().split("T")[0]
-    );
+    useQueryParamController("startDate", lastWeekMonday.toISOString());
 
   const { paramValue: endDateFilter, setParamValue: setEndDateFilter } =
-    useQueryParamController(
-      "endDate",
-      lastWeekFriday.toISOString().split("T")[0]
-    );
+    useQueryParamController("endDate", lastWeekFriday.toISOString());
 
   const updateEndDateFilter = (value: Date) => {
     setEndDateFilter(value.toDateString());
@@ -63,33 +57,36 @@ const TimeEntries = ({ project }: Props) => {
 
   const worked = data.datasets[0].data.reduce((accumulator, currentValue) => {
     return accumulator + currentValue;
-  });
+  }, 0);
 
   const paidTimeOff = data.datasets[1].data.reduce(
     (accumulator, currentValue) => {
       return accumulator + currentValue;
-    }
+    },
+    0
   );
 
   const sickLeave = data.datasets[2].data.reduce(
     (accumulator, currentValue) => {
       return accumulator + currentValue;
-    }
+    },
+    0
   );
 
   const overDelivered = data.datasets[3].data.reduce(
     (accumulator, currentValue) => {
       return accumulator + currentValue;
-    }
+    },
+    0
   );
 
   const missing = data.datasets[4].data.reduce((accumulator, currentValue) => {
     return accumulator + currentValue;
-  });
+  }, 0);
 
   const expected = data.datasets[5].data.reduce((accumulator, currentValue) => {
     return accumulator + currentValue;
-  });
+  }, 0);
 
   const totalBilled = worked + overDelivered;
   const totalExpected = expected;
