@@ -245,7 +245,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       },
       collapse: [
         {
-          name: "Time entries",
+          name: "Company time entries",
           key: "time-entries",
           route: "/analytics/time-entries",
         },

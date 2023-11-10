@@ -100,7 +100,7 @@ const TimeEntries = ({ project }: Props) => {
     labels: ["Billings", "Missing bookings"],
     datasets: {
       label: "Projects",
-      backgroundColors: ["info", "error"],
+      backgroundColors: ["success", "error"],
       data: [totalPercentage, 100 - totalPercentage],
     },
   };
