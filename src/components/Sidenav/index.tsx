@@ -3,7 +3,7 @@ import Icon from "@mui/material/Icon";
 import List from "@mui/material/List";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { ReactNode, useEffect, useState } from "react";
 
 import currentUserController from "@/app/_presenters/controllers/useCurrentUserController";
@@ -11,6 +11,7 @@ import codelittLogo from "@/assets/images/logos/codelitt.png";
 import MDAvatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
+import { abilities, targets } from "@/permissions";
 import routes from "@/routes";
 import {
   setMiniSidenav,
@@ -137,70 +138,97 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
   };
   // Render the all the collpases from the routes.js
   const renderCollapse = (collapses: any) =>
-    collapses.map(({ name, collapse, route, href, key, onClick }: any) => {
-      let returnValue;
+    collapses.map(
+      ({ name, collapse, route, href, key, onClick, protectedLink }: any) => {
+        let returnValue;
 
-      if (collapse) {
-        returnValue = (
-          <SidenavItem
-            key={key}
-            color={color}
-            name={name}
-            active={key === itemParentName ? "isParent" : false}
-            open={openNestedCollapse === key}
-            onClick={({ currentTarget }: any) =>
-              openNestedCollapse === key &&
-              currentTarget.classList.contains("MuiListItem-root")
-                ? setOpenNestedCollapse(false)
-                : setOpenNestedCollapse(key)
-            }
-          >
-            {renderNestedCollapse(collapse)}
-          </SidenavItem>
-        );
-      } else if (onClick) {
-        returnValue = (
-          <Link
-            href={""}
-            key={key}
-            rel="noreferrer"
-            sx={{ textDecoration: "none" }}
-            onClick={onClick}
-          >
-            <SidenavItem color={color} name={name} active={key === itemName} />
-          </Link>
-        );
-      } else if (route) {
-        returnValue = (
-          <Link
-            href={route}
-            key={key}
-            rel="noreferrer"
-            sx={{ textDecoration: "none" }}
-            onClick={onClick}
-          >
-            <SidenavItem color={color} name={name} active={key === itemName} />
-          </Link>
-        );
-      } else {
-        returnValue = (
-          <Link
-            href={href}
-            key={key}
-            rel="noreferrer"
-            sx={{ textDecoration: "none" }}
-          >
-            <SidenavItem color={color} name={name} active={key === itemName} />
-          </Link>
-        );
+        if (collapse) {
+          returnValue = (
+            <SidenavItem
+              key={key}
+              color={color}
+              name={name}
+              active={key === itemParentName ? "isParent" : false}
+              open={openNestedCollapse === key}
+              onClick={({ currentTarget }: any) =>
+                openNestedCollapse === key &&
+                currentTarget.classList.contains("MuiListItem-root")
+                  ? setOpenNestedCollapse(false)
+                  : setOpenNestedCollapse(key)
+              }
+            >
+              {renderNestedCollapse(collapse)}
+            </SidenavItem>
+          );
+        } else if (onClick) {
+          returnValue = (
+            <Link
+              href={""}
+              key={key}
+              rel="noreferrer"
+              sx={{ textDecoration: "none" }}
+              onClick={onClick}
+            >
+              <SidenavItem
+                color={color}
+                name={name}
+                active={key === itemName}
+              />
+            </Link>
+          );
+        } else if (route) {
+          returnValue = (
+            <Link
+              href={route}
+              key={key}
+              rel="noreferrer"
+              sx={{ textDecoration: "none" }}
+              onClick={onClick}
+            >
+              <SidenavItem
+                color={color}
+                name={name}
+                active={key === itemName}
+              />
+            </Link>
+          );
+        } else {
+          returnValue = (
+            <Link
+              href={href}
+              key={key}
+              rel="noreferrer"
+              sx={{ textDecoration: "none" }}
+            >
+              <SidenavItem
+                color={color}
+                name={name}
+                active={key === itemName}
+              />
+            </Link>
+          );
+        }
+        if (protectedLink) {
+          return (
+            <ProtectedComponent
+              ability={protectedLink.ability}
+              target={protectedLink.target}
+              key={key}
+            >
+              <SidenavList key={key}>{returnValue}</SidenavList>
+            </ProtectedComponent>
+          );
+        }
+        return <SidenavList key={key}>{returnValue}</SidenavList>;
       }
-      return <SidenavList key={key}>{returnValue}</SidenavList>;
-    });
+    );
 
   const { currentUser: user, isLoading } = currentUserController();
+
   if (isLoading) {
     return <Loading />;
   }
+
   const sidebarRoutes = [
     {
       type: "collapse",
@@ -240,14 +268,23 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       key: "analytics",
       icon: <Icon fontSize="medium">info</Icon>,
       protectedLink: {
-        ability: "view",
-        target: "analytics",
+        ability: abilities.view,
+        target: targets.analytics,
       },
       collapse: [
         {
           name: "Company time entries",
           key: "time-entries",
           route: "/analytics/time-entries",
+        },
+        {
+          name: "Company finances",
+          key: "finances",
+          route: "/analytics/finances",
+          protectedLink: {
+            ability: abilities.view,
+            target: targets.finances,
+          },
         },
       ],
     },
@@ -259,8 +296,8 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       href: "/users",
       noCollapse: true,
       protectedLink: {
-        ability: "change",
-        target: "user",
+        ability: abilities.change,
+        target: targets.user,
       },
     },
     {
@@ -291,7 +328,6 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       noCollapse,
       key,
       href,
-      route,
       protectedLink,
     }: any) => {
       let returnValue;

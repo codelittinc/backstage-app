@@ -2,12 +2,14 @@ import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import {
   ArcElement,
+  CategoryScale,
   Chart as ChartJS,
   Legend,
   LinearScale,
   Title,
   Tooltip,
 } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { ReactNode, useMemo } from "react";
 import { Pie } from "react-chartjs-2";
 
@@ -16,7 +18,15 @@ import Typography from "@/components/Typography";
 
 import configs from "./configs";
 
-ChartJS.register(ArcElement, LinearScale, Title, Tooltip, Legend);
+ChartJS.register(
+  ArcElement,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  ChartDataLabels
+);
 
 interface Props {
   [key: string]: any;
@@ -91,7 +101,7 @@ function PieChart({
             <Pie data={data} options={options} />
           </Box>
         ),
-        [chart, height]
+        [data, options, height]
       )}
     </Box>
   );

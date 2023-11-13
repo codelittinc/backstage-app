@@ -1,6 +1,7 @@
 "use client";
 import { useParams } from "next/navigation";
 
+import Finances from "@/components/Analytics/Finances";
 import TimeEntries from "@/components/Analytics/TimeEntries";
 import TabsLayout from "@/components/LayoutContainers/TabsLayout";
 import Loading from "@/components/Loading";
@@ -15,19 +16,27 @@ function Page() {
   const { id } = useParams();
 
   const { project, isLoading, onSave } = useNewProjectController(id);
-  const { hasPermission } = usePermissionsController({
+  const { hasPermission: displayAnalytics } = usePermissionsController({
     ability: abilities.view,
     target: targets.analytics,
+  });
+
+  const { hasPermission: displayFinances } = usePermissionsController({
+    ability: abilities.view,
+    target: targets.finances,
   });
 
   if (isLoading) {
     return <Loading />;
   }
 
-  const displayAnalytics = hasPermission;
-  const tabs = displayAnalytics
+  let tabs = displayAnalytics
     ? ["Profile", "Metrics", "Time entries"]
     : ["Profile"];
+
+  if (displayFinances) {
+    tabs.push("Finances");
+  }
 
   const tabsChildren = displayAnalytics
     ? [
@@ -37,7 +46,7 @@ function Page() {
           key={"profile-component"}
         />,
         <Metrics project={project!} key={"metrics-component"} />,
-        <TimeEntries project={project!} key={"finances-component"} />,
+        <TimeEntries project={project!} key={"time-entries-component"} />,
       ]
     : [
         <ProjectForm
@@ -46,6 +55,12 @@ function Page() {
           key={"profile-component"}
         />,
       ];
+
+  if (displayFinances) {
+    tabsChildren.push(
+      <Finances project={project!} key={"finances-component"} />
+    );
+  }
   return <TabsLayout tabs={tabs} tabsChildren={tabsChildren} />;
 }
 
