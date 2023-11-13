@@ -4,7 +4,7 @@ export const abilities = {
 };
 
 export const targets = {
-  financial: "financial",
+  finances: "finances",
   user: "user",
   analytics: "analytics",
 };

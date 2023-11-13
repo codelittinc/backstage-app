@@ -43,9 +43,28 @@ function configs(labels: any, datasets: any) {
         datalabels: {
           color: "white",
           anchor: "center",
-          formatter: (value: number) => {
+          formatter: (value: number, context: any) => {
             if (value === 0) return "";
-            return `${value}%`;
+            return `${value.toFixed(1)}%`;
+          },
+        },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              var data = context.dataset.data,
+                label = context.label,
+                currentValue = context.raw,
+                total = 0;
+
+              for (var i = 0; i < data.length; i++) {
+                total += data[i];
+              }
+              var percentage = parseFloat(
+                ((currentValue / total) * 100).toFixed(1)
+              );
+
+              return `${label} - ${percentage}%`;
+            },
           },
         },
       },
