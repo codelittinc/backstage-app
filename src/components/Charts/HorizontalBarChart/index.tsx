@@ -17,7 +17,6 @@ import colors from "@/assets/theme/base/colors";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
-
 import configs from "./configs";
 
 ChartJS.register(
