@@ -43,11 +43,15 @@ const Finances = ({ project }: Props) => {
     setStartDateFilter(value.toDateString());
   };
 
-  const { finances, isLoading } = useFinancesController(
+  const { hasPermission, finances, isLoading } = useFinancesController(
     startDateFilter,
     endDateFilter,
     project
   );
+
+  if (!hasPermission) {
+    return null;
+  }
 
   if (isLoading) {
     return <Loading />;
@@ -119,6 +123,11 @@ const Finances = ({ project }: Props) => {
     0
   );
 
+  const totalCost = rows.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.executed_cost,
+    0
+  );
+
   const pieChartData = {
     labels: [
       `Expected ${formatCurrency(totalExpected)}`,
@@ -134,6 +143,20 @@ const Finances = ({ project }: Props) => {
     },
   };
 
+  const financesPieChartData = {
+    labels: [
+      `Cost ${formatCurrency(totalCost)}`,
+      `Revenue ${formatCurrency(totalWorked)}`,
+    ],
+    datasets: {
+      label: "",
+      backgroundColors: ["error", "success"],
+      data: [
+        Math.max(100 - (totalWorked / totalCost) * 100, 0),
+        (totalWorked / totalCost) * 100,
+      ],
+    },
+  };
   const tableData = {
     columns,
     rows,
@@ -162,12 +185,20 @@ const Finances = ({ project }: Props) => {
         </Grid>
       </Grid>
       <Grid container spacing={3} mt={3}>
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={6}>
           <PieChart
             icon={{ color: "success", component: "donut_small" }}
             title="Billings VS bookings"
             description=""
             chart={pieChartData}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <PieChart
+            icon={{ color: "success", component: "donut_small" }}
+            title="Cost VS Revenue"
+            description=""
+            chart={financesPieChartData}
           />
         </Grid>
         <Grid item xs={12}>
