@@ -26,6 +26,8 @@ const formatCurrency = (value: number) => {
   }).format(value)}`;
 };
 
+const formatHours = (value: number) => value.toFixed(1);
+
 const Finances = ({ project }: Props) => {
   const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
     useQueryParamController("startDate", lastWeekMonday.toISOString());
@@ -77,16 +79,33 @@ const Finances = ({ project }: Props) => {
       Header: "Worked hours",
       accessor: "executed_hours",
       width: "10%",
+      Cell: ({ value }: any) => {
+        return formatHours(value);
+      },
     },
     {
       Header: "Expected hours",
       accessor: "expected_hours",
       width: "10%",
+      Cell: ({ value }: any) => {
+        return formatHours(value);
+      },
     },
     {
       Header: "PTO hours",
       accessor: "paid_time_off_hours",
       width: "10%",
+      Cell: ({ value }: any) => {
+        return formatHours(value);
+      },
+    },
+    {
+      Header: "Cost",
+      accessor: "executed_cost",
+      width: "10%",
+      Cell: ({ value }: any) => {
+        return formatCurrency(value);
+      },
     },
   ];
   const rows = finances;
