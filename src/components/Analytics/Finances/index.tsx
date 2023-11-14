@@ -104,7 +104,15 @@ const Finances = ({ project }: Props) => {
       },
     },
     {
-      Header: "Cost",
+      Header: "Expected cost",
+      accessor: "expected_cost",
+      width: "10%",
+      Cell: ({ value }: any) => {
+        return formatCurrency(value);
+      },
+    },
+    {
+      Header: "Executed cost",
       accessor: "executed_cost",
       width: "10%",
       Cell: ({ value }: any) => {
