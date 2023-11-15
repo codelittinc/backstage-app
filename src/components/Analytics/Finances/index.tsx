@@ -4,6 +4,7 @@ import { addDays, startOfWeek, subWeeks } from "date-fns";
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import Box from "@/components/Box";
 import PieChart from "@/components/Charts/PieChart";
+import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import DataTable from "@/components/DataTable";
 import DatePicker from "@/components/DatePicker";
 import Loading from "@/components/Loading";
@@ -26,7 +27,7 @@ const formatCurrency = (value: number) => {
   }).format(value)}`;
 };
 
-const formatHours = (value: number) => value.toFixed(1);
+const formatNumber = (value: number) => value.toFixed(1);
 
 const Finances = ({ project }: Props) => {
   const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
@@ -84,7 +85,7 @@ const Finances = ({ project }: Props) => {
       accessor: "executed_hours",
       width: "10%",
       Cell: ({ value }: any) => {
-        return formatHours(value);
+        return formatNumber(value);
       },
     },
     {
@@ -92,7 +93,7 @@ const Finances = ({ project }: Props) => {
       accessor: "expected_hours",
       width: "10%",
       Cell: ({ value }: any) => {
-        return formatHours(value);
+        return formatNumber(value);
       },
     },
     {
@@ -100,7 +101,7 @@ const Finances = ({ project }: Props) => {
       accessor: "paid_time_off_hours",
       width: "10%",
       Cell: ({ value }: any) => {
-        return formatHours(value);
+        return formatNumber(value);
       },
     },
     {
@@ -151,23 +152,25 @@ const Finances = ({ project }: Props) => {
     },
   };
 
-  const financesPieChartData = {
-    labels: [
-      `Cost ${formatCurrency(totalCost)}`,
-      `Revenue ${formatCurrency(totalWorked)}`,
-    ],
-    datasets: {
-      label: "",
-      backgroundColors: ["error", "success"],
-      data: [
-        Math.max(100 - (totalWorked / totalCost) * 100, 0),
-        (totalWorked / totalCost) * 100,
-      ],
-    },
-  };
   const tableData = {
     columns,
     rows,
+  };
+
+  const verticalBarChartData = {
+    labels: ["Cost VS Revenue"],
+    datasets: [
+      {
+        label: "Cost",
+        color: "error",
+        data: [totalCost],
+      },
+      {
+        label: "Revenue",
+        color: "success",
+        data: [totalWorked],
+      },
+    ],
   };
 
   return (
@@ -193,7 +196,7 @@ const Finances = ({ project }: Props) => {
         </Grid>
       </Grid>
       <Grid container spacing={3} mt={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={7}>
           <PieChart
             icon={{ color: "success", component: "donut_small" }}
             title="Billings VS bookings"
@@ -201,12 +204,12 @@ const Finances = ({ project }: Props) => {
             chart={pieChartData}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
-          <PieChart
-            icon={{ color: "success", component: "donut_small" }}
+        <Grid item xs={12} md={5}>
+          <VerticalBarChart
+            icon={{ color: "success", component: "leaderboard" }}
             title="Cost VS Revenue"
             description=""
-            chart={financesPieChartData}
+            chart={verticalBarChartData}
           />
         </Grid>
         <Grid item xs={12}>
