@@ -3,7 +3,6 @@ import { addDays, startOfWeek, subWeeks } from "date-fns";
 
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import Box from "@/components/Box";
-import PieChart from "@/components/Charts/PieChart";
 import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import DataTable from "@/components/DataTable";
 import DatePicker from "@/components/DatePicker";
@@ -122,35 +121,25 @@ const Finances = ({ project }: Props) => {
     },
   ];
   const rows = finances;
-  const totalExpected = rows.reduce(
+  const totalExpectedIncome = rows.reduce(
     (accumulator, currentValue) => accumulator + currentValue.expected_income,
     0
   );
 
-  const totalWorked = rows.reduce(
+  const totalExecutedIncome = rows.reduce(
     (accumulator, currentValue) => accumulator + currentValue.executed_income,
     0
   );
 
-  const totalCost = rows.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.executed_cost,
+  const totalExpectedCost = rows.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.expected_cost,
     0
   );
 
-  const pieChartData = {
-    labels: [
-      `Expected ${formatCurrency(totalExpected)}`,
-      `Executed ${formatCurrency(totalWorked)}`,
-    ],
-    datasets: {
-      label: "",
-      backgroundColors: ["error", "info"],
-      data: [
-        Math.max(100 - (totalWorked / totalExpected) * 100, 0),
-        (totalWorked / totalExpected) * 100,
-      ],
-    },
-  };
+  const totalExecutedCost = rows.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.executed_cost,
+    0
+  );
 
   const tableData = {
     columns,
@@ -158,17 +147,17 @@ const Finances = ({ project }: Props) => {
   };
 
   const verticalBarChartData = {
-    labels: ["Cost VS Revenue"],
+    labels: ["Expected", "Executed"],
     datasets: [
       {
         label: "Cost",
         color: "error",
-        data: [totalCost],
+        data: [totalExpectedCost, totalExecutedCost],
       },
       {
         label: "Revenue",
         color: "success",
-        data: [totalWorked],
+        data: [totalExpectedIncome, totalExecutedIncome],
       },
     ],
   };
@@ -196,15 +185,7 @@ const Finances = ({ project }: Props) => {
         </Grid>
       </Grid>
       <Grid container spacing={3} mt={3}>
-        <Grid item xs={12} md={7}>
-          <PieChart
-            icon={{ color: "success", component: "donut_small" }}
-            title="Billings VS bookings"
-            description=""
-            chart={pieChartData}
-          />
-        </Grid>
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} md={12}>
           <VerticalBarChart
             icon={{ color: "success", component: "leaderboard" }}
             title="Cost VS Revenue"
