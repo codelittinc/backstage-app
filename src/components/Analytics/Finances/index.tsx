@@ -120,26 +120,15 @@ const Finances = ({ project }: Props) => {
       },
     },
   ];
-  const rows = finances;
-  const totalExpectedIncome = rows.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.expected_income,
-    0
-  );
+  const rows = finances.details;
 
-  const totalExecutedIncome = rows.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.executed_income,
-    0
-  );
+  console.log(finances);
+  const totalExpectedIncome = finances.totals.total_expected_income;
+  const totalExecutedIncome = finances.totals.total_executed_income;
 
-  const totalExpectedCost = rows.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.expected_cost,
-    0
-  );
+  const totalExpectedCost = finances.totals.total_expected_cost;
 
-  const totalExecutedCost = rows.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.executed_cost,
-    0
-  );
+  const totalExecutedCost = finances.totals.total_executed_cost;
 
   const tableData = {
     columns,
