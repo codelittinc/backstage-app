@@ -14,7 +14,7 @@ function Header({ project }: { project: Project }): JSX.Element {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <Avatar
-              src={`https://picsum.photos/seed/${name}/200/300`}
+              src={project.logoUrl}
               alt="profile-image"
               size="xl"
               shadow="sm"

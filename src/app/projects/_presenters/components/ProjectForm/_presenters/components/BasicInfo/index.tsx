@@ -21,8 +21,15 @@ function BasicInfo({
   onSave: Function;
   project: Project;
 }): JSX.Element {
-  const { name, customer, startDate, endDate, billable, slackChannel } =
-    project;
+  const {
+    name,
+    customer,
+    startDate,
+    endDate,
+    billable,
+    slackChannel,
+    logoUrl,
+  } = project;
   const { customers, isLoading } = useCustomersController();
 
   const { channels, isLoading: isChannelsLoading } =
@@ -120,6 +127,19 @@ function BasicInfo({
                 });
               }}
               options={channels}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField
+              label="Logo public url"
+              placeholder="https://logo-link-outside-of-backstage.com"
+              value={logoUrl}
+              onChange={({ target: { value } }) => {
+                onChange({
+                  ...project,
+                  logoUrl: value,
+                });
+              }}
             />
           </Grid>
         </Grid>
