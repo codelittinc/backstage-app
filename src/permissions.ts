@@ -7,4 +7,5 @@ export const targets = {
   finances: "finances",
   user: "user",
   analytics: "analytics",
+  projects: "projects",
 };

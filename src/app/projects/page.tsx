@@ -12,6 +12,8 @@ import routes from "@/routes";
 
 import ComplexProjectCard from "./_presenters/components/ComplexProjectCard";
 import useProjectsController from "./_presenters/controllers/useProjectsController";
+import ProtectedComponent from "@/components/ProtectedComponent";
+import { abilities, targets } from "@/permissions";
 
 const renderProjects = (projects: Project[], onClick: Function) => {
   return projects.map((project: Project) => {
@@ -55,15 +57,20 @@ function AllProjects(): JSX.Element {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={5} sx={{ textAlign: "right" }}>
-            <Button
-              variant="gradient"
-              color="info"
-              onClick={() => router.push(routes.newProjectPath)}
-            >
-              <Icon>add</Icon>&nbsp; Add New
-            </Button>
-          </Grid>
+          <ProtectedComponent
+            ability={abilities.change}
+            target={targets.projects}
+          >
+            <Grid item xs={12} md={5} sx={{ textAlign: "right" }}>
+              <Button
+                variant="gradient"
+                color="info"
+                onClick={() => router.push(routes.newProjectPath)}
+              >
+                <Icon>add</Icon>&nbsp; Add New
+              </Button>
+            </Grid>
+          </ProtectedComponent>
         </Grid>
         <Box mt={5}>
           <Grid container spacing={3}>
