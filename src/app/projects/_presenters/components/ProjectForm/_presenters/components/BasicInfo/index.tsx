@@ -11,6 +11,8 @@ import DatePicker from "@/components/DatePicker";
 import FormField from "@/components/FormField";
 import Loading from "@/components/Loading";
 import Typography from "@/components/Typography";
+import ProtectedComponent from "@/components/ProtectedComponent";
+import { abilities, targets } from "@/permissions";
 
 function BasicInfo({
   project,
@@ -144,23 +146,28 @@ function BasicInfo({
           </Grid>
         </Grid>
 
-        <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-          <Box
-            display="flex"
-            justifyContent={{ md: "flex-end" }}
-            alignItems="center"
-            pt={2}
-          >
-            <Button
-              variant="gradient"
-              color="dark"
-              size="small"
-              onClick={() => onSave()}
+        <ProtectedComponent
+          ability={abilities.change}
+          target={targets.projects}
+        >
+          <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+            <Box
+              display="flex"
+              justifyContent={{ md: "flex-end" }}
+              alignItems="center"
+              pt={2}
             >
-              Save
-            </Button>
-          </Box>
-        </Grid>
+              <Button
+                variant="gradient"
+                color="dark"
+                size="small"
+                onClick={() => onSave()}
+              >
+                Save
+              </Button>
+            </Box>
+          </Grid>
+        </ProtectedComponent>
       </Box>
     </Card>
   );
