@@ -10,8 +10,8 @@ import Button from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
 import FormField from "@/components/FormField";
 import Loading from "@/components/Loading";
-import Typography from "@/components/Typography";
 import ProtectedComponent from "@/components/ProtectedComponent";
+import Typography from "@/components/Typography";
 import { abilities, targets } from "@/permissions";
 
 function BasicInfo({
