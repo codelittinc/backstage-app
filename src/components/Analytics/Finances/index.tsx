@@ -9,6 +9,8 @@ import DatePicker from "@/components/DatePicker";
 import Loading from "@/components/Loading";
 
 import useFinancesController from "./_presenters/controllers/useFinancesController";
+import Link from "next/link";
+import routes from "@/routes";
 
 type Props = {
   project?: Project;
@@ -57,11 +59,20 @@ const Finances = ({ project }: Props) => {
     return <Loading />;
   }
 
+  const projectSpecific = !!project;
   const columns = [
     {
       Header: "Name",
       accessor: "name",
       width: "20%",
+      Cell: ({ row }: any) => {
+        const {
+          original: { name, slug },
+        } = row;
+
+        const route = projectSpecific ? routes.userPath : routes.projectPath;
+        return <Link href={route(slug)}>{name}</Link>;
+      },
     },
     {
       Header: "Worked income",
