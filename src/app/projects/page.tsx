@@ -1,19 +1,22 @@
 "use client";
 
+import { Switch } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import Box from "@/components/Box";
 import Button from "@/components/Button";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
+import Loading from "@/components/Loading";
+import ProtectedComponent from "@/components/ProtectedComponent";
 import Typography from "@/components/Typography";
+import { abilities, targets } from "@/permissions";
 import routes from "@/routes";
 
 import ComplexProjectCard from "./_presenters/components/ComplexProjectCard";
 import useProjectsController from "./_presenters/controllers/useProjectsController";
-import ProtectedComponent from "@/components/ProtectedComponent";
-import { abilities, targets } from "@/permissions";
 
 const renderProjects = (projects: Project[], onClick: Function) => {
   return projects.map((project: Project) => {
@@ -40,8 +43,13 @@ const renderProjects = (projects: Project[], onClick: Function) => {
 };
 
 function AllProjects(): JSX.Element {
-  const { projects = [] } = useProjectsController();
+  const [activeOnly, setActiveOnly] = useState(true);
+  const { projects = [], isLoading } = useProjectsController(activeOnly);
   const router = useRouter();
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <DashboardLayout>
@@ -57,11 +65,28 @@ function AllProjects(): JSX.Element {
               </Typography>
             </Box>
           </Grid>
-          <ProtectedComponent
-            ability={abilities.change}
-            target={targets.projects}
+          <Grid
+            item
+            xs={12}
+            md={5}
+            sx={{ textAlign: "right" }}
+            display={"flex"}
+            justifyContent={"end"}
           >
-            <Grid item xs={12} md={5} sx={{ textAlign: "right" }}>
+            <Box display="flex" alignItems="center">
+              <Typography variant="caption" fontWeight="regular">
+                Active projects only
+              </Typography>
+              <Switch
+                checked={activeOnly}
+                onChange={() => setActiveOnly(!activeOnly)}
+              />
+            </Box>
+
+            <ProtectedComponent
+              ability={abilities.change}
+              target={targets.projects}
+            >
               <Button
                 variant="gradient"
                 color="info"
@@ -69,8 +94,8 @@ function AllProjects(): JSX.Element {
               >
                 <Icon>add</Icon>&nbsp; Add New
               </Button>
-            </Grid>
-          </ProtectedComponent>
+            </ProtectedComponent>
+          </Grid>
         </Grid>
         <Box mt={5}>
           <Grid container spacing={3}>
