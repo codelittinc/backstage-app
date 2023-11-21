@@ -39,7 +39,7 @@ function DashboardLayout({ children, stickyNavbar }: Props): JSX.Element {
           },
         })}
       >
-        <DashboardNavbar absolute={!stickyNavbar} isMini />
+        <DashboardNavbar absolute={!stickyNavbar} />
         <Box mt={5} />
         {children}
         <Footer />

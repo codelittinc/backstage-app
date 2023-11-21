@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
@@ -19,6 +20,7 @@ import {
   useMaterialUIController,
 } from "@/theme";
 
+import BackstageAutocomplete from "./_presenters/components/BackstageAutocomplete";
 import {
   navbar,
   navbarContainer,
@@ -26,7 +28,6 @@ import {
   navbarMobileMenu,
   navbarRow,
 } from "./styles";
-
 
 interface Props {
   absolute?: boolean;
@@ -82,32 +83,6 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
   const handleConfiguratorOpen = () =>
     setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event: any) => setOpenMenu(event.currentTarget);
-  const handleCloseMenu = () => setOpenMenu(false);
-
-  // Render the notifications menu
-  const renderMenu = () => (
-    <Menu
-      anchorEl={openMenu}
-      anchorReference={null}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      open={Boolean(openMenu)}
-      onClose={handleCloseMenu}
-      sx={{ mt: 2 }}
-    >
-      <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
-      <NotificationItem
-        icon={<Icon>podcasts</Icon>}
-        title="Manage Podcast sessions"
-      />
-      <NotificationItem
-        icon={<Icon>shopping_cart</Icon>}
-        title="Payment successfully completed"
-      />
-    </Menu>
-  );
 
   // Styles for the navbar icons
   const iconsStyle = ({
@@ -151,47 +126,15 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
         </Box>
         {isMini ? null : (
           <Box sx={(theme) => navbarRow(theme, { isMini })}>
-            <Box pr={1}>
-              <Input label="Search here" />
-            </Box>
-            <Box color={light ? "white" : "inherit"}>
-              <Link href="/authentication/sign-in/basic">
-                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
-                </IconButton>
-              </Link>
-              <IconButton
-                size="small"
-                disableRipple
-                color="inherit"
-                sx={navbarMobileMenu}
-                onClick={handleMiniSidenav}
-              >
-                <Icon sx={iconsStyle} fontSize="medium">
-                  {miniSidenav ? "menu_open" : "menu"}
-                </Icon>
-              </IconButton>
-              <IconButton
-                size="small"
-                disableRipple
-                color="inherit"
-                sx={navbarIconButton}
-                onClick={handleConfiguratorOpen}
-              >
-                <Icon sx={iconsStyle}>settings</Icon>
-              </IconButton>
-              <IconButton
-                size="small"
-                color="inherit"
-                sx={navbarIconButton}
-                onClick={handleOpenMenu}
-              >
-                <Badge badgeContent={9} color="error" size="xs" circular>
-                  <Icon sx={iconsStyle}>notifications</Icon>
-                </Badge>
-              </IconButton>
-              {renderMenu()}
-            </Box>
+            <Grid
+              container
+              sx={{ display: { xs: "none", sm: "none", md: "block" } }}
+              spacing={2}
+            >
+              <Grid item xs={12} minWidth={200}>
+                <BackstageAutocomplete />
+              </Grid>
+            </Grid>
           </Box>
         )}
       </Toolbar>

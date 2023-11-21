@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 
 import Profession from "@/app/_domain/interfaces/Profession";
-import User from "@/app/_domain/interfaces/User";
+import { User } from "@/app/_domain/interfaces/User";
 import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
 import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";

@@ -11,6 +11,8 @@ interface AutocompleteProps {
   multiple?: boolean;
   onChange: (value: any) => void;
   options: any[];
+  placeholder?: string;
+  showArrows?: boolean;
   value?: any;
 }
 
@@ -23,6 +25,8 @@ const Autocomplete = ({
   freeSolo,
   multiple,
   isOptionEqualToValue,
+  placeholder,
+  showArrows = true,
 }: AutocompleteProps) => {
   const handleChange = (_: any, newValue: any) => {
     onChange(newValue);
@@ -56,13 +60,22 @@ const Autocomplete = ({
           );
         })
       }
-      renderInput={(params) => (
-        <FormField
-          {...params}
-          label={label}
-          InputLabelProps={{ shrink: true }}
-        />
-      )}
+      renderInput={(params) => {
+        const inputProps = params.InputProps as any;
+        if (!showArrows) {
+          inputProps.endAdornment = null;
+        }
+
+        return (
+          <FormField
+            {...params}
+            label={label}
+            placeholder={placeholder}
+            InputLabelProps={{ shrink: true }}
+            InputProps={inputProps}
+          />
+        );
+      }}
       onChange={handleChange}
     />
   );
