@@ -457,7 +457,19 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
           (darkMode && !transparentSidenav && whiteSidenav)
         }
       />
-      <List>{renderRoutes}</List>
+      <Box display="flex" flexDirection="column" height="100%">
+        <List style={{ flexGrow: 1 }}>{renderRoutes}</List>
+        <Box p={2} textAlign="center">
+          <Typography
+            component="h6"
+            variant="button"
+            fontWeight="light"
+            color={textColor}
+          >
+            Ctrl + F for global search
+          </Typography>
+        </Box>
+      </Box>
     </SidenavRoot>
   );
 }
