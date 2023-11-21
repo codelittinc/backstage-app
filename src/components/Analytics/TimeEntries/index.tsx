@@ -34,7 +34,7 @@ const TimeEntries = ({ project }: Props) => {
     setStartDateFilter(value.toDateString());
   };
 
-  const colors = ["success", "info", "warning", "dark", "error"];
+  const colors = ["success", "dark", "info", "warning", "error", "secondary"];
 
   const { timeEntries: data, isLoading } = useTimeEntriesController(
     startDateFilter,
@@ -49,7 +49,7 @@ const TimeEntries = ({ project }: Props) => {
 
   const cleanedData = {
     ...data,
-    datasets: data.datasets.slice(0, 5).map((dataset, index) => ({
+    datasets: data.datasets.slice(0, 6).map((dataset, index) => ({
       ...dataset,
       color: colors[index],
     })),
@@ -66,14 +66,14 @@ const TimeEntries = ({ project }: Props) => {
     0
   );
 
-  const sickLeave = data.datasets[2].data.reduce(
+  const sickLeave = data.datasets[3].data.reduce(
     (accumulator, currentValue) => {
       return accumulator + currentValue;
     },
     0
   );
 
-  const overDelivered = data.datasets[3].data.reduce(
+  const overDelivered = data.datasets[2].data.reduce(
     (accumulator, currentValue) => {
       return accumulator + currentValue;
     },
@@ -84,7 +84,7 @@ const TimeEntries = ({ project }: Props) => {
     return accumulator + currentValue;
   }, 0);
 
-  const expected = data.datasets[5].data.reduce((accumulator, currentValue) => {
+  const expected = data.datasets[6].data.reduce((accumulator, currentValue) => {
     return accumulator + currentValue;
   }, 0);
 
