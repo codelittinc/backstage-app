@@ -1,4 +1,5 @@
 import { Chip, Autocomplete as MUIAutocomplete } from "@mui/material";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 
 import FormField from "../FormField";
 
@@ -16,69 +17,87 @@ interface AutocompleteProps {
   value?: any;
 }
 
-const Autocomplete = ({
-  value,
-  onChange,
-  options,
-  getOptionLabel = (value: any) => value,
-  label,
-  freeSolo,
-  multiple,
-  isOptionEqualToValue,
-  placeholder,
-  showArrows = true,
-}: AutocompleteProps) => {
-  const handleChange = (_: any, newValue: any) => {
-    onChange(newValue);
-  };
+const Autocomplete = forwardRef(
+  (
+    {
+      value,
+      onChange,
+      options,
+      getOptionLabel = (value: any) => value,
+      label,
+      freeSolo,
+      multiple,
+      isOptionEqualToValue,
+      placeholder,
+      showArrows = true,
+    }: AutocompleteProps,
+    ref
+  ) => {
+    const handleChange = (_: any, newValue: any) => {
+      onChange(newValue);
+    };
 
-  return (
-    <MUIAutocomplete
-      isOptionEqualToValue={isOptionEqualToValue}
-      freeSolo={freeSolo}
-      multiple={multiple}
-      getOptionLabel={getOptionLabel}
-      value={value}
-      options={options}
-      renderOption={(props, option) => (
-        <li
-          {...props}
-          key={typeof option != "string" ? JSON.stringify(option) : option}
-        >
-          {getOptionLabel(option)}
-        </li>
-      )}
-      renderTags={(value, getTagProps) =>
-        value.map((option, index) => {
+    const localInputRef = useRef(null);
+
+    useImperativeHandle(ref, () => ({
+      focus: () => {
+        if (localInputRef.current) {
+          localInputRef.current.focus();
+        }
+      },
+    }));
+
+    return (
+      <MUIAutocomplete
+        isOptionEqualToValue={isOptionEqualToValue}
+        freeSolo={freeSolo}
+        multiple={multiple}
+        getOptionLabel={getOptionLabel}
+        value={value}
+        options={options}
+        renderOption={(props, option) => (
+          <li
+            {...props}
+            key={typeof option != "string" ? JSON.stringify(option) : option}
+          >
+            {getOptionLabel(option)}
+          </li>
+        )}
+        renderTags={(value, getTagProps) =>
+          value.map((option, index) => {
+            return (
+              <Chip
+                variant="outlined"
+                label={option}
+                {...getTagProps({ index })}
+                key={`${option}-${index}`}
+              />
+            );
+          })
+        }
+        renderInput={(params) => {
+          const inputProps = params.InputProps as any;
+          if (!showArrows) {
+            inputProps.endAdornment = null;
+          }
+
           return (
-            <Chip
-              variant="outlined"
-              label={option}
-              {...getTagProps({ index })}
-              key={`${option}-${index}`}
+            <FormField
+              {...params}
+              label={label}
+              placeholder={placeholder}
+              InputLabelProps={{ shrink: true }}
+              InputProps={inputProps}
+              inputRef={localInputRef}
             />
           );
-        })
-      }
-      renderInput={(params) => {
-        const inputProps = params.InputProps as any;
-        if (!showArrows) {
-          inputProps.endAdornment = null;
-        }
+        }}
+        onChange={handleChange}
+      />
+    );
+  }
+);
 
-        return (
-          <FormField
-            {...params}
-            label={label}
-            placeholder={placeholder}
-            InputLabelProps={{ shrink: true }}
-            InputProps={inputProps}
-          />
-        );
-      }}
-      onChange={handleChange}
-    />
-  );
-};
+Autocomplete.displayName = "Autocomplete";
 
 export default Autocomplete;
