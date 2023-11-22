@@ -3,14 +3,12 @@ import { fromApiParser as customerFromApiParser } from "@/app/customers/_present
 export interface ApiProjectFrom {
   billable: boolean;
   customer: Customer;
-  end_date: string | null;
   id?: number;
   logo_url: string | null;
   name: string;
   participants: Participant[];
   slack_channel: string | null;
   slug: string;
-  start_date: string | null;
   sync_source_control: boolean;
   sync_ticket_tracking_system: boolean;
 }
@@ -18,12 +16,10 @@ export interface ApiProjectFrom {
 export interface ApiProjectTo {
   billable: boolean;
   customer_id: number;
-  end_date: string | null;
   id?: number;
   logo_url: string | null;
   name: string;
   slack_channel: string | null;
-  start_date: string | null;
 }
 
 export function fromApiParser(project: ApiProjectFrom): Project {
@@ -34,8 +30,6 @@ export function fromApiParser(project: ApiProjectFrom): Project {
     name: project.name,
     billable: project.billable,
     slackChannel: project.slack_channel,
-    startDate: project.start_date,
-    endDate: project.end_date,
     slug: project.slug,
     customer: customerFromApiParser(customer),
     logoUrl: project.logo_url,
@@ -57,8 +51,6 @@ export function toApiParser(project: Project): ApiProjectTo {
     name: project.name,
     billable: project.billable,
     slack_channel: project.slackChannel,
-    start_date: project.startDate,
-    end_date: project.endDate,
     customer_id: project.customer.id!,
     logo_url: project.logoUrl,
   };

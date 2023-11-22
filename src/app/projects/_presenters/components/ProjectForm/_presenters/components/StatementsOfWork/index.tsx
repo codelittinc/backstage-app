@@ -9,7 +9,6 @@ import routes from "@/routes";
 
 import StatementsOfWorkTable from "./_presenters/components/StatementsOfWorkTable";
 
-
 function StatementsOfWork({ project }: { project: Project }): JSX.Element {
   const router = useRouter();
 

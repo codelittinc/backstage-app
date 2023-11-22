@@ -23,15 +23,7 @@ function BasicInfo({
   onSave: Function;
   project: Project;
 }): JSX.Element {
-  const {
-    name,
-    customer,
-    startDate,
-    endDate,
-    billable,
-    slackChannel,
-    logoUrl,
-  } = project;
+  const { name, customer, billable, slackChannel, logoUrl } = project;
   const { customers, isLoading } = useCustomersController();
 
   const { channels, isLoading: isChannelsLoading } =
@@ -76,30 +68,6 @@ function BasicInfo({
                 });
               }}
               options={customers}
-            />
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <DatePicker
-              label="Start date"
-              value={[startDate]}
-              onChange={(e: Array<string>) => {
-                onChange({
-                  ...project,
-                  startDate: e[0],
-                });
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <DatePicker
-              label="End date"
-              value={[endDate]}
-              onChange={(e: Array<string>) => {
-                onChange({
-                  ...project,
-                  endDate: e[0],
-                });
-              }}
             />
           </Grid>
           <Grid item xs={12} md={3} lg={3}>

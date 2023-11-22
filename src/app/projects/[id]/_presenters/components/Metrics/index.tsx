@@ -9,11 +9,24 @@ import IssuesSection from "./_presenters/components/IssuesSection";
 import { PullRequestsSection } from "./_presenters/components/PullRequestsSection";
 
 const Metrics = ({ project }: { project: Project }) => {
+  const getSameDayLastMonth = () => {
+    let date = new Date();
+    let lastMonth = new Date(
+      date.getFullYear(),
+      date.getMonth() - 1,
+      date.getDate()
+    );
+    return lastMonth.toDateString();
+  };
+
+  // Get today's date
+  const todayDate = new Date().toDateString();
+
   const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
-    useQueryParamController("startDate", project.startDate!);
+    useQueryParamController("startDate", getSameDayLastMonth());
 
   const { paramValue: endDateFilter, setParamValue: setEndDateFilter } =
-    useQueryParamController("endDate", project.endDate!);
+    useQueryParamController("endDate", todayDate);
 
   const { paramValue: dateInterval, setParamValue: setdateInterval } =
     useQueryParamController("interval", "weeks");
