@@ -9,14 +9,12 @@ type Participant = {
 type Project = {
   billable: boolean;
   customer: Customer;
-  endDate: string | null;
   id?: number;
   logoUrl: string | null;
   name: string;
   participants: Participant[];
   slackChannel: string | null;
   slug: string;
-  startDate: string | null;
   syncSourceControl: boolean;
   syncTicketTrackingSystem: boolean;
 };

@@ -21,7 +21,7 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
 
   const { hasPermission: hasFinancialPermission } = usePermissions({
     ability: abilities.change,
-    target: targets.financial,
+    target: targets.finances,
   });
 
   const sidenavItems = [
@@ -52,7 +52,7 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
         />
       </Grid>
 
-      <ProtectedComponent ability={abilities.change} target={targets.financial}>
+      <ProtectedComponent ability={abilities.change} target={targets.finances}>
         <Grid item xs={12}>
           <StatementsOfWork project={currentProject} />
         </Grid>

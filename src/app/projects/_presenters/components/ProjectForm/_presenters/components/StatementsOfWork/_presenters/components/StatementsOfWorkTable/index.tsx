@@ -9,7 +9,6 @@ import routes from "@/routes";
 
 import useStatementsOfWorkController from "../../controllers/useStatementsOfWorkController";
 
-
 function formatDateToMonthDayYear(isoDate: string): string {
   const date = new Date(isoDate);
   const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
