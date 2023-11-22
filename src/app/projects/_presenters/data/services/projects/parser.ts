@@ -11,6 +11,8 @@ export interface ApiProjectFrom {
   slack_channel: string | null;
   slug: string;
   start_date: string | null;
+  sync_source_control: boolean;
+  sync_ticket_tracking_system: boolean;
 }
 
 export interface ApiProjectTo {
@@ -44,6 +46,8 @@ export function fromApiParser(project: ApiProjectFrom): Project {
       imageUrl: participant.image_url,
       slug: participant.slug,
     })),
+    syncSourceControl: project.sync_source_control,
+    syncTicketTrackingSystem: project.sync_ticket_tracking_system,
   };
 }
 

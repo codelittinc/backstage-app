@@ -17,4 +17,6 @@ type Project = {
   slackChannel: string | null;
   slug: string;
   startDate: string | null;
+  syncSourceControl: boolean;
+  syncTicketTrackingSystem: boolean;
 };
