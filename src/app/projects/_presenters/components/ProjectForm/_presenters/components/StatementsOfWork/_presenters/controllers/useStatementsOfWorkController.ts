@@ -8,12 +8,12 @@ import {
   getStatementOfWorks,
 } from "../data/services/statementsOfWork";
 
-
 const useStatementsOfWorkController = (projectId: number | string) => {
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 
-  const { projects, isLoading: isProjectsLoading } = useProjectsController();
+  const { projects, isLoading: isProjectsLoading } =
+    useProjectsController(true);
 
   const deleteMutation = useMutation({
     mutationFn: deleteStatementOfWork,
