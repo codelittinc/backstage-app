@@ -7,28 +7,11 @@ import { getTimeEntriesAnalytics } from "../data/services/timeEntriesAnalytics";
 const useTimeEntriesController = (
   startDate: string,
   endDate: string,
-  allStatementsOfWork: boolean,
   project?: Project
 ) => {
-  const { data: statementsOfWork } = useQuery({
-    queryKey: ["statements_of_work", project?.id],
-    queryFn: () => getStatementOfWorks(project?.id!),
-    enabled: !!project?.id,
-  });
-
-  const statementOfWorkId = statementsOfWork?.[0]?.id;
-
   const { data, isLoading } = useQuery({
-    queryKey: [
-      "analytics",
-      "time_entries",
-      statementOfWorkId,
-      startDate,
-      endDate,
-    ],
-    queryFn: () =>
-      getTimeEntriesAnalytics(statementOfWorkId, startDate, endDate),
-    enabled: !!statementOfWorkId || allStatementsOfWork,
+    queryKey: ["analytics", "time_entries", startDate, endDate, project?.id],
+    queryFn: () => getTimeEntriesAnalytics(startDate, endDate, project?.id),
   });
 
   return {

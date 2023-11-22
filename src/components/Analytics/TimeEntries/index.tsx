@@ -39,7 +39,6 @@ const TimeEntries = ({ project }: Props) => {
   const { timeEntries: data, isLoading } = useTimeEntriesController(
     startDateFilter,
     endDateFilter,
-    !project?.id,
     project
   );
 
