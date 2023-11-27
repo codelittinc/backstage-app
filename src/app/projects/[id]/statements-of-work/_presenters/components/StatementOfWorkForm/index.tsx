@@ -57,6 +57,7 @@ function StatementOfWorkComponent({
     hourDeliverySchedule,
     limitByDeliverySchedule,
     totalHours,
+    name,
   } = currentStatementOfWork;
 
   const modelOptions = [
@@ -83,6 +84,21 @@ function StatementOfWorkComponent({
             <Typography variant="h5">Statement Of Work Info</Typography>
           </Box>
           <Box component="form" pb={3} px={3}>
+            <Grid container spacing={3} pb={3} px={3}>
+              <Grid item xs={12} sm={3}>
+                <FormField
+                  label="Name"
+                  placeholder="Statement of work name"
+                  value={name || ""}
+                  onChange={({ target: { value } }) => {
+                    setCurrentStatementOfWork({
+                      ...currentStatementOfWork,
+                      name: value,
+                    });
+                  }}
+                />
+              </Grid>
+            </Grid>
             <Grid container spacing={3} pb={3} px={3}>
               <Grid item xs={12} sm={3}>
                 <Autocomplete
