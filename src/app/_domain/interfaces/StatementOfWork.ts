@@ -5,6 +5,7 @@ interface StatementOfWork {
   id?: number;
   limitByDeliverySchedule: boolean;
   model: string;
+  name: string;
   projectId: number | string;
   startDate: string;
   totalHours?: number | null;
