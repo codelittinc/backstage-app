@@ -97,7 +97,7 @@ const TimeEntries = ({ project }: Props) => {
     datasets: {
       label: "Projects",
       backgroundColors: ["success", "error"],
-      data: [totalPercentage, 100 - totalPercentage],
+      data: [totalPercentage, Math.max(100 - totalPercentage, 0)],
     },
   };
 
