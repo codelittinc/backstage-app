@@ -5,6 +5,7 @@ import useQueryParamController from "@/app/_presenters/controllers/useQueryParam
 import Box from "@/components/Box";
 import HorizontalBarChart from "@/components/Charts/HorizontalBarChart";
 import PieChart from "@/components/Charts/PieChart";
+import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import DatePicker from "@/components/DatePicker";
 import Loading from "@/components/Loading";
 
@@ -103,29 +104,46 @@ const TimeEntries = ({ project }: Props) => {
       data: [totalPercentage, Math.max(100 - totalPercentage, 0)],
     },
   };
-
-  const breakdownPieChartData = {
-    labels: [
-      "Worked",
-      "Paid time off",
-      "Over delivered",
-      "Sick leave",
-      "Missing",
-      "Errands",
+  const breakdownBarChartData = {
+    labels: ["Hours"],
+    datasets: [
+      {
+        label: "Total worked",
+        data: [Math.round(worked) + Math.round(overDelivered)],
+        color: "primary",
+      },
+      {
+        label: "Expected worked",
+        data: [Math.round(worked)],
+        color: colors[0],
+      },
+      {
+        label: "Paid time off",
+        data: [Math.round(paidTimeOff)],
+        color: colors[1],
+      },
+      {
+        label: "Over delivered",
+        data: [Math.round(overDelivered)],
+        color: colors[2],
+      },
+      {
+        label: "Sick leave",
+        data: [Math.round(sickLeave)],
+        color: colors[3],
+      },
+      {
+        label: "Missing",
+        data: [Math.round(missing)],
+        color: colors[4],
+      },
+      {
+        label: "Errands",
+        data: [Math.round(errands)],
+        color: colors[5],
+      },
     ],
-    datasets: {
-      backgroundColors: colors,
-      data: [
-        Math.round(worked),
-        Math.round(paidTimeOff),
-        Math.round(overDelivered),
-        Math.round(sickLeave),
-        Math.round(missing),
-        Math.round(errands),
-      ],
-    },
   };
-
   return (
     <Box>
       <Grid container mb={3} mt={3}>
@@ -158,13 +176,13 @@ const TimeEntries = ({ project }: Props) => {
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <PieChart
+          <VerticalBarChart
             icon={{ color: "success", component: "donut_small" }}
-            title="Time breakdown"
-            description="Based on time entries and time off requests"
-            chart={breakdownPieChartData}
+            title="Time entries in hours"
+            chart={breakdownBarChartData}
+            height="21rem"
             valueType="number"
-            sufix="hours"
+            sufix="Hours"
           />
         </Grid>
         <Grid item xs={12}>
