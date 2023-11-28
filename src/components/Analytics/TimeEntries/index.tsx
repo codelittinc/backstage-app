@@ -83,6 +83,9 @@ const TimeEntries = ({ project }: Props) => {
     return accumulator + currentValue;
   }, 0);
 
+  const errands = data.datasets[5].data.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+  }, 0);
   const expected = data.datasets[6].data.reduce((accumulator, currentValue) => {
     return accumulator + currentValue;
   }, 0);
@@ -101,18 +104,24 @@ const TimeEntries = ({ project }: Props) => {
     },
   };
 
-  const totalHours = worked + paidTimeOff + sickLeave + overDelivered + missing;
-
   const breakdownPieChartData = {
-    labels: ["Worked", "Paid time off", "Sick leave", "Missing"],
+    labels: [
+      "Worked",
+      "Paid time off",
+      "Over delivered",
+      "Sick leave",
+      "Missing",
+      "Errands",
+    ],
     datasets: {
-      label: "In %",
-      backgroundColors: ["success", "info", "warning", "error"],
+      backgroundColors: colors,
       data: [
-        Math.round(((worked + overDelivered) / totalHours) * 100),
-        Math.round((paidTimeOff / totalHours) * 100),
-        Math.round((sickLeave / totalHours) * 100),
-        Math.round((missing / totalHours) * 100),
+        Math.round(worked),
+        Math.round(paidTimeOff),
+        Math.round(overDelivered),
+        Math.round(sickLeave),
+        Math.round(missing),
+        Math.round(errands),
       ],
     },
   };
@@ -154,6 +163,8 @@ const TimeEntries = ({ project }: Props) => {
             title="Time breakdown"
             description="Based on time entries and time off requests"
             chart={breakdownPieChartData}
+            valueType="number"
+            sufix="hours"
           />
         </Grid>
         <Grid item xs={12}>

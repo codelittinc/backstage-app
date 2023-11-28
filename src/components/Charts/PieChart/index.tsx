@@ -53,6 +53,8 @@ interface Props {
     component: ReactNode;
   };
   title?: string;
+  valueType?: "percentage" | "number";
+  sufix?: string;
 }
 function PieChart({
   icon = { color: "info", component: "" },
@@ -60,8 +62,15 @@ function PieChart({
   description = "",
   height = "19.125rem",
   chart,
+  valueType = "percentage",
+  sufix = "",
 }: Props): JSX.Element {
-  const { data, options } = configs(chart.labels || [], chart.datasets || {});
+  const { data, options } = configs(
+    chart.labels || [],
+    chart.datasets || {},
+    valueType,
+    sufix
+  );
 
   const renderChart = (
     <Box py={2} pr={2} pl={icon.component ? 1 : 2}>

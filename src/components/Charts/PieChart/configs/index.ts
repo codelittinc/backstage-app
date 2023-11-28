@@ -2,7 +2,7 @@ import colors from "@/assets/theme/base/colors";
 
 const { gradients, dark } = colors;
 
-function configs(labels: any, datasets: any) {
+function configs(labels: any, datasets: any, valueType: string, sufix: string) {
   const backgroundColors = [];
 
   if (datasets.backgroundColors) {
@@ -45,7 +45,10 @@ function configs(labels: any, datasets: any) {
           anchor: "center",
           formatter: (value: number, context: any) => {
             if (value === 0) return "";
-            return `${value.toFixed(1)}%`;
+            if (valueType === "percentage") {
+              return `${value.toFixed(1)}%`;
+            }
+            return `${value.toFixed(1)} ${sufix}`;
           },
         },
         tooltip: {
@@ -63,7 +66,11 @@ function configs(labels: any, datasets: any) {
                 ((currentValue / total) * 100).toFixed(1)
               );
 
-              return `${label} - ${percentage}%`;
+              if (valueType === "percentage") {
+                return `${label} - ${percentage}%`;
+              }
+
+              return `${label} - ${currentValue}`;
             },
           },
         },
