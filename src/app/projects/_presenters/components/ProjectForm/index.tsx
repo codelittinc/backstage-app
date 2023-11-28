@@ -40,7 +40,7 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
   return (
     <SidenavForm sidebarItems={sidenavItems}>
       <Grid item xs={12}>
-        <Header project={project} />
+        <Header project={currentProject} />
       </Grid>
       <Grid item xs={12}>
         <BasicInfo
