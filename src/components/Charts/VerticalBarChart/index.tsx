@@ -61,7 +61,9 @@ interface Props {
       | "dark";
     component: ReactNode;
   };
+  sufix: string;
   title?: string;
+  valueType: "number" | "currency";
 }
 
 function VerticalBarChart({
@@ -70,6 +72,8 @@ function VerticalBarChart({
   description,
   height = "19.125rem",
   chart,
+  valueType = "currency",
+  sufix = "",
 }: Props): JSX.Element {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
@@ -85,7 +89,12 @@ function VerticalBarChart({
       }))
     : [];
 
-  const { data, options } = configs(chart.labels || [], chartDatasets);
+  const { data, options } = configs(
+    chart.labels || [],
+    chartDatasets,
+    valueType,
+    sufix
+  );
 
   const renderChart = (
     <Box py={2} pr={2} pl={icon.component ? 1 : 2}>

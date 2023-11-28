@@ -6,7 +6,7 @@ const formatCurrency = (value: number) => {
     minimumFractionDigits: 2,
   }).format(value)}`;
 };
-function configs(labels: any, datasets: any) {
+function configs(labels: any, datasets: any, valueType: string, sufix: string) {
   return {
     data: {
       labels,
@@ -26,7 +26,11 @@ function configs(labels: any, datasets: any) {
           color: "black",
           anchor: "center",
           formatter: (value: number) => {
-            return formatCurrency(value);
+            if (valueType === "currency") {
+              return formatCurrency(value);
+            }
+
+            return `${value.toFixed(1)} ${sufix}`;
           },
         },
       },

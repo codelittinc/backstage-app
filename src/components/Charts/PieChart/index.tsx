@@ -52,9 +52,9 @@ interface Props {
       | "dark";
     component: ReactNode;
   };
+  sufix?: string;
   title?: string;
   valueType?: "percentage" | "number";
-  sufix?: string;
 }
 function PieChart({
   icon = { color: "info", component: "" },
