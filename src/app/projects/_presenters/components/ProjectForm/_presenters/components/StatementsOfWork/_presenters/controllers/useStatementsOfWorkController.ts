@@ -13,7 +13,7 @@ const useStatementsOfWorkController = (projectId: number | string) => {
   const queryClient = useQueryClient();
 
   const { projects, isLoading: isProjectsLoading } =
-    useProjectsController(true);
+    useProjectsController(false);
 
   const deleteMutation = useMutation({
     mutationFn: deleteStatementOfWork,

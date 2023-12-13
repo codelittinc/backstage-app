@@ -21,14 +21,16 @@ import useProjectsController from "./_presenters/controllers/useProjectsControll
 const renderProjects = (projects: Project[], onClick: Function) => {
   return projects.map((project: Project) => {
     const { name, slug, logoUrl } = project;
+    const { customer: { name: customerName } = {} } = project;
     const projectPath = routes.projectPath(slug);
 
+    const title = name == customerName ? name : `${customerName} - ${name}`;
     return (
       <Grid item xs={12} md={6} lg={4} key={project.name}>
         <Box mb={1.5} mt={1.5}>
           <ComplexProjectCard
             image={logoUrl ?? ""}
-            title={name}
+            title={title}
             description=""
             dateTime={project.endDate}
             members={project.participants.map(

@@ -29,7 +29,6 @@ interface Props {
   title: string;
 }
 
-// Custom styles for ComplexProjectCard
 function ComplexProjectCard({
   color = "light",
   image,
