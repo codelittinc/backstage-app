@@ -1,12 +1,22 @@
+import { SnackbarProps } from "@mui/material";
+import { ReactNode } from "react";
 import { StateCreator } from "zustand";
 
-interface Alert {
+interface Alert extends SnackbarProps {
   autoHideDuration?: number;
   bgWhite?: boolean;
-  color?: string;
+  color?:
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "dark"
+    | "light";
   content: string;
   dateTime?: string;
-  icon?: string;
+  icon?: ReactNode;
   title: string;
 }
 

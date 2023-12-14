@@ -20,7 +20,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         },
       }),
       mutationCache: new MutationCache({
-        onError: (error, query) => {
+        onError: (error) => {
           showSaveErrorAlert(error);
         },
       }),

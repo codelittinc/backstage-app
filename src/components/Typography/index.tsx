@@ -5,9 +5,8 @@ import { useMaterialUIController } from "@/theme";
 
 import TypographyRoot from "./TypographyRoot";
 
-
 interface Props extends TypographyProps {
-  [key: string]: any;
+  [key: string]: unknown;
   children: ReactNode;
   color?:
     | "inherit"
@@ -36,7 +35,7 @@ interface Props extends TypographyProps {
     | "top"
     | "bottom";
 }
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Typography: FC<Props | any> = forwardRef(
   (
     {

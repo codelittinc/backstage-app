@@ -1,10 +1,8 @@
-import { SnackbarProps } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Fade from "@mui/material/Fade";
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
-import { ReactNode } from "react";
 
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import MDBox from "@/components/Box";
@@ -13,26 +11,9 @@ import { useMaterialUIController } from "@/theme";
 
 import MDSnackbarIconRoot from "./MDSnackbarIconRoot";
 
-interface Props extends SnackbarProps {
-  autoHideDuration?: number;
-  bgWhite?: boolean;
-  color?:
-    | "primary"
-    | "secondary"
-    | "info"
-    | "success"
-    | "warning"
-    | "error"
-    | "dark"
-    | "light";
-  content: string;
-  dateTime?: string;
-  icon?: ReactNode;
-  title: string;
-}
-
 function MDSnackbar(): JSX.Element {
   const { alert, hideAlert: close } = useAppStore();
+
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
@@ -47,9 +28,9 @@ function MDSnackbar(): JSX.Element {
       autoHideDuration: 2000,
     };
 
-  let titleColor: any;
-  let dateTimeColor: any;
-  let dividerColor: any;
+  let titleColor: unknown;
+  let dateTimeColor: unknown;
+  let dividerColor: unknown;
 
   if (bgWhite) {
     titleColor = color;
@@ -95,10 +76,11 @@ function MDSnackbar(): JSX.Element {
         borderRadius="md"
         p={1}
         sx={{
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           backgroundColor: ({ palette }: { palette: any }) =>
             darkMode
               ? palette.background.card
-              : palette[color] || palette.white.main,
+              : palette[color!] || palette.white.main,
         }}
       >
         <MDBox
@@ -151,6 +133,7 @@ function MDSnackbar(): JSX.Element {
           p={1.5}
           sx={{
             fontSize: ({ typography: { size } }) => size.sm,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             color: ({ palette }: { palette: any }) => {
               let colorValue =
                 bgWhite || color === "light"

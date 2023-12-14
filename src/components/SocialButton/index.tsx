@@ -4,7 +4,7 @@ import { FC, ReactNode, forwardRef } from "react";
 import SocialButtonRoot from "./SocialButtonRoot";
 
 interface Props extends Omit<ButtonProps, "color" | "variant"> {
-  [key: string]: any;
+  [key: string]: unknown;
   children?: ReactNode;
   circular?: boolean;
   color?:
