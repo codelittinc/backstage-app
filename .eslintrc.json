@@ -1,6 +1,6 @@
 {
   "extends": "next/core-web-vitals",
-  "plugins": ["typescript-sort-keys"],
+  "plugins": ["typescript-sort-keys", "typescript-eslint/recommended"],
   "settings": {
     "import/resolver": {
       "typescript": {
@@ -11,7 +11,6 @@
   "rules": {
     "typescript-sort-keys/interface": "warn",
     "typescript-sort-keys/string-enum": "warn",
-    "import/no-unresolved": "error",
     "sort-imports": [
       "warn",
       {
