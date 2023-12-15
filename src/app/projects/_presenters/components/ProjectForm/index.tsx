@@ -37,6 +37,8 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
     });
   }
 
+  const displayStatementsOfWork = hasFinancialPermission && project.id;
+
   return (
     <SidenavForm sidebarItems={sidenavItems}>
       <Grid item xs={12}>
@@ -52,11 +54,11 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
         />
       </Grid>
 
-      <ProtectedComponent ability={abilities.change} target={targets.finances}>
+      {displayStatementsOfWork && (
         <Grid item xs={12}>
           <StatementsOfWork project={currentProject} />
         </Grid>
-      </ProtectedComponent>
+      )}
     </SidenavForm>
   );
 }

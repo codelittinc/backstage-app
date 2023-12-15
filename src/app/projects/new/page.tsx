@@ -6,7 +6,6 @@ import Loading from "@/components/Loading";
 import useNewProjectController from "./_presenters/controllers/useNewProjectController";
 import ProjectForm from "../_presenters/components/ProjectForm";
 
-
 function Page() {
   const { customers, isLoading } = useCustomersController();
   const { onSave } = useNewProjectController();
@@ -17,6 +16,13 @@ function Page() {
   const defaultProject = {
     name: "",
     customer: customers[0],
+    billable: false,
+    logoUrl: "",
+    slackChannel: "",
+    slug: "",
+    participants: [],
+    syncSourceControl: false,
+    syncTicketTrackingSystem: false,
   };
 
   return (

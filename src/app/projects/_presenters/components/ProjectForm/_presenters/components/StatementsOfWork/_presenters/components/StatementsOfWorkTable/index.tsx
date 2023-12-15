@@ -22,9 +22,10 @@ interface Props {
 }
 
 const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
+  const router = useRouter();
+
   const { statementsOfWork, isLoading, onDelete, projects } =
     useStatementsOfWorkController(project.id!);
-  const router = useRouter();
 
   if (isLoading) {
     return <Loading />;
