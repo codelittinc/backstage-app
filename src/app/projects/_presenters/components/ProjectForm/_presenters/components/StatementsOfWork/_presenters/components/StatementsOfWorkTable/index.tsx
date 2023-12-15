@@ -8,6 +8,7 @@ import Loading from "@/components/Loading";
 import routes from "@/routes";
 
 import useStatementsOfWorkController from "../../controllers/useStatementsOfWorkController";
+import Link from "next/link";
 
 function formatDateToMonthDayYear(isoDate: string): string {
   const date = new Date(isoDate);
@@ -21,6 +22,11 @@ interface Props {
   project: Project;
 }
 
+let USDollar = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
   const router = useRouter();
 
@@ -32,6 +38,26 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
   }
 
   const columns = [
+    {
+      Header: "Name",
+      accessor: "name",
+      width: "30%",
+      Cell: ({
+        value,
+        row,
+      }: {
+        value: string;
+        row: { original: StatementOfWork };
+      }) => {
+        const {
+          original: { id, projectId },
+        } = row;
+
+        return (
+          <Link href={routes.statementOfWorkPath(id!, projectId)}>{value}</Link>
+        );
+      },
+    },
     {
       Header: "Period",
       accessor: "startDate",
@@ -45,6 +71,14 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
       },
     },
     {
+      Header: "Contract size",
+      accessor: "totalRevenue",
+      width: "30%",
+      Cell: ({ value }: { value: number }) => {
+        return USDollar.format(value);
+      },
+    },
+    {
       Header: "",
       accessor: "edit",
       width: "5%",
@@ -52,9 +86,11 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
         const {
           original: { id, projectId },
         } = row;
+
         const projectSlug = projects.find(
           (project) => project.id === projectId
         ).slug;
+
         return (
           <Button
             variant="text"
