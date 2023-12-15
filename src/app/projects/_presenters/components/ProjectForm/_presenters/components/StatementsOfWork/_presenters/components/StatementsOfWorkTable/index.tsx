@@ -1,14 +1,15 @@
 import Icon from "@mui/material/Icon";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
+import { toUSD } from "@/app/_presenters/utils/finances";
 import Button from "@/components/Button";
 import DataTable from "@/components/DataTable";
 import Loading from "@/components/Loading";
 import routes from "@/routes";
 
 import useStatementsOfWorkController from "../../controllers/useStatementsOfWorkController";
-import Link from "next/link";
 
 function formatDateToMonthDayYear(isoDate: string): string {
   const date = new Date(isoDate);
@@ -21,11 +22,6 @@ function formatDateToMonthDayYear(isoDate: string): string {
 interface Props {
   project: Project;
 }
-
-let USDollar = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
 
 const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
   const router = useRouter();
@@ -46,8 +42,8 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
         value,
         row,
       }: {
-        value: string;
         row: { original: StatementOfWork };
+        value: string;
       }) => {
         const {
           original: { id, projectId },
@@ -75,7 +71,7 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
       accessor: "totalRevenue",
       width: "30%",
       Cell: ({ value }: { value: number }) => {
-        return USDollar.format(value);
+        return toUSD(value);
       },
     },
     {
