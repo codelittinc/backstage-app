@@ -1,8 +1,12 @@
 import { Grid } from "@mui/material";
-import { addDays, startOfWeek, subWeeks } from "date-fns";
 import Link from "next/link";
 
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
+import {
+  getFirstDayOfCurrentMonth,
+  getLastDayOfCurrentMonth,
+} from "@/app/_presenters/utils/date";
+import { toUSD } from "@/app/_presenters/utils/finances";
 import Box from "@/components/Box";
 import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import DataTable from "@/components/DataTable";
@@ -16,26 +20,22 @@ type Props = {
   project?: Project;
 };
 
-const lastWeekMonday = startOfWeek(subWeeks(new Date(), 1), {
-  weekStartsOn: 0,
-});
-const lastWeekFriday = addDays(lastWeekMonday, 6);
-
-const formatCurrency = (value: number) => {
-  return `$${new Intl.NumberFormat("de-DE", {
-    style: "decimal",
-    minimumFractionDigits: 2,
-  }).format(value)}`;
-};
-
 const formatNumber = (value: number) => value.toFixed(1);
 
 const Finances = ({ project }: Props) => {
+  const projectView = !!project;
+
   const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
-    useQueryParamController("startDate", lastWeekMonday.toISOString());
+    useQueryParamController(
+      "startDate",
+      getFirstDayOfCurrentMonth().toISOString()
+    );
 
   const { paramValue: endDateFilter, setParamValue: setEndDateFilter } =
-    useQueryParamController("endDate", lastWeekFriday.toISOString());
+    useQueryParamController(
+      "endDate",
+      getLastDayOfCurrentMonth().toISOString()
+    );
 
   const updateEndDateFilter = (value: Date) => {
     setEndDateFilter(value.toDateString());
@@ -79,7 +79,7 @@ const Finances = ({ project }: Props) => {
       accessor: "executed_income",
       width: "10%",
       Cell: ({ value }: any) => {
-        return formatCurrency(value);
+        return toUSD(value);
       },
     },
     {
@@ -87,7 +87,7 @@ const Finances = ({ project }: Props) => {
       accessor: "expected_income",
       width: "10%",
       Cell: ({ value }: any) => {
-        return formatCurrency(value);
+        return toUSD(value);
       },
     },
     {
@@ -119,7 +119,7 @@ const Finances = ({ project }: Props) => {
       accessor: "executed_cost",
       width: "10%",
       Cell: ({ value }: any) => {
-        return formatCurrency(value);
+        return toUSD(value);
       },
     },
     {
@@ -127,13 +127,18 @@ const Finances = ({ project }: Props) => {
       accessor: "expected_cost",
       width: "10%",
       Cell: ({ value }: any) => {
-        return formatCurrency(value);
+        return toUSD(value);
       },
     },
   ];
+
+  if (projectSpecific) {
+    // remove the income columns as we're unable to calculate them properly
+    columns.splice(1, 2);
+  }
+
   const rows = finances.details;
 
-  console.log(finances);
   const totalExpectedIncome = finances.totals.total_expected_income;
   const totalExecutedIncome = finances.totals.total_executed_income;
 
