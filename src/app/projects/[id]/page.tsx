@@ -8,7 +8,7 @@ import Loading from "@/components/Loading";
 import usePermissionsController from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
 import { abilities, targets } from "@/permissions";
 
-import Metrics from "./_presenters/components/Metrics";
+import PerformanceMetrics from "./_presenters/components/PerformanceMetrics";
 import useNewProjectController from "./_presenters/controllers/useProjectController";
 import ProjectForm from "../_presenters/components/ProjectForm";
 
@@ -31,7 +31,7 @@ function Page() {
   }
 
   let tabs = displayAnalytics
-    ? ["Profile", "Metrics", "Time entries"]
+    ? ["Profile", "Performance metrics", "Time entries"]
     : ["Profile"];
 
   if (displayFinances) {
@@ -45,7 +45,7 @@ function Page() {
           onSave={onSave}
           key={"profile-component"}
         />,
-        <Metrics project={project!} key={"metrics-component"} />,
+        <PerformanceMetrics project={project!} key={"metrics-component"} />,
         <TimeEntries project={project!} key={"time-entries-component"} />,
       ]
     : [
