@@ -29,7 +29,9 @@ interface Props {
 function MDDatePicker({ input, ...rest }: Props): JSX.Element {
   return (
     <Flatpickr
-      multiple={false}
+      options={{
+        mode: "range",
+      }}
       {...rest}
       render={({ defaultValue, label }: any, ref: any) => (
         <MDInput

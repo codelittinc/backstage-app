@@ -10,7 +10,7 @@ import { toUSD } from "@/app/_presenters/utils/finances";
 import Box from "@/components/Box";
 import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import DataTable from "@/components/DataTable";
-import DatePicker from "@/components/DatePicker";
+import DateRangePicker from "@/components/DateRangePicker";
 import Loading from "@/components/Loading";
 import routes from "@/routes";
 
@@ -22,29 +22,45 @@ type Props = {
 
 const formatNumber = (value: number) => value.toFixed(1);
 
+const START_DATE_KEY = "startDate";
+const END_DATE_KEY = "endDate";
 const Finances = ({ project }: Props) => {
-  const projectView = !!project;
+  const defaultStartDate = getFirstDayOfCurrentMonth();
+  const defaultEndDate = getLastDayOfCurrentMonth();
 
-  const { paramValue: startDateFilter, setParamValue: setStartDateFilter } =
-    useQueryParamController(
-      "startDate",
-      getFirstDayOfCurrentMonth().toISOString()
-    );
+  const { setCustomParams, getCustomParamValue } = useQueryParamController([
+    {
+      key: START_DATE_KEY,
+      defaultValue: defaultStartDate.toISOString(),
+    },
+    {
+      key: END_DATE_KEY,
+      defaultValue: defaultEndDate.toISOString(),
+    },
+  ]);
 
-  const { paramValue: endDateFilter, setParamValue: setEndDateFilter } =
-    useQueryParamController(
-      "endDate",
-      getLastDayOfCurrentMonth().toISOString()
-    );
-
-  const updateEndDateFilter = (value: Date) => {
-    setEndDateFilter(value.toDateString());
+  const updateDateFilters = (startDate: Date, endDate: Date) => {
+    setCustomParams([
+      {
+        key: START_DATE_KEY,
+        value: startDate.toISOString(),
+      },
+      {
+        key: END_DATE_KEY,
+        value: endDate.toISOString(),
+      },
+    ]);
   };
 
-  const updateStartDateFilter = (value: Date) => {
-    setStartDateFilter(value.toDateString());
-  };
+  const startDateFilter = getCustomParamValue(
+    START_DATE_KEY,
+    defaultStartDate.toISOString()
+  ) as string;
 
+  const endDateFilter = getCustomParamValue(
+    END_DATE_KEY,
+    defaultEndDate.toISOString()
+  ) as string;
   const { hasPermission, finances, isLoading } = useFinancesController(
     startDateFilter,
     endDateFilter,
@@ -55,7 +71,7 @@ const Finances = ({ project }: Props) => {
     return null;
   }
 
-  if (isLoading) {
+  if (!startDateFilter || !endDateFilter || isLoading) {
     return <Loading />;
   }
 
@@ -170,21 +186,12 @@ const Finances = ({ project }: Props) => {
   return (
     <Box>
       <Grid container mb={3} mt={3}>
-        <Grid item mr={2}>
-          <DatePicker
-            label="Start date"
-            value={[new Date(startDateFilter)]}
-            onChange={(e: Array<Date>) => {
-              updateStartDateFilter(e[0]);
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <DatePicker
-            label="End date"
-            value={new Date(endDateFilter)}
-            onChange={(e: Array<Date>) => {
-              updateEndDateFilter(e[0]);
+        <Grid item mr={2} xs={2}>
+          <DateRangePicker
+            startDate={startDateFilter}
+            endDate={endDateFilter}
+            onDateRangeChange={(startDate, endDate) => {
+              updateDateFilters(startDate, endDate);
             }}
           />
         </Grid>

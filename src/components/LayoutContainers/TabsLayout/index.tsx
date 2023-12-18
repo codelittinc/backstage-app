@@ -36,13 +36,18 @@ const getTabs = (
 };
 
 function TabsLayout({ tabs, tabsChildren }: Props): JSX.Element {
-  const { paramValue, setParamValue } = useQueryParamController("tab", 0);
-
-  const tab = Number(paramValue);
+  const { setCustomParams, getCustomParams } = useQueryParamController([
+    {
+      key: "tab",
+      defaultValue: 0,
+    },
+  ]);
 
   const updateActiveTab = (value: number) => {
-    setParamValue(value);
+    setCustomParams([{ key: "tab", value }]);
   };
+
+  const tab = getCustomParams().tab as number;
 
   return (
     <DashboardLayout>
