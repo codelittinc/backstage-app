@@ -22,7 +22,7 @@ const useProjectController = () => {
         queryKey: [PROJETS_KEY, result.id],
       });
 
-      router.push(routes.projectPath(result.id!));
+      router.push(routes.projectPath(result.slug!));
     },
   });
 
