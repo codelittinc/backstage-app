@@ -11,6 +11,7 @@ type Project = {
   customer: Customer;
   id?: number;
   logoUrl: string | null;
+  logoBackgroundColor: string | null;
   name: string;
   participants: Participant[];
   slackChannel: string | null;

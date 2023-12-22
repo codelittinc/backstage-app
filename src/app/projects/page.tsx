@@ -31,6 +31,7 @@ const renderProjects = (projects: Project[], onClick: Function) => {
           <ComplexProjectCard
             image={logoUrl ?? ""}
             title={title}
+            color={project.logoBackgroundColor || "light"}
             description=""
             dateTime={project.endDate}
             members={project.participants.map(
