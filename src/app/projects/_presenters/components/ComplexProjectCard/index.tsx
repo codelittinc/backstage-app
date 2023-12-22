@@ -68,6 +68,7 @@ function ComplexProjectCard({
           sx={{ cursor: "pointer" }}
         >
           <Avatar
+            shadow="lg"
             src={image}
             alt={title}
             size="xl"
