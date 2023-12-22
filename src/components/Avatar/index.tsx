@@ -5,16 +5,7 @@ import MDAvatarRoot from "./MDAvatarRoot";
 
 interface Props extends AvatarProps {
   [key: string]: any;
-  bgColor?:
-    | "transparent"
-    | "primary"
-    | "secondary"
-    | "info"
-    | "success"
-    | "warning"
-    | "error"
-    | "light"
-    | "dark";
+  bgColor?: string;
   shadow?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "inset";
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 }

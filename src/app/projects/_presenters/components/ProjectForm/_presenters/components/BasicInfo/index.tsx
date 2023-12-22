@@ -7,7 +7,6 @@ import useChannelsController from "@/app/repositories/_presenters/components/Rep
 import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
 import Button from "@/components/Button";
-import DatePicker from "@/components/DatePicker";
 import FormField from "@/components/FormField";
 import Loading from "@/components/Loading";
 import ProtectedComponent from "@/components/ProtectedComponent";
@@ -23,7 +22,14 @@ function BasicInfo({
   onSave: Function;
   project: Project;
 }): JSX.Element {
-  const { name, customer, billable, slackChannel, logoUrl } = project;
+  const {
+    name,
+    customer,
+    billable,
+    slackChannel,
+    logoUrl,
+    logoBackgroundColor = "",
+  } = project;
   const { customers, isLoading } = useCustomersController();
 
   const { channels, isLoading: isChannelsLoading } =
@@ -108,6 +114,23 @@ function BasicInfo({
                 onChange({
                   ...project,
                   logoUrl: value,
+                });
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormField
+              label="Logo background color"
+              placeholder="gray"
+              value={logoBackgroundColor}
+              onChange={({
+                target: { value },
+              }: {
+                target: { value: string };
+              }) => {
+                onChange({
+                  ...project,
+                  logoBackgroundColor: value,
                 });
               }}
             />

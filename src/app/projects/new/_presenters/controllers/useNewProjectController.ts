@@ -7,7 +7,6 @@ import { PROJETS_KEY } from "@/app/projects/_domain/constants";
 import { createProject } from "@/app/projects/_presenters/data/services/projects";
 import routes from "@/routes";
 
-
 const useProjectController = () => {
   const router = useRouter();
   const { showSaveSuccessAlert } = useAppStore();

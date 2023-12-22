@@ -16,6 +16,21 @@ Coded by www.creative-tim.com
 import Avatar from "@mui/material/Avatar";
 import { Theme, styled } from "@mui/material/styles";
 
+const colorInDesignSystem = (color: string) => {
+  const list = [
+    "primary",
+    "secondary",
+    "info",
+    "success",
+    "warning",
+    "error",
+    "dark",
+    "light",
+  ];
+
+  return list.includes(color);
+};
+
 export default styled(Avatar)(
   ({ theme, ownerState }: { ownerState: any; theme?: Theme | any }) => {
     const { palette, functions, typography, boxShadows } = theme;
@@ -26,10 +41,18 @@ export default styled(Avatar)(
     const { size: fontSize, fontWeightRegular } = typography;
 
     // backgroundImage value
-    const backgroundValue =
-      bgColor === "transparent"
+    const isColorTransparent = bgColor === "transparent";
+    const isColorInDesignSystem = colorInDesignSystem(bgColor);
+
+    let backgroundImageValue;
+
+    if (!isColorInDesignSystem && !isColorTransparent) {
+      backgroundImageValue = bgColor;
+    } else {
+      backgroundImageValue = isColorTransparent
         ? transparent.main
         : linearGradient(gradients[bgColor].main, gradients[bgColor].state);
+    }
 
     // size value
     let sizeValue;
@@ -80,7 +103,7 @@ export default styled(Avatar)(
     }
 
     return {
-      background: backgroundValue,
+      background: backgroundImageValue,
       color: white.main,
       fontWeight: fontWeightRegular,
       boxShadow: boxShadows[shadow],

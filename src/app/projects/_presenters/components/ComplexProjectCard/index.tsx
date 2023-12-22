@@ -9,15 +9,7 @@ import Typography from "@/components/Typography";
 
 interface Props {
   [key: string]: any;
-  color?:
-    | "primary"
-    | "secondary"
-    | "info"
-    | "success"
-    | "warning"
-    | "error"
-    | "dark"
-    | "light";
+  color?: string;
   dateTime?: string;
   description: ReactNode;
   dropdown?: {
