@@ -10,8 +10,8 @@ type Project = {
   billable: boolean;
   customer: Customer;
   id?: number;
-  logoUrl: string | null;
-  logoBackgroundColor: string | null;
+  logoUrl: string | undefined;
+  logoBackgroundColor: string | undefined;
   name: string;
   participants: Participant[];
   slackChannel: string | null;

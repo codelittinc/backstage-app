@@ -14,6 +14,7 @@ function Header({ project }: { project: Project }): JSX.Element {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <Avatar
+              bgColor={project.logoBackgroundColor}
               src={project.logoUrl}
               alt="profile-image"
               size="xl"
