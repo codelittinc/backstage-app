@@ -10,7 +10,6 @@ import Header from "./_presenters/components/Header";
 import useRepositoryFormController from "./_presenters/controllers/useRepositoryFormController";
 import { Repository } from "../../../_domain/interfaces/Repository";
 
-
 function RepositoryForm({
   repository,
 }: {
@@ -24,13 +23,8 @@ function RepositoryForm({
     updateCurrentRepository(repository);
   }, [repository]);
 
-  const sidenavItems = [
-    { icon: "person", label: "profile", href: "profile" },
-    { icon: "receipt_long", label: "basic info", href: "basic-info" },
-    { icon: "badge", label: "applications", href: "applications" },
-  ];
   return (
-    <FormLayout sidebarItems={sidenavItems}>
+    <FormLayout>
       <Grid item xs={12}>
         <Header repository={currentRepository} />
       </Grid>

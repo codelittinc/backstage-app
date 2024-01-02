@@ -15,13 +15,8 @@ interface Props {
 function CustomerForm({ customer, onSave }: Props): JSX.Element {
   const [currentCustomer, updateCurrentCustomer] = useState(customer);
 
-  const sidenavItems = [
-    { icon: "person", label: "profile", href: "profile" },
-    { icon: "receipt_long", label: "basic info", href: "basic-info" },
-  ];
-
   return (
-    <FormLayout sidebarItems={sidenavItems}>
+    <FormLayout>
       <Grid item xs={12}>
         <Header customer={customer} />
       </Grid>
