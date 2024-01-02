@@ -24,23 +24,10 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
     target: targets.finances,
   });
 
-  const sidenavItems = [
-    { icon: "person", label: "profile", href: "profile" },
-    { icon: "receipt_long", label: "basic info", href: "basic-info" },
-  ];
-
-  if (hasFinancialPermission) {
-    sidenavItems.push({
-      icon: "receipt_long",
-      label: "contracts",
-      href: "contracts",
-    });
-  }
-
   const displayStatementsOfWork = hasFinancialPermission && project.id;
 
   return (
-    <SidenavForm sidebarItems={sidenavItems}>
+    <SidenavForm>
       <Grid item xs={12}>
         <Header project={currentProject} />
       </Grid>

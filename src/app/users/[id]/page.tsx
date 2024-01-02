@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import User from "@/app/_domain/interfaces/User";
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Loading from "@/components/Loading";
 
@@ -11,12 +10,7 @@ import Accounts from "./_presenters/components/Accounts";
 import BasicInfo from "./_presenters/components/BasicInfo";
 import Header from "./_presenters/components/Header";
 import useUserFormController from "./_presenters/controllers/useUserFormController";
-
-const sidenavItems = [
-  { icon: "person", label: "profile", href: "profile" },
-  { icon: "receipt_long", label: "basic info", href: "basic-info" },
-  { icon: "badge", label: "accounts", href: "accounts" },
-];
+import { User } from "@/app/_domain/interfaces/User";
 
 function Settings(): JSX.Element {
   const { id } = useParams();
@@ -46,7 +40,7 @@ function Settings(): JSX.Element {
   }
 
   return (
-    <FormLayout sidebarItems={sidenavItems}>
+    <FormLayout>
       <Grid item xs={12}>
         <Header user={editUser} onSave={onSave} />
       </Grid>

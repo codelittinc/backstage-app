@@ -68,16 +68,11 @@ function StatementOfWorkComponent({
 
   const hourDeliveryScheduleOptions = ["contract_period", "weekly", "monthly"];
 
-  const sidenavItems = [
-    { icon: "person", label: "profile", href: "profile" },
-    { icon: "receipt_long", label: "basic info", href: "basic-info" },
-  ];
-
   const modelObject = modelOptions.find((option) => option.id === model);
   const displayFields = fieldsToDisplay[model];
 
   return (
-    <FormLayout sidebarItems={sidenavItems}>
+    <FormLayout>
       <Grid item xs={12}>
         <Card id="statement-of-work-info" sx={{ overflow: "visible" }}>
           <Box p={3}>
