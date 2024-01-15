@@ -17,7 +17,7 @@ const getTabs = (
 ) => {
   return (
     <Grid container>
-      <Grid item xs={12} sm={8} lg={4} pb={2}>
+      <Grid item xs={12} pb={2}>
         <AppBar position="static">
           <Tabs
             value={active}
