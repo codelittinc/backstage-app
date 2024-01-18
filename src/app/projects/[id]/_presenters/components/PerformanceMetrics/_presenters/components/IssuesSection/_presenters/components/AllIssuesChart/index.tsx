@@ -46,7 +46,7 @@ const IssuesChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="All completed issues"
+      title="Completed tasks"
       chart={tasks}
     />
   );

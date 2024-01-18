@@ -50,7 +50,7 @@ const IssuesChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Total effort of completed issues"
+      title="Effort of completed tasks"
       chart={tasks}
     />
   );

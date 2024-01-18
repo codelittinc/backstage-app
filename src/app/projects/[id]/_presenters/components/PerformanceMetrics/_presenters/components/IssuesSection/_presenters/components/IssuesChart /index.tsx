@@ -124,7 +124,7 @@ const IssuesChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Completed issues by user" // Updated title
+      title="User's completed tasks" // Updated title
       chart={tasks}
     />
   );
