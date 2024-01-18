@@ -24,7 +24,7 @@ const IssuesSection = ({
   return (
     <>
       <Box>
-        <Typography variant="h3">Issues</Typography>
+        <Typography variant="h3">Tasks</Typography>
       </Box>
       <Box mt={1}> </Box>
       <Grid container spacing={3}>
