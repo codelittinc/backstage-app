@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUserController";
 
-import { getPullRequests } from "../data/services/pullRequests";
+import { getCodeComments } from "../data/services/codeComments";
 
-const usePullRequestsController = (
+const useCodeCommentsController = (
   project: Project,
   startDateFilter: string,
   endDateFilter: string
@@ -12,11 +12,10 @@ const usePullRequestsController = (
   const { currentUser } = useCurrentUserController();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["pull_requests", startDateFilter, endDateFilter],
+    queryKey: ["code_comments", startDateFilter, endDateFilter],
     queryFn: () =>
-      getPullRequests({
-        state: "merged",
-        projectId: project.id,
+      getCodeComments({
+        projectId: project.id!,
         startDate: startDateFilter,
         endDate: endDateFilter,
       }),
@@ -24,9 +23,9 @@ const usePullRequestsController = (
   });
 
   return {
-    pullRequests: data,
+    codeComments: data,
     isLoading: isLoading,
   };
 };
 
-export default usePullRequestsController;
+export default useCodeCommentsController;
