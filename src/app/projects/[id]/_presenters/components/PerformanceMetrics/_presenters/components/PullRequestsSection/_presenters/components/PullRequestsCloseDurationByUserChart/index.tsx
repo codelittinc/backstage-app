@@ -31,9 +31,9 @@ const PullRequestsCloseDurationByUserChart = ({
   interval,
 }: Props) => {
   const { pullRequests = [], isLoading } = usePullRequestsController(
-    project,
     startDateFilter,
-    endDateFilter
+    endDateFilter,
+    project
   );
   const { users = [], isLoading: isUsersLoading } = useUsersController();
 

@@ -4,6 +4,7 @@ export interface ApiProjectFrom {
   billable: boolean;
   customer: Customer;
   id?: number;
+  logo_background_color: string | null;
   logo_url: string | null;
   name: string;
   participants: Participant[];
@@ -11,17 +12,16 @@ export interface ApiProjectFrom {
   slug: string;
   sync_source_control: boolean;
   sync_ticket_tracking_system: boolean;
-  logo_background_color: string | null;
 }
 
 export interface ApiProjectTo {
   billable: boolean;
   customer_id: number;
   id?: number;
+  logo_background_color: string | null;
   logo_url: string | null;
   name: string;
   slack_channel: string | null;
-  logo_background_color: string | null;
 }
 
 export function fromApiParser(project: ApiProjectFrom): Project {

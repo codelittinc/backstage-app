@@ -141,7 +141,6 @@ function DataTable({
   // A function that sets the sorted value for the table
   const setSortedValue = (column: any) => {
     let sortedValue;
-
     if (isSorted && column.isSorted) {
       sortedValue = column.isSortedDesc ? "desc" : "asce";
     } else if (isSorted) {

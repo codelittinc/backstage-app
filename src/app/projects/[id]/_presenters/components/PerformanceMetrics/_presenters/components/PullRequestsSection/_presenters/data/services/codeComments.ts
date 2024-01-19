@@ -9,9 +9,9 @@ export const getCodeComments = async ({
   projectId,
 }: {
   endDate: string;
+  projectId?: number;
   startDate: string;
   userId?: number;
-  projectId?: number;
 }) => {
   const { data } = await roadrunnerApiClient.get("/code_comments.json", {
     params: {

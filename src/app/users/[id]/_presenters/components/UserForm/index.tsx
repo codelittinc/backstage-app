@@ -3,14 +3,14 @@ import Grid from "@mui/material/Grid";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { User } from "@/app/_domain/interfaces/User";
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Loading from "@/components/Loading";
 
-import { User } from "@/app/_domain/interfaces/User";
+import Accounts from "./_presenters/Accounts";
+import BasicInfo from "./_presenters/BasicInfo";
 import useUserFormController from "./_presenters/controllers/useUserFormController";
 import Header from "./_presenters/Header";
-import BasicInfo from "./_presenters/BasicInfo";
-import Accounts from "./_presenters/Accounts";
 
 function UserForm(): JSX.Element {
   const { id } = useParams();
