@@ -1,25 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 
-import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUserController";
-
-import { getCodeComments } from "../data/services/codeComments";
+import {
+  CODE_COMMENTS_KEY,
+  getCodeComments,
+} from "../data/services/codeComments";
 
 const useCodeCommentsController = (
   project: Project,
   startDateFilter: string,
   endDateFilter: string
 ) => {
-  const { currentUser } = useCurrentUserController();
-
   const { data, isLoading } = useQuery({
-    queryKey: ["code_comments", startDateFilter, endDateFilter],
+    queryKey: [CODE_COMMENTS_KEY, startDateFilter, endDateFilter, project.id],
     queryFn: () =>
       getCodeComments({
-        projectId: project.id!,
+        projectId: project.id,
         startDate: startDateFilter,
         endDate: endDateFilter,
       }),
-    enabled: !!currentUser && !!project,
   });
 
   return {
