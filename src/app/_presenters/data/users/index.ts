@@ -13,7 +13,7 @@ export const getUser = async (id: number | string): Promise<User | null> => {
   return fromApiParser(data);
 };
 
-export const getUsers = async (): Promise<User | null> => {
+export const getUsers = async (): Promise<User[] | null> => {
   const { data } = await backstageApiClient.get(`/users.json`);
   return data.map(fromApiParser);
 };

@@ -3,11 +3,11 @@ import Box from "@mui/material/Box";
 
 import Typography from "@/components/Typography";
 
+import CodeCommentsByUserChart from "./_presenters/components/CodeCommentsByUserChart";
 import PullRequestReviewsByUserChart from "./_presenters/components/PullRequestReviewsByUserChart";
 import PullRequestsByUserChart from "./_presenters/components/PullRequestsByUserChart";
 import AllPullRequestsChart from "./_presenters/components/PullRequestsChart";
 import PullRequestsCloseDurationByUserChart from "./_presenters/components/PullRequestsCloseDurationByUserChart";
-import CodeCommentsByUserChart from "./_presenters/components/CodeCommentsByUserChart";
 
 interface Props {
   endDateFilter?: string | undefined;

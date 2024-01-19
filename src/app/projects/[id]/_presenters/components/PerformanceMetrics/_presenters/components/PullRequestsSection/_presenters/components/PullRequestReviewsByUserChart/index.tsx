@@ -30,9 +30,9 @@ const AllPullRequestsChart = ({
   interval,
 }: Props) => {
   const { pullRequests = [], isLoading } = usePullRequestsController(
-    project,
     startDateFilter,
-    endDateFilter
+    endDateFilter,
+    project
   );
 
   const pullRequestsWithReviews = pullRequests.filter(

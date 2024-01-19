@@ -1,26 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 
-import useCurrentUserController from "@/app/_presenters/controllers/useCurrentUserController";
-
-import { getPullRequests } from "../data/services/pullRequests";
+import {
+  PULL_REQUESTS_KEY,
+  getPullRequests,
+} from "../data/services/pullRequests";
 
 const usePullRequestsController = (
-  project: Project,
   startDateFilter: string,
-  endDateFilter: string
+  endDateFilter: string,
+  project?: Project,
+  userId?: number
 ) => {
-  const { currentUser } = useCurrentUserController();
-
   const { data, isLoading } = useQuery({
-    queryKey: ["pull_requests", startDateFilter, endDateFilter],
+    queryKey: [PULL_REQUESTS_KEY, startDateFilter, endDateFilter],
     queryFn: () =>
       getPullRequests({
         state: "merged",
-        projectId: project.id,
+        projectId: project?.id,
         startDate: startDateFilter,
         endDate: endDateFilter,
+        userId: userId,
       }),
-    enabled: !!currentUser && !!project,
+    refetchInterval: 1000 * 60 * 60 * 24,
   });
 
   return {

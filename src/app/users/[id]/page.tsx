@@ -1,13 +1,12 @@
 "use client";
-import { useParams } from "next/navigation";
+import TabsLayout from "@/components/LayoutContainers/TabsLayout";
 import usePermissionsController from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
 import { abilities, targets } from "@/permissions";
+
+import PerformanceMetrics from "./_presenters/components/PerformanceMetrics";
 import UserForm from "./_presenters/components/UserForm";
-import TabsLayout from "@/components/LayoutContainers/TabsLayout";
 
 function Page(): JSX.Element {
-  const { id } = useParams();
-
   const { hasPermission: displayAnalytics } = usePermissionsController({
     ability: abilities.view,
     target: targets.analytics,
@@ -19,7 +18,10 @@ function Page(): JSX.Element {
     tabs.push("Performance metrics");
   }
 
-  const tabsChildren = [<UserForm />, <div>Performance metrics</div>];
+  const tabsChildren = [
+    <UserForm key="user-form" />,
+    <PerformanceMetrics key="performance-metrics" />,
+  ];
 
   return <TabsLayout tabs={tabs} tabsChildren={tabsChildren} />;
 }
