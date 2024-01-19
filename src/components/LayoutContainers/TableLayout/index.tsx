@@ -14,6 +14,7 @@ interface Props {
   isLoading: boolean;
   onClickNew?: () => void;
   rows: any[];
+  sortable?: boolean;
 }
 
 function TableLayout({
@@ -22,6 +23,7 @@ function TableLayout({
   isLoading,
   onClickNew,
   buttonLabel,
+  sortable = false,
 }: Props): JSX.Element {
   const data = {
     columns: columns,
@@ -48,7 +50,12 @@ function TableLayout({
               {isLoading ? (
                 <Loading />
               ) : (
-                <DataTable table={data} entriesPerPage={false} canSearch />
+                <DataTable
+                  table={data}
+                  entriesPerPage={false}
+                  canSearch
+                  isSorted={sortable}
+                />
               )}
             </Card>
           </Grid>

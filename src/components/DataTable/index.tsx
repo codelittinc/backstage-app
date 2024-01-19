@@ -50,6 +50,17 @@ interface Props {
   };
 }
 
+const getEntriesText = (
+  entriesStart: number,
+  entriesEnd: number,
+  length: number
+) => {
+  return `Showing ${entriesStart} to ${Math.min(
+    entriesEnd,
+    length
+  )} of ${length} entries`;
+};
+
 function DataTable({
   entriesPerPage = { defaultValue: 10, entries: [5, 10, 15, 20, 25] },
   canSearch,
@@ -214,16 +225,23 @@ function DataTable({
         <Box component="thead">
           {headerGroups.map((headerGroup: any, key: any) => (
             <TableRow key={key}>
-              {headerGroup.headers.map((column: any, key: any) => (
-                <DataTableHeadCell
-                  key={key}
-                  width={column.width ? column.width : "auto"}
-                  align={column.align ? column.align : "left"}
-                  sorted={setSortedValue(column)}
-                >
-                  {column.render("Header")}
-                </DataTableHeadCell>
-              ))}
+              {headerGroup.headers.map((column: any, key: any) => {
+                const spread = column.getHeaderProps(
+                  isSorted && column.getSortByToggleProps()
+                );
+                delete spread["key"];
+                return (
+                  <DataTableHeadCell
+                    key={key}
+                    width={column.width ? column.width : "auto"}
+                    align={column.align ? column.align : "left"}
+                    sorted={setSortedValue(column)}
+                    {...spread}
+                  >
+                    {column.render("Header")}
+                  </DataTableHeadCell>
+                );
+              })}
             </TableRow>
           ))}
         </Box>
@@ -257,7 +275,7 @@ function DataTable({
         {showTotalEntries && (
           <Box mb={{ xs: 3, sm: 0 }}>
             <Typography variant="button" color="secondary" fontWeight="regular">
-              Showing {entriesStart} to {entriesEnd} of {rows.length} entries
+              {getEntriesText(entriesStart, entriesEnd, rows.length)}
             </Typography>
           </Box>
         )}

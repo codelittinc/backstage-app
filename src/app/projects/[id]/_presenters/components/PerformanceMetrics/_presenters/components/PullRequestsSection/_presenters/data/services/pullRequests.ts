@@ -4,7 +4,7 @@ export const PULL_REQUESTS_KEY = "pull_requests";
 
 export const getPullRequests = async ({
   userId,
-  state = "merged",
+  state,
   projectId,
   startDate,
   endDate,
@@ -12,7 +12,7 @@ export const getPullRequests = async ({
   endDate: string;
   projectId?: number;
   startDate: string;
-  state: string;
+  state?: string;
   userId?: number;
 }) => {
   const { data } = await roadrunnerApiClient.get("/pull_requests.json", {

@@ -59,7 +59,7 @@ const Metrics = ({ project }: { project: Project }) => {
   };
 
   return (
-    <Grid xs={12}>
+    <Grid item xs={12}>
       {!hasData && (
         <Box
           sx={{

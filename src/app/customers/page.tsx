@@ -15,6 +15,7 @@ function Customers(): JSX.Element {
       Header: "name",
       accessor: "name",
       width: "20%",
+      isSorted: true,
       Cell: ({ row }: any) => {
         const {
           original: { name, slug },
@@ -31,6 +32,7 @@ function Customers(): JSX.Element {
       columns={columns}
       rows={customers}
       isLoading={isLoading}
+      sortable={true}
     />
   );
 }

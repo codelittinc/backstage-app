@@ -4,6 +4,7 @@ import Link from "next/link";
 import DataTable from "@/components/DataTable";
 
 import useUserPullRequestsController from "./_presenters/controllers/useUserPullRequestsController";
+import Loading from "@/components/Loading";
 
 function formatDate(isoDateString: string) {
   const date = new Date(isoDateString);
@@ -28,7 +29,7 @@ const UserPullRequests = ({ startDate, endDate }: Props) => {
     {
       Header: "Title",
       accessor: "title",
-      width: "20%",
+      width: "30%",
       Cell: ({ row }: any) => {
         const {
           original: { link, title },
@@ -36,15 +37,21 @@ const UserPullRequests = ({ startDate, endDate }: Props) => {
 
         return (
           <Link href={link} target="_blank">
-            {title}
+            {title.substring(0, 30)}...
           </Link>
         );
       },
     },
     {
+      Header: "State",
+      accessor: "state",
+      width: "10%",
+      isSorted: true,
+    },
+    {
       Header: "Created at",
       accessor: "created_at",
-      width: "20%",
+      width: "10%",
       Cell: ({ value }: any) => {
         return formatDate(value);
       },
@@ -52,17 +59,21 @@ const UserPullRequests = ({ startDate, endDate }: Props) => {
     {
       Header: "Merged at",
       accessor: "merged_at",
-      width: "20%",
+      width: "10%",
       Cell: ({ value }: any) => {
-        return formatDate(value);
+        if (value) {
+          return formatDate(value);
+        }
+        return "-";
       },
     },
     {
       Header: "Merged in hours",
       accessor: "intervalBetweenPrs",
-      width: "20%",
+      width: "10%",
       Cell: ({ row }: any) => {
         const { created_at, merged_at } = row.original;
+        if (!merged_at) return "-";
         const createdDate = new Date(created_at);
         const mergedDate = new Date(merged_at);
 
@@ -79,25 +90,21 @@ const UserPullRequests = ({ startDate, endDate }: Props) => {
     {
       Header: "Number of comments",
       accessor: "code_comments",
-      width: "20%",
+      width: "10%",
+      isSorted: true,
     },
   ];
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
 
   const data = {
     columns: columns,
-    rows: pullRequests.sort((a, b) => b.code_comments - a.code_comments),
+    rows: pullRequests,
   };
 
   return (
     <Grid item xs={12}>
-      <DataTable
-        table={data}
-        entriesPerPage={false}
-        canSearch
-        isSorted={false}
-      />
+      <DataTable table={data} canSearch isSorted entriesPerPage={false} />
     </Grid>
   );
 };
