@@ -52,7 +52,9 @@ function TabsLayout({ tabs, tabsChildren }: Props): JSX.Element {
   return (
     <DashboardLayout>
       {getTabs(tabs, updateActiveTab, tab)}
-      {tabsChildren[tab]}
+      <Grid container justifyContent={"center"}>
+        {tabsChildren[tab]}
+      </Grid>
     </DashboardLayout>
   );
 }

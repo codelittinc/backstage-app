@@ -59,7 +59,7 @@ const Metrics = ({ project }: { project: Project }) => {
   };
 
   return (
-    <Box>
+    <Grid xs={12}>
       {!hasData && (
         <Box
           sx={{
@@ -112,7 +112,7 @@ const Metrics = ({ project }: { project: Project }) => {
           interval={dateInterval}
         />
       )}
-    </Box>
+    </Grid>
   );
 };
 export default Metrics;
