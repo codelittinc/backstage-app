@@ -1,13 +1,15 @@
 "use client";
+import { Grid } from "@mui/material";
+import { useParams } from "next/navigation";
+
 import TabsLayout from "@/components/LayoutContainers/TabsLayout";
+import Loading from "@/components/Loading";
 import usePermissionsController from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
 import { abilities, targets } from "@/permissions";
 
 import PerformanceMetrics from "./_presenters/components/PerformanceMetrics";
-import UserForm from "./_presenters/components/UserForm";
-import { useParams } from "next/navigation";
 import useEditUserController from "./_presenters/controllers/useEditUserController";
-import Loading from "@/components/Loading";
+import UserForm from "../_presenters/components/UserForm";
 
 function Page(): JSX.Element {
   const { id } = useParams();
@@ -29,7 +31,9 @@ function Page(): JSX.Element {
   }
 
   const tabsChildren = [
-    <UserForm key="user-form" user={user} onSave={onSave} />,
+    <Grid xs={6} key="user-form">
+      <UserForm user={user} onSave={onSave} />
+    </Grid>,
     <PerformanceMetrics key="performance-metrics" />,
   ];
 

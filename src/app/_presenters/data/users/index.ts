@@ -28,3 +28,11 @@ export const updateUser = async (user: User): Promise<User> => {
 
   return fromApiParser(data);
 };
+
+export const createUser = async (user: User): Promise<User> => {
+  const { data } = await backstageApiClient.post<ApiUser>(`/users.json`, {
+    user: toApiParser(user),
+  });
+
+  return fromApiParser(data);
+};

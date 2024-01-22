@@ -11,8 +11,8 @@ import useUserFormController from "./_presenters/controllers/useUserFormControll
 import Header from "./_presenters/Header";
 
 type Props = {
-  user: User;
   onSave: (user: User) => void;
+  user: User;
 };
 
 function UserForm({ user, onSave }: Props): JSX.Element {
@@ -35,12 +35,12 @@ function UserForm({ user, onSave }: Props): JSX.Element {
     setEditUser(mixedUser as User);
   }, [user, professions]);
 
-  if (isLoading || !editUser?.id) {
+  if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <Grid item xs={6}>
+    <Grid item xs={12}>
       <Grid item xs={12}>
         <Header user={editUser} onSave={onSave} />
       </Grid>
