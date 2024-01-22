@@ -1,12 +1,11 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { USERS_KEY } from "@/app/_domain/constants";
 import { User } from "@/app/_domain/interfaces/User";
-import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
 import { useAppStore } from "@/app/_presenters/data/store/store";
-import { updateUser } from "@/app/_presenters/data/users";
+import { getUser, updateUser } from "@/app/_presenters/data/users";
 
-const useUserFormController = () => {
+const useEditUserController = (userId: number | string) => {
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 
@@ -19,21 +18,23 @@ const useUserFormController = () => {
         queryKey: [USERS_KEY, result.email],
       });
       queryClient.invalidateQueries({
-        queryKey: [USERS_KEY, result.id],
+        queryKey: [USERS_KEY, userId],
       });
     },
   });
 
-  const { professions, isLoading: isProfessionsLoading } =
-    useProfessionsController();
+  const { data, isLoading } = useQuery({
+    queryKey: [USERS_KEY, userId],
+    queryFn: () => getUser(userId),
+  });
 
   return {
     onSave: (user: User) => {
       mutation.mutate(user);
     },
-    isLoading: isProfessionsLoading,
-    professions: professions,
+    user: data,
+    isLoading,
   };
 };
 
-export default useUserFormController;
+export default useEditUserController;
