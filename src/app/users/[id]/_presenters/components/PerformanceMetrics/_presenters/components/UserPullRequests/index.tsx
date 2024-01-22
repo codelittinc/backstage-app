@@ -2,9 +2,9 @@ import { Grid } from "@mui/material";
 import Link from "next/link";
 
 import DataTable from "@/components/DataTable";
+import Loading from "@/components/Loading";
 
 import useUserPullRequestsController from "./_presenters/controllers/useUserPullRequestsController";
-import Loading from "@/components/Loading";
 
 function formatDate(isoDateString: string) {
   const date = new Date(isoDateString);

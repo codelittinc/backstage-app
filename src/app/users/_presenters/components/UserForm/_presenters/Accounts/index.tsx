@@ -2,9 +2,8 @@ import { Grid } from "@mui/material";
 import Card from "@mui/material/Card";
 
 import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
-import User from "@/app/_domain/interfaces/User";
+import { User } from "@/app/_domain/interfaces/User";
 import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
-import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Button from "@/components/Button";
 import Loading from "@/components/Loading";
@@ -19,6 +18,7 @@ interface Props {
   onSave: (user: User) => void;
   user: User;
 }
+
 const getIdentifier = (
   servicesIdentifiers: ServiceIdentifier[],
   customers: Customer[],
@@ -28,7 +28,7 @@ const getIdentifier = (
     (customer: Customer) => customer.name == "Codelitt"
   );
 
-  const slackIdentifierFound = servicesIdentifiers.find(
+  const slackIdentifierFound = servicesIdentifiers?.find(
     (serviceIdentifier: ServiceIdentifier) =>
       serviceIdentifier.serviceName == serviceName
   );
@@ -140,7 +140,7 @@ function Accounts({ user, onSave, onChange }: Props): JSX.Element {
               color="dark"
               size="small"
               onClick={() => {
-                const serviceIdentifiers = user.servicesIdentifiers.map(
+                const serviceIdentifiers = user.servicesIdentifiers?.map(
                   (servicesIdentifiers: ServiceIdentifier) => {
                     if (typeof servicesIdentifiers.id == "string") {
                       return {

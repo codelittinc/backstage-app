@@ -12,13 +12,13 @@ export type User = {
   googleId: string;
   id?: number;
   imageUrl: string;
+  internal: boolean;
   lastName: string;
   permissions: Permission[];
   profession: Profession;
   seniority?: string;
   servicesIdentifiers: ServiceIdentifier[];
   slug: string;
-  internal: boolean;
 };
 
 export type ApiUser = {
@@ -30,6 +30,7 @@ export type ApiUser = {
   google_id: string;
   id?: number;
   image_url: string;
+  internal: boolean;
   last_name: string;
   permissions: Permission[];
   profession?: Profession | undefined;
@@ -37,7 +38,6 @@ export type ApiUser = {
   seniority?: string;
   slug: string;
   user_service_identifiers: ApiServiceIdentifier[];
-  internal: boolean;
 };
 
 export type ToApiUser = {
