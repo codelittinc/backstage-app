@@ -80,7 +80,7 @@ function BasicInfo({ user, onSave, onChange }: Props): JSX.Element {
                     value: Profession
                   ) => option.id == value.id}
                   label="Profession"
-                  value={user?.profession}
+                  value={user.profession}
                   getOptionLabel={(option) => option.name}
                   options={professions!}
                   onChange={(value: Profession) => {

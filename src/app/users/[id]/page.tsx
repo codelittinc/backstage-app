@@ -31,7 +31,7 @@ function Page(): JSX.Element {
   }
 
   const tabsChildren = [
-    <Grid xs={6} key="user-form">
+    <Grid item xs={6} key="user-form">
       <UserForm user={user} onSave={onSave} />
     </Grid>,
     <PerformanceMetrics key="performance-metrics" />,
