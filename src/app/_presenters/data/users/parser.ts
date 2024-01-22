@@ -14,6 +14,7 @@ export const toApiParser = (user: User): ToApiUser => {
     google_id: user.googleId,
     profession_id: user.profession.id,
     country: user.country,
+    internal: user.internal,
     user_service_identifiers_attributes: user.servicesIdentifiers.map(
       (service) => {
         return {
@@ -58,6 +59,7 @@ export const fromApiParser = (user: FromApiUser): User => {
     profession: profession ?? professionFromApiParser(profession!),
     fullName: `${first_name} ${last_name}`,
     country: country,
+    internal: user.internal,
     servicesIdentifiers: user_service_identifiers.map((service) => ({
       id: service.id,
       customer: customerFromApiParser(service.customer),

@@ -18,9 +18,10 @@ export type User = {
   seniority?: string;
   servicesIdentifiers: ServiceIdentifier[];
   slug: string;
+  internal: boolean;
 };
 
-type ApiUser = {
+export type ApiUser = {
   active: boolean;
   contract_type?: string;
   country: string;
@@ -36,6 +37,7 @@ type ApiUser = {
   seniority?: string;
   slug: string;
   user_service_identifiers: ApiServiceIdentifier[];
+  internal: boolean;
 };
 
 export type ToApiUser = {

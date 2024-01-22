@@ -106,7 +106,7 @@ function BasicInfo({ user, onSave, onChange }: Props): JSX.Element {
               </Grid>
               <ProtectedComponent
                 ability={abilities.change}
-                target={targets.financial}
+                target={targets.finances}
               >
                 <Grid item xs={12} sm={3}>
                   <Autocomplete
@@ -123,6 +123,20 @@ function BasicInfo({ user, onSave, onChange }: Props): JSX.Element {
                   />
                 </Grid>
               </ProtectedComponent>
+              <Grid item xs={12} sm={3}>
+                <Autocomplete
+                  label="User type"
+                  value={user?.internal ? "Internal" : "External"}
+                  defaultValue="Internal"
+                  options={["Internal", "External"]}
+                  onChange={(value: string) => {
+                    onChange({
+                      ...user,
+                      internal: value == "Internal",
+                    });
+                  }}
+                />
+              </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12} sm={6}>
