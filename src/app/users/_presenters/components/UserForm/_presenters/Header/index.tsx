@@ -40,26 +40,28 @@ function Header({ user, onSave }: Props): JSX.Element {
             </Box>
           </Grid>
           <ProtectedComponent target={targets.user} ability={abilities.change}>
-            <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-              <Box
-                display="flex"
-                justifyContent={{ md: "flex-end" }}
-                alignItems="center"
-                lineHeight={1}
-              >
-                <Typography variant="caption" fontWeight="regular">
-                  Active
-                </Typography>
-                <Box ml={1}>
-                  <Switch
-                    checked={active}
-                    onChange={() => {
-                      onSave({ ...user, active: !active });
-                    }}
-                  />
+            {user.id && (
+              <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+                <Box
+                  display="flex"
+                  justifyContent={{ md: "flex-end" }}
+                  alignItems="center"
+                  lineHeight={1}
+                >
+                  <Typography variant="caption" fontWeight="regular">
+                    Active
+                  </Typography>
+                  <Box ml={1}>
+                    <Switch
+                      checked={active}
+                      onChange={() => {
+                        onSave({ ...user, active: !active });
+                      }}
+                    />
+                  </Box>
                 </Box>
-              </Box>
-            </Grid>
+              </Grid>
+            )}
           </ProtectedComponent>
         </Grid>
       </Box>

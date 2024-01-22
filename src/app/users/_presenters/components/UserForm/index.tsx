@@ -18,24 +18,27 @@ type Props = {
 function UserForm({ user, onSave }: Props): JSX.Element {
   const { professions, isLoading } = useUserFormController();
 
-  const [editUser, setEditUser] = useState(user as User);
+  const [editUser, setEditUser] = useState<User>();
 
   useEffect(() => {
-    const defaultUserValues = {
-      profession: professions ? professions![0] : undefined,
-      seniority: "Senior",
-      contractType: "Salary",
-    };
+    if (professions?.length) {
+      const defaultUserValues = {
+        seniority: "Senior",
+        contractType: "Salary",
+      };
 
-    const mixedUser = {
-      ...defaultUserValues,
-      ...user,
-      profession: user?.profession || professions?.[0] || {},
-    };
-    setEditUser(mixedUser as User);
+      const mixedUser = {
+        ...defaultUserValues,
+        ...user,
+        profession: user.profession?.id
+          ? professions.find((p) => p.id === user.profession.id)
+          : professions[0],
+      };
+      setEditUser(mixedUser as User);
+    }
   }, [user, professions]);
 
-  if (isLoading) {
+  if (isLoading || !editUser) {
     return <Loading />;
   }
 
@@ -47,9 +50,11 @@ function UserForm({ user, onSave }: Props): JSX.Element {
       <Grid item xs={12} mt={3}>
         <BasicInfo onSave={onSave} user={editUser} onChange={setEditUser} />
       </Grid>
-      <Grid item xs={12} mt={3}>
-        <Accounts onSave={onSave} user={editUser} onChange={setEditUser} />
-      </Grid>
+      {user.id && (
+        <Grid item xs={12} mt={3}>
+          <Accounts onSave={onSave} user={editUser} onChange={setEditUser} />
+        </Grid>
+      )}
     </Grid>
   );
 }
