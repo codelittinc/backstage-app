@@ -52,7 +52,7 @@ function AzureDevopsDeveloperUserAccountForm({
       <Box ml={2} pl={6} lineHeight={1}>
         <Box pb={2} lineHeight={1}>
           <Grid pt={2} container spacing={3}>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={5}>
               <Autocomplete
                 label={"Customer"}
                 value={serviceIdentifier.customer}
@@ -67,7 +67,7 @@ function AzureDevopsDeveloperUserAccountForm({
                 options={customers}
               />
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={7}>
               <FormField
                 label="Azure Devops ID"
                 placeholder="Devops ID"

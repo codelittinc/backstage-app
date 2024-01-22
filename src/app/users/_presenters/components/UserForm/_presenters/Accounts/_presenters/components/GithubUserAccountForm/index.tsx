@@ -48,7 +48,7 @@ function GithubUserAccountForm({
       <Box ml={2} pl={6} lineHeight={1}>
         <Box pb={2} lineHeight={1}>
           <Grid pt={2} container spacing={3}>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={7}>
               <FormField
                 label="Github username"
                 placeholder="github username"

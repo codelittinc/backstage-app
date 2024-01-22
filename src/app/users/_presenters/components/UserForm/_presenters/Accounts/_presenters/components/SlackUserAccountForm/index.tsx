@@ -9,7 +9,6 @@ import Typography from "@/components/Typography";
 
 import useSlackUserAccountFormController from "./_presenters/controllers/useSlackUserAccountFormController";
 
-
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;
   serviceIdentifier: ServiceIdentifier;
@@ -43,7 +42,7 @@ function SlackUserAccountForm({
       <Box ml={2} pl={6} lineHeight={1}>
         <Box pb={2} lineHeight={1}>
           <Grid pt={2} container spacing={3}>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={5}>
               <Autocomplete
                 label={"Customer"}
                 value={serviceIdentifier.customer}
@@ -58,7 +57,7 @@ function SlackUserAccountForm({
                 options={customers}
               />
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={7}>
               <Autocomplete
                 label={"User"}
                 value={serviceIdentifier.identifier}
