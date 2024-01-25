@@ -34,9 +34,9 @@ const renderProjects = (projects: Project[], onClick: Function) => {
             color={project.logoBackgroundColor || "light"}
             description=""
             dateTime={project.endDate}
-            members={project.participants.map(
-              (participant) => participant.imageUrl
-            )}
+            members={project.participants.map((participant) => {
+              return { id: participant.slug, src: participant.imageUrl };
+            })}
             onClickTitle={() => onClick(projectPath)}
           />
         </Box>
