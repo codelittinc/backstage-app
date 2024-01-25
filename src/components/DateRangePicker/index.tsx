@@ -11,7 +11,7 @@ const DateRangePicker = ({
   onDateRangeChange,
   startDate,
   endDate,
-  label,
+  label = "Period",
 }: Props) => {
   return (
     <DatePicker

@@ -1,3 +1,4 @@
+import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxios";
 
 import { fromApiParser, toApiParser } from "./parser";
