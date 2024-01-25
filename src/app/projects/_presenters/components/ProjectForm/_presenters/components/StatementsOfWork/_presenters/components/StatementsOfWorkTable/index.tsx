@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
+import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import { toUSD } from "@/app/_presenters/utils/finances";
 import Button from "@/components/Button";
 import DataTable from "@/components/DataTable";
@@ -84,7 +85,7 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
         } = row;
 
         const projectSlug = projects.find(
-          (project) => project.id === projectId
+          (project: Project) => project.id === projectId
         ).slug;
 
         return (

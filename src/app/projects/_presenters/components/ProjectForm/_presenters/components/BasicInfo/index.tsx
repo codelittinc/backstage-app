@@ -1,6 +1,7 @@
 import { Switch } from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import React, { ChangeEvent } from "react";
 
 import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
 import useChannelsController from "@/app/repositories/_presenters/components/RepositoryForm/_presenters/components/BasicInfo/_presenters/controllers/useChannelsController";
@@ -12,6 +13,7 @@ import Loading from "@/components/Loading";
 import ProtectedComponent from "@/components/ProtectedComponent";
 import Typography from "@/components/Typography";
 import { abilities, targets } from "@/permissions";
+
 
 function BasicInfo({
   project,
@@ -51,10 +53,10 @@ function BasicInfo({
               label="Name"
               placeholder="Backstage"
               value={name}
-              onChange={({ target: { value } }) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 onChange({
                   ...project,
-                  name: value,
+                  name: e.target.value,
                 });
               }}
             />
@@ -109,11 +111,11 @@ function BasicInfo({
             <FormField
               label="Logo public url"
               placeholder="https://logo-link-outside-of-backstage.com"
-              value={logoUrl}
-              onChange={({ target: { value } }) => {
+              value={logoUrl || ""}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 onChange({
                   ...project,
-                  logoUrl: value,
+                  logoUrl: e.target.value,
                 });
               }}
             />
@@ -122,7 +124,7 @@ function BasicInfo({
             <FormField
               label="Logo background color"
               placeholder="gray"
-              value={logoBackgroundColor}
+              value={logoBackgroundColor || ""}
               onChange={({
                 target: { value },
               }: {
