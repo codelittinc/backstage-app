@@ -2,7 +2,8 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Switch from "@mui/material/Switch";
 
-import User from "@/app/_domain/interfaces/User";
+import { User } from "@/app/_domain/interfaces/User";
+import defaultUser from "@/assets/images/icons/users/default.jpg";
 import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import ProtectedComponent from "@/components/ProtectedComponent";
@@ -23,7 +24,7 @@ function Header({ user, onSave }: Props): JSX.Element {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <Avatar
-              src={user.imageUrl}
+              src={user.imageUrl || defaultUser.src}
               alt="profile-image"
               size="xl"
               shadow="sm"

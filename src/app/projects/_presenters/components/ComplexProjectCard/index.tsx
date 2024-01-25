@@ -1,11 +1,14 @@
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
+import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
+import defaultUser from "@/assets/images/icons/users/default.jpg";
 import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
+import routes from "@/routes";
 
 interface Props {
   [key: string]: any;
@@ -31,6 +34,7 @@ function ComplexProjectCard({
   dropdown = false,
   onClickTitle,
 }: Props): JSX.Element {
+  const router = useRouter();
   const membersToRender = members?.length == 0 ? [""] : members;
   const renderMembers = membersToRender.map((member, key) => {
     const memberKey = `member-${key}`;
@@ -38,8 +42,11 @@ function ComplexProjectCard({
     return (
       <Avatar
         key={memberKey}
-        src={member}
+        src={member.src || defaultUser.src}
         alt="member profile"
+        onClick={() => {
+          router.push(routes.userPath(member.id));
+        }}
         size="xs"
         sx={({ borders: { borderWidth }, palette: { white } }) => ({
           border: `${borderWidth[2]} solid ${white.main}`,
@@ -61,12 +68,7 @@ function ComplexProjectCard({
   return (
     <Card>
       <Box p={2}>
-        <Box
-          display="flex"
-          alignItems="center"
-          onClick={onClickTitle}
-          sx={{ cursor: "pointer" }}
-        >
+        <Box display="flex" alignItems="center" sx={{ cursor: "pointer" }}>
           <Avatar
             shadow="lg"
             src={image}
@@ -85,6 +87,7 @@ function ComplexProjectCard({
               variant="h6"
               textTransform="capitalize"
               fontWeight="medium"
+              onClick={onClickTitle}
               sx={{
                 textWrap: "nowrap",
                 overflow: "hidden",
