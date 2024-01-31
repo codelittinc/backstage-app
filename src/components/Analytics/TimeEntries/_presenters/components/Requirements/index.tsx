@@ -21,7 +21,7 @@ const Requirements = ({ startDate, endDate, project }: Props): JSX.Element => {
   }
 
   const requirementsCoverage = requirements.reduce(
-    (acc: number, requirement) => {
+    (acc: number, requirement: Requirement) => {
       const { coverage } = requirement;
 
       return acc + coverage;

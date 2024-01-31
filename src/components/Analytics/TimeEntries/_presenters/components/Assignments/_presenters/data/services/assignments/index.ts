@@ -1,5 +1,7 @@
 import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxios";
 
+import { fromApiParser } from "./parser";
+
 export const ASSIGNMENTS_KEY = "assignments";
 
 export const getAssignments = async ({
@@ -19,5 +21,5 @@ export const getAssignments = async ({
     },
   });
 
-  return data;
+  return data.map(fromApiParser);
 };
