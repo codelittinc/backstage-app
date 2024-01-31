@@ -187,20 +187,22 @@ const TimeEntries = ({ project }: Props) => {
           </Grid>
         </Grid>
       </Card>
-      <Grid container mb={3} mt={3}>
-        <Grid item xs={12} display={"flex"} justifyContent={"space-evenly"}>
-          <Requirements
-            startDate={startDateFilter}
-            endDate={endDateFilter}
-            project={project!}
-          />
-          <Assignments
-            startDate={startDateFilter}
-            endDate={endDateFilter}
-            project={project!}
-          />
+      {project && (
+        <Grid container mb={3} mt={3}>
+          <Grid item xs={12} display={"flex"} justifyContent={"space-evenly"}>
+            <Requirements
+              startDate={startDateFilter}
+              endDate={endDateFilter}
+              project={project!}
+            />
+            <Assignments
+              startDate={startDateFilter}
+              endDate={endDateFilter}
+              project={project!}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      )}
       <Grid container spacing={3} mt={3}>
         <Grid item xs={12} md={6}>
           <PieChart
