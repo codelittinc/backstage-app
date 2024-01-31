@@ -9,13 +9,15 @@ const usePullRequestsController = (
   startDateFilter: string,
   endDateFilter: string,
   project?: Project,
-  userId?: number
+  userId?: number,
+  state?: "merged" | "open" | "closed"
 ) => {
+  console.log(state);
   const { data, isLoading } = useQuery({
-    queryKey: [PULL_REQUESTS_KEY, startDateFilter, endDateFilter],
+    queryKey: [PULL_REQUESTS_KEY, startDateFilter, endDateFilter, state],
     queryFn: () =>
       getPullRequests({
-        state: "merged",
+        state: state || "merged",
         projectId: project?.id,
         startDate: startDateFilter,
         endDate: endDateFilter,
