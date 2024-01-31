@@ -8,6 +8,7 @@ import PullRequestReviewsByUserChart from "./_presenters/components/PullRequestR
 import PullRequestsByUserChart from "./_presenters/components/PullRequestsByUserChart";
 import AllPullRequestsChart from "./_presenters/components/PullRequestsChart";
 import PullRequestsCloseDurationByUserChart from "./_presenters/components/PullRequestsCloseDurationByUserChart";
+import PullRequestsTable from "./_presenters/components/PullRequestsTable";
 
 interface Props {
   endDateFilter?: string | undefined;
@@ -63,6 +64,14 @@ export const PullRequestsSection = ({
         </Grid>
         <Grid item sm={6} xs={12} mt={3}>
           <CodeCommentsByUserChart
+            project={project}
+            startDateFilter={startDateFilter}
+            endDateFilter={endDateFilter}
+            interval={interval}
+          />
+        </Grid>
+        <Grid item xs={12} mt={3}>
+          <PullRequestsTable
             project={project}
             startDateFilter={startDateFilter}
             endDateFilter={endDateFilter}

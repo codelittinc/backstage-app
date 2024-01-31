@@ -23,3 +23,12 @@ export const getLastSunday = (): Date => {
 export const getLastSaturday = (): Date => {
   return addDays(getLastSunday(), 6);
 };
+
+export function formatDateToMonthDayYear(isoDate: string): string {
+  const date = new Date(isoDate);
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
+  const day = date.getDate().toString().padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${month}/${day}/${year}`;
+}
