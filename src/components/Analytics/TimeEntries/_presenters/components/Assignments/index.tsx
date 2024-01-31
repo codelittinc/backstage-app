@@ -2,15 +2,16 @@ import { Box, Card, Typography } from "@mui/material";
 
 import Loading from "@/components/Loading";
 
-import useRequirementsController from "./_presenters/controllers/useRequirementsController";
+import useAssignmentsController from "./_presenters/controllers/useAssignmentsController";
 
 type Props = {
   endDate: string;
   project: Project;
   startDate: string;
 };
+
 const Assignments = ({ startDate, endDate, project }: Props): JSX.Element => {
-  const { assignments, isLoading } = useRequirementsController(
+  const { assignments, isLoading } = useAssignmentsController(
     startDate,
     endDate,
     project
@@ -20,11 +21,13 @@ const Assignments = ({ startDate, endDate, project }: Props): JSX.Element => {
     return <Loading />;
   }
 
-  const assinmentsCoverage = assignments.reduce((acc: number, assignment) => {
-    const { coverage } = assignment;
-
-    return acc + coverage;
-  }, 0);
+  const assinmentsCoverage = assignments.reduce(
+    (acc: number, assignment: Assignment) => {
+      const { coverage } = assignment;
+      return acc + coverage;
+    },
+    0
+  );
 
   return (
     <Card>

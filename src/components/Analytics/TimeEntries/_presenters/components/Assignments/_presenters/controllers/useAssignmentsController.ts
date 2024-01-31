@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { ASSIGNMENTS_KEY, getAssignments } from "../data/services/assignments";
 
-const useRequirementsController = (
+const useAssignmentsController = (
   startDateFilter: string,
   endDateFilter: string,
   project?: Project
@@ -23,4 +23,4 @@ const useRequirementsController = (
   };
 };
 
-export default useRequirementsController;
+export default useAssignmentsController;
