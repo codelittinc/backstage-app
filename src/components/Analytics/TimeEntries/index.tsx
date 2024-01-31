@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Card, Grid, Typography } from "@mui/material";
 
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import { getLastSaturday, getLastSunday } from "@/app/_presenters/utils/date";
@@ -9,6 +9,8 @@ import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import DateRangePicker from "@/components/DateRangePicker";
 import Loading from "@/components/Loading";
 
+import Assignments from "./_presenters/components/Assignments";
+import Requirements from "./_presenters/components/Requirements";
 import useTimeEntriesController from "./_presenters/controllers/useTimeEntriesController";
 
 type Props = {
@@ -167,14 +169,35 @@ const TimeEntries = ({ project }: Props) => {
   };
   return (
     <Box>
+      <Card>
+        <Grid container p={2}>
+          <Grid item xs={12} display={"flex"}>
+            <Typography variant="h6">
+              Start by selecting a time period for the data
+            </Typography>
+            <Grid item xs={2} ml={1}>
+              <DateRangePicker
+                startDate={startDateFilter}
+                endDate={endDateFilter}
+                onDateRangeChange={(startDate, endDate) => {
+                  updateDateFilters(startDate, endDate);
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Card>
       <Grid container mb={3} mt={3}>
-        <Grid item mr={2} xs={2}>
-          <DateRangePicker
+        <Grid item xs={12} display={"flex"} justifyContent={"space-evenly"}>
+          <Requirements
             startDate={startDateFilter}
             endDate={endDateFilter}
-            onDateRangeChange={(startDate, endDate) => {
-              updateDateFilters(startDate, endDate);
-            }}
+            project={project!}
+          />
+          <Assignments
+            startDate={startDateFilter}
+            endDate={endDateFilter}
+            project={project!}
           />
         </Grid>
       </Grid>

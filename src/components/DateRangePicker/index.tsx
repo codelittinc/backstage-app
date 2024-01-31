@@ -2,14 +2,20 @@ import DatePicker from "../DatePicker";
 
 interface Props {
   endDate: string;
+  label?: string;
   onDateRangeChange: (startDate: Date, endDate: Date) => void;
   startDate: string;
 }
 
-const DateRangePicker = ({ onDateRangeChange, startDate, endDate }: Props) => {
+const DateRangePicker = ({
+  onDateRangeChange,
+  startDate,
+  endDate,
+  label,
+}: Props) => {
   return (
     <DatePicker
-      label="Period"
+      label={label}
       value={[new Date(startDate), new Date(endDate)]}
       onChange={(e: Array<Date>) => {
         if (e.length === 2) {
