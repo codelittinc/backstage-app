@@ -1,6 +1,6 @@
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
-import FormField from "@/components/FormField";
+import Autocomplete from "@/components/Autocomplete";
 
 type Props<T extends FieldValues> = {
   [key: string]: any;
@@ -8,12 +8,14 @@ type Props<T extends FieldValues> = {
   label: string;
   name: Path<T>;
   required?: boolean;
+  options: Customer[];
 };
 
-const TextInputController = <T extends FieldValues>({
+const AutocompleteController = <T extends FieldValues>({
   name,
   control,
   required,
+  options,
   ...rest
 }: Props<T>) => (
   <Controller
@@ -24,12 +26,14 @@ const TextInputController = <T extends FieldValues>({
     }}
     render={({ field: { onChange, value }, fieldState: { error } }) => {
       return (
-        <FormField
+        <Autocomplete
+          isOptionEqualToValue={(option: T, value: T) => option.id === value.id}
+          options={options}
           helperText={error ? error.message : null}
-          error={!!error}
           onChange={onChange}
           value={value}
-          required={required}
+          getOptionLabel={(option: T) => option.name}
+          required
           {...rest}
         />
       );
@@ -37,4 +41,4 @@ const TextInputController = <T extends FieldValues>({
   />
 );
 
-export default TextInputController;
+export default AutocompleteController;

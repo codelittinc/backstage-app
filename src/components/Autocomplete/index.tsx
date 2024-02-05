@@ -4,6 +4,7 @@ import { forwardRef, useImperativeHandle, useRef } from "react";
 import FormField from "../FormField";
 
 interface AutocompleteProps {
+  [key: string]: any;
   defaultValue?: any;
   freeSolo?: boolean;
   getOptionLabel?: (value: any) => string;
