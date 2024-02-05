@@ -8,9 +8,7 @@ import Typography from "@/components/Typography";
 import { useForm } from "react-hook-form";
 import TextInputController from "@/components/Form/FieldControllers/TextInputController";
 import { mergeObjects } from "@/app/_presenters/utils/objects";
-
-import { abilities, targets } from "@/permissions";
-import usePermissions from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
+import { useRouter } from "next/navigation";
 
 const defaultCustomer = {
   name: "",
@@ -29,6 +27,8 @@ type Props = {
 };
 
 function BasicInfo({ customer, onSave }: Props): JSX.Element {
+  const router = useRouter();
+
   const defaultValues = mergeObjects(defaultCustomer, customer || {});
   const { handleSubmit, control } = useForm({
     defaultValues: defaultValues,
@@ -74,21 +74,33 @@ function BasicInfo({ customer, onSave }: Props): JSX.Element {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-          <Box
-            display="flex"
-            justifyContent={{ md: "flex-end" }}
-            alignItems="center"
+        <Grid container flexDirection={"row-reverse"}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            lg={3}
+            display={"flex"}
+            justifyContent={"space-between"}
+            pt={3}
           >
             <Button
               variant="gradient"
               color="dark"
               size="small"
+              onClick={() => router.back()}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="gradient"
+              color="info"
+              size="small"
               onClick={() => handleSubmit(onSave)()}
             >
               Save
             </Button>
-          </Box>
+          </Grid>
         </Grid>
       </Box>
     </Card>
