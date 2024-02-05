@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { useRouter } from "next/navigation";
-import { DefaultValues, useForm } from "react-hook-form";
+import { Control, DefaultValues, useForm } from "react-hook-form";
 
 import { mergeObjects } from "@/app/_presenters/utils/objects";
 import Box from "@/components/Box";
@@ -12,7 +12,7 @@ type Props<T extends Model> = {
   defaultModelValues: T;
   model?: T;
   onSave: (object: T) => void;
-  renderFields: (control: any) => JSX.Element | JSX.Element[];
+  renderFields: (control: Control<T>) => JSX.Element | JSX.Element[];
 };
 
 function Form<T extends Model>({

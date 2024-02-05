@@ -5,4 +5,4 @@ type Customer = {
   slug: string;
   sourceControlToken: string | undefined;
   ticketTrackingSystemToken: string | undefined;
-} & object;
+};
