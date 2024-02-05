@@ -12,7 +12,6 @@ const usePullRequestsController = (
   userId?: number,
   state?: "merged" | "open" | "closed"
 ) => {
-  console.log(state);
   const { data, isLoading } = useQuery({
     queryKey: [PULL_REQUESTS_KEY, startDateFilter, endDateFilter, state],
     queryFn: () =>
