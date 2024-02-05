@@ -1,7 +1,7 @@
 export interface StatementOfWork {
   contractModel?: ContractModel;
   endDate: string;
-  id?: number;
+  id?: number | string;
   name: string;
   projectId: number | string;
   startDate: string;

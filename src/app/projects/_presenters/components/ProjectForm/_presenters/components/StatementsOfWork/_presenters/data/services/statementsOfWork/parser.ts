@@ -90,30 +90,74 @@ export function fromApiParser(sow: ApiStatementOfWorkFrom): StatementOfWork {
 
 // Parser function to convert data from application format to API format
 export function toApiParser(sow: StatementOfWork): ApiStatementOfWorkTo {
-  return {
+  const baseAttributes = {
     id: sow.id,
     name: sow.name,
     start_date: sow.startDate,
     end_date: sow.endDate,
     total_revenue: sow.totalRevenue,
     project_id: sow.projectId,
-    contract_model_attributes: sow.contractModel
-      ? {
-          id: sow.contractModel.id,
-          contract_model_type: sow.contractModel.contractModelType,
-          allow_overflow: sow.contractModel.allowOverflow,
-          hours_amount: sow.contractModel.hoursAmount,
-          limit_by: sow.contractModel.limitBy,
-          management_factor: sow.contractModel.managementFactor,
-          hourly_price: sow.contractModel.hourlyPrice,
-          accumulate_hours: sow.contractModel.accumulateHours,
-          charge_upfront: sow.contractModel.chargeUpfront,
-          delivery_period: sow.contractModel.deliveryPeriod,
-          expected_hours_per_period: sow.contractModel.expectedHoursPerPeriod,
-          hourly_cost: sow.contractModel.hourlyCost,
-          revenue_per_period: sow.contractModel.revenuePerPeriod,
-          fixed_timeline: sow.contractModel.fixedTimeline,
-        }
-      : undefined,
+  };
+
+  if (!sow.contractModel) {
+    return {
+      ...baseAttributes,
+      contract_model_attributes: undefined,
+    };
+  }
+
+  const contractModelType = sow.contractModel.contractModelType;
+  let contractModelAttributes = {};
+
+  switch (contractModelType) {
+    case "TimeAndMaterialsAtCostContractModel":
+      contractModelAttributes = {
+        allow_overflow: sow.contractModel.allowOverflow,
+        hours_amount: sow.contractModel.hoursAmount,
+        limit_by: sow.contractModel.limitBy,
+        management_factor: sow.contractModel.managementFactor,
+      };
+      break;
+    case "TimeAndMaterialsContractModel":
+      contractModelAttributes = {
+        allow_overflow: sow.contractModel.allowOverflow,
+        hourly_price: sow.contractModel.hourlyPrice,
+        hours_amount: sow.contractModel.hoursAmount,
+        limit_by: sow.contractModel.limitBy,
+      };
+      break;
+    case "MaintenanceContractModel":
+      contractModelAttributes = {
+        accumulate_hours: sow.contractModel.accumulateHours,
+        charge_upfront: sow.contractModel.chargeUpfront,
+        delivery_period: sow.contractModel.deliveryPeriod,
+        expected_hours_per_period: sow.contractModel.expectedHoursPerPeriod,
+        hourly_cost: sow.contractModel.hourlyCost,
+        revenue_per_period: sow.contractModel.revenuePerPeriod,
+      };
+      break;
+    case "FixedBidContractModel":
+      contractModelAttributes = {
+        fixed_timeline: sow.contractModel.fixedTimeline,
+      };
+      break;
+    case "RetainerContractModel":
+      contractModelAttributes = {
+        charge_upfront: sow.contractModel.chargeUpfront,
+        expected_hours_per_period: sow.contractModel.expectedHoursPerPeriod,
+        revenue_per_period: sow.contractModel.revenuePerPeriod,
+      };
+      break;
+    default:
+      break;
+  }
+
+  return {
+    ...baseAttributes,
+    contract_model_attributes: {
+      id: sow.contractModel.id,
+      contract_model_type: contractModelType,
+      ...contractModelAttributes,
+    },
   };
 }

@@ -1,5 +1,4 @@
 "use client";
-import { Switch } from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
@@ -29,7 +28,7 @@ function StatementOfWorkComponent({
 
   const { startDate, endDate, name, contractModel, totalRevenue } =
     currentStatementOfWork;
-  const { contractModelType } = contractModel!;
+  const { contractModelType, id: contractModelId } = contractModel!;
 
   const modelOptions = [
     {
@@ -104,12 +103,19 @@ function StatementOfWorkComponent({
                     option.id == value.id
                   }
                   options={modelOptions}
-                  onChange={(value: string) => {
+                  onChange={(value: any) => {
+                    let finalId = contractModelId;
+                    const { id: optionId } = value;
+                    if (optionId != contractModelType) {
+                      finalId = undefined;
+                    }
+
                     setCurrentStatementOfWork({
                       ...currentStatementOfWork,
                       contractModel: {
                         ...contractModel,
-                        contractModelType: value.id,
+                        contractModelType: optionId,
+                        id: finalId,
                       },
                     });
                   }}

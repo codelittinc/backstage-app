@@ -11,13 +11,14 @@ function Page() {
     id: undefined,
     endDate: "",
     startDate: "",
-    hourDeliverySchedule: "contract_period",
-    model: "time_and_materials",
     hourlyRevenue: 0,
     totalRevenue: 0,
-    limitByDeliverySchedule: true,
-    totalHours: 0,
     projectId: id as string,
+    name: "",
+    contractModel: {
+      id: undefined,
+      contractModelType: "TimeAndMaterialsContractModel",
+    },
   };
 
   const { onSave } = useNewStatementsOfWorkController(id as string);
