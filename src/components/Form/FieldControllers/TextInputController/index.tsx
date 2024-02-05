@@ -1,11 +1,12 @@
 import { Controller } from "react-hook-form";
+
 import FormField from "@/components/FormField";
 
 type Props = {
-  name: string;
+  [key: string]: any;
   control: any;
   label: string;
-  [key: string]: any;
+  name: string;
 };
 
 const TextInputController = ({
