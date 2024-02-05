@@ -1,4 +1,4 @@
-interface ApiCustomer {
+export interface ApiCustomer {
   id?: number;
   name: string;
   notifications_token: string | undefined;
@@ -25,5 +25,6 @@ export function toApiParser(customer: Customer): ApiCustomer {
     notifications_token: customer.notificationsToken,
     source_control_token: customer.sourceControlToken,
     ticket_tracking_system_token: customer.ticketTrackingSystemToken,
+    slug: customer.slug,
   };
 }

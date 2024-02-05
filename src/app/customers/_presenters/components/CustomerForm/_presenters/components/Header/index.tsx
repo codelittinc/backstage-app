@@ -5,8 +5,12 @@ import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
-function Header({ customer }: { customer: Customer }): JSX.Element {
-  const { name } = customer;
+type Props = {
+  customer?: Customer;
+};
+
+function Header({ customer }: Props): JSX.Element {
+  const name = customer?.name;
 
   return (
     <Card id="profile">

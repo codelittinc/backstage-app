@@ -3,24 +3,36 @@ import Grid from "@mui/material/Grid";
 
 import Box from "@/components/Box";
 import Button from "@/components/Button";
-import FormField from "@/components/FormField";
 import Typography from "@/components/Typography";
 
-function BasicInfo({
-  customer,
-  onChange,
-  onSave,
-}: {
-  customer: Customer;
-  onChange: Function;
-  onSave: Function;
-}): JSX.Element {
-  const {
-    name,
-    sourceControlToken,
-    notificationsToken,
-    ticketTrackingSystemToken,
-  } = customer;
+import { useForm } from "react-hook-form";
+import TextInputController from "@/components/Form/FieldControllers/TextInputController";
+import { mergeObjects } from "@/app/_presenters/utils/objects";
+
+import { abilities, targets } from "@/permissions";
+import usePermissions from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
+
+const defaultCustomer = {
+  name: "",
+  ticketTrackingSystemToken: "",
+  id: undefined,
+  sourceControlToken:
+    process.env.NEXT_PUBLIC_DEFAULT_CUSTOMER_SOURCE_CONTROL_TOKEN,
+  notificationsToken:
+    process.env.NEXT_PUBLIC_DEFAULT_CUSTOMER_NOTIFICATIONS_TOKEN,
+  slug: "",
+};
+
+type Props = {
+  customer?: Customer;
+  onSave: (customer: Customer) => void;
+};
+
+function BasicInfo({ customer, onSave }: Props): JSX.Element {
+  const defaultValues = mergeObjects(defaultCustomer, customer || {});
+  const { handleSubmit, control } = useForm({
+    defaultValues: defaultValues,
+  });
 
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
@@ -29,56 +41,36 @@ function BasicInfo({
       </Box>
       <Box component="form" pb={3} px={3}>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={7}>
-            <FormField
+          <Grid item xs={12}>
+            <TextInputController
               label="Name"
               placeholder="Backstage"
-              value={name || ""}
-              onChange={({ target: { value } }) => {
-                onChange({
-                  ...customer,
-                  name: value,
-                });
-              }}
+              name={"name"}
+              control={control}
+              required
             />
           </Grid>
-          <Grid item xs={12} sm={7}>
-            <FormField
-              label="Source control token"
-              placeholder="**********"
-              value={sourceControlToken || ""}
-              onChange={({ target: { value } }) => {
-                onChange({
-                  ...customer,
-                  sourceControlToken: value,
-                });
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={7}>
-            <FormField
+
+          <Grid item xs={12}>
+            <TextInputController
               label="Notifications token"
-              placeholder="**********"
-              value={notificationsToken || ""}
-              onChange={({ target: { value } }) => {
-                onChange({
-                  ...customer,
-                  notificationsToken: value,
-                });
-              }}
+              name={"notificationsToken"}
+              control={control}
+              required
             />
           </Grid>
-          <Grid item xs={12} sm={7}>
-            <FormField
-              label="Ticket tracking system token"
-              placeholder="**********"
-              value={ticketTrackingSystemToken || ""}
-              onChange={({ target: { value } }) => {
-                onChange({
-                  ...customer,
-                  ticketTrackingSystemToken: value,
-                });
-              }}
+          <Grid item xs={12}>
+            <TextInputController
+              label="Source control token"
+              name={"sourceControlToken"}
+              control={control}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextInputController
+              label="Ticket traking system token"
+              name={"ticketTrackingSystemToken"}
+              control={control}
             />
           </Grid>
         </Grid>
@@ -92,7 +84,7 @@ function BasicInfo({
               variant="gradient"
               color="dark"
               size="small"
-              onClick={() => onSave()}
+              onClick={() => handleSubmit(onSave)()}
             >
               Save
             </Button>

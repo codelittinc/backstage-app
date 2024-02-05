@@ -8,13 +8,11 @@ import BasicInfo from "./_presenters/components/BasicInfo";
 import Header from "./_presenters/components/Header";
 
 interface Props {
-  customer: Customer;
+  customer?: Customer;
   onSave: (customer: Customer) => void;
 }
 
 function CustomerForm({ customer, onSave }: Props): JSX.Element {
-  const [currentCustomer, updateCurrentCustomer] = useState(customer);
-
   return (
     <FormLayout>
       <Grid item xs={12}>
@@ -22,10 +20,9 @@ function CustomerForm({ customer, onSave }: Props): JSX.Element {
       </Grid>
       <Grid item xs={12}>
         <BasicInfo
-          customer={currentCustomer}
-          onChange={updateCurrentCustomer}
-          onSave={() => {
-            onSave(currentCustomer);
+          customer={customer}
+          onSave={(customer: Customer) => {
+            onSave(customer);
           }}
         />
       </Grid>
