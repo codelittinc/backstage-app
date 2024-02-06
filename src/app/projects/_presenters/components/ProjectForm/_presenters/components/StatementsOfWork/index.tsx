@@ -14,17 +14,13 @@ function StatementsOfWork({ project }: { project: Project }): JSX.Element {
 
   return (
     <Card id="statements-of-work" sx={{ overflow: "visible" }}>
-      <Box p={3}>
-        <Typography variant="h5">Contracts</Typography>
-      </Box>
-
-      <Box px={3} pb={2}>
-        <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
+      <Grid container p={3} px={3} pb={2}>
+        <Grid item xs={12} display={"flex"} justifyContent={"space-between"}>
+          <Typography variant="h5">Contracts</Typography>
           <Box
             display="flex"
             justifyContent={{ md: "flex-end" }}
             alignItems="center"
-            pt={2}
           >
             <Button
               variant="gradient"
@@ -38,10 +34,12 @@ function StatementsOfWork({ project }: { project: Project }): JSX.Element {
             </Button>
           </Box>
         </Grid>
-      </Box>
+      </Grid>
 
       <Grid container>
-        <StatementsOfWorkTable project={project} />
+        <Grid item xs={12}>
+          <StatementsOfWorkTable project={project} />
+        </Grid>
       </Grid>
     </Card>
   );
