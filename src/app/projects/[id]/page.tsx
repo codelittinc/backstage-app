@@ -9,13 +9,16 @@ import usePermissionsController from "@/components/ProtectedComponent/_presenter
 import { abilities, targets } from "@/permissions";
 
 import PerformanceMetrics from "./_presenters/components/PerformanceMetrics";
-import useNewProjectController from "./_presenters/controllers/useProjectController";
+import useUpdateProjectController from "./_presenters/controllers/useUpdateProjectController";
 import ProjectForm from "../_presenters/components/ProjectForm";
 
 function Page() {
   const { id } = useParams();
 
-  const { project, isLoading, onSave } = useNewProjectController(id);
+  const { project, isLoading, onSave } = useUpdateProjectController(
+    id as string
+  );
+
   const { hasPermission: displayAnalytics } = usePermissionsController({
     ability: abilities.view,
     target: targets.analytics,

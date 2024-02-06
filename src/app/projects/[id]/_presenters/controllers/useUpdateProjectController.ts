@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import { PROJETS_KEY } from "@/app/projects/_domain/constants";
@@ -6,10 +7,12 @@ import {
   getProject,
   updateProject,
 } from "@/app/projects/_presenters/data/services/projects";
+import routes from "@/routes";
 
-const useProjectController = (projectId: number | string) => {
+const useUpdateProjectController = (projectId: number | string) => {
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationFn: updateProject,
@@ -18,6 +21,8 @@ const useProjectController = (projectId: number | string) => {
       queryClient.invalidateQueries({
         queryKey: [PROJETS_KEY, result.id],
       });
+
+      router.push(routes.projectPath(result.slug!));
     },
   });
 
@@ -35,4 +40,4 @@ const useProjectController = (projectId: number | string) => {
   };
 };
 
-export default useProjectController;
+export default useUpdateProjectController;

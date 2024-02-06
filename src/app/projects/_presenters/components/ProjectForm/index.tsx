@@ -13,37 +13,34 @@ import StatementsOfWork from "./_presenters/components/StatementsOfWork";
 
 interface Props {
   onSave: (project: Project) => void;
-  project: Project;
+  project?: Project;
 }
 
 function ProjectForm({ project, onSave }: Props): JSX.Element {
-  const [currentProject, updateCurrentProject] = useState(project);
-
   const { hasPermission: hasFinancialPermission } = usePermissions({
     ability: abilities.change,
     target: targets.finances,
   });
 
-  const displayStatementsOfWork = hasFinancialPermission && project.id;
+  const displayStatementsOfWork = hasFinancialPermission && project?.id;
 
   return (
     <SidenavForm>
       <Grid item xs={12}>
-        <Header project={currentProject} />
+        <Header project={project} />
       </Grid>
       <Grid item xs={12}>
         <BasicInfo
-          project={currentProject}
-          onChange={updateCurrentProject}
-          onSave={() => {
-            onSave(currentProject);
+          project={project}
+          onSave={(project: Project) => {
+            onSave(project);
           }}
         />
       </Grid>
 
       {displayStatementsOfWork && (
         <Grid item xs={12}>
-          <StatementsOfWork project={currentProject} />
+          <StatementsOfWork project={project} />
         </Grid>
       )}
     </SidenavForm>

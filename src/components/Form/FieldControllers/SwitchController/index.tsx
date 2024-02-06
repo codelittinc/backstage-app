@@ -1,13 +1,14 @@
-import { Control, Controller, FieldValues, Path } from "react-hook-form";
 import { Switch } from "@mui/material";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
+
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
 type Props<T extends FieldValues> = {
   [key: string]: any;
   control: Control<T>;
-  name: Path<T>;
   label: string;
+  name: Path<T>;
   required?: boolean;
 };
 

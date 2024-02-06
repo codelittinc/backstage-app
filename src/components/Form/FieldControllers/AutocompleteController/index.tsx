@@ -7,8 +7,11 @@ type Props<T extends FieldValues> = {
   control: Control<T>;
   label: string;
   name: Path<T>;
-  required?: boolean;
   options: Customer[];
+  processSelectedValue?: (
+    selectedValue: { id: number } | string
+  ) => { id: number } | string | number;
+  required?: boolean;
 };
 
 const AutocompleteController = <T extends FieldValues>({
@@ -16,6 +19,7 @@ const AutocompleteController = <T extends FieldValues>({
   control,
   required,
   options,
+  processSelectedValue,
   ...rest
 }: Props<T>) => (
   <Controller
@@ -30,7 +34,13 @@ const AutocompleteController = <T extends FieldValues>({
           isOptionEqualToValue={(option: T, value: T) => option.id === value.id}
           options={options}
           helperText={error ? error.message : null}
-          onChange={onChange}
+          onChange={(newValue: unknown) => {
+            const processedValue = processSelectedValue
+              ? processSelectedValue(newValue)
+              : newValue;
+
+            onChange(processedValue);
+          }}
           value={value}
           getOptionLabel={(option: T) => option.name}
           required

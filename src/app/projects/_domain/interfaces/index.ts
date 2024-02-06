@@ -13,9 +13,9 @@ type Project = {
   logoBackgroundColor: string | undefined;
   logoUrl: string | undefined;
   name: string;
-  participants: Participant[];
+  participants?: Participant[];
   slackChannel: string | null;
-  slug: string;
-  syncSourceControl: boolean;
-  syncTicketTrackingSystem: boolean;
+  slug?: string;
+  syncSourceControl?: boolean;
+  syncTicketTrackingSystem?: boolean;
 };
