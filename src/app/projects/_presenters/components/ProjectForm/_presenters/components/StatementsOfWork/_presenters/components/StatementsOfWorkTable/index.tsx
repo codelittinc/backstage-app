@@ -1,6 +1,6 @@
+import { Box } from "@mui/material";
 import Icon from "@mui/material/Icon";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
@@ -11,23 +11,14 @@ import Loading from "@/components/Loading";
 import routes from "@/routes";
 
 import useStatementsOfWorkController from "../../controllers/useStatementsOfWorkController";
+import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 
-function formatDateToMonthDayYear(isoDate: string): string {
-  const date = new Date(isoDate);
-  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
-  const day = date.getDate().toString().padStart(2, "0");
-  const year = date.getFullYear();
-
-  return `${month}/${day}/${year}`;
-}
 interface Props {
   project: Project;
 }
 
 const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
-  const router = useRouter();
-
-  const { statementsOfWork, isLoading, onDelete, projects } =
+  const { statementsOfWork, isLoading, onDelete } =
     useStatementsOfWorkController(project.id!);
 
   if (isLoading) {
@@ -38,7 +29,7 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
     {
       Header: "Name",
       accessor: "name",
-      width: "30%",
+      width: "40%",
       Cell: ({
         value,
         row,
@@ -51,60 +42,39 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
         } = row;
 
         return (
-          <Link href={routes.statementOfWorkPath(id!, projectId)}>{value}</Link>
+          <Link href={routes.statementOfWorkPath(id as number, projectId)}>
+            {value.length > 30 ? `${value.substring(0, 30)}...` : value}
+          </Link>
         );
       },
     },
     {
       Header: "Period",
       accessor: "startDate",
-      width: "30%",
+      width: "15%",
       Cell: ({ row }: any) => {
         const statementOfWork = row.original;
 
-        return `${formatDateToMonthDayYear(
-          statementOfWork.startDate
-        )} - ${formatDateToMonthDayYear(statementOfWork.endDate)}`;
+        return (
+          <Box flexDirection="column" display="flex" alignItems="center">
+            <Box>{formatDateToMonthDayYear(statementOfWork.startDate)} </Box>-{" "}
+            <Box>{formatDateToMonthDayYear(statementOfWork.endDate)}</Box>{" "}
+          </Box>
+        );
       },
     },
     {
       Header: "Contract size",
       accessor: "totalRevenue",
-      width: "30%",
+      width: "15%",
       Cell: ({ value }: { value: number }) => {
         return toUSD(value);
       },
     },
     {
       Header: "",
-      accessor: "edit",
-      width: "5%",
-      Cell: ({ row }: any) => {
-        const {
-          original: { id, projectId },
-        } = row;
-
-        const projectSlug = projects.find(
-          (project: Project) => project.id === projectId
-        ).slug;
-
-        return (
-          <Button
-            variant="text"
-            color="info"
-            onClick={() => {
-              router.push(routes.statementOfWorkPath(id, projectSlug));
-            }}
-          >
-            <Icon>edit</Icon>
-          </Button>
-        );
-      },
-    },
-    {
-      Header: "",
-      accessor: "delete",
-      width: "5%",
+      accessor: "edit-delete",
+      width: "10%",
       Cell: ({ row }: any) => {
         const { original } = row;
         return (
