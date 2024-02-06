@@ -6,7 +6,7 @@ import { CHANNELS_KEY } from "@/app/repositories/_domain/constants";
 
 import { getChannels } from "../data/services/channels";
 
-const useChannelsController = (customer: Customer | null) => {
+const useChannelsController = (customer: Customer | undefined) => {
   const { showAlert } = useAppStore();
   const { data, isLoading, isError } = useQuery({
     queryKey: [CHANNELS_KEY, customer?.id],

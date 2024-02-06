@@ -1,167 +1,135 @@
-import { Switch } from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import React, { ChangeEvent } from "react";
+import React from "react";
 
 import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
+import Channel from "@/app/repositories/_domain/interfaces/Channel";
 import useChannelsController from "@/app/repositories/_presenters/components/RepositoryForm/_presenters/components/BasicInfo/_presenters/controllers/useChannelsController";
-import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
-import Button from "@/components/Button";
-import FormField from "@/components/FormField";
+import Form from "@/components/Form";
+import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
+import SwitchController from "@/components/Form/FieldControllers/SwitchController";
+import TextInputController from "@/components/Form/FieldControllers/TextInputController";
 import Loading from "@/components/Loading";
-import ProtectedComponent from "@/components/ProtectedComponent";
 import Typography from "@/components/Typography";
-import { abilities, targets } from "@/permissions";
 
+type Props = {
+  onSave: (project: Project) => void;
+  project?: Project;
+};
+function BasicInfo({ project, onSave }: Props): JSX.Element {
+  const { customers, isLoading: isCustomersLoading } = useCustomersController();
 
-function BasicInfo({
-  project,
-  onChange,
-  onSave,
-}: {
-  onChange: Function;
-  onSave: Function;
-  project: Project;
-}): JSX.Element {
-  const {
-    name,
-    customer,
-    billable,
-    slackChannel,
-    logoUrl,
-    logoBackgroundColor = "",
-  } = project;
-  const { customers, isLoading } = useCustomersController();
+  let customer = project ? project.customer : customers && customers[0];
 
   const { channels, isLoading: isChannelsLoading } =
     useChannelsController(customer);
 
-  if (isLoading || isChannelsLoading) {
+  if (isCustomersLoading || isChannelsLoading) {
     return <Loading />;
   }
+
+  const defaultProject = {
+    name: "",
+    customer: customers[0],
+    slackChannel: channels[0].id,
+    billable: false,
+    logoUrl: "",
+    logoBackgroundColor: "",
+  };
 
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
       <Box p={3}>
         <Typography variant="h5">Basic Info</Typography>
       </Box>
-      <Box component="form" pb={3} px={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <FormField
-              label="Name"
-              placeholder="Backstage"
-              value={name}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                onChange({
-                  ...project,
-                  name: e.target.value,
-                });
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Autocomplete
-              label={"Customer"}
-              value={customer}
-              isOptionEqualToValue={(option: Customer, value: Customer) =>
-                option.id === value.id
-              }
-              getOptionLabel={(option: Customer) => option.name}
-              onChange={(value: Customer) => {
-                onChange({
-                  ...project,
-                  customer: value,
-                });
-              }}
-              options={customers}
-            />
-          </Grid>
-          <Grid item xs={12} md={3} lg={3}>
-            <Box display="flex" alignItems="center" lineHeight={1}>
-              <Typography variant="caption" fontWeight="regular">
-                Billable
-              </Typography>
-              <Box ml={1}>
-                <Switch
-                  checked={billable}
-                  onChange={() => {
-                    onChange({ ...project, billable: !billable });
-                  }}
-                />
-              </Box>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Autocomplete
-              label={"Slack channel"}
-              value={channels.find((channel) => channel.id === slackChannel)}
-              getOptionLabel={(option: Customer) => option.name}
-              onChange={(value: any) => {
-                onChange({
-                  ...project,
-                  slackChannel: value.id,
-                });
-              }}
-              options={channels}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormField
-              label="Logo public url"
-              placeholder="https://logo-link-outside-of-backstage.com"
-              value={logoUrl || ""}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                onChange({
-                  ...project,
-                  logoUrl: e.target.value,
-                });
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormField
-              label="Logo background color"
-              placeholder="gray"
-              value={logoBackgroundColor || ""}
-              onChange={({
-                target: { value },
-              }: {
-                target: { value: string };
-              }) => {
-                onChange({
-                  ...project,
-                  logoBackgroundColor: value,
-                });
-              }}
-            />
-          </Grid>
-        </Grid>
+      <Form
+        model={project}
+        onSave={onSave}
+        defaultModelValues={defaultProject}
+        renderFields={(control) => (
+          <>
+            <Grid item xs={12} md={6}>
+              <TextInputController
+                label="Name"
+                placeholder="Backstage"
+                name={"name"}
+                control={control}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <AutocompleteController
+                label={"Customer"}
+                name={"customer"}
+                options={customers}
+                control={control}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <AutocompleteController
+                label={"Slack channel"}
+                name={"slackChannel"}
+                options={channels}
+                control={control}
+                getOptionLabel={(option: string | Channel) => {
+                  if (typeof option === "string") {
+                    return channels.find(
+                      (channel: Channel) => channel.id === option
+                    )?.name;
+                  } else {
+                    return option.name;
+                  }
+                }}
+                isOptionEqualToValue={(
+                  option: Channel,
+                  value: string | Channel
+                ) => {
+                  if (typeof value === "string") {
+                    return option.id === value;
+                  } else {
+                    return option.id == value.id;
+                  }
+                }}
+                processSelectedValue={(
+                  selectedValue: { id: number } | string
+                ) => {
+                  if (typeof selectedValue === "string") {
+                    return selectedValue;
+                  }
 
-        <ProtectedComponent
-          ability={abilities.change}
-          target={targets.projects}
-        >
-          <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-            <Box
-              display="flex"
-              justifyContent={{ md: "flex-end" }}
-              alignItems="center"
-              pt={2}
-            >
-              <Button
-                variant="gradient"
-                color="dark"
-                size="small"
-                onClick={() => onSave()}
-              >
-                Save
-              </Button>
-            </Box>
-          </Grid>
-        </ProtectedComponent>
-      </Box>
+                  return selectedValue.id;
+                }}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} md={3} lg={3}>
+              <SwitchController
+                name={"billable"}
+                label={"Billable"}
+                control={control}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextInputController
+                label="Logo public url"
+                placeholder="https://link-outside-backstage.com/logo.png"
+                name={"logoUrl"}
+                control={control}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextInputController
+                label="Logo background color"
+                placeholder="gray"
+                name={"logoBackgroundColor"}
+                control={control}
+              />
+            </Grid>
+          </>
+        )}
+      />
     </Card>
   );
 }

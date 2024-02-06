@@ -5,8 +5,12 @@ import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
-function Header({ project }: { project: Project }): JSX.Element {
-  const { name } = project;
+type Props = {
+  project?: Project;
+};
+
+function Header({ project }: Props): JSX.Element {
+  const name = project ? project.name : "New Project";
 
   return (
     <Card id="profile">
@@ -14,8 +18,8 @@ function Header({ project }: { project: Project }): JSX.Element {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <Avatar
-              bgColor={project.logoBackgroundColor}
-              src={project.logoUrl}
+              bgColor={project?.logoBackgroundColor}
+              src={project?.logoUrl}
               alt="profile-image"
               size="xl"
               shadow="sm"
