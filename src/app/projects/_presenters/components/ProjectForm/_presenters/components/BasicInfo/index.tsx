@@ -17,7 +17,8 @@ type Props = {
   onSave: (project: Project) => void;
   project?: Project;
 };
-function BasicInfo({ project, onSave }: Props): JSX.Element {
+
+const BasicInfo: React.FC<Props> = ({ project, onSave }) => {
   const { customers, isLoading: isCustomersLoading } = useCustomersController();
 
   let customer = project ? project.customer : customers && customers[0];
@@ -53,15 +54,15 @@ function BasicInfo({ project, onSave }: Props): JSX.Element {
               <TextInputController
                 label="Name"
                 placeholder="Backstage"
-                name={"name"}
+                name="name"
                 control={control}
                 required
               />
             </Grid>
             <Grid item xs={12} md={6}>
               <AutocompleteController
-                label={"Customer"}
-                name={"customer"}
+                label="Customer"
+                name="customer"
                 options={customers}
                 control={control}
                 required
@@ -69,8 +70,8 @@ function BasicInfo({ project, onSave }: Props): JSX.Element {
             </Grid>
             <Grid item xs={12} md={6}>
               <AutocompleteController
-                label={"Slack channel"}
-                name={"slackChannel"}
+                label="Slack channel"
+                name="slackChannel"
                 options={channels}
                 control={control}
                 getOptionLabel={(option: string | Channel) => {
@@ -106,8 +107,8 @@ function BasicInfo({ project, onSave }: Props): JSX.Element {
             </Grid>
             <Grid item xs={12} md={3} lg={3}>
               <SwitchController
-                name={"billable"}
-                label={"Billable"}
+                name="billable"
+                label="Billable"
                 control={control}
               />
             </Grid>
@@ -115,7 +116,7 @@ function BasicInfo({ project, onSave }: Props): JSX.Element {
               <TextInputController
                 label="Logo public url"
                 placeholder="https://link-outside-backstage.com/logo.png"
-                name={"logoUrl"}
+                name="logoUrl"
                 control={control}
               />
             </Grid>
@@ -123,7 +124,7 @@ function BasicInfo({ project, onSave }: Props): JSX.Element {
               <TextInputController
                 label="Logo background color"
                 placeholder="gray"
-                name={"logoBackgroundColor"}
+                name="logoBackgroundColor"
                 control={control}
               />
             </Grid>
@@ -132,6 +133,6 @@ function BasicInfo({ project, onSave }: Props): JSX.Element {
       />
     </Card>
   );
-}
+};
 
 export default BasicInfo;

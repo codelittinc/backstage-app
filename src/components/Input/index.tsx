@@ -3,7 +3,7 @@ import { FC, forwardRef } from "react";
 
 import InputRoot from "./InputRoot";
 
-interface Props
+export interface InputProps
   extends Omit<OutlinedTextFieldProps | StandardTextFieldProps, "variant"> {
   disabled?: boolean;
   error?: boolean;
@@ -11,7 +11,7 @@ interface Props
   variant?: "standard" | "outlined";
 }
 
-const Input: FC<Props | any> = forwardRef(
+const Input: FC<InputProps> = forwardRef(
   ({ error, success, disabled, ...rest }, ref) => (
     <InputRoot {...rest} ref={ref} ownerState={{ error, success, disabled }} />
   )

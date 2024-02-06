@@ -1,14 +1,13 @@
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
 import FormField from "@/components/FormField";
+import { InputProps } from "@/components/Input";
 
 type Props<T extends FieldValues> = {
-  [key: string]: any;
   control: Control<T>;
-  label: string;
   name: Path<T>;
   required?: boolean;
-};
+} & InputProps;
 
 const TextInputController = <T extends FieldValues>({
   name,

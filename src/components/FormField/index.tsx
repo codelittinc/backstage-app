@@ -1,10 +1,6 @@
-import MDInput from "@/components/Input";
+import MDInput, { InputProps } from "@/components/Input";
 
-interface Props {
-  [key: string]: any;
-}
-
-function FormField({ ...rest }: Props): JSX.Element {
+function FormField({ ...rest }: InputProps): JSX.Element {
   return (
     <MDInput
       variant="standard"
