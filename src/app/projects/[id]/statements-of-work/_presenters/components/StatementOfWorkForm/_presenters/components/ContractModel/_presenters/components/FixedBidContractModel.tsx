@@ -1,26 +1,21 @@
-import { Box, Grid, Switch, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
+import { Control } from "react-hook-form";
 
-import { ContractModel } from "@/app/_domain/interfaces/StatementOfWork";
+import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
+import SwitchController from "@/components/Form/FieldControllers/SwitchController";
 
 interface Props {
-  contractModel: ContractModel;
-  onChange: (key: string, value: string | number | boolean | undefined) => {};
+  control: Control<StatementOfWork>;
 }
 
-const FixedBidContractModel = ({ contractModel, onChange }: Props) => {
-  const { fixedTimeline } = contractModel;
-
+const FixedBidContractModel = ({ control }: Props) => {
   return (
     <Grid item xs={12}>
-      <Box display="flex" alignItems="center">
-        <Typography variant="caption" fontWeight="regular">
-          Fixed Timeline
-        </Typography>
-        <Switch
-          checked={fixedTimeline}
-          onChange={() => onChange("fixedTimeline", !fixedTimeline)}
-        />
-      </Box>
+      <SwitchController
+        name="contractModel.fixedTimeline"
+        label="Fixed timeline"
+        control={control}
+      />
     </Grid>
   );
 };

@@ -2,15 +2,17 @@ import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
 import Autocomplete from "@/components/Autocomplete";
 
+export type Option = { id: number | string; name: string };
+
 type Props<T extends FieldValues> = {
   [key: string]: any;
   control: Control<T>;
   label: string;
   name: Path<T>;
-  options: Customer[];
+  options: { id: number | string; name: string }[] | string[];
   processSelectedValue?: (
-    selectedValue: { id: number } | string
-  ) => { id: number } | string | number;
+    selectedValue: Option | string
+  ) => Option | string | number;
   required?: boolean;
 };
 
@@ -34,7 +36,7 @@ const AutocompleteController = <T extends FieldValues>({
           isOptionEqualToValue={(option: T, value: T) => option.id === value.id}
           options={options}
           helperText={error ? error.message : null}
-          onChange={(newValue: unknown) => {
+          onChange={(newValue: string | Option) => {
             const processedValue = processSelectedValue
               ? processSelectedValue(newValue)
               : newValue;

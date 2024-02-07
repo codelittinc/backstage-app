@@ -1,41 +1,20 @@
 import Grid from "@mui/material/Grid";
 import { useRouter } from "next/navigation";
-import { Control, DefaultValues, useForm } from "react-hook-form";
 
-import { mergeObjects } from "@/app/_presenters/utils/objects";
 import Box from "@/components/Box";
 import Button from "@/components/Button";
 
-type Model = Record<string, unknown>;
-
-type Props<T extends Model> = {
-  defaultModelValues: T;
-  model?: T;
-  onSave: (object: T) => void;
-  renderFields: (control: Control<T>) => JSX.Element | JSX.Element[];
+type Props = {
+  children?: React.ReactNode;
+  onSave: () => void;
 };
 
-function Form<T extends Model>({
-  model,
-  defaultModelValues,
-  onSave,
-  renderFields,
-}: Props<T>): JSX.Element {
+function Form({ onSave, children }: Props): JSX.Element {
   const router = useRouter();
-
-  const defaultValues = mergeObjects(
-    defaultModelValues,
-    model || {}
-  ) as DefaultValues<T>;
-
-  const { handleSubmit, control } = useForm<T>({
-    defaultValues,
-  });
-
   return (
     <Box component="form" pb={3} px={3}>
       <Grid container spacing={3}>
-        {renderFields(control)}
+        {children}
       </Grid>
       <Grid container flexDirection={"row-reverse"}>
         <Grid
@@ -58,7 +37,7 @@ function Form<T extends Model>({
             variant="gradient"
             color="info"
             size="small"
-            onClick={() => handleSubmit(onSave)()}
+            onClick={() => onSave()}
           >
             Save
           </Button>

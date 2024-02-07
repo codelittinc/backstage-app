@@ -1,49 +1,101 @@
 "use client";
-import Card from "@mui/material/Card";
-import Grid from "@mui/material/Grid";
-import { useState } from "react";
+import { Card, Grid } from "@mui/material";
+import { useEffect } from "react";
+import { DefaultValues, useForm, useWatch } from "react-hook-form";
 
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
-import Autocomplete from "@/components/Autocomplete";
+import { getLastDayOfCurrentMonth } from "@/app/_presenters/utils/date";
+import { mergeObjects } from "@/app/_presenters/utils/objects";
 import Box from "@/components/Box";
-import Button from "@/components/Button";
-import DateRangePicker from "@/components/DateRangePicker";
-import FormField from "@/components/FormField";
+import Form from "@/components/Form";
+import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
+import { Option } from "@/components/Form/FieldControllers/AutocompleteController";
+import DatePickerController from "@/components/Form/FieldControllers/DatePickerController";
+import TextInputController from "@/components/Form/FieldControllers/TextInputController";
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Typography from "@/components/Typography";
 
 import ContractModel from "./_presenters/components/ContractModel";
 
-interface StatementOfWorkProps {
+interface Props {
   onSave: (statementOfWork: StatementOfWork) => void;
+  projectId: string;
   statementOfWork: StatementOfWork;
 }
 
-function StatementOfWorkComponent({
+const getDefaultSow = (projectId: string) => ({
+  id: undefined,
+  endDate: getLastDayOfCurrentMonth().toISOString(),
+  startDate: new Date().toISOString(),
+  hourlyRevenue: "",
+  totalRevenue: "",
+  projectId: projectId,
+  name: "",
+  contractModel: {
+    id: undefined,
+    contractModelType: "TimeAndMaterialsContractModel",
+    chargeUpfront: false,
+    expectedHoursPerPeriod: "",
+    revenuePerPeriod: "",
+    allowOverflow: false,
+    hoursAmount: "",
+    limitBy: "contract_size",
+    managementFactor: "",
+    deliveryPeriod: "weekly",
+    hourlyCost: "",
+    accumulateHours: false,
+  },
+});
+
+const modelOptions = [
+  {
+    id: "TimeAndMaterialsAtCostContractModel",
+    name: "Time and Materials at Cost",
+  },
+  { id: "TimeAndMaterialsContractModel", name: "Time and Materials" },
+  { id: "MaintenanceContractModel", name: "Maintenance" },
+  { id: "FixedBidContractModel", name: "Fixed Bid" },
+  { id: "RetainerContractModel", name: "Retainer" },
+];
+
+const StatementOfWorkForm: React.FC<Props> = ({
   statementOfWork,
+  projectId,
   onSave,
-}: StatementOfWorkProps): JSX.Element {
-  const [currentStatementOfWork, setCurrentStatementOfWork] =
-    useState<StatementOfWork>(statementOfWork);
+}) => {
+  const defaultValues = mergeObjects(
+    statementOfWork || {},
+    getDefaultSow(projectId)
+  ) as DefaultValues<StatementOfWork>;
 
-  const { startDate, endDate, name, contractModel, totalRevenue } =
-    currentStatementOfWork;
-  const { contractModelType, id: contractModelId } = contractModel!;
-
-  const modelOptions = [
-    {
-      id: "TimeAndMaterialsAtCostContractModel",
-      name: "Time and Materials at Cost",
-    },
-    { id: "TimeAndMaterialsContractModel", name: "Time and Materials" },
-    { id: "MaintenanceContractModel", name: "Maintenance" },
-    { id: "FixedBidContractModel", name: "Fixed Bid" },
-    { id: "RetainerContractModel", name: "Retainer" },
-  ];
-
-  const modelObject = modelOptions.find(
-    (model) => model.id === contractModelType
+  defaultValues.contractModel = mergeObjects(
+    getDefaultSow(projectId).contractModel,
+    statementOfWork.contractModel || {}
   );
+
+  const { contractModel } = statementOfWork;
+  const { id: contractModelId, contractModelType: originalContractModelType } =
+    contractModel!;
+
+  const { handleSubmit, control, setValue } = useForm<StatementOfWork>({
+    defaultValues,
+  });
+
+  const contractModelType = useWatch({
+    control,
+    name: "contractModel.contractModelType",
+  });
+
+  useEffect(() => {
+    if (contractModelType) {
+      const id =
+        originalContractModelType === contractModelType
+          ? contractModelId
+          : undefined;
+
+      setValue("contractModel.id", id);
+    }
+  }, [contractModelType, setValue, contractModelId, originalContractModelType]);
 
   return (
     <FormLayout>
@@ -52,115 +104,88 @@ function StatementOfWorkComponent({
           <Box p={3}>
             <Typography variant="h5">Statement Of Work</Typography>
           </Box>
-          <Box component="form">
-            <Grid container spacing={2} pb={3} px={3}>
+          <Form onSave={() => handleSubmit(onSave)()}>
+            <>
               <Grid item xs={12}>
-                <FormField
+                <TextInputController
                   label="Name"
                   placeholder="Statement of work name"
-                  value={name || ""}
-                  onChange={({ target: { value } }) => {
-                    setCurrentStatementOfWork({
-                      ...currentStatementOfWork,
-                      name: value,
-                    });
-                  }}
+                  name="name"
+                  control={control}
+                  required
                 />
               </Grid>
-              <Grid item xs={12}>
-                <DateRangePicker
-                  label="Project period"
-                  startDate={startDate}
-                  endDate={endDate}
-                  onDateRangeChange={(newStartDate: Date, newEndDate: Date) => {
-                    setCurrentStatementOfWork({
-                      ...currentStatementOfWork,
-                      startDate: newStartDate.toDateString(),
-                      endDate: newEndDate.toDateString(),
-                    });
-                  }}
+              <Grid item xs={12} md={6}>
+                <DatePickerController
+                  label="Start Date"
+                  name="startDate"
+                  control={control}
+                  required
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormField
+              <Grid item xs={12} md={6}>
+                <DatePickerController
+                  label="End Date"
+                  name="endDate"
+                  control={control}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextInputController
                   label="Total revenue"
-                  placeholder="1000000,00"
-                  value={totalRevenue}
-                  onChange={({ target: { value } }) => {
-                    setCurrentStatementOfWork({
-                      ...currentStatementOfWork,
-                      totalRevenue: value,
-                    });
-                  }}
+                  placeholder="Total revenue"
+                  name="totalRevenue"
+                  control={control}
+                  required
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Autocomplete
-                  label={"Contract model"}
-                  value={modelObject}
-                  getOptionLabel={(option: any) => option.name}
-                  isOptionEqualToValue={(option: any, value: any) =>
-                    option.id == value.id
-                  }
+              <Grid item xs={12} md={6}>
+                <AutocompleteController
+                  label="Contract Model"
+                  name="contractModel.contractModelType"
                   options={modelOptions}
-                  onChange={(value: any) => {
-                    let finalId = contractModelId;
-                    const { id: optionId } = value;
-                    if (optionId != contractModelType) {
-                      finalId = undefined;
+                  control={control}
+                  getOptionLabel={(
+                    option: string | { id: string; name: string }
+                  ) => {
+                    if (typeof option === "string") {
+                      return modelOptions.find((model) => model.id === option)
+                        ?.name;
+                    } else {
+                      return option.name;
+                    }
+                  }}
+                  isOptionEqualToValue={(
+                    option: { id: string; name: string },
+                    value: string | { id: string; name: string }
+                  ) => {
+                    if (typeof value === "string") {
+                      return option.id === value;
+                    } else {
+                      return option.id == value.id;
+                    }
+                  }}
+                  processSelectedValue={(selectedValue: Option | string) => {
+                    if (typeof selectedValue === "string") {
+                      return selectedValue;
                     }
 
-                    setCurrentStatementOfWork({
-                      ...currentStatementOfWork,
-                      contractModel: {
-                        ...contractModel,
-                        contractModelType: optionId,
-                        id: finalId,
-                      },
-                    });
+                    return selectedValue.id;
                   }}
+                  required
                 />
               </Grid>
-
               <ContractModel
-                contractModel={contractModel!}
-                onChange={(
-                  key: string,
-                  value: string | number | undefined | boolean
-                ) => {
-                  setCurrentStatementOfWork({
-                    ...currentStatementOfWork,
-                    contractModel: {
-                      ...contractModel,
-                      [key]: value,
-                    },
-                  });
-                }}
+                contractModelType={contractModelType!}
+                control={control}
               />
-
-              <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-                <Box
-                  display="flex"
-                  justifyContent={{ md: "flex-end" }}
-                  alignItems="center"
-                  lineHeight={1}
-                >
-                  <Button
-                    variant="gradient"
-                    color="dark"
-                    size="small"
-                    onClick={() => onSave(currentStatementOfWork)}
-                  >
-                    Save
-                  </Button>
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
+            </>
+          </Form>
         </Card>
       </Grid>
     </FormLayout>
   );
-}
+};
 
-export default StatementOfWorkComponent;
+export default StatementOfWorkForm;

@@ -19,12 +19,7 @@ function CustomerForm({ customer, onSave }: Props): JSX.Element {
         <Header customer={customer} />
       </Grid>
       <Grid item xs={12}>
-        <BasicInfo
-          customer={customer}
-          onSave={(customer: Customer) => {
-            onSave(customer);
-          }}
-        />
+        <BasicInfo customer={customer} onSave={onSave} />
       </Grid>
     </FormLayout>
   );

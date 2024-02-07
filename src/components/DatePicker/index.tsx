@@ -24,13 +24,14 @@ interface Props {
   input?: {
     [key: string]: any;
   };
+  mode?: "single" | "multiple" | "range" | "time";
 }
 
-function MDDatePicker({ input, ...rest }: Props): JSX.Element {
+function MDDatePicker({ input, mode = "range", ...rest }: Props): JSX.Element {
   return (
     <Flatpickr
       options={{
-        mode: "range",
+        mode: mode,
       }}
       {...rest}
       render={({ defaultValue, label }: any, ref: any) => (
