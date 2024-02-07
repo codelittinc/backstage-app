@@ -1,4 +1,4 @@
-export interface StatementOfWork {
+export type StatementOfWork = {
   contractModel?: ContractModel;
   endDate: string;
   id?: number | string;
@@ -6,9 +6,9 @@ export interface StatementOfWork {
   projectId: number | string;
   startDate: string;
   totalRevenue: number;
-}
+};
 
-export interface ContractModel {
+export type ContractModel = {
   accumulateHours?: boolean;
   allowOverflow?: boolean;
   chargeUpfront?: boolean;
@@ -23,4 +23,4 @@ export interface ContractModel {
   limitBy?: string;
   managementFactor?: number;
   revenuePerPeriod?: number;
-}
+};

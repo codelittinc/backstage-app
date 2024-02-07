@@ -1,50 +1,42 @@
-import { Box, Grid, Switch, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
+import { Control } from "react-hook-form";
 
-import { ContractModel } from "@/app/_domain/interfaces/StatementOfWork";
-import FormField from "@/components/FormField";
+import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
+import SwitchController from "@/components/Form/FieldControllers/SwitchController";
+import TextInputController from "@/components/Form/FieldControllers/TextInputController";
 
 interface Props {
-  contractModel: ContractModel;
-  onChange: (key: string, value: string | number | boolean | undefined) => void;
+  control: Control<StatementOfWork>;
 }
 
-const RetainerContractModel = ({ contractModel, onChange }: Props) => {
-  const { chargeUpfront, expectedHoursPerPeriod, revenuePerPeriod } =
-    contractModel;
-
+const RetainerContractModel = ({ control }: Props) => {
   return (
     <>
       <Grid item xs={12}>
-        <Box display="flex" alignItems="center">
-          <Typography variant="caption" fontWeight="regular">
-            Charge Upfront
-          </Typography>
-          <Switch
-            checked={chargeUpfront}
-            onChange={(event) =>
-              onChange("chargeUpfront", event.target.checked)
-            }
-          />
-        </Box>
-      </Grid>
-      <Grid item xs={12}>
-        <FormField
-          label="Expected Hours per Period"
-          type="number"
-          value={expectedHoursPerPeriod || ""}
-          onChange={({ target: { value } }) => {
-            onChange("expectedHoursPerPeriod", parseFloat(value));
-          }}
+        <SwitchController
+          name="contractModel.chargeUpfront"
+          label="Charge upfront"
+          control={control}
         />
       </Grid>
       <Grid item xs={12}>
-        <FormField
-          label="Revenue per Period"
+        <TextInputController
+          name="contractModel.expectedHoursPerPeriod"
+          label="Expected hours per period"
+          placeholder="1000"
           type="number"
-          value={revenuePerPeriod || ""}
-          onChange={({ target: { value } }) => {
-            onChange("revenuePerPeriod", parseFloat(value));
-          }}
+          control={control}
+          required
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextInputController
+          type="number"
+          name="contractModel.revenuePerPeriod"
+          label="Revenue per period"
+          placeholder="100000"
+          control={control}
+          required
         />
       </Grid>
     </>

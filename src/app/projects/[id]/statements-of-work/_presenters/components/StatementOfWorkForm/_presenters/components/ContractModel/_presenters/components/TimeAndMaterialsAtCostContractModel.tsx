@@ -1,74 +1,78 @@
-import { Box, Grid, Switch, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
+import { Control } from "react-hook-form";
 
-import { ContractModel } from "@/app/_domain/interfaces/StatementOfWork";
-import Autocomplete from "@/components/Autocomplete";
-import FormField from "@/components/FormField";
+import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
+import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
+import { Option } from "@/components/Form/FieldControllers/AutocompleteController";
+import SwitchController from "@/components/Form/FieldControllers/SwitchController";
+import TextInputController from "@/components/Form/FieldControllers/TextInputController";
 
 interface Props {
-  contractModel: ContractModel;
-  onChange: (key: string, value: string | number | boolean | undefined) => void;
+  control: Control<StatementOfWork>;
 }
 
-const TimeAndMaterialsAtCostContractModel = ({
-  contractModel,
-  onChange,
-}: Props) => {
-  const { allowOverflow, hoursAmount, limitBy, managementFactor } =
-    contractModel;
-
+const TimeAndMaterialsAtCostContractModel = ({ control }: Props) => {
   const limitByOptions = [
     { id: "contract_size", name: "Contract Size" },
     { id: "hours", name: "Number of hours" },
   ];
 
-  const limitByObject = limitByOptions.find((option) => option.id === limitBy);
   return (
     <>
       <Grid item xs={12}>
-        <Box display="flex" alignItems="center">
-          <Typography variant="caption" fontWeight="regular">
-            Allow Overflow
-          </Typography>
-          <Switch
-            checked={allowOverflow}
-            onChange={(event) =>
-              onChange("allowOverflow", event.target.checked)
-            }
-          />
-        </Box>
+        <SwitchController
+          name="contractModel.allowOverflow"
+          label="Allow Overflow"
+          control={control}
+        />
       </Grid>
       <Grid item xs={12}>
-        <FormField
+        <TextInputController
+          name="contractModel.hoursAmount"
           label="Hours Amount"
+          control={control}
           type="number"
-          value={hoursAmount || ""}
-          onChange={({ target: { value } }) => {
-            onChange("hoursAmount", parseFloat(value));
-          }}
         />
       </Grid>
       <Grid item xs={12}>
-        <Autocomplete
-          label={"Limit by"}
-          value={limitByObject}
-          getOptionLabel={(option: any) => option.name}
-          isOptionEqualToValue={(option: any, value: any) =>
-            option.id == value.id
-          }
+        <AutocompleteController
+          label="Limit by"
+          name="contractModel.limitBy"
           options={limitByOptions}
-          onChange={(value: any) => {
-            onChange("limitBy", value.id);
+          control={control}
+          getOptionLabel={(option: string | { id: string; name: string }) => {
+            if (typeof option === "string") {
+              return limitByOptions.find((model) => model.id === option)?.name;
+            } else {
+              return option.name;
+            }
           }}
+          isOptionEqualToValue={(
+            option: { id: string; name: string },
+            value: string | { id: string; name: string }
+          ) => {
+            if (typeof value === "string") {
+              return option.id === value;
+            } else {
+              return option.id == value.id;
+            }
+          }}
+          processSelectedValue={(selectedValue: Option | string) => {
+            if (typeof selectedValue === "string") {
+              return selectedValue;
+            }
+
+            return selectedValue.id;
+          }}
+          required
         />
       </Grid>
       <Grid item xs={12}>
-        <FormField
-          label="Management Factor"
+        <TextInputController
+          name="contractModel.managementFactor"
+          label="Management factor"
           type="number"
-          value={managementFactor || ""}
-          onChange={({ target: { value } }) => {
-            onChange("managementFactor", parseFloat(value));
-          }}
+          control={control}
         />
       </Grid>
     </>

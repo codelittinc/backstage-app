@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
+import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 import { toUSD } from "@/app/_presenters/utils/finances";
 import Button from "@/components/Button";
 import DataTable from "@/components/DataTable";
@@ -11,7 +12,6 @@ import Loading from "@/components/Loading";
 import routes from "@/routes";
 
 import useStatementsOfWorkController from "../../controllers/useStatementsOfWorkController";
-import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 
 interface Props {
   project: Project;

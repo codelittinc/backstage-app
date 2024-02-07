@@ -1,4 +1,6 @@
-import { ContractModel } from "@/app/_domain/interfaces/StatementOfWork";
+import { Control } from "react-hook-form";
+
+import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 
 import FixedBidContractModel from "./_presenters/components/FixedBidContractModel";
 import MaintenanceContractModel from "./_presenters/components/MaintenanceContractModel";
@@ -7,30 +9,34 @@ import TimeAndMaterialsAtCostContractModel from "./_presenters/components/TimeAn
 import TimeAndMaterialsContractModel from "./_presenters/components/TimeAndMaterialsContractModel";
 
 interface Props {
-  contractModel: ContractModel;
-  onChange: (key: string, value: string | number | undefined | boolean) => void;
+  contractModelType: string;
+  control: Control<StatementOfWork>;
 }
 
-const modelOptions = [
-  {
-    id: "TimeAndMaterialsAtCostContractModel",
-    component: TimeAndMaterialsAtCostContractModel,
-  },
-  {
-    id: "TimeAndMaterialsContractModel",
-    component: TimeAndMaterialsContractModel,
-  },
-  { id: "MaintenanceContractModel", component: MaintenanceContractModel },
-  { id: "FixedBidContractModel", component: FixedBidContractModel },
-  { id: "RetainerContractModel", component: RetainerContractModel },
-];
+const ContractModel = ({ contractModelType, control }: Props) => {
+  let Component;
 
-const ContractModel = ({ contractModel, onChange }: Props) => {
-  const Component = modelOptions.find(
-    (model) => model.id === contractModel.contractModelType
-  )?.component;
+  switch (contractModelType) {
+    case "TimeAndMaterialsAtCostContractModel":
+      Component = TimeAndMaterialsAtCostContractModel;
+      break;
+    case "TimeAndMaterialsContractModel":
+      Component = TimeAndMaterialsContractModel;
+      break;
+    case "MaintenanceContractModel":
+      Component = MaintenanceContractModel;
+      break;
+    case "FixedBidContractModel":
+      Component = FixedBidContractModel;
+      break;
+    case "RetainerContractModel":
+      Component = RetainerContractModel;
+      break;
+    default:
+      return null;
+  }
 
-  return <Component contractModel={contractModel} onChange={onChange} />;
+  return <Component control={control} />;
 };
 
 export default ContractModel;

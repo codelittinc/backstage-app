@@ -1,98 +1,75 @@
-import { Box, Grid, Switch } from "@mui/material";
+import { Grid } from "@mui/material";
+import { Control } from "react-hook-form";
 
-import { ContractModel } from "@/app/_domain/interfaces/StatementOfWork";
-import Autocomplete from "@/components/Autocomplete";
-import FormField from "@/components/FormField";
-import Typography from "@/components/Typography";
+import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
+import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
+import SwitchController from "@/components/Form/FieldControllers/SwitchController";
+import TextInputController from "@/components/Form/FieldControllers/TextInputController";
 
 interface Props {
-  contractModel: ContractModel;
-  onChange: (key: string, value: string | number | boolean | undefined) => {};
+  control: Control<StatementOfWork>;
 }
 
-const MaintenanceContractModel = ({ contractModel, onChange }: Props) => {
-  const {
-    accumulateHours,
-    chargeUpfront,
-    deliveryPeriod,
-    expectedHoursPerPeriod,
-    hourlyCost,
-    revenuePerPeriod,
-  } = contractModel;
-  const deliveryPeriodOptions = [
-    { id: "weekly", name: "Weekly" },
-    { id: "monthly", name: "Monthly" },
-  ];
-  const deliveryPeriodObject = deliveryPeriodOptions.find(
-    (period) => period.id === deliveryPeriod
-  );
+const MaintenanceContractModel = ({ control }: Props) => {
+  const deliveryPeriodOptions = ["weekly", "monthly"];
+
   return (
     <>
       <Grid item xs={12}>
-        <Autocomplete
-          label={"Delivery period"}
-          value={deliveryPeriodObject}
-          getOptionLabel={(option: any) => option.name}
-          isOptionEqualToValue={(option: any, value: any) =>
-            option.id == value.id
-          }
+        <AutocompleteController
+          label="Delivery period"
+          name="contractModel.deliveryPeriod"
           options={deliveryPeriodOptions}
-          onChange={(value: any) => {
-            onChange("deliveryPeriod", value.id);
+          control={control}
+          getOptionLabel={(option: string | { id: string; name: string }) => {
+            return option;
           }}
+          isOptionEqualToValue={(
+            option: { id: string; name: string },
+            value: string | { id: string; name: string }
+          ) => {
+            return option == value;
+          }}
+          required
         />
       </Grid>
       <Grid item xs={12}>
-        <FormField
+        <TextInputController
+          name="contractModel.expectedHoursPerPeriod"
           label="Expected hours per period"
           placeholder="100"
-          value={expectedHoursPerPeriod}
-          onChange={({ target: { value } }) => {
-            onChange("expectedHoursPerPeriod", value);
-          }}
+          control={control}
         />
       </Grid>
       <Grid item xs={12}>
-        <FormField
+        <TextInputController
+          name="contractModel.hourlyCost"
           label="Hourly cost"
           placeholder="140"
-          value={hourlyCost}
-          onChange={({ target: { value } }) => {
-            onChange("hourlyCost", value);
-          }}
+          control={control}
         />
       </Grid>
       <Grid item xs={12}>
-        <FormField
+        <TextInputController
+          name="contractModel.revenuePerPeriod"
           label="Revenue per period"
           placeholder="100000"
-          value={revenuePerPeriod}
-          onChange={({ target: { value } }) => {
-            onChange("revenuePerPeriod", value);
-          }}
+          control={control}
         />
       </Grid>
       <Grid item xs={6}>
-        <Box display="flex" alignItems="center">
-          <Typography variant="caption" fontWeight="regular">
-            Accumulate hours
-          </Typography>
-          <Switch
-            checked={accumulateHours}
-            onChange={() => onChange("accumulateHours", !accumulateHours)}
-          />
-        </Box>
+        <SwitchController
+          name="contractModel.accumulateHours"
+          label="Accumulate hours"
+          control={control}
+        />
       </Grid>
       <Grid item xs={6}>
-        <Box display="flex" alignItems="center">
-          <Typography variant="caption" fontWeight="regular">
-            Charge upfront
-          </Typography>
-          <Switch
-            checked={chargeUpfront}
-            onChange={() => onChange("chargeUpfront", !chargeUpfront)}
-          />
-        </Box>
+        <SwitchController
+          name="contractModel.chargeUpfront"
+          label="Charge upfront"
+          control={control}
+        />
       </Grid>
     </>
   );

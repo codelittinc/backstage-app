@@ -16,7 +16,11 @@ function Page() {
     return <Loading />;
   }
   return (
-    <StatementOfWorkForm statementOfWork={statementOfWork!} onSave={onSave} />
+    <StatementOfWorkForm
+      statementOfWork={statementOfWork!}
+      projectId={id as string}
+      onSave={onSave}
+    />
   );
 }
 
