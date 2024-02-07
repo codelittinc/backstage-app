@@ -3,13 +3,19 @@ import useProjectsController from "@/app/projects/_presenters/controllers/usePro
 import useChannelsController from "./useChannelsController";
 
 const useRepositoryFormBasicInfoController = (
-  customer: Customer | undefined
+  projectId: number | undefined
 ) => {
-  const { channels, isLoading: isChannelsLoading } =
-    useChannelsController(customer);
-
   const { projects, isLoading: isProjectsLoading } =
     useProjectsController(false);
+
+  const finaltProjectId = projectId || projects?.[0]?.id;
+
+  const customer = projects?.find(
+    (p: Project) => p.id === finaltProjectId
+  )?.customer;
+
+  const { channels, isLoading: isChannelsLoading } =
+    useChannelsController(customer);
 
   return {
     channels: channels,
