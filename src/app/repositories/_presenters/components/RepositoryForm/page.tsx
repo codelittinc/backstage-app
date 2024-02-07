@@ -10,35 +10,24 @@ import Header from "./_presenters/components/Header";
 import useRepositoryFormController from "./_presenters/controllers/useRepositoryFormController";
 import { Repository } from "../../../_domain/interfaces/Repository";
 
-function RepositoryForm({
-  repository,
-}: {
-  repository: Repository;
-}): JSX.Element {
+type Props = {
+  repository?: Repository;
+};
+function RepositoryForm({ repository }: Props): JSX.Element {
   const { onSave } = useRepositoryFormController();
-
-  const [currentRepository, updateCurrentRepository] = useState(repository);
-
-  useEffect(() => {
-    updateCurrentRepository(repository);
-  }, [repository]);
 
   return (
     <FormLayout>
       <Grid item xs={12}>
-        <Header repository={currentRepository} />
+        <Header repository={repository} />
       </Grid>
       <Grid item xs={12}>
-        <BasicInfo
-          repository={currentRepository}
-          onChange={updateCurrentRepository}
-          onSave={() => onSave(currentRepository as Repository)}
-        />
+        <BasicInfo repository={repository} onSave={onSave} />
       </Grid>
       <>
         {!!repository?.id && (
           <Grid item xs={12}>
-            <Applications repository={currentRepository as Repository} />
+            <Applications repository={repository as Repository} />
           </Grid>
         )}
       </>

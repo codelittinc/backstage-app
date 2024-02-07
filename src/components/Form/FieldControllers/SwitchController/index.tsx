@@ -7,6 +7,7 @@ import Typography from "@/components/Typography";
 type Props<T extends FieldValues> = {
   control: Control<T>;
   label: string;
+  labelPosition?: "left" | "right";
   name: Path<T>;
   required?: boolean;
 } & SwitchProps;
@@ -16,6 +17,7 @@ const SwitchController = <T extends FieldValues>({
   control,
   required,
   label,
+  labelPosition = "left",
   ...rest
 }: Props<T>) => (
   <Controller
@@ -25,11 +27,16 @@ const SwitchController = <T extends FieldValues>({
       required: required && "This field is required",
     }}
     render={({ field: { onChange, value }, fieldState: { error } }) => {
+      const labelLeft = labelPosition === "left";
+      const labelElement = (
+        <Typography variant="caption" fontWeight="regular">
+          {label}
+        </Typography>
+      );
+
       return (
         <Box display="flex" alignItems="center" lineHeight={1}>
-          <Typography variant="caption" fontWeight="regular">
-            {label}
-          </Typography>
+          {labelLeft && labelElement}
           <Box ml={1}></Box>
           <Switch
             checked={value}
@@ -38,6 +45,7 @@ const SwitchController = <T extends FieldValues>({
             }}
             {...rest}
           />
+          {!labelLeft && labelElement}
         </Box>
       );
     }}

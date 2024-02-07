@@ -6,8 +6,20 @@ import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
-function Header({ repository }: { repository: Repository }): JSX.Element {
-  const { owner, name, sourceControlType } = repository;
+type Props = {
+  repository?: Repository;
+};
+
+function Header({ repository }: Props): JSX.Element {
+  const name = repository?.name;
+  const sourceControlType = repository?.sourceControlType;
+  const slug = repository?.slug;
+  const owner = repository?.owner;
+
+  const nameDescription = repository ? `${owner}/${name}` : "owner/new-project";
+  const ownerDescription = sourceControlType
+    ? sourceControlType?.charAt(0)?.toUpperCase() + sourceControlType?.slice(1)
+    : "Owner";
 
   return (
     <Card id="profile">
@@ -15,7 +27,7 @@ function Header({ repository }: { repository: Repository }): JSX.Element {
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <Avatar
-              src={`https://picsum.photos/seed/${repository.slug}/200/300`}
+              src={`https://picsum.photos/seed/${slug}/200/300`}
               alt="profile-image"
               size="xl"
               shadow="sm"
@@ -24,11 +36,10 @@ function Header({ repository }: { repository: Repository }): JSX.Element {
           <Grid item>
             <Box height="100%" mt={0.5} lineHeight={1}>
               <Typography variant="h5" fontWeight="medium">
-                {owner}/{name}
+                {nameDescription}
               </Typography>
               <Typography variant="button" color="text" fontWeight="medium">
-                {sourceControlType?.charAt(0)?.toUpperCase() +
-                  sourceControlType?.slice(1)}
+                {ownerDescription}
               </Typography>
             </Box>
           </Grid>
