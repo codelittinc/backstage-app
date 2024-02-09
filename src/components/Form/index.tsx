@@ -33,12 +33,7 @@ function Form({ onSave, children }: Props): JSX.Element {
           >
             Cancel
           </Button>
-          <Button
-            variant="gradient"
-            color="info"
-            size="small"
-            onClick={() => onSave()}
-          >
+          <Button variant="gradient" color="info" size="small" onClick={onSave}>
             Save
           </Button>
         </Grid>

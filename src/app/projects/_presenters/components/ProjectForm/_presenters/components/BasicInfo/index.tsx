@@ -81,34 +81,7 @@ const BasicInfo: React.FC<Props> = ({ project, onSave }) => {
               name="slackChannel"
               options={channels}
               control={control}
-              getOptionLabel={(option: string | Channel) => {
-                if (typeof option === "string") {
-                  return channels.find(
-                    (channel: Channel) => channel.id === option
-                  )?.name;
-                } else {
-                  return option.name;
-                }
-              }}
-              isOptionEqualToValue={(
-                option: Channel,
-                value: string | Channel
-              ) => {
-                if (typeof value === "string") {
-                  return option.id === value;
-                } else {
-                  return option.id == value.id;
-                }
-              }}
-              processSelectedValue={(
-                selectedValue: { id: number } | string
-              ) => {
-                if (typeof selectedValue === "string") {
-                  return selectedValue;
-                }
-
-                return selectedValue.id;
-              }}
+              withObjectValue={false}
               required
             />
           </Grid>
