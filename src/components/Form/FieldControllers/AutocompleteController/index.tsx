@@ -10,10 +10,8 @@ type Props<T extends FieldValues> = {
   label: string;
   name: Path<T>;
   options: { id: number | string; name: string }[] | string[];
-  processSelectedValue?: (
-    selectedValue: Option | string
-  ) => Option | string | number;
   required?: boolean;
+  withObjectValue?: boolean;
 };
 
 const AutocompleteController = <T extends FieldValues>({
@@ -21,7 +19,7 @@ const AutocompleteController = <T extends FieldValues>({
   control,
   required,
   options,
-  processSelectedValue,
+  withObjectValue = true,
   ...rest
 }: Props<T>) => (
   <Controller
@@ -33,18 +31,38 @@ const AutocompleteController = <T extends FieldValues>({
     render={({ field: { onChange, value }, fieldState: { error } }) => {
       return (
         <Autocomplete
-          isOptionEqualToValue={(option: T, value: T) => option.id === value.id}
+          isOptionEqualToValue={(option: T, value: T) => {
+            const isOptionObject = typeof option === "object";
+            const isValueObject = typeof value === "object";
+
+            if (!isValueObject && typeof option === "object") {
+              return option.id === value;
+            } else if (!isValueObject && !isOptionObject) {
+              return option === value;
+            } else if (isValueObject && isOptionObject) {
+              return option.id === value.id;
+            }
+          }}
           options={options}
           helperText={error ? error.message : null}
-          onChange={(newValue: string | Option) => {
-            const processedValue = processSelectedValue
-              ? processSelectedValue(newValue)
-              : newValue;
-
-            onChange(processedValue);
+          onChange={(newValue: T) => {
+            const isValueObject = typeof newValue === "object";
+            let v = newValue;
+            if (!withObjectValue && isValueObject) {
+              v = newValue.id;
+            }
+            onChange(v);
           }}
-          value={value}
-          getOptionLabel={(option: T) => option.name}
+          value={value || null}
+          getOptionLabel={(option: T) => {
+            if (typeof option === "object") {
+              return option.name;
+            } else if (!withObjectValue) {
+              return options.find((op) => op.id === option)?.name;
+            }
+
+            return option;
+          }}
           required
           {...rest}
         />

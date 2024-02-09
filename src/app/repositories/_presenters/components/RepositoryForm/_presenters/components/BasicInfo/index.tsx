@@ -17,7 +17,6 @@ import Typography from "@/components/Typography";
 
 import useRepositoryFormBasicInfoController from "./_presenters/controllers/useRepositoryFormBasicInfoController";
 
-
 const getDefaultRepository = (projectId: number | undefined) => ({
   id: undefined,
   name: "",
@@ -66,9 +65,7 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
     useRepositoryFormBasicInfoController(projectId);
 
   if (isLoading) return <Loading />;
-  if (!channels) return <></>;
 
-  console.log(repository);
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
       <Box p={3}>
@@ -81,32 +78,7 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
             name="projectId"
             options={projects}
             control={control}
-            getOptionLabel={(option: number | Project) => {
-              if (typeof option === "number") {
-                return projects.find(
-                  (project: Project) => project.id === option
-                )?.name;
-              } else {
-                return option.name;
-              }
-            }}
-            isOptionEqualToValue={(
-              option: Project,
-              value: number | Project
-            ) => {
-              if (typeof value === "number") {
-                return option.id === value;
-              } else {
-                return option.id == value.id;
-              }
-            }}
-            processSelectedValue={(selectedValue: Option | number) => {
-              if (typeof selectedValue === "number") {
-                return selectedValue;
-              }
-
-              return selectedValue.id;
-            }}
+            withObjectValue={false}
             required
           />
         </Grid>
@@ -135,9 +107,7 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
             options={["github", "azure"]}
             control={control}
             getOptionLabel={(option: string) => option}
-            isOptionEqualToValue={(option: string, value: string) =>
-              option === value
-            }
+            withObjectValue={false}
             required
           />
         </Grid>
@@ -188,32 +158,7 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
             name="slackRepositoryInfo.devChannel"
             options={channels}
             control={control}
-            getOptionLabel={(option: string | { id: string; name: string }) => {
-              if (typeof option === "string") {
-                return channels.find(
-                  (channel: Channel) => channel.id === option
-                )?.name;
-              } else {
-                return option.name;
-              }
-            }}
-            isOptionEqualToValue={(
-              option: { id: string; name: string },
-              value: string | { id: string; name: string }
-            ) => {
-              if (typeof value === "string") {
-                return option.id === value;
-              } else {
-                return option.id == value.id;
-              }
-            }}
-            processSelectedValue={(selectedValue: Option | string) => {
-              if (typeof selectedValue === "string") {
-                return selectedValue;
-              }
-
-              return selectedValue.id;
-            }}
+            withObjectValue={false}
             required
           />
         </Grid>
@@ -223,32 +168,7 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
             name="slackRepositoryInfo.deployChannel"
             options={channels}
             control={control}
-            getOptionLabel={(option: string | { id: string; name: string }) => {
-              if (typeof option === "string") {
-                return channels.find(
-                  (channel: Channel) => channel.id === option
-                )?.name;
-              } else {
-                return option.name || "";
-              }
-            }}
-            isOptionEqualToValue={(
-              option: { id: string; name: string },
-              value: string | { id: string; name: string }
-            ) => {
-              if (typeof value === "string") {
-                return option.id === value;
-              } else {
-                return option.id == value.id;
-              }
-            }}
-            processSelectedValue={(selectedValue: Option | string) => {
-              if (typeof selectedValue === "string") {
-                return selectedValue;
-              }
-
-              return selectedValue.id;
-            }}
+            withObjectValue={false}
             required
           />
         </Grid>
@@ -258,32 +178,7 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
             name="slackRepositoryInfo.feedChannel"
             options={channels}
             control={control}
-            getOptionLabel={(option: string | { id: string; name: string }) => {
-              if (typeof option === "string") {
-                return channels.find(
-                  (channel: Channel) => channel.id === option
-                )?.name;
-              } else {
-                return option.name;
-              }
-            }}
-            isOptionEqualToValue={(
-              option: { id: string; name: string },
-              value: string | { id: string; name: string }
-            ) => {
-              if (typeof value === "string") {
-                return option.id === value;
-              } else {
-                return option.id == value.id;
-              }
-            }}
-            processSelectedValue={(selectedValue: Option | string) => {
-              if (typeof selectedValue === "string") {
-                return selectedValue;
-              }
-
-              return selectedValue.id;
-            }}
+            withObjectValue={false}
             required
           />
         </Grid>
