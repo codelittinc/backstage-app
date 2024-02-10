@@ -10,10 +10,10 @@ export interface Repository {
   owner: string;
   projectId?: number;
   slackRepositoryInfo?: {
-    deployChannel: string;
-    devChannel: string;
-    devGroup: string;
-    feedChannel: string;
+    deployChannel?: string;
+    devChannel?: string;
+    devGroup?: string;
+    feedChannel?: string;
     id?: number;
   };
   slug?: string;
