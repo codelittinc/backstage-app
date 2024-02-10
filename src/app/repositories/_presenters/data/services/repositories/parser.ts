@@ -1,7 +1,43 @@
-import { ApiRepository } from "@/app/repositories/_domain/interfaces/ApiRepository";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 
-export function fromApiParser(repository: ApiRepository): Repository {
+type slackRepositoryInfoPayload = {
+  deploy_channel?: string;
+  dev_channel?: string;
+  dev_group?: string;
+  feed_channel?: string;
+  id?: number;
+};
+
+type RepositoryPayload = {
+  active: boolean;
+  applications?:
+    | {
+        environment: string;
+        id: number;
+        server?:
+          | {
+              active: boolean;
+              id: number;
+              link: string;
+              supports_health_check: boolean;
+            }
+          | undefined;
+      }[]
+    | undefined;
+  base_branch: string;
+  deploy_type: string;
+  external_project_id?: number;
+  id: number;
+  name: string;
+  owner: string;
+  slack_repository_info: slackRepositoryInfoPayload;
+  slug?: string;
+  source_control_type: string;
+  supports_deploy: boolean;
+  filter_pull_requests_by_base_branch: boolean;
+};
+
+export function fromApiParser(repository: RepositoryPayload): Repository {
   return {
     id: repository.id,
     name: repository.name,
@@ -37,22 +73,26 @@ export function fromApiParser(repository: ApiRepository): Repository {
   };
 }
 
-export function toApiParser(repository: Repository): ApiRepository {
+type RepositoryPayloadToApi = Omit<
+  RepositoryPayload,
+  "slack_repository_info"
+> & { slack_repository_info_attributes: slackRepositoryInfoPayload };
+
+export function toApiParser(repository: Repository): RepositoryPayloadToApi {
   return {
-    id: repository.id!,
+    id: repository.id as number,
     name: repository.name,
     owner: repository.owner,
     active: repository.active,
-    slug: repository.slug,
     source_control_type: repository.sourceControlType,
     base_branch: repository.baseBranch,
     supports_deploy: repository.supportsDeploy,
     slack_repository_info_attributes: {
       id: repository.slackRepositoryInfo?.id,
-      dev_channel: repository.slackRepositoryInfo.devChannel,
-      deploy_channel: repository.slackRepositoryInfo.deployChannel,
-      feed_channel: repository.slackRepositoryInfo.feedChannel,
-      dev_group: repository.slackRepositoryInfo.devGroup,
+      dev_channel: repository.slackRepositoryInfo?.devChannel,
+      deploy_channel: repository.slackRepositoryInfo?.deployChannel,
+      feed_channel: repository.slackRepositoryInfo?.feedChannel,
+      dev_group: repository.slackRepositoryInfo?.devGroup,
     },
     filter_pull_requests_by_base_branch:
       repository.filterPullRequestsByBaseBranch,
