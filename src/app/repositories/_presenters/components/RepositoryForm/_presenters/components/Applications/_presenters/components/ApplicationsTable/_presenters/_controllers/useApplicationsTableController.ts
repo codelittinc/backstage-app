@@ -2,10 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
-
-import { deleteApplication } from "../../../../../_data/services/applications";
-import { APPLICATIONS_KEY } from "../../../../../_domain/constants";
-
+import { APPLICATIONS_KEY } from "@/app/_domain/constants";
+import { deleteApplication } from "@/app/repositories/_presenters/data/services/applications";
 
 interface Props {
   repository: Repository;
