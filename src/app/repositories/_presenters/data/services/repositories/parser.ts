@@ -27,6 +27,7 @@ type RepositoryPayload = {
   base_branch: string;
   deploy_type: string;
   external_project_id?: number;
+  filter_pull_requests_by_base_branch: boolean;
   id: number;
   name: string;
   owner: string;
@@ -34,7 +35,6 @@ type RepositoryPayload = {
   slug?: string;
   source_control_type: string;
   supports_deploy: boolean;
-  filter_pull_requests_by_base_branch: boolean;
 };
 
 export function fromApiParser(repository: RepositoryPayload): Repository {

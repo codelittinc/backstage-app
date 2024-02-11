@@ -49,10 +49,10 @@ function SlackUserAccountForm({
                 getOptionLabel={(option) => option.name}
                 isOptionEqualToValue={(option, value) => option.id == value.id}
                 onChange={(value: Customer) => {
-                  return {
+                  onChange({
                     ...serviceIdentifier,
                     customer: value,
-                  };
+                  });
                 }}
                 options={customers}
               />

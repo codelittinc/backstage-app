@@ -1,6 +1,7 @@
 import { Icon } from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import { useRouter } from "next/navigation";
 
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
@@ -8,11 +9,10 @@ import Box from "@/components/Box";
 import Button from "@/components/Button";
 import Loading from "@/components/Loading";
 import Typography from "@/components/Typography";
+import routes from "@/routes";
 
 import ApplicationsTable from "./_presenters/components/ApplicationsTable";
 import useApplicationsController from "./_presenters/controllers/useApplicationsController";
-import { useRouter } from "next/navigation";
-import routes from "@/routes";
 
 type Props = {
   repository: Repository;
