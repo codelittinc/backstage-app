@@ -1,27 +1,53 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 
-import Profession from "@/app/_domain/interfaces/Profession";
 import { User } from "@/app/_domain/interfaces/User";
 import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
-import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
-import Button from "@/components/Button";
-import FormField from "@/components/FormField";
 import Loading from "@/components/Loading";
 import ProtectedComponent from "@/components/ProtectedComponent";
 import Typography from "@/components/Typography";
 import { abilities, targets } from "@/permissions";
+import { useForm, useWatch } from "react-hook-form";
+import Form from "@/components/Form";
+import TextInputController from "@/components/Form/FieldControllers/TextInputController";
+import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
+import SwitchController from "@/components/Form/FieldControllers/SwitchController";
+import { mergeObjects } from "@/app/_presenters/utils/objects";
+import Profession from "@/app/_domain/interfaces/Profession";
 
 interface Props {
-  onChange: (user: User) => void;
   onSave: (user: User) => void;
-  user: User;
+  user?: User;
 }
 
-function BasicInfo({ user, onSave, onChange }: Props): JSX.Element {
+const getDefaultUser = (professions: Profession[]) => ({
+  email: "",
+  firstName: "",
+  lastName: "",
+  country: "",
+  fullName: "",
+  internal: false,
+  googleId: "",
+  imageUrl: "",
+  profession: professions ? professions[0] : undefined,
+  active: true,
+});
+
+function BasicInfo({ user, onSave }: Props): JSX.Element {
   const { professions, isLoading } = useProfessionsController();
-  if (isLoading) {
+
+  const defaultValues = mergeObjects(
+    getDefaultUser(professions || []),
+    user || {}
+  );
+
+  const { handleSubmit, control } = useForm<User>({
+    defaultValues,
+  });
+
+  const internal = useWatch({ control, name: "internal" });
+  if (isLoading || !professions) {
     return <Loading />;
   }
 
@@ -30,147 +56,88 @@ function BasicInfo({ user, onSave, onChange }: Props): JSX.Element {
       <Box p={3}>
         <Typography variant="h5">Basic Info</Typography>
       </Box>
-      <Box component="form" pb={3} px={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <FormField
-              label="Email"
-              placeholder="your.name@codelitt.com"
-              value={user?.email}
-              onChange={({ target: { value } }) => {
-                onChange({
-                  ...user,
-                  email: value,
-                });
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <FormField
-              label="First Name"
-              placeholder="Alec"
-              value={user?.firstName}
-              onChange={({ target: { value } }) => {
-                onChange({
-                  ...user,
-                  firstName: value,
-                });
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <FormField
-              label="Last Name"
-              placeholder="Thompson"
-              value={user?.lastName}
-              onChange={({ target: { value } }) => {
-                onChange({
-                  ...user,
-                  lastName: value,
-                });
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={3}>
-                <Autocomplete
-                  isOptionEqualToValue={(
-                    option: Profession,
-                    value: Profession
-                  ) => option.id == value.id}
-                  label="Profession"
-                  value={user.profession}
-                  getOptionLabel={(option) => option.name}
-                  options={professions!}
-                  onChange={(value: Profession) => {
-                    onChange({
-                      ...user,
-                      profession: value,
-                    });
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <Autocomplete
-                  label="Seniority"
-                  value={user?.seniority}
-                  options={["Junior", "Intern", "Midlevel", "Senior"]}
-                  onChange={(value: string) => {
-                    onChange({
-                      ...user,
-                      seniority: value,
-                    });
-                  }}
-                />
-              </Grid>
-              <ProtectedComponent
-                ability={abilities.change}
-                target={targets.finances}
-              >
-                <Grid item xs={12} sm={3}>
-                  <Autocomplete
-                    label="Contract type"
-                    value={user?.contractType}
-                    defaultValue="Hourly"
-                    options={["Salary", "Houly"]}
-                    onChange={(value: string) => {
-                      onChange({
-                        ...user,
-                        contractType: value,
-                      });
-                    }}
-                  />
-                </Grid>
-              </ProtectedComponent>
-              <Grid item xs={12} sm={3}>
-                <Autocomplete
-                  label="User type"
-                  value={user?.internal ? "Internal" : "External"}
-                  defaultValue="Internal"
-                  options={["Internal", "External"]}
-                  onChange={(value: string) => {
-                    onChange({
-                      ...user,
-                      internal: value == "Internal",
-                    });
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormField
-              label="Country"
-              placeholder="Australia"
-              value={user?.country || ""}
-              onChange={({ target: { value } }) => {
-                onChange({
-                  ...user,
-                  country: value,
-                });
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
-            <Box
-              display="flex"
-              justifyContent={{ md: "flex-end" }}
-              alignItems="center"
-              lineHeight={1}
-            >
-              <Button
-                variant="gradient"
-                color="dark"
-                size="small"
-                onClick={() => onSave(user)}
-              >
-                Save
-              </Button>
-            </Box>
-          </Grid>
+      <Form onSave={() => handleSubmit(onSave)()}>
+        <Grid item xs={12} md={6}>
+          <TextInputController
+            label="First name"
+            name="firstName"
+            control={control}
+            required
+          />
         </Grid>
-      </Box>
+        <Grid item xs={12} md={6}>
+          <TextInputController
+            label="Last name"
+            name="lastName"
+            control={control}
+            required
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextInputController
+            label="Email"
+            placeholder="email@codelitt.com"
+            name="email"
+            control={control}
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <SwitchController name="active" label="Active" control={control} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <SwitchController
+            name="internal"
+            label="Internal user?"
+            control={control}
+          />
+        </Grid>
+        {internal && (
+          <>
+            <Grid item xs={12} md={6}>
+              <AutocompleteController
+                label="Profession"
+                name="profession"
+                options={professions}
+                control={control}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <AutocompleteController
+                label="Seniority"
+                name="seniority"
+                options={["Junior", "Intern", "Midlevel", "Senior"]}
+                control={control}
+                required
+              />
+            </Grid>
+            <ProtectedComponent
+              ability={abilities.change}
+              target={targets.finances}
+            >
+              <Grid item xs={12} sm={6}>
+                <AutocompleteController
+                  label="Contract type"
+                  name="contractType"
+                  options={["Salary", "Houly"]}
+                  control={control}
+                  required
+                />
+              </Grid>
+            </ProtectedComponent>
+            <Grid item xs={12} md={6}>
+              <TextInputController
+                label="Country"
+                name="country"
+                placeholder="Australia"
+                control={control}
+                required
+              />
+            </Grid>
+          </>
+        )}
+      </Form>
     </Card>
   );
 }

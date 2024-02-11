@@ -14,7 +14,6 @@ import GithubUserAccountForm from "./_presenters/components/GithubUserAccountFor
 import SlackUserAccountForm from "./_presenters/components/SlackUserAccountForm";
 
 interface Props {
-  onChange: (user: User) => void;
   onSave: (user: User) => void;
   user: User;
 }
@@ -48,7 +47,7 @@ const getIdentifier = (
   };
 };
 
-function Accounts({ user, onSave, onChange }: Props): JSX.Element {
+function Accounts({ user, onSave }: Props): JSX.Element {
   const { customers, isLoading } = useCustomersController();
   const { servicesIdentifiers } = user;
 
