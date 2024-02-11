@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import Card from "@mui/material/Card";
+import { useForm, useWatch } from "react-hook-form";
 
 import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
 import { User } from "@/app/_domain/interfaces/User";
@@ -49,8 +50,15 @@ const getIdentifier = (
 
 function Accounts({ user, onSave }: Props): JSX.Element {
   const { customers, isLoading } = useCustomersController();
-  const { servicesIdentifiers } = user;
 
+  const { handleSubmit, control, setValue } = useForm<User>({
+    defaultValues: user,
+  });
+
+  const servicesIdentifiers = useWatch({
+    control,
+    name: "servicesIdentifiers",
+  });
   if (isLoading) {
     return <Loading />;
   }
@@ -95,9 +103,26 @@ function Accounts({ user, onSave }: Props): JSX.Element {
       newServiceIdentifiers = [...servicesIdentifiers, serviceIdentifier];
     }
 
-    onChange({
+    setValue("servicesIdentifiers", newServiceIdentifiers);
+  };
+
+  const onSubmit = (data: User) => {
+    const serviceIdentifiers = servicesIdentifiers?.map(
+      (servicesIdentifiers: ServiceIdentifier) => {
+        if (typeof servicesIdentifiers.id == "string") {
+          return {
+            ...servicesIdentifiers,
+            id: undefined,
+          };
+        }
+
+        return servicesIdentifiers;
+      }
+    );
+
+    onSave({
       ...user,
-      servicesIdentifiers: newServiceIdentifiers,
+      servicesIdentifiers: serviceIdentifiers,
     });
   };
 
@@ -139,23 +164,7 @@ function Accounts({ user, onSave }: Props): JSX.Element {
               color="dark"
               size="small"
               onClick={() => {
-                const serviceIdentifiers = user.servicesIdentifiers?.map(
-                  (servicesIdentifiers: ServiceIdentifier) => {
-                    if (typeof servicesIdentifiers.id == "string") {
-                      return {
-                        ...servicesIdentifiers,
-                        id: undefined,
-                      };
-                    }
-
-                    return servicesIdentifiers;
-                  }
-                );
-
-                onSave({
-                  ...user,
-                  servicesIdentifiers: serviceIdentifiers,
-                });
+                handleSubmit(onSubmit)();
               }}
             >
               Save

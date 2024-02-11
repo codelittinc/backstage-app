@@ -1,20 +1,20 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import { useForm, useWatch } from "react-hook-form";
 
+import Profession from "@/app/_domain/interfaces/Profession";
 import { User } from "@/app/_domain/interfaces/User";
 import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
+import { mergeObjects } from "@/app/_presenters/utils/objects";
 import Box from "@/components/Box";
+import Form from "@/components/Form";
+import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
+import SwitchController from "@/components/Form/FieldControllers/SwitchController";
+import TextInputController from "@/components/Form/FieldControllers/TextInputController";
 import Loading from "@/components/Loading";
 import ProtectedComponent from "@/components/ProtectedComponent";
 import Typography from "@/components/Typography";
 import { abilities, targets } from "@/permissions";
-import { useForm, useWatch } from "react-hook-form";
-import Form from "@/components/Form";
-import TextInputController from "@/components/Form/FieldControllers/TextInputController";
-import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
-import SwitchController from "@/components/Form/FieldControllers/SwitchController";
-import { mergeObjects } from "@/app/_presenters/utils/objects";
-import Profession from "@/app/_domain/interfaces/Profession";
 
 interface Props {
   onSave: (user: User) => void;
@@ -32,6 +32,7 @@ const getDefaultUser = (professions: Profession[]) => ({
   imageUrl: "",
   profession: professions ? professions[0] : undefined,
   active: true,
+  servicesIdentifiers: [],
 });
 
 function BasicInfo({ user, onSave }: Props): JSX.Element {

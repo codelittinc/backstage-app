@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
+import { APPLICATIONS_KEY } from "@/app/_domain/constants";
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
-import { APPLICATIONS_KEY } from "@/app/_domain/constants";
 import {
   getApplication,
   saveApplication,
 } from "@/app/repositories/_presenters/data/services/applications";
-import { useRouter } from "next/navigation";
 import routes from "@/routes";
 
 const useApplication = (
