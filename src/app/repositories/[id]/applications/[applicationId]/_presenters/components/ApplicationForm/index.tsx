@@ -1,22 +1,17 @@
-import { Switch } from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
-import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
-import Button from "@/components/Button";
 import Typography from "@/components/Typography";
 
-import ServerForm from "./_components/ServerForm";
-import LinksTable from "./_components/ServerForm/_components/LinksTable";
+import LinksTable from "./_components/LinksTable";
 import Form from "@/components/Form";
 import { useForm, useWatch } from "react-hook-form";
 import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
 import SwitchController from "@/components/Form/FieldControllers/SwitchController";
-import { useEffect, useState } from "react";
-import { set } from "date-fns";
 import TextInputController from "@/components/Form/FieldControllers/TextInputController";
+import { useEffect } from "react";
 
 type Props = {
   application: Application;
