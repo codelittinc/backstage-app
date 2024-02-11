@@ -2,19 +2,21 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import { Application } from "@/app/repositories/_domain/interfaces/Application";
-
+import { APPLICATIONS_KEY } from "@/app/_domain/constants";
 import {
   getApplication,
   saveApplication,
-} from "../../../../_data/services/applications";
-import { APPLICATIONS_KEY } from "../../../../_domain/constants";
+} from "@/app/repositories/_presenters/data/services/applications";
+import { useRouter } from "next/navigation";
+import routes from "@/routes";
 
-const useApplicationsFormController = (
+const useApplication = (
   repositoryId: number,
   applicationId: number | undefined
 ) => {
   const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
   const queryClient = useQueryClient();
+  const router = useRouter();
   const saveMutation = useMutation(
     (application: Application) => saveApplication(repositoryId, application),
     {
@@ -25,13 +27,15 @@ const useApplicationsFormController = (
           result.id,
         ]);
         queryClient.invalidateQueries([APPLICATIONS_KEY, repositoryId]);
+
         showSaveSuccessAlert();
+        router.push(routes.applicationPath(result.id as number, repositoryId));
       },
       onError: (err) => showSaveErrorAlert(err),
     }
   );
 
-  const { data: application } = useQuery({
+  const { data: application, isLoading } = useQuery({
     queryKey: [APPLICATIONS_KEY, repositoryId, applicationId],
     queryFn: () => {
       return getApplication(repositoryId, applicationId);
@@ -43,7 +47,8 @@ const useApplicationsFormController = (
       saveMutation.mutate(application);
     },
     application: application,
+    isLoading,
   };
 };
 
-export default useApplicationsFormController;
+export default useApplication;

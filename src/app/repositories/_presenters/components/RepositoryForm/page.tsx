@@ -1,7 +1,5 @@
 "use client";
 import Grid from "@mui/material/Grid";
-import { useEffect, useState } from "react";
-
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 
 import Applications from "./_presenters/components/Applications";

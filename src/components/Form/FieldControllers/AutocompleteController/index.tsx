@@ -9,7 +9,7 @@ type Props<T extends FieldValues> = {
   control: Control<T>;
   label: string;
   name: Path<T>;
-  options: { id: number | string; name: string }[] | string[];
+  options?: { id: number | string; name: string }[] | string[];
   required?: boolean;
   withObjectValue?: boolean;
 };

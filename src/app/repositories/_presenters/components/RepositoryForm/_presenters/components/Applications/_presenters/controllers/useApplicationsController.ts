@@ -1,7 +1,6 @@
+import { APPLICATIONS_KEY } from "@/app/_domain/constants";
+import { getApplications } from "@/app/repositories/_presenters/data/services/applications";
 import { useQuery } from "@tanstack/react-query";
-
-import { getApplications } from "../../_data/services/applications";
-import { APPLICATIONS_KEY } from "../../_domain/constants";
 
 const useApplicationsController = (repositoryId: number) => {
   const { data, isLoading } = useQuery({
