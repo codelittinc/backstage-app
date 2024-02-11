@@ -52,27 +52,31 @@ const ApplicationsTable: React.FC<Props> = ({ application }) => {
     status: string
   ) =>
     getRoadrunnerUrl(
-      `/flows?status=${status}&host=${externalIdentifier}&deploy_type=deploy-notification&env=${application.environment}`
+      `/flows?status=${status}&host=${externalIdentifier}&deploy_type=deploy-notification&env=${application?.environment}`
     );
 
-  const links = application.externalIdentifiers
-    ?.map((externalIdentifier) => {
-      return [
-        ...["success", "failure"].map((status) => ({
-          identifier: externalIdentifier.text,
-          type: "build",
-          variant: status,
-          url: getDeployNotificationUrl(externalIdentifier.text, status),
-        })),
-      ];
-    })
-    .flat();
+  const links =
+    application?.externalIdentifiers
+      ?.map((externalIdentifier) => {
+        return [
+          ...["success", "failure"].map((status) => ({
+            identifier: externalIdentifier.text,
+            type: "build",
+            variant: status,
+            url: getDeployNotificationUrl(externalIdentifier.text, status),
+          })),
+        ];
+      })
+      ?.flat() || [];
 
   const data = {
     columns: columns,
     rows: links,
   };
 
+  if (!application?.externalIdentifiers?.length) {
+    return <></>;
+  }
   return (
     <Grid item xs={12}>
       <Box p={3}>
