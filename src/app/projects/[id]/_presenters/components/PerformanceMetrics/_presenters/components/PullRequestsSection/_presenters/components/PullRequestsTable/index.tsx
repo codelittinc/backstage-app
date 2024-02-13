@@ -41,7 +41,8 @@ function PullRequestsTable({
       width: "20%",
       Cell: ({ value }: number) => {
         const user = users!.find((user) => user.id === value);
-        const { slug, fullName } = user!;
+        if (!user) return "User not found on Backstage.";
+        const { slug, fullName } = user;
 
         return <Link href={routes.userPath(slug)}>{fullName}</Link>;
       },
