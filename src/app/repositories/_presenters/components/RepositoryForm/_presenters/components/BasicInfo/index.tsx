@@ -61,6 +61,11 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
     name: "projectId",
   });
 
+  const supportsDeploy = useWatch({
+    control,
+    name: "supportsDeploy",
+  });
+
   const { channels, projects, isLoading } =
     useRepositoryFormBasicInfoController(projectId);
 
@@ -164,16 +169,6 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
         </Grid>
         <Grid item xs={12} md={6}>
           <AutocompleteController
-            label="Deploy channel"
-            name="slackRepositoryInfo.deployChannel"
-            options={channels}
-            control={control}
-            withObjectValue={false}
-            required
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <AutocompleteController
             label="Feed channel"
             name="slackRepositoryInfo.feedChannel"
             options={channels}
@@ -182,6 +177,18 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
             required
           />
         </Grid>
+        {supportsDeploy && (
+          <Grid item xs={12} md={6}>
+            <AutocompleteController
+              label="Deploy channel"
+              name="slackRepositoryInfo.deployChannel"
+              options={channels}
+              control={control}
+              withObjectValue={false}
+              required
+            />
+          </Grid>
+        )}
       </Form>
     </Card>
   );
