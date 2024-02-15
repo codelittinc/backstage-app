@@ -1,8 +1,6 @@
 "use client";
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
 
-import ProtectedComponent from "@/components/ProtectedComponent";
 import usePermissions from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
 import SidenavForm from "@/components/SidenavForm";
 import { abilities, targets } from "@/permissions";

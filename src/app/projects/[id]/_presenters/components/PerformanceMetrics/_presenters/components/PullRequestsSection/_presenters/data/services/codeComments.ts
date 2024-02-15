@@ -1,7 +1,5 @@
 import { roadrunnerApiClient } from "@/app/_presenters/data/auth/roadrunnerApiAxios";
 
-export const CODE_COMMENTS_KEY = "code_comments";
-
 export const getCodeComments = async ({
   startDate,
   endDate,

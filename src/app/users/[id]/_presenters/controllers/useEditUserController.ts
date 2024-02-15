@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { USERS_KEY } from "@/app/_domain/constants";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { User } from "@/app/_domain/interfaces/User";
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import { getUser, updateUser } from "@/app/_presenters/data/users";
@@ -15,16 +15,16 @@ const useEditUserController = (userId: number | string) => {
       showSaveSuccessAlert();
 
       queryClient.invalidateQueries({
-        queryKey: [USERS_KEY, result.email],
+        queryKey: [tanstackKeys.Users, result.email],
       });
       queryClient.invalidateQueries({
-        queryKey: [USERS_KEY, userId],
+        queryKey: [tanstackKeys.Users, userId],
       });
     },
   });
 
   const { data, isLoading } = useQuery({
-    queryKey: [USERS_KEY, userId],
+    queryKey: [tanstackKeys.Users, userId],
     queryFn: () => getUser(userId),
   });
 

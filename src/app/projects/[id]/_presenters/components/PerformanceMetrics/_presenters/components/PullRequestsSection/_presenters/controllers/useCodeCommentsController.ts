@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import {
-  CODE_COMMENTS_KEY,
-  getCodeComments,
-} from "../data/services/codeComments";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
+
+import { getCodeComments } from "../data/services/codeComments";
 
 const useCodeCommentsController = (
   project: Project,
@@ -11,7 +10,12 @@ const useCodeCommentsController = (
   endDateFilter: string
 ) => {
   const { data, isLoading } = useQuery({
-    queryKey: [CODE_COMMENTS_KEY, startDateFilter, endDateFilter, project.id],
+    queryKey: [
+      tanstackKeys.codeComments,
+      startDateFilter,
+      endDateFilter,
+      project.id,
+    ],
     queryFn: () =>
       getCodeComments({
         projectId: project.id,

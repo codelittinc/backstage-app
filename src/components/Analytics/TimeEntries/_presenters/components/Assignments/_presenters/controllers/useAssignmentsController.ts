@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { ASSIGNMENTS_KEY, getAssignments } from "../data/services/assignments";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
+
+import { getAssignments } from "../data/services/assignments";
 
 const useAssignmentsController = (
   startDateFilter: string,
@@ -8,7 +10,7 @@ const useAssignmentsController = (
   project?: Project
 ) => {
   const { data, isLoading } = useQuery({
-    queryKey: [ASSIGNMENTS_KEY, startDateFilter, endDateFilter],
+    queryKey: [tanstackKeys.Assignments, startDateFilter, endDateFilter],
     queryFn: () =>
       getAssignments({
         projectId: project?.id,

@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { useAppStore } from "@/app/_presenters/data/store/store";
-import { CUSTOMERS_KEY } from "@/app/customers/_domain/constants";
 import {
   getCustomer,
   updateCustomer,
 } from "@/app/customers/_presenters/data/services/customers";
 
-const useCustomerController = (customerId: number | string) => {
+const useUpdateCustomerController = (customerId: number | string) => {
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 
@@ -16,13 +16,13 @@ const useCustomerController = (customerId: number | string) => {
     onSuccess: (result: Customer) => {
       showSaveSuccessAlert();
       queryClient.invalidateQueries({
-        queryKey: [CUSTOMERS_KEY, result.id],
+        queryKey: [tanstackKeys.Customers, result.id],
       });
     },
   });
 
   const { data, isLoading } = useQuery({
-    queryKey: [CUSTOMERS_KEY, customerId],
+    queryKey: [tanstackKeys.Customers, customerId],
     queryFn: () => getCustomer(customerId),
   });
 
@@ -31,8 +31,8 @@ const useCustomerController = (customerId: number | string) => {
       mutation.mutate(customer);
     },
     customer: data,
-    isLoading: isLoading || !data,
+    isLoading: isLoading,
   };
 };
 
-export default useCustomerController;
+export default useUpdateCustomerController;
