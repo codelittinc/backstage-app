@@ -3,17 +3,17 @@ import { ApiUser, User } from "@/app/_domain/interfaces/User";
 import { fromApiParser, toApiParser } from "./parser";
 import { backstageApiClient } from "../auth/backstageApiAxios";
 
-export const getAuthenticatedUser = async (): Promise<User | null> => {
+export const getAuthenticatedUser = async (): Promise<User> => {
   const { data } = await backstageApiClient.get("/users/me.json");
   return fromApiParser(data);
 };
 
-export const getUser = async (id: number | string): Promise<User | null> => {
+export const getUser = async (id: number | string): Promise<User> => {
   const { data } = await backstageApiClient.get(`/users/${id}.json`);
   return fromApiParser(data);
 };
 
-export const getUsers = async (): Promise<User[] | null> => {
+export const getUsers = async (): Promise<User[]> => {
   const { data } = await backstageApiClient.get(`/users.json`);
   return data.map(fromApiParser);
 };

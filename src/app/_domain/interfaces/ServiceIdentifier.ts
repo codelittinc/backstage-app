@@ -1,3 +1,5 @@
+import { ApiCustomer } from "@/app/customers/_presenters/data/services/customers/parser";
+
 export type ServiceIdentifier = {
   customer: Customer;
   id?: number;
@@ -6,9 +8,11 @@ export type ServiceIdentifier = {
 };
 
 export type ApiServiceIdentifier = {
-  customer: Customer;
+  customer: ApiCustomer;
   customer_id: number;
   id?: number;
   identifier: string;
   service_name: string;
 };
+
+export type ToApiServiceIdentifier = Omit<ApiServiceIdentifier, "customer">;

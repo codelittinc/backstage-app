@@ -1,6 +1,10 @@
 import Permission from "./Permission";
 import Profession from "./Profession";
-import { ApiServiceIdentifier, ServiceIdentifier } from "./ServiceIdentifier";
+import {
+  ApiServiceIdentifier,
+  ServiceIdentifier,
+  ToApiServiceIdentifier,
+} from "./ServiceIdentifier";
 
 export type User = {
   active?: boolean;
@@ -41,7 +45,7 @@ export type ApiUser = {
 };
 
 export type ToApiUser = {
-  user_service_identifiers_attributes: ApiServiceIdentifier[];
+  user_service_identifiers_attributes: ToApiServiceIdentifier[];
 } & Omit<ApiUser, "user_service_identifiers" | "slug" | "permissions">;
 
 export type FromApiUser = {} & ApiUser;
