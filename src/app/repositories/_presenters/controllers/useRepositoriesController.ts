@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { REPOSITORIES_KEY } from "../../_domain/constants";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
+
 import { getRepositories } from "../data/services/repositories";
 
 const useRepositoriesController = () => {
   const { data, isLoading } = useQuery({
-    queryKey: [REPOSITORIES_KEY],
-    queryFn: () => getRepositories(),
+    queryKey: [tanstackKeys.Repositories],
+    queryFn: getRepositories,
   });
 
   return {

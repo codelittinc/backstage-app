@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { useAppStore } from "@/app/_presenters/data/store/store";
-import { CUSTOMERS_KEY } from "@/app/customers/_domain/constants";
 import { createCustomer } from "@/app/customers/_presenters/data/services/customers";
 import routes from "@/routes";
 
-const useCustomerController = () => {
+const useNewCustomerController = () => {
   const router = useRouter();
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
@@ -17,7 +17,7 @@ const useCustomerController = () => {
       showSaveSuccessAlert();
 
       queryClient.invalidateQueries({
-        queryKey: [CUSTOMERS_KEY, result.id],
+        queryKey: [tanstackKeys.Customers, result.id],
       });
 
       router.push(routes.customerPath(result.id!));
@@ -31,4 +31,4 @@ const useCustomerController = () => {
   };
 };
 
-export default useCustomerController;
+export default useNewCustomerController;

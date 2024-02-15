@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { USERS_KEY } from "@/app/_domain/constants";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import routes from "@/routes";
 
 import useCurrentUserSessionController from "./useCurrentUserSessionController";
@@ -16,7 +16,7 @@ const useCurrentUserController = () => {
   const router = useRouter();
 
   const { data, isLoading } = useQuery({
-    queryKey: [USERS_KEY, sessionUser?.email],
+    queryKey: [tanstackKeys.Users, sessionUser?.email],
     queryFn: () => {
       return getAuthenticatedUser();
     },

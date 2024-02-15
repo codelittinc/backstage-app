@@ -1,7 +1,5 @@
 import { roadrunnerApiClient } from "@/app/_presenters/data/auth/roadrunnerApiAxios";
 
-export const PULL_REQUESTS_KEY = "pull_requests";
-
 export const getPullRequests = async ({
   userId,
   state,

@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { useAppStore } from "@/app/_presenters/data/store/store";
-import { CHANNELS_KEY } from "@/app/repositories/_domain/constants";
 
 import { getChannels } from "../data/services/channels";
 
 const useChannelsController = (customer: Customer | undefined | null) => {
   const { showAlert } = useAppStore();
   const { data, isLoading, isError } = useQuery({
-    queryKey: [CHANNELS_KEY, customer?.id],
+    queryKey: [tanstackKeys.Channels, customer?.id],
     queryFn: () => getChannels(customer!),
     enabled: !!customer,
     retry: false,

@@ -1,7 +1,5 @@
 import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxios";
 
-export const REQUIREMENTS_KEY = "requirements";
-
 export const getRequirements = async ({
   projectId,
   startDate,

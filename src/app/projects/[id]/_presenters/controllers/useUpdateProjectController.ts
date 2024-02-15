@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { useAppStore } from "@/app/_presenters/data/store/store";
-import { PROJETS_KEY } from "@/app/projects/_domain/constants";
 import {
   getProject,
   updateProject,
@@ -19,7 +19,7 @@ const useUpdateProjectController = (projectId: number | string) => {
     onSuccess: (result: Project) => {
       showSaveSuccessAlert();
       queryClient.invalidateQueries({
-        queryKey: [PROJETS_KEY, result.id],
+        queryKey: [tanstackKeys.Projects, result.id],
       });
 
       router.push(routes.projectPath(result.slug!));
@@ -27,7 +27,7 @@ const useUpdateProjectController = (projectId: number | string) => {
   });
 
   const { data, isLoading } = useQuery({
-    queryKey: [PROJETS_KEY, projectId],
+    queryKey: [tanstackKeys.Projects, projectId],
     queryFn: () => getProject(projectId),
   });
 

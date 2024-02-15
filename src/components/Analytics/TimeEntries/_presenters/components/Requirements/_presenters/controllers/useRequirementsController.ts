@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import {
-  REQUIREMENTS_KEY,
-  getRequirements,
-} from "../data/services/requirements";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
+
+import { getRequirements } from "../data/services/requirements";
 
 const useRequirementsController = (
   startDateFilter: string,
@@ -11,7 +10,7 @@ const useRequirementsController = (
   project?: Project
 ) => {
   const { data, isLoading } = useQuery({
-    queryKey: [REQUIREMENTS_KEY, startDateFilter, endDateFilter],
+    queryKey: [tanstackKeys.Requirements, startDateFilter, endDateFilter],
     queryFn: () =>
       getRequirements({
         projectId: project?.id,

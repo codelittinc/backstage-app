@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 
-import { USERS_KEY } from "@/app/_domain/constants";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import usePermissions from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
 
 import { getUsers } from "../data/users";
@@ -13,7 +13,7 @@ const useUsersController = () => {
   });
 
   const { data, isLoading } = useQuery({
-    queryKey: [USERS_KEY],
+    queryKey: [tanstackKeys.Applications],
     queryFn: getUsers,
     enabled: hasPermission,
   });

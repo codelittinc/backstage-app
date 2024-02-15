@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { USERS_KEY } from "@/app/_domain/constants";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { User } from "@/app/_domain/interfaces/User";
 import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
 import { useAppStore } from "@/app/_presenters/data/store/store";
@@ -16,10 +16,10 @@ const useUserFormController = () => {
       showSaveSuccessAlert();
 
       queryClient.invalidateQueries({
-        queryKey: [USERS_KEY, result.email],
+        queryKey: [tanstackKeys.Users, result.email],
       });
       queryClient.invalidateQueries({
-        queryKey: [USERS_KEY, result.id],
+        queryKey: [tanstackKeys.Users, result.id],
       });
     },
   });

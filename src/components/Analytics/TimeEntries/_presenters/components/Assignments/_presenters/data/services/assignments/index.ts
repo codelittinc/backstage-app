@@ -2,8 +2,6 @@ import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxio
 
 import { fromApiParser } from "./parser";
 
-export const ASSIGNMENTS_KEY = "assignments";
-
 export const getAssignments = async ({
   projectId,
   startDate,

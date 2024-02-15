@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 
-import { CUSTOMERS_KEY } from "../../_domain/constants";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
+
 import { getCustomers } from "../data/services/customers";
 
 const useCustomersController = () => {
   const { data, isLoading } = useQuery({
-    queryKey: [CUSTOMERS_KEY],
+    queryKey: [tanstackKeys.Customers],
     queryFn: getCustomers,
   });
 

@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import {
-  PULL_REQUESTS_KEY,
-  getPullRequests,
-} from "../data/services/pullRequests";
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
+
+import { getPullRequests } from "../data/services/pullRequests";
 
 const usePullRequestsController = (
   startDateFilter: string,
@@ -13,7 +12,12 @@ const usePullRequestsController = (
   state?: "merged" | "open" | "closed"
 ) => {
   const { data, isLoading } = useQuery({
-    queryKey: [PULL_REQUESTS_KEY, startDateFilter, endDateFilter, state],
+    queryKey: [
+      tanstackKeys.PullRequests,
+      startDateFilter,
+      endDateFilter,
+      state,
+    ],
     queryFn: () =>
       getPullRequests({
         state: state || "merged",
