@@ -7,10 +7,13 @@ import { useAppStore } from "../data/store/store";
 const useCurrentUserSessionController = () => {
   const { data: session } = useSession();
   const { setSessionUser, sessionUser } = useAppStore();
+  const user = session?.user;
 
   useEffect(() => {
-    setSessionUser(session?.user);
-  }, [setSessionUser, session?.user]);
+    if (user) {
+      setSessionUser(user);
+    }
+  }, [user, setSessionUser]);
 
   return {
     sessionUser: sessionUser,
