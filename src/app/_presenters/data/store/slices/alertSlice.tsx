@@ -1,5 +1,7 @@
 import { StateCreator } from "zustand";
 
+import { ApiError } from "@/providers/query.provider";
+
 interface Alert {
   autoHideDuration?: number;
   bgWhite?: boolean;
@@ -14,7 +16,7 @@ export interface AlertSlice {
   alert: Alert | null;
   hideAlert: () => void;
   showAlert: (alert: Alert) => void;
-  showSaveErrorAlert: (err: unknown) => void;
+  showSaveErrorAlert: (err: ApiError) => void;
   showSaveSuccessAlert: () => void;
 }
 
@@ -35,13 +37,13 @@ export const alertSlice: StateCreator<AlertSlice> = (set) => ({
       },
     });
   },
-  showSaveErrorAlert: async (err: unknown) => {
+  showSaveErrorAlert: async (err: ApiError) => {
     set({
       alert: {
         color: "error",
         title: "Error!",
         content: `There was an error while saving. Error: ${JSON.stringify(
-          err!.response.data
+          err
         )}`,
         autoHideDuration: 10000,
       },
