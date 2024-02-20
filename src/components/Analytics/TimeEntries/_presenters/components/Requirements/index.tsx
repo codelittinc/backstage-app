@@ -20,7 +20,7 @@ const Requirements = ({ startDate, endDate, project }: Props): JSX.Element => {
     return <Loading />;
   }
 
-  const requirementsCoverage = requirements.reduce(
+  let requirementsCoverage = requirements.reduce(
     (acc: number, requirement: Requirement) => {
       const { coverage } = requirement;
 
@@ -28,6 +28,8 @@ const Requirements = ({ startDate, endDate, project }: Props): JSX.Element => {
     },
     0
   );
+
+  requirementsCoverage = Math.round(requirementsCoverage);
 
   return (
     <Card>
