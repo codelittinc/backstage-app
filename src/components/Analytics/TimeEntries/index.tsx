@@ -182,6 +182,7 @@ const TimeEntries = ({ project }: Props) => {
                 onDateRangeChange={(startDate, endDate) => {
                   updateDateFilters(startDate, endDate);
                 }}
+                label=""
               />
             </Grid>
           </Grid>
