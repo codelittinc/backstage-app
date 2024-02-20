@@ -21,13 +21,15 @@ const Assignments = ({ startDate, endDate, project }: Props): JSX.Element => {
     return <Loading />;
   }
 
-  const assinmentsCoverage = assignments.reduce(
+  let assinmentsCoverage = assignments.reduce(
     (acc: number, assignment: Assignment) => {
       const { coverage } = assignment;
       return acc + coverage;
     },
     0
   );
+
+  assinmentsCoverage = Math.round(assinmentsCoverage);
 
   return (
     <Card>
