@@ -15,6 +15,7 @@ function Page() {
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <StatementOfWorkForm
       statementOfWork={statementOfWork!}
