@@ -3,7 +3,10 @@ import { Card, Grid } from "@mui/material";
 import { useEffect } from "react";
 import { DefaultValues, useForm, useWatch } from "react-hook-form";
 
-import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
+import {
+  ContractModel,
+  StatementOfWork,
+} from "@/app/_domain/interfaces/StatementOfWork";
 import { getLastDayOfCurrentMonth } from "@/app/_presenters/utils/date";
 import { mergeObjects } from "@/app/_presenters/utils/objects";
 import Box from "@/components/Box";
@@ -15,34 +18,33 @@ import TextInputController from "@/components/Form/FieldControllers/TextInputCon
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Typography from "@/components/Typography";
 
-import ContractModel from "./_presenters/components/ContractModel";
+import ContractModelComponent from "./_presenters/components/ContractModelComponent";
 
 interface Props {
   onSave: (statementOfWork: StatementOfWork) => void;
   projectId: string;
-  statementOfWork: StatementOfWork;
+  statementOfWork?: StatementOfWork;
 }
 
-const getDefaultSow = (projectId: string) => ({
+const getDefaultSow = (projectId: string): StatementOfWork => ({
   id: undefined,
   endDate: getLastDayOfCurrentMonth().toISOString(),
   startDate: new Date().toISOString(),
-  hourlyRevenue: "",
-  totalRevenue: "",
+  totalRevenue: 0,
   projectId: projectId,
   name: "",
   contractModel: {
     id: undefined,
     contractModelType: "TimeAndMaterialsContractModel",
     chargeUpfront: false,
-    expectedHoursPerPeriod: "",
-    revenuePerPeriod: "",
+    expectedHoursPerPeriod: 0,
+    revenuePerPeriod: 0,
     allowOverflow: false,
-    hoursAmount: "",
+    hoursAmount: 0,
     limitBy: "contract_size",
-    managementFactor: "",
+    managementFactor: 0,
     deliveryPeriod: "weekly",
-    hourlyCost: "",
+    hourlyCost: 0,
     accumulateHours: false,
   },
 });
@@ -64,27 +66,28 @@ const StatementOfWorkForm: React.FC<Props> = ({
   onSave,
 }) => {
   const defaultValues = mergeObjects(
-    statementOfWork || {},
-    getDefaultSow(projectId)
+    getDefaultSow(projectId),
+    statementOfWork || {}
   ) as DefaultValues<StatementOfWork>;
 
   defaultValues.contractModel = mergeObjects(
-    getDefaultSow(projectId).contractModel,
-    statementOfWork.contractModel || {}
+    getDefaultSow(projectId).contractModel as ContractModel,
+    statementOfWork?.contractModel || {}
   );
-
-  const { contractModel } = statementOfWork;
-  const { id: contractModelId, contractModelType: originalContractModelType } =
-    contractModel!;
 
   const { handleSubmit, control, setValue } = useForm<StatementOfWork>({
     defaultValues,
   });
 
-  const contractModelType = useWatch({
+  const contractModel = useWatch({
     control,
-    name: "contractModel.contractModelType",
+    name: "contractModel",
   });
+
+  const { contractModelType } = contractModel!;
+
+  const { id: contractModelId, contractModelType: originalContractModelType } =
+    contractModel!;
 
   useEffect(() => {
     if (contractModelType) {
@@ -95,7 +98,7 @@ const StatementOfWorkForm: React.FC<Props> = ({
 
       setValue("contractModel.id", id);
     }
-  }, [contractModelType, setValue, contractModelId, originalContractModelType]);
+  }, [contractModelType, contractModelId, setValue, originalContractModelType]);
 
   return (
     <FormLayout>
@@ -146,37 +149,11 @@ const StatementOfWorkForm: React.FC<Props> = ({
                   name="contractModel.contractModelType"
                   options={modelOptions}
                   control={control}
-                  getOptionLabel={(
-                    option: string | { id: string; name: string }
-                  ) => {
-                    if (typeof option === "string") {
-                      return modelOptions.find((model) => model.id === option)
-                        ?.name;
-                    } else {
-                      return option.name;
-                    }
-                  }}
-                  isOptionEqualToValue={(
-                    option: { id: string; name: string },
-                    value: string | { id: string; name: string }
-                  ) => {
-                    if (typeof value === "string") {
-                      return option.id === value;
-                    } else {
-                      return option.id == value.id;
-                    }
-                  }}
-                  processSelectedValue={(selectedValue: Option | string) => {
-                    if (typeof selectedValue === "string") {
-                      return selectedValue;
-                    }
-
-                    return selectedValue.id;
-                  }}
                   required
+                  withObjectValue={false}
                 />
               </Grid>
-              <ContractModel
+              <ContractModelComponent
                 contractModelType={contractModelType!}
                 control={control}
               />

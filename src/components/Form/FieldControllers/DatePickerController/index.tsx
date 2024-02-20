@@ -23,7 +23,6 @@ const DatePickerController = <T extends FieldValues>({
       required: required && "This field is required",
     }}
     render={({ field: { onChange, value }, fieldState: { error } }) => {
-      console.log(value);
       return (
         <DatePicker
           value={[new Date(value)]}

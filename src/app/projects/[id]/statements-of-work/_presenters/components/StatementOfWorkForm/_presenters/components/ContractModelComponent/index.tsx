@@ -13,7 +13,7 @@ interface Props {
   control: Control<StatementOfWork>;
 }
 
-const ContractModel = ({ contractModelType, control }: Props) => {
+const ContractModelComponent = ({ contractModelType, control }: Props) => {
   let Component;
 
   switch (contractModelType) {
@@ -39,4 +39,4 @@ const ContractModel = ({ contractModelType, control }: Props) => {
   return <Component control={control} />;
 };
 
-export default ContractModel;
+export default ContractModelComponent;
