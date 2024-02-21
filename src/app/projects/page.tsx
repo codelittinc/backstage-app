@@ -1,13 +1,13 @@
 "use client";
 
-import { Switch } from "@mui/material";
+import { Card } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 import Box from "@/components/Box";
 import Button from "@/components/Button";
+import DateRangePicker from "@/components/DateRangePicker";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 import Loading from "@/components/Loading";
 import ProtectedComponent from "@/components/ProtectedComponent";
@@ -17,14 +17,20 @@ import routes from "@/routes";
 
 import ComplexProjectCard from "./_presenters/components/ComplexProjectCard";
 import useProjectsController from "./_presenters/controllers/useProjectsController";
+import useQueryParamController from "../_presenters/controllers/useQueryParamController";
+import {
+  getFirstDayOfCurrentMonth,
+  getLastDayOfCurrentMonth,
+} from "../_presenters/utils/date";
 
 const renderProjects = (projects: Project[], onClick: Function) => {
   return projects.map((project: Project) => {
     const { name, slug, logoUrl } = project;
     const { customer: { name: customerName } = {} } = project;
-    const projectPath = routes.projectPath(slug);
+    const projectPath = routes.projectPath(slug as string);
 
     const title = name == customerName ? name : `${customerName} - ${name}`;
+
     return (
       <Grid item xs={12} md={6} lg={4} key={project.name}>
         <Box mb={1.5} mt={1.5}>
@@ -45,10 +51,52 @@ const renderProjects = (projects: Project[], onClick: Function) => {
   });
 };
 
+const START_DATE_KEY = "startDate";
+const END_DATE_KEY = "endDate";
+
 function AllProjects(): JSX.Element {
-  const [activeOnly, setActiveOnly] = useState(true);
-  const { projects = [], isLoading } = useProjectsController(activeOnly);
   const router = useRouter();
+  const defaultStartDate = getFirstDayOfCurrentMonth();
+  const defaultEndDate = getLastDayOfCurrentMonth();
+
+  const { setCustomParams, getCustomParamValue } = useQueryParamController([
+    {
+      key: START_DATE_KEY,
+      defaultValue: defaultStartDate.toISOString(),
+    },
+    {
+      key: END_DATE_KEY,
+      defaultValue: defaultEndDate.toISOString(),
+    },
+  ]);
+
+  const updateDateFilters = (startDate: Date, endDate: Date) => {
+    setCustomParams([
+      {
+        key: START_DATE_KEY,
+        value: startDate.toISOString(),
+      },
+      {
+        key: END_DATE_KEY,
+        value: endDate.toISOString(),
+      },
+    ]);
+  };
+
+  const startDateFilter = getCustomParamValue(
+    START_DATE_KEY,
+    defaultStartDate.toISOString()
+  ) as string;
+
+  const endDateFilter = getCustomParamValue(
+    END_DATE_KEY,
+    defaultEndDate.toISOString()
+  ) as string;
+
+  const { projects = [], isLoading } = useProjectsController(
+    startDateFilter,
+    endDateFilter
+  );
 
   if (isLoading) {
     return <Loading />;
@@ -62,42 +110,44 @@ function AllProjects(): JSX.Element {
             <Box mb={1}>
               <Typography variant="h5">Our Awesome Projects</Typography>
             </Box>
-            <Box mb={2}>
-              <Typography variant="body2" color="text">
-                Here you can find all of our projects!
-              </Typography>
-            </Box>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            md={5}
-            sx={{ textAlign: "right" }}
-            display={"flex"}
-            justifyContent={"end"}
-          >
-            <Box display="flex" alignItems="center">
-              <Typography variant="caption" fontWeight="regular">
-                Active projects only
-              </Typography>
-              <Switch
-                checked={activeOnly}
-                onChange={() => setActiveOnly(!activeOnly)}
-              />
-            </Box>
-
-            <ProtectedComponent
-              ability={abilities.change}
-              target={targets.projects}
-            >
-              <Button
-                variant="gradient"
-                color="info"
-                onClick={() => router.push(routes.newProjectPath)}
+          <Grid item xs={12}>
+            <Card>
+              <Grid
+                container
+                p={2}
+                justifyContent={"space-between"}
+                alignItems={"center"}
               >
-                <Icon>add</Icon>&nbsp; Add New
-              </Button>
-            </ProtectedComponent>
+                <Grid item xs={10} display={"flex"}>
+                  <Typography variant="h6">Active between</Typography>
+                  <Grid item xs={2} ml={1}>
+                    <DateRangePicker
+                      startDate={startDateFilter}
+                      endDate={endDateFilter}
+                      onDateRangeChange={(startDate, endDate) => {
+                        updateDateFilters(startDate, endDate);
+                      }}
+                      label=""
+                    />
+                  </Grid>
+                </Grid>
+                <Grid item xs={2} justifyContent="end" textAlign="right">
+                  <ProtectedComponent
+                    ability={abilities.change}
+                    target={targets.projects}
+                  >
+                    <Button
+                      variant="gradient"
+                      color="info"
+                      onClick={() => router.push(routes.newProjectPath)}
+                    >
+                      <Icon>add</Icon>&nbsp; Add New
+                    </Button>
+                  </ProtectedComponent>
+                </Grid>
+              </Grid>
+            </Card>
           </Grid>
         </Grid>
         <Box mt={5}>

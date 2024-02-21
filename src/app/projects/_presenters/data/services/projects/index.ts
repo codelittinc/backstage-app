@@ -2,11 +2,12 @@ import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxio
 
 import { ApiProjectFrom, fromApiParser, toApiParser } from "./parser";
 
-export const getProjects = async (activeOnly: boolean) => {
+export const getProjects = async (startDate?: string, endDate?: string) => {
   const { data } = await backstageApiClient.get("/projects.json", {
     params: {
       filters: {
-        active_only: activeOnly,
+        start_date: startDate,
+        end_date: endDate,
       },
     },
   });
