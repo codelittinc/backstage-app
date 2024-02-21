@@ -8,10 +8,10 @@ import useBackstageAutoCompleteController from "../../controllers/useBackstageAu
 const BackstageAutocomplete = () => {
   const { routes } = useBackstageAutoCompleteController();
   const router = useRouter();
-  const autocompleteRef = useRef(null);
+  const autocompleteRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === "f") {
         event.preventDefault();
         if (autocompleteRef.current) {
@@ -33,7 +33,7 @@ const BackstageAutocomplete = () => {
       label=""
       placeholder="Search"
       value={null}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option: { name: string }) => option.name}
       options={routes}
       onChange={({ route }) => {
         router.push(route);

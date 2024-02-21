@@ -5,8 +5,7 @@ import useChannelsController from "./useChannelsController";
 const useRepositoryFormBasicInfoController = (
   projectId: number | undefined
 ) => {
-  const { projects, isLoading: isProjectsLoading } =
-    useProjectsController(false);
+  const { projects, isLoading: isProjectsLoading } = useProjectsController();
 
   const finaltProjectId = projectId || projects?.[0]?.id;
 

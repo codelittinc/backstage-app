@@ -4,10 +4,10 @@ import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 
 import { getProjects } from "../data/services/projects";
 
-const useProjectsController = (activeOnly: boolean) => {
+const useProjectsController = (startDate?: string, endDate?: string) => {
   const { data, isLoading } = useQuery({
-    queryKey: [tanstackKeys.Projects, activeOnly],
-    queryFn: () => getProjects(activeOnly),
+    queryKey: [tanstackKeys.Projects, startDate, endDate],
+    queryFn: () => getProjects(startDate, endDate),
   });
 
   return {
