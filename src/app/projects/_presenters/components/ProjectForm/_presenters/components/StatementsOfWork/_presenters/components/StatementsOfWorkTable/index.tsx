@@ -1,3 +1,4 @@
+"use client";
 import { Box } from "@mui/material";
 import Icon from "@mui/material/Icon";
 import Link from "next/link";
@@ -12,6 +13,7 @@ import Loading from "@/components/Loading";
 import routes from "@/routes";
 
 import useStatementsOfWorkController from "../../controllers/useStatementsOfWorkController";
+import { useRouter } from "next/navigation";
 
 interface Props {
   project: Project;
@@ -20,6 +22,7 @@ interface Props {
 const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
   const { statementsOfWork, isLoading, onDelete } =
     useStatementsOfWorkController(project.id!);
+  const router = useRouter();
 
   if (isLoading) {
     return <Loading />;
@@ -40,11 +43,12 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
         const {
           original: { id, projectId },
         } = row;
+        const link = routes.statementOfWorkPath(id as number, projectId);
 
         return (
-          <Link href={routes.statementOfWorkPath(id as number, projectId)}>
+          <Button variant="text" color="info" onClick={() => router.push(link)}>
             {value.length > 30 ? `${value.substring(0, 30)}...` : value}
-          </Link>
+          </Button>
         );
       },
     },
