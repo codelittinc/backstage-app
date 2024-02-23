@@ -6,7 +6,6 @@ import useUsersController from "@/app/_presenters/controllers/useUsersController
 import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 import { truncate } from "@/app/_presenters/utils/string";
 import DataTable from "@/components/DataTable";
-import Loading from "@/components/Loading";
 import routes from "@/routes";
 
 import usePullRequestsController from "../../controllers/usePullRequestsController";
@@ -22,16 +21,15 @@ function PullRequestsTable({
   project,
   startDateFilter,
 }: Props): JSX.Element {
-  const { users, isLoading: isUsersLoading } = useUsersController();
+  const { users } = useUsersController();
 
-  const { pullRequests = [], isLoading: isPullRequestsLoading } =
-    usePullRequestsController(
-      startDateFilter,
-      endDateFilter,
-      project,
-      undefined,
-      "open"
-    );
+  const { pullRequests = [] } = usePullRequestsController(
+    startDateFilter,
+    endDateFilter,
+    project,
+    undefined,
+    "open"
+  );
 
   const columns = [
     {
