@@ -30,6 +30,7 @@
     "material-icons": "^1.13.11",
     "next": "^14.0.2",
     "next-auth": "^4.24.5",
+    "query-string": "^8.2.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-copy-to-clipboard": "^5.1.0",
