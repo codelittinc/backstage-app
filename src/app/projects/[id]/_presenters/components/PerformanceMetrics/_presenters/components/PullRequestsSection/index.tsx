@@ -1,7 +1,6 @@
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 
-import useScrollToAnchorController from "@/app/_presenters/controllers/useScrollToAnchorController";
 import Anchor from "@/components/Anchor";
 import Typography from "@/components/Typography";
 
@@ -25,8 +24,6 @@ export const PullRequestsSection = ({
   endDateFilter,
   interval,
 }: Props) => {
-  useScrollToAnchorController();
-
   return (
     <>
       <Box mt={3}>
