@@ -33,7 +33,7 @@ function Page() {
     return <Loading />;
   }
 
-  let tabs = displayAnalytics
+  const tabs = displayAnalytics
     ? ["Profile", "Performance metrics", "Time entries"]
     : ["Profile"];
 

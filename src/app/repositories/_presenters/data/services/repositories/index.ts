@@ -12,7 +12,7 @@ export const getRepositories = async () => {
 export const saveRepository = async (params: Repository) => {
   const { id = "" } = params;
 
-  var result = null;
+  let result = null;
   if (id) {
     result = await roadrunnerApiClient.put(`/repositories/${id}.json`, {
       repository: toApiParser(params),

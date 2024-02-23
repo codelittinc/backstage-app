@@ -7,7 +7,7 @@ const getDifferenceInHoursBetweenTwoDateTimes = (date1, date2) => {
 
   const oneDayInMs = 24 * 60 * 60 * 1000;
 
-  let current = new Date(date2);
+  const current = new Date(date2);
   current.setHours(24, 0, 0, 0);
 
   while (current <= date1) {

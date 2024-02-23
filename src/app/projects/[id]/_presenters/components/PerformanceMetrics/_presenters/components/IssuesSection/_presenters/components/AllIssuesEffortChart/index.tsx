@@ -27,7 +27,7 @@ const IssuesChart = ({
     return <Loading partial height="19.125rem" />;
   }
 
-  var issuesGrouped = groupByFieldAndInterval(issues, "closed_date", interval);
+  const issuesGrouped = groupByFieldAndInterval(issues, "closed_date", interval);
 
   const sortedLabels = issuesGrouped.map((issue) => issue.date).sort();
 

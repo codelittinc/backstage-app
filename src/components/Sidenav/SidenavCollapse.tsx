@@ -18,12 +18,12 @@ import {
 
 interface Props {
   [key: string]: any;
-  active?: Boolean;
+  active?: boolean;
   children?: ReactNode;
   icon: ReactNode;
   name: string;
-  noCollapse?: Boolean;
-  open?: Boolean;
+  noCollapse?: boolean;
+  open?: boolean;
 }
 
 function SidenavCollapse({

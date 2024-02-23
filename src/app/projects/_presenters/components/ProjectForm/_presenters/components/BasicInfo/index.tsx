@@ -23,7 +23,7 @@ type Props = {
 const BasicInfo: React.FC<Props> = ({ project, onSave }) => {
   const { customers, isLoading: isCustomersLoading } = useCustomersController();
 
-  let customer = project ? project.customer : customers && customers[0];
+  const customer = project ? project.customer : customers && customers[0];
 
   const { channels, isLoading: isChannelsLoading } =
     useChannelsController(customer);

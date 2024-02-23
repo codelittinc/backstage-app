@@ -41,7 +41,7 @@ const IssuesChart = ({
     return <Loading partial height="19.125rem" />;
   }
 
-  var issuesGrouped = groupByFieldAndInterval(
+  const issuesGrouped = groupByFieldAndInterval(
     issues,
     "closed_date",
     interval,

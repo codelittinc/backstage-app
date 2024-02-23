@@ -87,7 +87,7 @@ function Accounts({ user, onSave }: Props): JSX.Element {
         currentServiceIdentifier.id == serviceIdentifier.id
     );
 
-    var newServiceIdentifiers = [];
+    let newServiceIdentifiers = [];
 
     if (serviceIdentifierExists) {
       newServiceIdentifiers = servicesIdentifiers.map(

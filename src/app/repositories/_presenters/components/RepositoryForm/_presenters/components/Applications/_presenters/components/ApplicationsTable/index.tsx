@@ -26,8 +26,8 @@ const ApplicationsTable: React.FC<Props> = ({
   });
 
   const getDeploymentData = (environment: string) => {
-    var message = "";
-    var supportsDeploy = false;
+    let message = "";
+    let supportsDeploy = false;
     if (!repository.supportsDeploy) {
       message = "Update your repository to allow deploy through Roadrunner.";
       supportsDeploy = false;
