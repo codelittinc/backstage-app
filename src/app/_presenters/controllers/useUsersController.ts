@@ -19,7 +19,7 @@ const useUsersController = () => {
   });
 
   return {
-    users: data,
+    users: data ?? [],
     isLoading: isLoading,
   };
 };

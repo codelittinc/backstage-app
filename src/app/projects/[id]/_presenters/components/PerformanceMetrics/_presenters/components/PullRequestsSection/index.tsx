@@ -11,10 +11,10 @@ import PullRequestsCloseDurationByUserChart from "./_presenters/components/PullR
 import PullRequestsTable from "./_presenters/components/PullRequestsTable";
 
 interface Props {
-  endDateFilter?: string | undefined;
+  endDateFilter?: string;
   interval: string;
   project: Project;
-  startDateFilter?: string | undefined;
+  startDateFilter?: string;
 }
 
 export const PullRequestsSection = ({
@@ -70,6 +70,11 @@ export const PullRequestsSection = ({
             interval={interval}
           />
         </Grid>
+        <Grid item sm={6} xs={12} mt={3}></Grid>
+        <Box mt={3}>
+          <Typography variant="h3">Open pull requests</Typography>
+        </Box>
+        <Box mt={1}> </Box>
         <Grid item xs={12} mt={3}>
           <PullRequestsTable
             project={project}
