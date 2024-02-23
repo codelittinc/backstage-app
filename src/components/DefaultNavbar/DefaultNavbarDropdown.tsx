@@ -43,18 +43,6 @@ function DefaultNavbarDropdown({
   collapse,
   ...rest
 }: Props): JSX.Element {
-  const linkComponent = {
-    component: "a",
-    href,
-    target: "_blank",
-    rel: "noreferrer",
-  };
-
-  // const routeComponent: any = {
-  //   component: Link,
-  //   to: route,
-  // };
-
   return (
     <>
       <MDBox
@@ -66,8 +54,6 @@ function DefaultNavbarDropdown({
         color={light ? "white" : "dark"}
         opacity={light ? 1 : 0.6}
         sx={{ cursor: "pointer", userSelect: "none" }}
-        //   {...(route && routeComponent)}
-        //   {...(href && linkComponent)}
       >
         <MDTypography
           variant="body2"

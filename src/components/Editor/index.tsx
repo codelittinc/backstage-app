@@ -19,7 +19,7 @@ function MDEditor({ value }: any) {
   );
 
   React.useEffect(() => {
-    let html = convertToHTML(editorState.getCurrentContent());
+    const html = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(html);
   }, [editorState]);
 

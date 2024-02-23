@@ -14,7 +14,6 @@ Coded by www.creative-tim.com
 */
 
 import Collapse from "@mui/material/Collapse";
-import MuiLink from "@mui/material/Link";
 import { Theme } from "@mui/material/styles";
 import { useState } from "react";
 

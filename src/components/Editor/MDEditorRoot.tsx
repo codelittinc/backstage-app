@@ -17,7 +17,7 @@ import { Theme, styled } from "@mui/material/styles";
 
 export default styled("div")(
   ({ theme, ownerState }: { ownerState: any; theme?: Theme | any }) => {
-    const { palette, borders, typography } = theme;
+    const { palette, borders } = theme;
     const { darkMode } = ownerState;
 
     const { borderRadius } = borders;

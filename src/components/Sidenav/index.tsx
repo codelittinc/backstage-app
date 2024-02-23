@@ -123,7 +123,7 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
 
   // Render all the nested collapse items from the routes.js
   const renderNestedCollapse = (collapse: any) => {
-    const template = collapse.map(({ name, route, key, href }: any) => (
+    const template = collapse.map(({ name, key, href }: any) => (
       <Link
         key={key}
         href={href}

@@ -54,15 +54,15 @@ function configs(labels: any, datasets: any, valueType: string, sufix: string) {
         tooltip: {
           callbacks: {
             label: function (context) {
-              var data = context.dataset.data,
+              let data = context.dataset.data,
                 label = context.label,
                 currentValue = context.raw,
                 total = 0;
 
-              for (var i = 0; i < data.length; i++) {
+              for (let i = 0; i < data.length; i++) {
                 total += data[i];
               }
-              var percentage = parseFloat(
+              const percentage = parseFloat(
                 ((currentValue / total) * 100).toFixed(1)
               );
 

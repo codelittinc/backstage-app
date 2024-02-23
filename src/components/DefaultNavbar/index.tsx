@@ -252,22 +252,9 @@ function DefaultNavbar({
         // Render the dropdown menu that should be display as list items
       } else if (collapse && name === dropdownName) {
         template = collapse.map((item: any) => {
-          const linkComponent = {
-            component: MuiLink,
-            href: item.href,
-            target: "_blank",
-            rel: "noreferrer",
-          };
-
-          //    const routeComponent = {
-          //      component: Link,
-          //      to: item.route,
-          //    };
-
           return (
             <MDTypography
               key={item.name}
-              //       {...(item.route ? routeComponent : linkComponent)}
               display="flex"
               justifyContent="space-between"
               alignItems="center"

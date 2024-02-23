@@ -29,11 +29,28 @@ import {
   useReducer,
 } from "react";
 
-const MaterialUI = createContext<any>(null);
+const initialState: StateTypes = {
+  miniSidenav: false,
+  transparentSidenav: false,
+  whiteSidenav: false,
+  sidenavColor: "info",
+  transparentNavbar: true,
+  fixedNavbar: true,
+  openConfigurator: false,
+  direction: "ltr",
+  layout: "dashboard",
+  darkMode: false,
+};
+
+type MaterialUIContextType = [StateTypes, (arg: ActionTypes) => void];
+const MaterialUI = createContext<MaterialUIContextType>([
+  initialState,
+  () => {},
+]);
 
 MaterialUI.displayName = "MaterialUIContext";
 
-interface StateTypes {
+export interface StateTypes {
   darkMode: boolean;
   direction: "ltr" | "rtl";
   fixedNavbar: boolean;
@@ -66,74 +83,53 @@ interface ActionTypes {
     | "DIRECTION"
     | "LAYOUT"
     | "DARKMODE";
-  value: any;
+  value: boolean | string;
 }
 
-function reducer(state: StateTypes, action: ActionTypes) {
+const reducer: React.Reducer<StateTypes, ActionTypes> = (state, action) => {
   switch (action.type) {
-    case "MINI_SIDENAV": {
-      return { ...state, miniSidenav: action.value };
-    }
-    case "TRANSPARENT_SIDENAV": {
-      return { ...state, transparentSidenav: action.value };
-    }
-    case "WHITE_SIDENAV": {
-      return { ...state, whiteSidenav: action.value };
-    }
-    case "SIDENAV_COLOR": {
-      return { ...state, sidenavColor: action.value };
-    }
-    case "TRANSPARENT_NAVBAR": {
-      return { ...state, transparentNavbar: action.value };
-    }
-    case "FIXED_NAVBAR": {
-      return { ...state, fixedNavbar: action.value };
-    }
-    case "OPEN_CONFIGURATOR": {
-      return { ...state, openConfigurator: action.value };
-    }
-    case "DIRECTION": {
-      return { ...state, direction: action.value };
-    }
-    case "LAYOUT": {
-      return { ...state, layout: action.value };
-    }
+    case "MINI_SIDENAV":
+    case "TRANSPARENT_SIDENAV":
+    case "WHITE_SIDENAV":
+    case "TRANSPARENT_NAVBAR":
+    case "FIXED_NAVBAR":
+    case "OPEN_CONFIGURATOR":
     case "DARKMODE": {
-      return { ...state, darkMode: action.value };
+      if (typeof action.value === "boolean") {
+        return { ...state, [action.type.toLowerCase()]: action.value };
+      }
+      return state;
     }
-    default: {
+    case "SIDENAV_COLOR":
+    case "DIRECTION":
+    case "LAYOUT": {
+      if (typeof action.value === "string") {
+        return { ...state, [action.type.toLowerCase()]: action.value };
+      }
+      return state;
+    }
+    default:
       throw new Error(`Unhandled action type: ${action.type}`);
-    }
   }
-}
+};
 
 function MaterialUIControllerProvider({
   children,
 }: {
   children: ReactNode;
 }): JSX.Element {
-  const initialState: StateTypes = {
-    miniSidenav: false,
-    transparentSidenav: false,
-    whiteSidenav: false,
-    sidenavColor: "info",
-    transparentNavbar: true,
-    fixedNavbar: true,
-    openConfigurator: false,
-    direction: "ltr",
-    layout: "dashboard",
-    darkMode: false,
-  };
-
   const [controller, dispatch] = useReducer(reducer, initialState);
 
-  const value = useMemo(() => [controller, dispatch], [controller, dispatch]);
+  const value = useMemo<MaterialUIContextType>(
+    () => [controller, dispatch],
+    [controller, dispatch]
+  );
 
   return <MaterialUI.Provider value={value}>{children}</MaterialUI.Provider>;
 }
 
-function useMaterialUIController() {
-  const context = useContext(MaterialUI);
+function useMaterialUIController(): MaterialUIContextType {
+  const context = useContext<MaterialUIContextType>(MaterialUI);
 
   if (!context) {
     throw new Error(
