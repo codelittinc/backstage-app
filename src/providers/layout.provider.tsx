@@ -5,11 +5,11 @@ import { ThemeProvider } from "@mui/material/styles";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-
 import brandDark from "@/assets/images/logo-ct-dark.png";
 import brandWhite from "@/assets/images/logo-ct.png";
 import theme from "@/assets/theme";
 import themeDark from "@/assets/theme-dark";
+import AnchorScrollable from "@/components/AnchorScrollable";
 import Box from "@/components/Box";
 import Configurator from "@/components/Configurator";
 import Sidenav from "@/components/Sidenav";
@@ -114,6 +114,7 @@ export default function App({ children }: { children: React.ReactNode }) {
         </>
       )}
       <Snackbar />
+      <AnchorScrollable />
       {children}
     </ThemeProvider>
   );
