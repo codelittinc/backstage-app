@@ -6,6 +6,7 @@ import { User } from "@/app/_domain/interfaces/User";
 import Accounts from "./_presenters/Accounts";
 import BasicInfo from "./_presenters/BasicInfo";
 import Header from "./_presenters/Header";
+import Skills from "./_presenters/Skills";
 
 type Props = {
   onSave: (user: User) => void;
@@ -24,6 +25,11 @@ function UserForm({ user, onSave }: Props): JSX.Element {
       {user?.id && (
         <Grid item xs={12} mt={3}>
           <Accounts onSave={onSave} user={user} />
+        </Grid>
+      )}
+      {user?.id && (
+        <Grid item xs={12} mt={3}>
+          <Skills onSave={onSave} user={user} />
         </Grid>
       )}
     </Grid>

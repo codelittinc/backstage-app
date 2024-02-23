@@ -9,7 +9,8 @@ enum tanstackKeys {
   Repositories = "repositories",
   Requirements = "requirements",
   Users = "users",
-  codeComments = "codeComments"
+  codeComments = "codeComments",
+  Skills = "skills",
 }
 
 export default tanstackKeys;
