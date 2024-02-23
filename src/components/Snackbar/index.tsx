@@ -13,24 +13,6 @@ import { useMaterialUIController } from "@/theme";
 
 import MDSnackbarIconRoot from "./MDSnackbarIconRoot";
 
-interface Props extends SnackbarProps {
-  autoHideDuration?: number;
-  bgWhite?: boolean;
-  color?:
-    | "primary"
-    | "secondary"
-    | "info"
-    | "success"
-    | "warning"
-    | "error"
-    | "dark"
-    | "light";
-  content: string;
-  dateTime?: string;
-  icon?: ReactNode;
-  title: string;
-}
-
 function MDSnackbar(): JSX.Element {
   const { alert, hideAlert: close } = useAppStore();
   const [controller] = useMaterialUIController();

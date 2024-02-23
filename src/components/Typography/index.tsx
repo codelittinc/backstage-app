@@ -5,9 +5,7 @@ import { useMaterialUIController } from "@/theme";
 
 import TypographyRoot from "./TypographyRoot";
 
-
 interface Props extends TypographyProps {
-  [key: string]: any;
   children: ReactNode;
   color?:
     | "inherit"
@@ -21,7 +19,7 @@ interface Props extends TypographyProps {
     | "dark"
     | "text"
     | "white";
-  fontWeight?: "light" | "regular" | "medium" | "bold" | undefined;
+  fontWeight?: "light" | "regular" | "medium" | "bold";
   opacity?: number;
   textGradient?: boolean;
   textTransform?: "none" | "capitalize" | "uppercase" | "lowercase";
@@ -37,7 +35,7 @@ interface Props extends TypographyProps {
     | "bottom";
 }
 
-const Typography: FC<Props | any> = forwardRef(
+const Typography: FC<Props> = forwardRef<HTMLDivElement, Props>(
   (
     {
       color = "dark",
@@ -51,8 +49,8 @@ const Typography: FC<Props | any> = forwardRef(
     },
     ref
   ) => {
-    const [controller] = useMaterialUIController();
-    const { darkMode } = controller;
+    // Retrieve the darkMode value from the Material UI controller
+    const [{ darkMode }] = useMaterialUIController();
 
     return (
       <TypographyRoot

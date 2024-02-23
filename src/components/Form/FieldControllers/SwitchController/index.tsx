@@ -26,7 +26,7 @@ const SwitchController = <T extends FieldValues>({
     rules={{
       required: required && "This field is required",
     }}
-    render={({ field: { onChange, value }, fieldState: { error } }) => {
+    render={({ field: { onChange, value } }) => {
       const labelLeft = labelPosition === "left";
       const labelElement = (
         <Typography variant="caption" fontWeight="regular">

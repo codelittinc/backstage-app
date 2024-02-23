@@ -1,18 +1,11 @@
 import { Grid } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Icon from "@mui/material/Icon";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import Badge from "@/components/Badge";
 import Box from "@/components/Box";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Input from "@/components/Input";
-import NotificationItem from "@/components/Items/NotificationItem";
 import {
   setMiniSidenav,
   setOpenConfigurator,
