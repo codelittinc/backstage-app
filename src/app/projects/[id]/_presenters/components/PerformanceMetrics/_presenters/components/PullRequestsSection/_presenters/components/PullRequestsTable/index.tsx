@@ -1,10 +1,11 @@
 "use client";
+import { Icon } from "@mui/material";
 import Link from "next/link";
 
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
+import { truncate } from "@/app/_presenters/utils/string";
 import DataTable from "@/components/DataTable";
-import TableLayout from "@/components/LayoutContainers/TableLayout";
 import Loading from "@/components/Loading";
 import routes from "@/routes";
 
@@ -32,36 +33,48 @@ function PullRequestsTable({
       "open"
     );
 
-  if (isUsersLoading || isPullRequestsLoading) return <Loading />;
-
   const columns = [
     {
       Header: "User name",
       accessor: "backstage_user_id",
       width: "20%",
       Cell: ({ value }: number) => {
-        const user = users!.find((user) => user.id === value);
+        const user = users.find((user) => user.id === value);
         if (!user) return "User not found on Backstage.";
         const { slug, fullName } = user;
 
-        return <Link href={routes.userPath(slug)}>{fullName}</Link>;
+        return (
+          <Link href={routes.userPath(slug)}>{truncate(fullName, 20)}</Link>
+        );
       },
     },
     {
       Header: "Title",
       accessor: "title",
-      width: "20%",
+      width: "50%",
       Cell: ({ row }: any) => {
         const {
           original: { title, link },
         } = row;
-        return <Link href={link}>{title}</Link>;
+        return <Link href={link}>{truncate(title, 80)}</Link>;
+      },
+    },
+    {
+      Header: "Reviewed",
+      accessor: "reviews",
+      width: "10%",
+      Cell: ({ value }: any) => {
+        const reviewed = value.length > 0;
+        const icon = reviewed ? "check_circle" : "cancel";
+        const color = reviewed ? "success" : "error";
+
+        return <Icon color={color}>{icon}</Icon>;
       },
     },
     {
       Header: "Days old",
       accessor: "_",
-      width: "20%",
+      width: "10%",
       Cell: ({ row }: any) => {
         const {
           original: { created_at },
@@ -73,30 +86,17 @@ function PullRequestsTable({
       },
     },
     {
-      Header: "Days old",
+      Header: "Code comments",
+      accessor: "code_comments",
+      width: "10%",
+    },
+    {
+      Header: "Created at",
       accessor: "created_at",
-      width: "20%",
+      width: "10%",
       Cell: ({ value }: any) => {
         return formatDateToMonthDayYear(value);
       },
-    },
-    {
-      Header: "Status",
-      accessor: "state",
-      width: "20%",
-    },
-    {
-      Header: "Reviews",
-      accessor: "reviews",
-      width: "20%",
-      Cell: ({ value }: any) => {
-        return value.length;
-      },
-    },
-    {
-      Header: "Code comments",
-      accessor: "code_comments",
-      width: "20%",
     },
   ];
 
@@ -109,7 +109,12 @@ function PullRequestsTable({
   };
 
   return (
-    <DataTable table={data} entriesPerPage={false} canSearch isSorted={true} />
+    <DataTable
+      table={data}
+      entriesPerPage={false}
+      canSearch={false}
+      isSorted={true}
+    />
   );
 }
 

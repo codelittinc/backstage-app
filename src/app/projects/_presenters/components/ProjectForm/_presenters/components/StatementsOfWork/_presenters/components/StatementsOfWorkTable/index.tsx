@@ -2,6 +2,7 @@
 import { Box } from "@mui/material";
 import Icon from "@mui/material/Icon";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
@@ -13,7 +14,6 @@ import Loading from "@/components/Loading";
 import routes from "@/routes";
 
 import useStatementsOfWorkController from "../../controllers/useStatementsOfWorkController";
-import { useRouter } from "next/navigation";
 
 interface Props {
   project: Project;
