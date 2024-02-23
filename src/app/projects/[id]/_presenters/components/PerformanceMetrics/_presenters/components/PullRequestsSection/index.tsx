@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 
+import useScrollToAnchorController from "@/app/_presenters/controllers/useScrollToAnchorController";
 import Typography from "@/components/Typography";
 
 import CodeCommentsByUserChart from "./_presenters/components/CodeCommentsByUserChart";
@@ -23,6 +24,8 @@ export const PullRequestsSection = ({
   endDateFilter,
   interval,
 }: Props) => {
+  useScrollToAnchorController();
+
   return (
     <>
       <Box mt={3}>
@@ -70,19 +73,21 @@ export const PullRequestsSection = ({
             interval={interval}
           />
         </Grid>
-        <Grid item sm={6} xs={12} mt={3}></Grid>
-        <Box mt={3}>
-          <Typography variant="h3">Open pull requests</Typography>
-        </Box>
-        <Box mt={1}> </Box>
-        <Grid item xs={12} mt={3}>
-          <PullRequestsTable
-            project={project}
-            startDateFilter={startDateFilter}
-            endDateFilter={endDateFilter}
-            interval={interval}
-          />
-        </Grid>
+      </Grid>
+      <Grid item sm={6} xs={12} mt={3}></Grid>
+      <Box mt={3}>
+        <Typography variant="h3" id="open-pull-requests">
+          Open pull requests
+        </Typography>
+      </Box>
+      <Box mt={1}> </Box>
+      <Grid item xs={12} mt={3}>
+        <PullRequestsTable
+          project={project}
+          startDateFilter={startDateFilter}
+          endDateFilter={endDateFilter}
+          interval={interval}
+        />
       </Grid>
     </>
   );
