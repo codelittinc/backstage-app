@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 
 import useScrollToAnchorController from "@/app/_presenters/controllers/useScrollToAnchorController";
+import Anchor from "@/components/Anchor";
 import Typography from "@/components/Typography";
 
 import CodeCommentsByUserChart from "./_presenters/components/CodeCommentsByUserChart";
@@ -76,9 +77,9 @@ export const PullRequestsSection = ({
       </Grid>
       <Grid item sm={6} xs={12} mt={3}></Grid>
       <Box mt={3}>
-        <Typography variant="h3" id="open-pull-requests">
-          Open pull requests
-        </Typography>
+        <Anchor id="open-pull-requests">
+          <Typography variant="h3">Open pull requests</Typography>
+        </Anchor>
       </Box>
       <Box mt={1}> </Box>
       <Grid item xs={12} mt={3}>
