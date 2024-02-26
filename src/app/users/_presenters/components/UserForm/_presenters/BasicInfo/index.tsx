@@ -33,6 +33,8 @@ const getDefaultUser = (professions: Profession[]) => ({
   profession: professions ? professions[0] : undefined,
   active: true,
   servicesIdentifiers: [],
+  seniority: "Senior",
+  contractType: "Salary",
 });
 
 function BasicInfo({ user, onSave }: Props): JSX.Element {
@@ -84,6 +86,16 @@ function BasicInfo({ user, onSave }: Props): JSX.Element {
           />
         </Grid>
         <Grid item xs={12} md={6}>
+          <AutocompleteController
+            label="Profession"
+            name="profession"
+            options={professions}
+            control={control}
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6}></Grid>
+        <Grid item xs={12} md={6}>
           <SwitchController name="active" label="Active" control={control} />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -95,15 +107,6 @@ function BasicInfo({ user, onSave }: Props): JSX.Element {
         </Grid>
         {internal && (
           <>
-            <Grid item xs={12} md={6}>
-              <AutocompleteController
-                label="Profession"
-                name="profession"
-                options={professions}
-                control={control}
-                required
-              />
-            </Grid>
             <Grid item xs={12} md={6}>
               <AutocompleteController
                 label="Seniority"
