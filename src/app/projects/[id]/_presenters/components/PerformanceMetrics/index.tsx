@@ -8,47 +8,19 @@ import DateRangePicker from "@/components/DateRangePicker";
 
 import IssuesSection from "./_presenters/components/IssuesSection";
 import { PullRequestsSection } from "./_presenters/components/PullRequestsSection";
-
-const START_DATE_KEY = "startDate";
-const END_DATE_KEY = "endDate";
+import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 
 const Metrics = ({ project }: { project: Project }) => {
   const defaultStartDate = getSameDayLastMonth(new Date());
   const defaultEndDate = new Date();
 
-  const { setCustomParams, getCustomParamValue } = useQueryParamController([
-    {
-      key: START_DATE_KEY,
-      defaultValue: defaultStartDate.toISOString(),
-    },
-    {
-      key: END_DATE_KEY,
-      defaultValue: defaultEndDate.toISOString(),
-    },
-  ]);
+  const { startDate, endDate, updateDateRangeQuery } = useDateRangeController(
+    defaultStartDate,
+    defaultEndDate
+  );
 
-  const updateDateFilters = (startDate: Date, endDate: Date) => {
-    setCustomParams([
-      {
-        key: START_DATE_KEY,
-        value: startDate.toISOString(),
-      },
-      {
-        key: END_DATE_KEY,
-        value: endDate.toISOString(),
-      },
-    ]);
-  };
+  const { setCustomParams, getCustomParamValue } = useQueryParamController();
 
-  const startDateFilter = getCustomParamValue(
-    START_DATE_KEY,
-    defaultStartDate.toISOString()
-  ) as string;
-
-  const endDateFilter = getCustomParamValue(
-    END_DATE_KEY,
-    defaultEndDate.toISOString()
-  ) as string;
   const showIssues = project.syncTicketTrackingSystem;
   const showPullRequests = project.syncSourceControl;
   const hasData = showIssues || showPullRequests;
@@ -84,10 +56,10 @@ const Metrics = ({ project }: { project: Project }) => {
                 </Typography>
                 <Grid item xs={2} ml={1}>
                   <DateRangePicker
-                    startDate={startDateFilter}
-                    endDate={endDateFilter}
+                    startDate={startDate}
+                    endDate={endDate}
                     onDateRangeChange={(startDate, endDate) => {
-                      updateDateFilters(startDate, endDate);
+                      updateDateRangeQuery(startDate, endDate);
                     }}
                     label=""
                   />
@@ -108,8 +80,8 @@ const Metrics = ({ project }: { project: Project }) => {
       {showIssues && (
         <IssuesSection
           project={project}
-          startDateFilter={startDateFilter}
-          endDateFilter={endDateFilter}
+          startDateFilter={startDate}
+          endDateFilter={endDate}
           interval={dateInterval}
         />
       )}
@@ -117,8 +89,8 @@ const Metrics = ({ project }: { project: Project }) => {
       {showPullRequests && (
         <PullRequestsSection
           project={project}
-          startDateFilter={startDateFilter}
-          endDateFilter={endDateFilter}
+          startDateFilter={startDate}
+          endDateFilter={endDate}
           interval={dateInterval}
         />
       )}

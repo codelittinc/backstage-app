@@ -16,6 +16,7 @@ import Typography from "@/components/Typography";
 import routes from "@/routes";
 
 import useFinancesController from "./_presenters/controllers/useFinancesController";
+import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 
 type Props = {
   project?: Project;
@@ -23,48 +24,18 @@ type Props = {
 
 const formatNumber = (value: number) => value.toFixed(1);
 
-const START_DATE_KEY = "startDate";
-const END_DATE_KEY = "endDate";
 const Finances = ({ project }: Props) => {
   const defaultStartDate = getFirstDayOfCurrentMonth();
   const defaultEndDate = getLastDayOfCurrentMonth();
 
-  const { setCustomParams, getCustomParamValue } = useQueryParamController([
-    {
-      key: START_DATE_KEY,
-      defaultValue: defaultStartDate.toISOString(),
-    },
-    {
-      key: END_DATE_KEY,
-      defaultValue: defaultEndDate.toISOString(),
-    },
-  ]);
+  const { startDate, endDate, updateDateRangeQuery } = useDateRangeController(
+    defaultStartDate,
+    defaultEndDate
+  );
 
-  const updateDateFilters = (startDate: Date, endDate: Date) => {
-    setCustomParams([
-      {
-        key: START_DATE_KEY,
-        value: startDate.toISOString(),
-      },
-      {
-        key: END_DATE_KEY,
-        value: endDate.toISOString(),
-      },
-    ]);
-  };
-
-  const startDateFilter = getCustomParamValue(
-    START_DATE_KEY,
-    defaultStartDate.toISOString()
-  ) as string;
-
-  const endDateFilter = getCustomParamValue(
-    END_DATE_KEY,
-    defaultEndDate.toISOString()
-  ) as string;
   const { hasPermission, finances, isLoading } = useFinancesController(
-    startDateFilter,
-    endDateFilter,
+    startDate,
+    endDate,
     project
   );
 
@@ -72,7 +43,7 @@ const Finances = ({ project }: Props) => {
     return null;
   }
 
-  if (!startDateFilter || !endDateFilter || isLoading) {
+  if (!startDate || !endDate || isLoading) {
     return <Loading />;
   }
 
@@ -194,10 +165,10 @@ const Finances = ({ project }: Props) => {
             </Typography>
             <Grid item xs={2} ml={1}>
               <DateRangePicker
-                startDate={startDateFilter}
-                endDate={endDateFilter}
+                startDate={startDate}
+                endDate={endDate}
                 onDateRangeChange={(startDate, endDate) => {
-                  updateDateFilters(startDate, endDate);
+                  updateDateRangeQuery(startDate, endDate);
                 }}
                 label=""
               />
