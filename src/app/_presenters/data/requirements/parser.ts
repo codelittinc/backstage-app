@@ -6,5 +6,7 @@ export const fromApiParser = (data: any): Requirement => {
     statementOfWorkId: data.statement_of_work_id,
     createdAt: data.created_at,
     updatedAt: data.updated_at,
+    startDate: data.start_date,
+    endDate: data.end_date,
   };
 };

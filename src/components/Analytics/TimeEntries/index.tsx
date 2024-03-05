@@ -1,5 +1,6 @@
 import { Card, Grid, Typography } from "@mui/material";
 
+import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import { getLastSaturday, getLastSunday } from "@/app/_presenters/utils/date";
 import Box from "@/components/Box";
@@ -12,7 +13,6 @@ import Loading from "@/components/Loading";
 import Assignments from "./_presenters/components/Assignments";
 import Requirements from "./_presenters/components/Requirements";
 import useTimeEntriesController from "./_presenters/controllers/useTimeEntriesController";
-import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 
 type Props = {
   project?: Project;

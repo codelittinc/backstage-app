@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
@@ -21,13 +22,13 @@ const useStatementsOfWorkController = (projectId: number | string) => {
       showSaveSuccessAlert();
 
       queryClient.invalidateQueries({
-        queryKey: ["statements_of_work", projectId],
+        queryKey: [tanstackKeys.StatementsOfWork, projectId],
       });
     },
   });
 
   const { data, isLoading } = useQuery({
-    queryKey: ["statements_of_work", projectId],
+    queryKey: [tanstackKeys.StatementsOfWork, projectId],
     queryFn: () => getStatementOfWorks(projectId!),
     enabled: !!projectId,
   });

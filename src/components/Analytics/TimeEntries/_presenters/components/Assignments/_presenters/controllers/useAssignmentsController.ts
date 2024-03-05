@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
-
-import { getAssignments } from "../data/services/assignments";
+import { getAssignments } from "@/app/_presenters/data/assignments";
 
 const useAssignmentsController = (
   startDateFilter: string,
