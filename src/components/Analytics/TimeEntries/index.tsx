@@ -12,57 +12,26 @@ import Loading from "@/components/Loading";
 import Assignments from "./_presenters/components/Assignments";
 import Requirements from "./_presenters/components/Requirements";
 import useTimeEntriesController from "./_presenters/controllers/useTimeEntriesController";
+import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 
 type Props = {
   project?: Project;
 };
 
-const START_DATE_KEY = "startDate";
-const END_DATE_KEY = "endDate";
-
 const TimeEntries = ({ project }: Props) => {
   const defaultStartDate = getLastSunday();
   const defaultEndDate = getLastSaturday();
 
-  const { setCustomParams, getCustomParamValue } = useQueryParamController([
-    {
-      key: START_DATE_KEY,
-      defaultValue: defaultStartDate.toISOString(),
-    },
-    {
-      key: END_DATE_KEY,
-      defaultValue: defaultEndDate.toISOString(),
-    },
-  ]);
-
-  const updateDateFilters = (startDate: Date, endDate: Date) => {
-    setCustomParams([
-      {
-        key: START_DATE_KEY,
-        value: startDate.toISOString(),
-      },
-      {
-        key: END_DATE_KEY,
-        value: endDate.toISOString(),
-      },
-    ]);
-  };
-
-  const startDateFilter = getCustomParamValue(
-    START_DATE_KEY,
-    defaultStartDate.toISOString()
-  ) as string;
-
-  const endDateFilter = getCustomParamValue(
-    END_DATE_KEY,
-    defaultEndDate.toISOString()
-  ) as string;
+  const { startDate, endDate, updateDateRangeQuery } = useDateRangeController(
+    defaultStartDate,
+    defaultEndDate
+  );
 
   const colors = ["success", "info", "dark", "warning", "error", "secondary"];
 
   const { timeEntries: data, isLoading } = useTimeEntriesController(
-    startDateFilter,
-    endDateFilter,
+    startDate,
+    endDate,
     project
   );
 
@@ -177,10 +146,10 @@ const TimeEntries = ({ project }: Props) => {
             </Typography>
             <Grid item xs={2} ml={1}>
               <DateRangePicker
-                startDate={startDateFilter}
-                endDate={endDateFilter}
+                startDate={startDate}
+                endDate={endDate}
                 onDateRangeChange={(startDate, endDate) => {
-                  updateDateFilters(startDate, endDate);
+                  updateDateRangeQuery(startDate, endDate);
                 }}
                 label=""
               />
@@ -192,13 +161,13 @@ const TimeEntries = ({ project }: Props) => {
         <Grid container mb={3} mt={3}>
           <Grid item xs={12} display={"flex"} justifyContent={"space-evenly"}>
             <Requirements
-              startDate={startDateFilter}
-              endDate={endDateFilter}
+              startDate={startDate}
+              endDate={endDate}
               project={project!}
             />
             <Assignments
-              startDate={startDateFilter}
-              endDate={endDateFilter}
+              startDate={startDate}
+              endDate={endDate}
               project={project!}
             />
           </Grid>
