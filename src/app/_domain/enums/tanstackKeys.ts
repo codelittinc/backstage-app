@@ -8,6 +8,7 @@ enum tanstackKeys {
   PullRequests = "pullRequests",
   Repositories = "repositories",
   Requirements = "requirements",
+  StatementsOfWork = "statementsOfWork",
   Users = "users",
   codeComments = "codeComments",
   Skills = "skills",

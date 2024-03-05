@@ -10,23 +10,6 @@ const BackstageAutocomplete = () => {
   const router = useRouter();
   const autocompleteRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key === "f") {
-        event.preventDefault();
-        if (autocompleteRef.current) {
-          autocompleteRef.current.focus();
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
   return (
     <Autocomplete
       ref={autocompleteRef}

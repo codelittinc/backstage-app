@@ -1,5 +1,6 @@
 import { Card, Grid, Typography } from "@mui/material";
 
+import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import { getSameDayLastMonth } from "@/app/_presenters/utils/date";
 import Autocomplete from "@/components/Autocomplete";
@@ -8,7 +9,6 @@ import DateRangePicker from "@/components/DateRangePicker";
 
 import IssuesSection from "./_presenters/components/IssuesSection";
 import { PullRequestsSection } from "./_presenters/components/PullRequestsSection";
-import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 
 const Metrics = ({ project }: { project: Project }) => {
   const defaultStartDate = getSameDayLastMonth(new Date());

@@ -48,6 +48,7 @@ interface Props {
     columns: { [key: string]: any }[];
     rows: { [key: string]: any }[];
   };
+  withPagination?: boolean;
 }
 
 const getEntriesText = (
@@ -69,11 +70,15 @@ function DataTable({
   pagination = { variant: "gradient", color: "info" },
   isSorted = true,
   noEndBorder,
+  withPagination = true,
 }: Props): JSX.Element {
   let defaultValue: any;
   let entries: any[];
 
-  if (entriesPerPage) {
+  if (!withPagination) {
+    defaultValue = Number.MAX_SAFE_INTEGER;
+    entries = [];
+  } else if (entriesPerPage) {
     defaultValue = entriesPerPage.defaultValue
       ? entriesPerPage.defaultValue
       : "10";
@@ -187,7 +192,7 @@ function DataTable({
           alignItems="center"
           p={3}
         >
-          {entriesPerPage && (
+          {entriesPerPage && withPagination && (
             <Box display="flex" alignItems="center">
               <Autocomplete
                 disableClearable

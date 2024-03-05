@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
 
+import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 import { getSameDayLastMonth } from "@/app/_presenters/utils/date";
 import DateRangePicker from "@/components/DateRangePicker";
 
 import UserPullRequests from "./_presenters/components/UserPullRequests";
-import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 
 const PerformanceMetrics = () => {
   const defaultStartDate = getSameDayLastMonth(new Date());

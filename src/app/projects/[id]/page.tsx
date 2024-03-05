@@ -9,6 +9,7 @@ import usePermissionsController from "@/components/ProtectedComponent/_presenter
 import { abilities, targets } from "@/permissions";
 
 import PerformanceMetrics from "./_presenters/components/PerformanceMetrics";
+import Resources from "./_presenters/components/Resources";
 import useUpdateProjectController from "./_presenters/controllers/useUpdateProjectController";
 import ProjectForm from "../_presenters/components/ProjectForm";
 
@@ -34,7 +35,7 @@ function Page() {
   }
 
   let tabs = displayAnalytics
-    ? ["Profile", "Performance metrics", "Time entries"]
+    ? ["Resources", "Profile", "Performance metrics", "Time entries"]
     : ["Profile"];
 
   if (displayFinances) {
@@ -43,6 +44,7 @@ function Page() {
 
   const tabsChildren = displayAnalytics
     ? [
+        <Resources project={project!} key={"requirements-component"} />,
         <ProjectForm
           project={project!}
           onSave={onSave}

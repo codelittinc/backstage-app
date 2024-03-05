@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
-
-import { getRequirements } from "../data/services/requirements";
+import { getRequirements } from "@/app/_presenters/data/requirements";
 
 const useRequirementsController = (
   startDateFilter: string,
