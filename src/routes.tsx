@@ -16,6 +16,12 @@ const routes = {
     `/repositories/${repositoryId}/applications/${id}`,
   newApplicationPath: (repositoryId: number | string) =>
     `/repositories/${repositoryId}/applications/new`,
+  requirementPath: (
+    requirementId: number | string,
+    statementOfWorkId: number | string,
+    projectId: number | string
+  ) =>
+    `/projects/${projectId}/statements-of-work/${statementOfWorkId}/requirements/${requirementId}`,
 };
 
 export default routes;

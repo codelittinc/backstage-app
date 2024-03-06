@@ -1,13 +1,16 @@
 import { Button, Icon } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
 import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 import DataTable from "@/components/DataTable";
 import Loading from "@/components/Loading";
+import routes from "@/routes";
 
 type Props = {
   assignments: Assignment[];
+  project: Project;
   requirements: Requirement[];
 };
 
@@ -38,9 +41,10 @@ const colors = {
   },
 };
 
-const RequirementsTable = ({ requirements, assignments }: Props) => {
+const RequirementsTable = ({ requirements, assignments, project }: Props) => {
   const { professions, isLoading: isLoadingProfessions } =
     useProfessionsController();
+  const router = useRouter();
 
   const { users } = useUsersController();
 
@@ -129,14 +133,16 @@ const RequirementsTable = ({ requirements, assignments }: Props) => {
       width: "5%",
       Cell: ({ row }: any) => {
         const {
-          original: { id },
+          original: { id, statementOfWorkId },
         } = row;
         return (
           <Button
             variant="text"
             color="primary"
             onClick={() => {
-              handleEdit(applications.find((app) => app.id === id));
+              router.push(
+                routes.requirementPath(id, statementOfWorkId, project.id!)
+              );
             }}
           >
             <Icon>edit</Icon>
