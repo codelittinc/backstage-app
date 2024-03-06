@@ -1,6 +1,6 @@
 import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxios";
 
-import { fromApiParser } from "./parser";
+import { fromApiParser, toApiParser } from "./parser";
 
 export const getRequirements = async ({
   projectId,
@@ -23,4 +23,42 @@ export const getRequirements = async ({
   });
 
   return data.map(fromApiParser);
+};
+
+export const getRequirement = async (requirementId: number | string) => {
+  const { data } = await backstageApiClient.get(
+    `/requirements/${requirementId}.json`
+  );
+
+  return fromApiParser(data);
+};
+
+export const createRequirement = async (
+  requirement: Requirement
+): Promise<Requirement> => {
+  const { data } = await backstageApiClient.post<Requirement>(
+    `/requirements.json`,
+    {
+      requirement: toApiParser(requirement),
+    }
+  );
+
+  return fromApiParser(data);
+};
+
+export const updateRequirement = async (
+  requirement: Requirement
+): Promise<Requirement> => {
+  const { data } = await backstageApiClient.put<Requirement>(
+    `/requirements/${requirement.id}.json`,
+    {
+      requirement: toApiParser(requirement),
+    }
+  );
+
+  return fromApiParser(data);
+};
+
+export const deleteStatementOfWork = async (requirement: Requirement) => {
+  await backstageApiClient.delete(`/requirements/${requirement.id}.json`);
 };

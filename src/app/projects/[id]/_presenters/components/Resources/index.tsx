@@ -180,6 +180,7 @@ const Resources = ({ project }: Props) => {
         <RequirementsTable
           requirements={filteredRequirements}
           assignments={filteredAssignments}
+          project={project}
         />
       </Grid>
       <Grid item xs={3} direction="column" alignItems="center" display={"flex"}>

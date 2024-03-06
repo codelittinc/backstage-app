@@ -10,3 +10,14 @@ export const fromApiParser = (data: any): Requirement => {
     endDate: data.end_date,
   };
 };
+
+export const toApiParser = (data: Requirement): any => {
+  return {
+    id: data.id,
+    coverage: data.coverage,
+    profession_id: data.professionId,
+    statement_of_work_id: data.statementOfWorkId,
+    start_date: data.startDate,
+    end_date: data.endDate,
+  };
+};
