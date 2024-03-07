@@ -10,7 +10,7 @@ export type User = {
   firstName: string;
   fullName: string;
   googleId: string;
-  id?: number;
+  id?: number | string;
   imageUrl: string;
   internal: boolean;
   lastName: string;

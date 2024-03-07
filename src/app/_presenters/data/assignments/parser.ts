@@ -10,3 +10,14 @@ export const fromApiParser = (data: any): Assignment => {
     userId: data.user_id,
   };
 };
+
+export const toApiParser = (data: Assignment): any => {
+  return {
+    id: data.id,
+    coverage: data.coverage,
+    requirement_id: data.requirementId,
+    start_date: data.startDate,
+    end_date: data.endDate,
+    user_id: data.userId,
+  };
+};
