@@ -13,8 +13,16 @@ export const getUser = async (id: number | string): Promise<User> => {
   return fromApiParser(data);
 };
 
-export const getUsers = async (): Promise<User[]> => {
-  const { data } = await backstageApiClient.get(`/users.json`);
+export const getUsers = async (
+  onlyActive = true,
+  onlyInternal = false
+): Promise<User[]> => {
+  const { data } = await backstageApiClient.get(`/users.json`, {
+    params: {
+      only_active: onlyActive,
+      only_internal: onlyInternal,
+    },
+  });
   return data.map(fromApiParser);
 };
 

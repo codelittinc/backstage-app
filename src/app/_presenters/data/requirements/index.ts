@@ -59,6 +59,6 @@ export const updateRequirement = async (
   return fromApiParser(data);
 };
 
-export const deleteStatementOfWork = async (requirement: Requirement) => {
+export const deleteRequirement = async (requirement: Requirement) => {
   await backstageApiClient.delete(`/requirements/${requirement.id}.json`);
 };
