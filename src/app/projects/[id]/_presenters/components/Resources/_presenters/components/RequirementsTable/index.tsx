@@ -133,16 +133,29 @@ const RequirementsTable = ({ requirements, assignments, project }: Props) => {
       width: "5%",
       Cell: ({ row }: any) => {
         const {
-          original: { id, statementOfWorkId },
+          original: { id, statementOfWorkId, requirementId, userId },
         } = row;
+
+        let path = routes.requirementPath(id, statementOfWorkId, project.id!);
+
+        if (requirementId) {
+          const statementId = requirements.find(
+            (req) => req.id === requirementId
+          )?.statementOfWorkId;
+          path = routes.assignmentPath(
+            id,
+            requirementId,
+            statementId!,
+            project.id!
+          );
+        }
+
         return (
           <Button
             variant="text"
             color="primary"
             onClick={() => {
-              router.push(
-                routes.requirementPath(id, statementOfWorkId, project.id!)
-              );
+              router.push(path);
             }}
           >
             <Icon>edit</Icon>

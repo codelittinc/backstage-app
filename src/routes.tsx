@@ -22,6 +22,13 @@ const routes = {
     projectId: number | string
   ) =>
     `/projects/${projectId}/statements-of-work/${statementOfWorkId}/requirements/${requirementId}`,
+  assignmentPath: (
+    assignmentId: number | string,
+    requirementId: number | string,
+    statementOfWorkId: number | string,
+    projectId: number | string
+  ) =>
+    `/projects/${projectId}/statements-of-work/${statementOfWorkId}/requirements/${requirementId}/assignments/${assignmentId}`,
 };
 
 export default routes;

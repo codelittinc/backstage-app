@@ -6,15 +6,15 @@ import usePermissions from "@/components/ProtectedComponent/_presenters/controll
 
 import { getUsers } from "../data/users";
 
-const useUsersController = () => {
+const useUsersController = (onlyActive = true, onlyInternal = false) => {
   const { hasPermission } = usePermissions({
     ability: "view",
     target: "users",
   });
 
   const { data, isLoading } = useQuery({
-    queryKey: [tanstackKeys.Applications],
-    queryFn: getUsers,
+    queryKey: [tanstackKeys.Applications, onlyActive, onlyInternal],
+    queryFn: () => getUsers(onlyActive, onlyInternal),
     enabled: hasPermission,
   });
 
