@@ -1,4 +1,4 @@
-import { Card, Grid, Switch } from "@mui/material";
+import { Card, Grid, Icon, Switch } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -16,6 +16,9 @@ import RequirementsTable from "./_presenters/components/RequirementsTable";
 import useResourcesController from "./_presenters/controllers/useResourcesController";
 import Loading from "@/components/Loading";
 import MetricCard from "@/components/MetricCard";
+import routes from "@/routes";
+import { useRouter } from "next/navigation";
+import Button from "@/components/Button";
 
 type Props = {
   project: Project;
@@ -41,6 +44,8 @@ const filterItems = (items: TableItem[]) => {
 };
 
 const Resources = ({ project }: Props) => {
+  const router = useRouter();
+
   const { data: statementsOfWork } = useQuery({
     queryKey: [tanstackKeys.StatementsOfWork, project.id],
     queryFn: () => getStatementOfWorks(project.id!),
@@ -148,6 +153,21 @@ const Resources = ({ project }: Props) => {
             </Grid>
           </Grid>
         </Card>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Box pb={3}>
+          <Button
+            variant="gradient"
+            color="info"
+            onClick={() =>
+              router.push(
+                routes.requirementPath("new", statementOfWork.id!, project.id!)
+              )
+            }
+          >
+            <Icon>add</Icon>&nbsp; Requirement
+          </Button>
+        </Box>
       </Grid>
       <Grid item xs={9}>
         <RequirementsTable
