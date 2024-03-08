@@ -8,6 +8,8 @@ import DataTable from "@/components/DataTable";
 import Loading from "@/components/Loading";
 import routes from "@/routes";
 
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+
 type Props = {
   assignments: Assignment[];
   project: Project;
@@ -129,11 +131,45 @@ const RequirementsTable = ({ requirements, assignments, project }: Props) => {
     },
     {
       Header: "",
+      accessor: "addAssignment",
+      width: "5%",
+      Cell: ({ row }: any) => {
+        const {
+          original: { statementOfWorkId, id, requirementId },
+        } = row;
+
+        if (requirementId) {
+          return null;
+        }
+
+        const path = routes.assignmentPath(
+          "new",
+          id,
+          statementOfWorkId,
+          project.id!
+        );
+
+        return (
+          <Button
+            variant="text"
+            color="primary"
+            onClick={() => {
+              router.push(path);
+            }}
+          >
+            <PersonAddAlt1Icon />
+          </Button>
+        );
+      },
+    },
+
+    {
+      Header: "",
       accessor: "edit",
       width: "5%",
       Cell: ({ row }: any) => {
         const {
-          original: { id, statementOfWorkId, requirementId, userId },
+          original: { id, statementOfWorkId, requirementId },
         } = row;
 
         let path = routes.requirementPath(id, statementOfWorkId, project.id!);
