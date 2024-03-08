@@ -6,7 +6,6 @@ import { ReactNode } from "react";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 
-
 interface Props {
   [key: string]: any;
   icon: ReactNode;
@@ -21,7 +20,8 @@ function Breadcrumbs({
   route,
   light = false,
 }: Props): JSX.Element {
-  const routes: string[] | any = route.slice(0, -1);
+  let routes: string[] | any = route.slice(0, -1);
+  routes = routes.splice(0, 1);
 
   return (
     <Box mr={{ xs: 0, xl: 8 }}>
@@ -59,15 +59,6 @@ function Breadcrumbs({
             </Typography>
           </Link>
         ))}
-        <Typography
-          variant="button"
-          fontWeight="regular"
-          textTransform="capitalize"
-          color={light ? "white" : "dark"}
-          sx={{ lineHeight: 0 }}
-        >
-          {title.replace("-", " ")}
-        </Typography>
       </MuiBreadcrumbs>
     </Box>
   );
