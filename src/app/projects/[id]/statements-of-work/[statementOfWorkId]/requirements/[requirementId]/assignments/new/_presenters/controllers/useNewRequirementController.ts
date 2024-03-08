@@ -1,13 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
+import { createAssignment } from "@/app/_presenters/data/assignments";
+import { getRequirement } from "@/app/_presenters/data/requirements";
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import routes from "@/routes";
-import { createRequirement } from "@/app/_presenters/data/requirements";
-import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
-import { getStatementOfWork } from "@/app/projects/_presenters/components/ProjectForm/_presenters/components/StatementsOfWork/_presenters/data/services/statementsOfWork";
 
-const useRequirementController = (
+const useAssignmentController = (
+  requirementId: string,
   statementOfWorkId: string,
   projectId: string
 ) => {
@@ -16,40 +17,36 @@ const useRequirementController = (
   const router = useRouter();
 
   const updateMutation = useMutation({
-    mutationFn: createRequirement,
-    onSuccess: (result: Requirement) => {
+    mutationFn: createAssignment,
+    onSuccess: (result: Assignment) => {
       showSaveSuccessAlert();
       queryClient.invalidateQueries({
-        queryKey: [tanstackKeys.Requirements, result.id],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: [tanstackKeys.Requirements, projectId],
+        queryKey: [tanstackKeys.Assignments, result.id],
       });
 
       router.push(
-        routes.requirementPath(
+        routes.assignmentPath(
           result.id as number,
-          result.statementOfWorkId,
+          result.requirementId,
+          statementOfWorkId,
           projectId
         )
       );
     },
   });
 
-  const { data: statementOfWork, isLoading: isLoadingStatementOfWork } =
-    useQuery({
-      queryKey: [tanstackKeys.StatementsOfWork, statementOfWorkId],
-      queryFn: () => getStatementOfWork(statementOfWorkId, projectId),
-    });
+  const { data: requirement, isLoading } = useQuery({
+    queryKey: [tanstackKeys.Requirements, requirementId],
+    queryFn: () => getRequirement(requirementId),
+  });
 
   return {
-    onSave: (requirement: Requirement) => {
-      updateMutation.mutate(requirement);
+    onSave: (assignment: Assignment) => {
+      updateMutation.mutate(assignment);
     },
-    statementOfWork,
-    isLoading: isLoadingStatementOfWork,
+    requirement,
+    isLoading,
   };
 };
 
-export default useRequirementController;
+export default useAssignmentController;
