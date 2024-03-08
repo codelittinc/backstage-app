@@ -1,4 +1,4 @@
-import { Card, Checkbox, Grid, Switch } from "@mui/material";
+import { Card, Grid, Switch } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -7,8 +7,6 @@ import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 import { getStatementOfWorks } from "@/app/projects/_presenters/components/ProjectForm/_presenters/components/StatementsOfWork/_presenters/data/services/statementsOfWork";
-import Assignments from "@/components/Analytics/TimeEntries/_presenters/components/Assignments";
-import Requirements from "@/components/Analytics/TimeEntries/_presenters/components/Requirements";
 import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
 import DateRangePicker from "@/components/DateRangePicker";
@@ -16,6 +14,8 @@ import Typography from "@/components/Typography";
 
 import RequirementsTable from "./_presenters/components/RequirementsTable";
 import useResourcesController from "./_presenters/controllers/useResourcesController";
+import Loading from "@/components/Loading";
+import MetricCard from "@/components/MetricCard";
 
 type Props = {
   project: Project;
@@ -46,66 +46,35 @@ const Resources = ({ project }: Props) => {
     queryFn: () => getStatementOfWorks(project.id!),
   });
 
-  const defaultStartDate = new Date();
-  const defaultEndDate = new Date();
-  const { startDate, endDate, updateDateRangeQuery } = useDateRangeController(
-    defaultStartDate,
-    defaultEndDate
-  );
+  const { startDate, endDate, updateDateRangeQuery } = useDateRangeController();
 
-  const smallestStartDate = statementsOfWork?.reduce((acc, statementOfWork) => {
-    if (new Date(statementOfWork.startDate) < acc) {
-      return new Date(statementOfWork.startDate);
-    }
-    return acc;
-  }, new Date());
-
-  const biggestEndDate = statementsOfWork?.reduce((acc, statementOfWork) => {
-    if (new Date(statementOfWork.endDate) > acc) {
-      return new Date(statementOfWork.endDate);
-    }
-    return acc;
-  }, new Date());
-
-  const [statementOfWorkFilterAll, setStatementOfWorkFilterAll] =
-    useState<StatementOfWork>({
-      name: "All",
-      startDate: smallestStartDate,
-      endDate: biggestEndDate,
-      projectId: project.id!,
-      totalRevenue: 0,
-    });
+  const statementsOfWorkFilter = statementsOfWork;
+  const [statementOfWork, setStatementOfWork] = useState<StatementOfWork>();
 
   useEffect(() => {
-    setStatementOfWorkFilterAll({
-      ...statementOfWorkFilterAll,
-      startDate: smallestStartDate,
-      endDate: biggestEndDate,
-    });
-    // eslint-disable-next-line
-  }, [statementsOfWork]);
-
-  const statementsOfWorkFilter = [statementOfWorkFilterAll].concat(
-    statementsOfWork
-  );
-  const [statementOfWork, setStatementOfWork] = useState<StatementOfWork>(
-    statementsOfWorkFilter[0]
-  );
+    if (statementsOfWork?.length > 0) {
+      setStatementOfWork(statementsOfWork[0]);
+    }
+  }, [statementsOfWork?.length]);
 
   useEffect(() => {
-    if (statementOfWork.startDate) {
+    if (statementOfWork?.startDate) {
       updateDateRangeQuery(
         new Date(statementOfWork.startDate),
         new Date(statementOfWork.endDate)
       );
     }
     // eslint-disable-next-line
-  }, [statementOfWork.id, statementOfWork.startDate, statementOfWork.endDate]);
+  }, [
+    statementOfWork?.id,
+    statementOfWork?.startDate,
+    statementOfWork?.endDate,
+  ]);
 
   const { requirements, assignments } = useResourcesController(
-    statementOfWork,
     startDate,
-    endDate
+    endDate,
+    statementOfWork
   );
 
   const [onlyDisplayActive, setOnlyDisplayActive] = useState<boolean>(true);
@@ -126,6 +95,10 @@ const Resources = ({ project }: Props) => {
   const assinmentsCoverage = filteredAssignments.reduce((acc, assignment) => {
     return acc + assignment.coverage;
   }, 0);
+
+  if (!statementOfWork || !startDate || !endDate) {
+    return <Loading />;
+  }
 
   return (
     <Grid container>
@@ -183,30 +156,12 @@ const Resources = ({ project }: Props) => {
           project={project}
         />
       </Grid>
-      <Grid item xs={3} direction="column" alignItems="center" display={"flex"}>
-        <Card>
-          <Box
-            padding={5}
-            display={"flex"}
-            flexDirection={"column"}
-            alignItems={"center"}
-          >
-            <Typography>{requirementsCoverage}</Typography>
-            <Typography variant="h6">Required resources</Typography>
-          </Box>
-        </Card>
-        <Box mt={2}></Box>
-        <Card>
-          <Box
-            padding={5}
-            display={"flex"}
-            flexDirection={"column"}
-            alignItems={"center"}
-          >
-            <Typography>{assinmentsCoverage}</Typography>
-            <Typography variant="h6">Assigned resources</Typography>
-          </Box>
-        </Card>
+      <Grid item xs={3}>
+        <Grid container direction="column" alignItems="center" display={"flex"}>
+          <MetricCard text="Required resources" metric={requirementsCoverage} />
+          <Box mt={2}></Box>
+          <MetricCard text="Assigned resources" metric={assinmentsCoverage} />
+        </Grid>
       </Grid>
     </Grid>
   );

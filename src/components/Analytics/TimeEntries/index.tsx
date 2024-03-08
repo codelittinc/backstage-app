@@ -1,7 +1,6 @@
 import { Card, Grid, Typography } from "@mui/material";
 
 import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
-import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import { getLastSaturday, getLastSunday } from "@/app/_presenters/utils/date";
 import Box from "@/components/Box";
 import HorizontalBarChart from "@/components/Charts/HorizontalBarChart";
