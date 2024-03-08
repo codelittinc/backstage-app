@@ -2,15 +2,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import {
-  getRequirement,
-  updateRequirement,
-} from "@/app/_presenters/data/requirements";
-import { useAppStore } from "@/app/_presenters/data/store/store";
-import { getStatementOfWork } from "@/app/projects/_presenters/components/ProjectForm/_presenters/components/StatementsOfWork/_presenters/data/services/statementsOfWork";
-import {
   getAssignment,
   updateAssignment,
 } from "@/app/_presenters/data/assignments";
+import { getRequirement } from "@/app/_presenters/data/requirements";
+import { useAppStore } from "@/app/_presenters/data/store/store";
 
 const useEditAssignmentController = (
   assignmentId: string,

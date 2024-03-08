@@ -2,6 +2,8 @@
 import { Card, Grid } from "@mui/material";
 import { DefaultValues, useForm } from "react-hook-form";
 
+import { User } from "@/app/_domain/interfaces/User";
+import useUsersController from "@/app/_presenters/controllers/useUsersController";
 import { mergeObjects } from "@/app/_presenters/utils/objects";
 import Box from "@/components/Box";
 import Form from "@/components/Form";
@@ -11,12 +13,10 @@ import TextInputController from "@/components/Form/FieldControllers/TextInputCon
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Loading from "@/components/Loading";
 import Typography from "@/components/Typography";
-import { User } from "@/app/_domain/interfaces/User";
-import useUsersController from "@/app/_presenters/controllers/useUsersController";
 
 interface Props {
-  onSave: (assignment: Assignment) => void;
   assignment?: Assignment;
+  onSave: (assignment: Assignment) => void;
   requirement: Requirement;
 }
 
