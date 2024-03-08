@@ -1,8 +1,7 @@
-import { Box, Card, Typography } from "@mui/material";
-
 import Loading from "@/components/Loading";
 
 import useRequirementsController from "./_presenters/controllers/useRequirementsController";
+import MetricCard from "@/components/MetricCard";
 
 type Props = {
   endDate: string;
@@ -31,19 +30,7 @@ const Requirements = ({ startDate, endDate, project }: Props): JSX.Element => {
 
   requirementsCoverage = Math.round(requirementsCoverage);
 
-  return (
-    <Card>
-      <Box
-        padding={5}
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-      >
-        <Typography>{requirementsCoverage}</Typography>
-        <Typography variant="h6">Required resources</Typography>
-      </Box>
-    </Card>
-  );
+  return <MetricCard text="Required resources" metric={requirementsCoverage} />;
 };
 
 export default Requirements;

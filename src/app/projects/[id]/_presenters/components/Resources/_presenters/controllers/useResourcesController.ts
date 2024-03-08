@@ -6,35 +6,37 @@ import { getAssignments } from "@/app/_presenters/data/assignments";
 import { getRequirements } from "@/app/_presenters/data/requirements";
 
 const useResourcesController = (
-  statementOfWork: StatementOfWork,
   startDate: string,
-  endDate: string
+  endDate: string,
+  statementOfWork?: StatementOfWork
 ) => {
-  const { id } = statementOfWork;
-  const projectId = id ? undefined : statementOfWork.projectId;
+  const statementOfWorkId = statementOfWork?.id;
 
   const { data: requirements, isLoading: isLoadingRequirements } = useQuery({
-    queryKey: [tanstackKeys.Requirements, startDate, endDate, id, projectId],
+    queryKey: [
+      tanstackKeys.Requirements,
+      startDate,
+      endDate,
+      statementOfWorkId,
+    ],
     queryFn: () =>
       getRequirements({
-        projectId: projectId,
         startDate: startDate,
         endDate: endDate,
-        statementOfWorkId: id,
+        statementOfWorkId: statementOfWorkId,
       }),
-    enabled: !!id || !!projectId,
+    enabled: !!statementOfWorkId && !!startDate && !!endDate,
   });
 
   const { data: assignments, isLoading: isLoadingAssignmnents } = useQuery({
-    queryKey: [tanstackKeys.Assignments, startDate, endDate, id, projectId],
+    queryKey: [tanstackKeys.Assignments, startDate, endDate, statementOfWorkId],
     queryFn: () =>
       getAssignments({
-        projectId,
         startDate: startDate,
         endDate: endDate,
-        statementOfWorkId: id,
+        statementOfWorkId: statementOfWorkId,
       }),
-    enabled: !!id || !!projectId,
+    enabled: !!statementOfWorkId && !!startDate && !!endDate,
   });
 
   return {
