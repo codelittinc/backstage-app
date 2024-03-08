@@ -1,9 +1,10 @@
 "use client";
 import { useParams } from "next/navigation";
 
+import Loading from "@/components/Loading";
+
 import useNewStatementsOfWorkController from "./_presenters/controllers/useNewRequirementController";
 import RequirementForm from "../_presenters/components/RequirementForm";
-import Loading from "@/components/Loading";
 
 function Page() {
   const { id, statementOfWorkId } = useParams();

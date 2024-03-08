@@ -1,21 +1,25 @@
 "use client";
 import { useParams } from "next/navigation";
 
-import useNewStatementsOfWorkController from "./_presenters/controllers/useNewRequirementController";
-import RequirementForm from "../_presenters/components/AssignmentForm";
 import Loading from "@/components/Loading";
 
-function Page() {
-  const { id, statementOfWorkId } = useParams();
+import useNewAssignmentController from "./_presenters/controllers/useNewRequirementController";
+import AssignmentForm from "../_presenters/components/AssignmentForm";
 
-  const { onSave, statementOfWork, isLoading } =
-    useNewStatementsOfWorkController(statementOfWorkId as string, id as string);
+function Page() {
+  const { id, requirementId, statementOfWorkId } = useParams();
+
+  const { onSave, requirement, isLoading } = useNewAssignmentController(
+    requirementId as string,
+    statementOfWorkId as string,
+    id as string
+  );
 
   if (isLoading) {
     return <Loading />;
   }
 
-  return <RequirementForm onSave={onSave} statementOfWork={statementOfWork!} />;
+  return <AssignmentForm onSave={onSave} requirement={requirement!} />;
 }
 
 export default Page;
