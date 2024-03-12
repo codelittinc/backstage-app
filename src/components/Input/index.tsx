@@ -1,5 +1,5 @@
 import { OutlinedTextFieldProps, StandardTextFieldProps } from "@mui/material";
-import React, { FC, forwardRef, useEffect, useRef } from "react";
+import React, { FC, forwardRef } from "react";
 
 import InputRoot from "./InputRoot";
 

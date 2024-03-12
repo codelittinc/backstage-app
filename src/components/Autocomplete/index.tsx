@@ -16,6 +16,8 @@ interface AutocompleteProps {
   placeholder?: string;
   showArrows?: boolean;
   value?: any;
+  error?: boolean;
+  helperText?: string | undefined;
 }
 
 const Autocomplete = forwardRef(
@@ -31,6 +33,8 @@ const Autocomplete = forwardRef(
       isOptionEqualToValue,
       placeholder,
       showArrows = true,
+      error,
+      helperText,
     }: AutocompleteProps,
     ref
   ) => {
@@ -90,6 +94,8 @@ const Autocomplete = forwardRef(
               InputLabelProps={{ shrink: true }}
               InputProps={inputProps}
               inputRef={localInputRef}
+              error={error}
+              helperText={helperText}
             />
           );
         }}
