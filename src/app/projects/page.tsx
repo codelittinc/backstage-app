@@ -12,24 +12,33 @@ import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 import Loading from "@/components/Loading";
 import ProtectedComponent from "@/components/ProtectedComponent";
 import Typography from "@/components/Typography";
-import { abilities, targets } from "@/permissions";
 import routes from "@/routes";
 
 import ComplexProjectCard from "./_presenters/components/ComplexProjectCard";
 import useProjectsController from "./_presenters/controllers/useProjectsController";
-import useQueryParamController from "../_presenters/controllers/useQueryParamController";
 import {
   getFirstDayOfCurrentMonth,
   getLastDayOfCurrentMonth,
 } from "../_presenters/utils/date";
+import useDateRangeController from "../_presenters/controllers/queries/useDateRangeController";
+import usePermissions from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
+import { abilities, targets } from "@/permissions";
 
-const renderProjects = (projects: Project[], onClick: Function) => {
+const renderProjects = (
+  projects: Project[],
+  onClick: Function,
+  hasProjectsPermission: boolean,
+  hasUsersPermission: boolean
+) => {
   return projects.map((project: Project) => {
     const { name, slug, logoUrl } = project;
     const { customer: { name: customerName } = {} } = project;
     const projectPath = routes.projectPath(slug as string);
 
     const title = name == customerName ? name : `${customerName} - ${name}`;
+    const onClickTitle = hasProjectsPermission
+      ? () => onClick(projectPath)
+      : undefined;
 
     return (
       <Grid item xs={12} md={6} lg={4} key={project.name}>
@@ -43,7 +52,8 @@ const renderProjects = (projects: Project[], onClick: Function) => {
             members={project.participants.map((participant) => {
               return { id: participant.slug, src: participant.imageUrl };
             })}
-            onClickTitle={() => onClick(projectPath)}
+            onClickTitle={onClickTitle}
+            hasUsersPermission={hasUsersPermission}
           />
         </Box>
       </Grid>
@@ -51,51 +61,28 @@ const renderProjects = (projects: Project[], onClick: Function) => {
   });
 };
 
-const START_DATE_KEY = "startDate";
-const END_DATE_KEY = "endDate";
-
 function AllProjects(): JSX.Element {
   const router = useRouter();
   const defaultStartDate = getFirstDayOfCurrentMonth();
   const defaultEndDate = getLastDayOfCurrentMonth();
+  const { hasPermission: hasProjectsPermission } = usePermissions({
+    ability: abilities.change,
+    target: targets.projects,
+  });
 
-  const { setCustomParams, getCustomParamValue } = useQueryParamController([
-    {
-      key: START_DATE_KEY,
-      defaultValue: defaultStartDate.toISOString(),
-    },
-    {
-      key: END_DATE_KEY,
-      defaultValue: defaultEndDate.toISOString(),
-    },
-  ]);
+  const { hasPermission: hasUsersPermission } = usePermissions({
+    ability: abilities.change,
+    target: targets.projects,
+  });
 
-  const updateDateFilters = (startDate: Date, endDate: Date) => {
-    setCustomParams([
-      {
-        key: START_DATE_KEY,
-        value: startDate.toISOString(),
-      },
-      {
-        key: END_DATE_KEY,
-        value: endDate.toISOString(),
-      },
-    ]);
-  };
-
-  const startDateFilter = getCustomParamValue(
-    START_DATE_KEY,
-    defaultStartDate.toISOString()
-  ) as string;
-
-  const endDateFilter = getCustomParamValue(
-    END_DATE_KEY,
-    defaultEndDate.toISOString()
-  ) as string;
+  const { startDate, endDate, updateDateRangeQuery } = useDateRangeController(
+    defaultStartDate,
+    defaultEndDate
+  );
 
   const { projects = [], isLoading } = useProjectsController(
-    startDateFilter,
-    endDateFilter
+    startDate,
+    endDate
   );
 
   if (isLoading) {
@@ -123,10 +110,10 @@ function AllProjects(): JSX.Element {
                   <Typography variant="h6">Active between</Typography>
                   <Grid item xs={2} ml={1}>
                     <DateRangePicker
-                      startDate={startDateFilter}
-                      endDate={endDateFilter}
+                      startDate={startDate}
+                      endDate={endDate}
                       onDateRangeChange={(startDate, endDate) => {
-                        updateDateFilters(startDate, endDate);
+                        updateDateRangeQuery(startDate, endDate);
                       }}
                       label=""
                     />
@@ -152,7 +139,12 @@ function AllProjects(): JSX.Element {
         </Grid>
         <Box mt={5}>
           <Grid container spacing={3}>
-            {renderProjects(projects, (route: string) => router.push(route))}
+            {renderProjects(
+              projects,
+              (route: string) => router.push(route),
+              hasProjectsPermission,
+              hasUsersPermission
+            )}
           </Grid>
         </Box>
       </Box>
