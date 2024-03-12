@@ -256,23 +256,18 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       icon: <Icon fontSize="medium">dataset</Icon>,
       href: "/timesheets",
       noCollapse: true,
-      protectedLink: {
-        ability: abilities.change,
-        target: targets.timeEntries,
-      },
     },
     {
       type: "collapse",
-      name: "Roadrunner",
-      key: "roadrunner",
+      name: "Repositories",
+      key: "repositories",
       icon: <Icon fontSize="medium">dashboard</Icon>,
-      collapse: [
-        {
-          name: "Repositories",
-          key: "repositories",
-          route: "/repositories",
-        },
-      ],
+      href: "/repositories",
+      noCollapse: true,
+      protectedLink: {
+        ability: abilities.change,
+        target: targets.repositories,
+      },
     },
     {
       type: "collapse",
@@ -319,6 +314,10 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       icon: <Icon fontSize="medium">receipt_long</Icon>,
       href: "/customers",
       noCollapse: true,
+      protectedLink: {
+        ability: abilities.change,
+        target: targets.projects,
+      },
     },
     {
       type: "collapse",
@@ -471,16 +470,6 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       />
       <Box display="flex" flexDirection="column" height="100%">
         <List style={{ flexGrow: 1 }}>{renderRoutes}</List>
-        <Box p={2} textAlign="center">
-          <Typography
-            component="h6"
-            variant="button"
-            fontWeight="light"
-            color={textColor}
-          >
-            Ctrl + F for global search
-          </Typography>
-        </Box>
       </Box>
     </SidenavRoot>
   );

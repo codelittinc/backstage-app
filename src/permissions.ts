@@ -9,4 +9,5 @@ export const targets = {
   analytics: "analytics",
   projects: "projects",
   timeEntries: "timeEntries",
+  repositories: "repositories",
 };
