@@ -3,6 +3,7 @@ import { useMemo } from "react";
 
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import { User } from "@/app/_domain/interfaces/User";
+import Box from "@/components/Box";
 import DatePicker from "@/components/DatePicker";
 import Loading from "@/components/Loading";
 import PageFilterContainer from "@/components/PageFilterContainer";
@@ -10,7 +11,6 @@ import PageFilterContainer from "@/components/PageFilterContainer";
 import useTimeEntriesController from "../../controllers/useTimeEntriesController";
 import { TimeEntry } from "../../domain/types/TimeEntry";
 import TimesheetsTable from "../TimesheetsTable";
-import Box from "@/components/Box";
 
 type Props = {
   user?: User;
