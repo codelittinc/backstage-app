@@ -45,6 +45,7 @@ const AutocompleteController = <T extends FieldValues>({
           }}
           options={options}
           helperText={error ? error.message : null}
+          error={!!error}
           onChange={(newValue: T) => {
             const isValueObject = typeof newValue === "object";
             let v = newValue;
