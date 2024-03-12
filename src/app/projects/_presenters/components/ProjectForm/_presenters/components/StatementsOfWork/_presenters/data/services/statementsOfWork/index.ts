@@ -3,10 +3,20 @@ import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxio
 
 import { fromApiParser, toApiParser } from "./parser";
 
-export const getStatementOfWorks = async (projectId: string | number) => {
-  const { data } = await backstageApiClient.get(
-    `/projects/${projectId}/statement_of_works.json`
-  );
+export const getStatementOfWorks = async (
+  projectId?: string | number,
+  startDate?: string,
+  endDate?: string
+) => {
+  const { data } = await backstageApiClient.get(`/statement_of_works.json`, {
+    params: {
+      project_id: projectId,
+      filters: {
+        start_date: startDate,
+        end_date: endDate,
+      },
+    },
+  });
 
   return data.map(fromApiParser);
 };
@@ -16,7 +26,12 @@ export const getStatementOfWork = async (
   projectId: number | string
 ) => {
   const { data } = await backstageApiClient.get(
-    `/projects/${projectId}/statement_of_works/${id}.json`
+    `/statement_of_works/${id}.json`,
+    {
+      params: {
+        project_id: projectId,
+      },
+    }
   );
 
   return fromApiParser(data);
@@ -30,8 +45,9 @@ export const createStatementOfWork = async ({
   statementOfWork: StatementOfWork;
 }): Promise<StatementOfWork> => {
   const { data } = await backstageApiClient.post<StatementOfWork>(
-    `/projects/${projectId}/statement_of_works.json`,
+    `/statement_of_works.json`,
     {
+      project_id: projectId,
       statement_of_work: toApiParser(statementOfWork),
     }
   );
@@ -47,8 +63,9 @@ export const updateStatementOfWork = async ({
   statementOfWork: StatementOfWork;
 }): Promise<StatementOfWork> => {
   const { data } = await backstageApiClient.put<StatementOfWork>(
-    `/projects/${projectId}/statement_of_works/${statementOfWork.id}.json`,
+    `/statement_of_works/${statementOfWork.id}.json`,
     {
+      project_id: projectId,
       statement_of_work: toApiParser(statementOfWork),
     }
   );
@@ -64,6 +81,11 @@ export const deleteStatementOfWork = async ({
   statementOfWork: StatementOfWork;
 }) => {
   await backstageApiClient.delete(
-    `/projects/${projectId}/statement_of_works/${statementOfWork.id}.json`
+    `/statement_of_works/${statementOfWork.id}.json`,
+    {
+      params: {
+        project_id: projectId,
+      },
+    }
   );
 };

@@ -1,5 +1,6 @@
 import { Card, Grid, Icon, Switch } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import React from "react";
 
@@ -9,16 +10,15 @@ import useDateRangeController from "@/app/_presenters/controllers/queries/useDat
 import { getStatementOfWorks } from "@/app/projects/_presenters/components/ProjectForm/_presenters/components/StatementsOfWork/_presenters/data/services/statementsOfWork";
 import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
+import Button from "@/components/Button";
 import DateRangePicker from "@/components/DateRangePicker";
+import Loading from "@/components/Loading";
+import MetricCard from "@/components/MetricCard";
 import Typography from "@/components/Typography";
+import routes from "@/routes";
 
 import RequirementsTable from "./_presenters/components/RequirementsTable";
 import useResourcesController from "./_presenters/controllers/useResourcesController";
-import Loading from "@/components/Loading";
-import MetricCard from "@/components/MetricCard";
-import routes from "@/routes";
-import { useRouter } from "next/navigation";
-import Button from "@/components/Button";
 
 type Props = {
   project: Project;
@@ -60,7 +60,7 @@ const Resources = ({ project }: Props) => {
     if (statementsOfWork?.length > 0) {
       setStatementOfWork(statementsOfWork[0]);
     }
-  }, [statementsOfWork?.length]);
+  }, [statementsOfWork]);
 
   useEffect(() => {
     if (statementOfWork?.startDate) {

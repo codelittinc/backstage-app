@@ -8,4 +8,5 @@ export const targets = {
   user: "user",
   analytics: "analytics",
   projects: "projects",
+  timeEntries: "timeEntries",
 };

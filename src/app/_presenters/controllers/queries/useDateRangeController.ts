@@ -18,7 +18,7 @@ const useDateRangeController = (
     },
   ]);
 
-  const updateDateRangeQuery = (startDate: Date, endDate: Date) => {
+  const updateDateRangeQuery = (startDate: Date, endDate?: Date) => {
     setCustomParams([
       {
         key: START_DATE_KEY,
@@ -26,7 +26,7 @@ const useDateRangeController = (
       },
       {
         key: END_DATE_KEY,
-        value: endDate.toISOString(),
+        value: endDate?.toISOString(),
       },
     ]);
   };

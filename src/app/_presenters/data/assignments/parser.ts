@@ -8,6 +8,7 @@ export const fromApiParser = (data: any): Assignment => {
     startDate: data.start_date,
     endDate: data.end_date,
     userId: data.user_id,
+    statementOfWorkId: data.statement_of_work_id,
   };
 };
 

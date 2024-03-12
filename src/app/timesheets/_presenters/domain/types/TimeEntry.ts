@@ -1,10 +1,8 @@
-type Assignment = {
-  coverage: number;
+export type TimeEntry = {
   createdAt?: string;
-  endDate: string;
+  date: string;
+  hours: number;
   id?: number;
-  requirementId: number;
-  startDate: string;
   statementOfWorkId: number;
   updatedAt?: string;
   userId: number;

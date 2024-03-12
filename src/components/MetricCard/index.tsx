@@ -1,9 +1,10 @@
 import { Box, Card } from "@mui/material";
+
 import Typography from "../Typography";
 
 type Props = {
-  text: string;
   metric: number;
+  text: string;
 };
 
 const MetricCard = ({ text, metric }: Props) => {

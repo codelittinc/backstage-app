@@ -1,10 +1,15 @@
 import axios from "axios";
+import qs from "qs";
 
 import { useAppStore } from "../store/store";
 
 export const backstageApiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
+
+backstageApiClient.defaults.paramsSerializer = (p) => {
+  return qs.stringify(p, { arrayFormat: "brackets" });
+};
 
 backstageApiClient.interceptors.request.use((config) => {
   const { sessionUser } = useAppStore.getState();

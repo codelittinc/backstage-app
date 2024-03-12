@@ -3,6 +3,7 @@ const routes = {
   customerPath: (id: number | string) => `/customers/${id}`,
   projectPath: (id: number | string) => `/projects/${id}`,
   userPath: (id: number | string) => `/users/${id}`,
+  timesheetsPath: "/timesheets",
   newRepositoryPath: "/repositories/new",
   newCustomerPath: "/customers/new",
   newProjectPath: "/projects/new",
