@@ -18,7 +18,11 @@ const getProjectRoutes = (projects: Project[]) => {
 };
 
 const useBackstageAutoCompleteController = () => {
-  const { users = [], isLoading: isLoadingUsers } = useUsersController();
+  const { users = [], isLoading: isLoadingUsers } = useUsersController(
+    true,
+    true
+  );
+
   const { projects = [], isLoading: isLoadingProjects } =
     useProjectsController();
 

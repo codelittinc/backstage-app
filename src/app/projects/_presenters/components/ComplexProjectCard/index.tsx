@@ -22,6 +22,7 @@ interface Props {
   image: string;
   members?: string[];
   title: string;
+  hasUsersPermission?: boolean;
 }
 
 function ComplexProjectCard({
@@ -33,6 +34,7 @@ function ComplexProjectCard({
   members,
   dropdown = false,
   onClickTitle,
+  hasUsersPermission,
 }: Props): JSX.Element {
   const router = useRouter();
   const membersToRender = members?.length == 0 ? [""] : members;
@@ -45,12 +47,14 @@ function ComplexProjectCard({
         src={member.src || defaultUser.src}
         alt="member profile"
         onClick={() => {
-          router.push(routes.userPath(member.id));
+          if (hasUsersPermission) {
+            router.push(routes.userPath(member.id!));
+          }
         }}
         size="xs"
         sx={({ borders: { borderWidth }, palette: { white } }) => ({
           border: `${borderWidth[2]} solid ${white.main}`,
-          cursor: "pointer",
+          cursor: hasUsersPermission ? "pointer" : "",
           position: "relative",
 
           "&:not(:first-of-type)": {
@@ -68,7 +72,11 @@ function ComplexProjectCard({
   return (
     <Card>
       <Box p={2}>
-        <Box display="flex" alignItems="center" sx={{ cursor: "pointer" }}>
+        <Box
+          display="flex"
+          alignItems="center"
+          sx={{ cursor: onClickTitle ? "pointer" : "" }}
+        >
           <Avatar
             shadow="lg"
             src={image}
