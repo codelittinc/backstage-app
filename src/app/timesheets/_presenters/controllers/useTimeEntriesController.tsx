@@ -14,7 +14,6 @@ import useProjectsController from "@/app/projects/_presenters/controllers/usePro
 
 import { getTimeEntries } from "../data/timeEntries";
 
-
 const useTimeEntriesController = () => {
   const queryClient = useQueryClient();
   const { startDate: date, updateDateRangeQuery } = useDateRangeController(
