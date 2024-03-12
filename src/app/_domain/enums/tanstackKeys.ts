@@ -9,6 +9,7 @@ enum tanstackKeys {
   Repositories = "repositories",
   Requirements = "requirements",
   StatementsOfWork = "statementsOfWork",
+  TimeEntries = "timeEntries",
   Users = "users",
   codeComments = "codeComments",
   Skills = "skills",

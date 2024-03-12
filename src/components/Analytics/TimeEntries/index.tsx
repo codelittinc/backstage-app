@@ -8,6 +8,7 @@ import PieChart from "@/components/Charts/PieChart";
 import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import DateRangePicker from "@/components/DateRangePicker";
 import Loading from "@/components/Loading";
+import PageFilterContainer from "@/components/PageFilterContainer";
 
 import Assignments from "./_presenters/components/Assignments";
 import Requirements from "./_presenters/components/Requirements";
@@ -137,25 +138,21 @@ const TimeEntries = ({ project }: Props) => {
   };
   return (
     <Box>
-      <Card>
-        <Grid container p={2}>
-          <Grid item xs={12} display={"flex"}>
-            <Typography variant="h6">
-              Start by selecting a time period for the data
-            </Typography>
-            <Grid item xs={2} ml={1}>
-              <DateRangePicker
-                startDate={startDate}
-                endDate={endDate}
-                onDateRangeChange={(startDate, endDate) => {
-                  updateDateRangeQuery(startDate, endDate);
-                }}
-                label=""
-              />
-            </Grid>
-          </Grid>
+      <PageFilterContainer>
+        <Typography variant="h6">
+          Start by selecting a time period for the data
+        </Typography>
+        <Grid item xs={2} ml={1}>
+          <DateRangePicker
+            startDate={startDate}
+            endDate={endDate}
+            onDateRangeChange={(startDate, endDate) => {
+              updateDateRangeQuery(startDate, endDate);
+            }}
+            label=""
+          />
         </Grid>
-      </Card>
+      </PageFilterContainer>
       {project && (
         <Grid container mb={3} mt={3}>
           <Grid item xs={12} display={"flex"} justifyContent={"space-evenly"}>

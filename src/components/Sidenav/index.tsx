@@ -251,6 +251,18 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
     { type: "divider", key: "divider-0" },
     {
       type: "collapse",
+      name: "Timesheets",
+      key: "timesheets",
+      icon: <Icon fontSize="medium">dataset</Icon>,
+      href: "/timesheets",
+      noCollapse: true,
+      protectedLink: {
+        ability: abilities.change,
+        target: targets.timeEntries,
+      },
+    },
+    {
+      type: "collapse",
       name: "Roadrunner",
       key: "roadrunner",
       icon: <Icon fontSize="medium">dashboard</Icon>,

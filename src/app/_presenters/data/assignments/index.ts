@@ -6,19 +6,21 @@ export const getAssignments = async ({
   projectId,
   startDate,
   endDate,
-  statementOfWorkId,
+  statementOfWorkIds,
 }: {
   endDate: string;
   projectId?: number | string;
   startDate: string;
-  statementOfWorkId?: number | string;
+  statementOfWorkIds: number[];
 }) => {
   const { data } = await backstageApiClient.get("/assignments.json", {
     params: {
-      project_id: projectId,
-      start_date: startDate,
-      end_date: endDate,
-      statement_of_work_id: statementOfWorkId,
+      filters: {
+        project_id: projectId,
+        start_date: startDate,
+        end_date: endDate,
+        statement_of_work_ids: statementOfWorkIds,
+      },
     },
   });
 

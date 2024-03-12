@@ -1,3 +1,4 @@
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { Button, Icon } from "@mui/material";
 import { useRouter } from "next/navigation";
 
@@ -8,7 +9,6 @@ import DataTable from "@/components/DataTable";
 import Loading from "@/components/Loading";
 import routes from "@/routes";
 
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
 type Props = {
   assignments: Assignment[];
