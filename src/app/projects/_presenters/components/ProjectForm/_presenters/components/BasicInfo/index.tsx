@@ -5,7 +5,6 @@ import { DefaultValues, useForm } from "react-hook-form";
 
 import { mergeObjects } from "@/app/_presenters/utils/objects";
 import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
-import Channel from "@/app/repositories/_domain/interfaces/Channel";
 import useChannelsController from "@/app/repositories/_presenters/components/RepositoryForm/_presenters/components/BasicInfo/_presenters/controllers/useChannelsController";
 import Box from "@/components/Box";
 import Form from "@/components/Form";
@@ -14,13 +13,15 @@ import SwitchController from "@/components/Form/FieldControllers/SwitchControlle
 import TextInputController from "@/components/Form/FieldControllers/TextInputController";
 import Loading from "@/components/Loading";
 import Typography from "@/components/Typography";
+import routes from "@/routes";
 
 type Props = {
   onSave: (project: Project) => void;
+  onDelete?: (project: Project) => void;
   project?: Project;
 };
 
-const BasicInfo: React.FC<Props> = ({ project, onSave }) => {
+const BasicInfo: React.FC<Props> = ({ project, onSave, onDelete }) => {
   const { customers, isLoading: isCustomersLoading } = useCustomersController();
 
   let customer = project ? project.customer : customers && customers[0];
@@ -55,7 +56,11 @@ const BasicInfo: React.FC<Props> = ({ project, onSave }) => {
       <Box p={3}>
         <Typography variant="h5">Basic Info</Typography>
       </Box>
-      <Form onSave={() => handleSubmit(onSave)()}>
+      <Form
+        onSave={() => handleSubmit(onSave)()}
+        cancelPath={routes.projectsPath}
+        onDelete={project?.id ? () => onDelete && onDelete(project) : undefined}
+      >
         <>
           <Grid item xs={12} md={6}>
             <TextInputController

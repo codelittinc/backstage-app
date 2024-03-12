@@ -16,7 +16,7 @@ import ProjectForm from "../_presenters/components/ProjectForm";
 function Page() {
   const { id } = useParams();
 
-  const { project, isLoading, onSave } = useUpdateProjectController(
+  const { project, isLoading, onSave, onDelete } = useUpdateProjectController(
     id as string
   );
 
@@ -48,6 +48,7 @@ function Page() {
         <ProjectForm
           project={project!}
           onSave={onSave}
+          onDelete={onDelete}
           key={"profile-component"}
         />,
         <PerformanceMetrics project={project!} key={"metrics-component"} />,
