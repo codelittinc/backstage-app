@@ -101,8 +101,12 @@ const Resources = ({ project }: Props) => {
     return acc + assignment.coverage;
   }, 0);
 
-  if (!statementOfWork || !startDate || !endDate) {
+  if (!statementsOfWork) {
     return <Loading />;
+  }
+
+  if (statementsOfWork.length === 0) {
+    return <Box>There are no statements of work for this project.</Box>;
   }
 
   return (
