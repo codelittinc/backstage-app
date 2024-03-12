@@ -51,6 +51,7 @@ const Resources = ({ project }: Props) => {
     queryFn: () => getStatementOfWorks(project.id!),
   });
 
+  const defaultDate = new Date().toISOString();
   const { startDate, endDate, updateDateRangeQuery } = useDateRangeController();
 
   const statementsOfWorkFilter = statementsOfWork;
@@ -101,12 +102,12 @@ const Resources = ({ project }: Props) => {
     return acc + assignment.coverage;
   }, 0);
 
-  if (!statementsOfWork || !statementOfWork || !startDate || !endDate) {
-    return <Loading />;
+  if (statementsOfWork?.length === 0) {
+    return <Box>There are no statements of work for this project.</Box>;
   }
 
-  if (statementsOfWork.length === 0) {
-    return <Box>There are no statements of work for this project.</Box>;
+  if (!statementsOfWork || !statementOfWork) {
+    return <Loading />;
   }
 
   return (
@@ -132,8 +133,8 @@ const Resources = ({ project }: Props) => {
               </Grid>
               <Grid item xs={2} ml={1}>
                 <DateRangePicker
-                  startDate={startDate}
-                  endDate={endDate}
+                  startDate={startDate || defaultDate}
+                  endDate={endDate || defaultDate}
                   onDateRangeChange={(startDate, endDate) => {
                     updateDateRangeQuery(startDate, endDate);
                   }}

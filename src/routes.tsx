@@ -1,4 +1,5 @@
 const routes = {
+  projectsPath: "/projects",
   repositoryPath: (id: number | string) => `/repositories/${id}`,
   customerPath: (id: number | string) => `/customers/${id}`,
   projectPath: (id: number | string) => `/projects/${id}`,
