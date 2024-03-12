@@ -101,7 +101,7 @@ const Resources = ({ project }: Props) => {
     return acc + assignment.coverage;
   }, 0);
 
-  if (!statementsOfWork) {
+  if (!statementsOfWork || !statementOfWork) {
     return <Loading />;
   }
 
