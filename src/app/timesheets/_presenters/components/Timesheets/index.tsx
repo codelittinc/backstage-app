@@ -77,7 +77,6 @@ const Timesheets = ({ user }: Props) => {
   if (isLoading) {
     return <Loading />;
   }
-
   return (
     <>
       <Grid container pb={3}>
