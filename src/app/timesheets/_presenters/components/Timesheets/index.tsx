@@ -10,6 +10,7 @@ import PageFilterContainer from "@/components/PageFilterContainer";
 import useTimeEntriesController from "../../controllers/useTimeEntriesController";
 import { TimeEntry } from "../../domain/types/TimeEntry";
 import TimesheetsTable from "../TimesheetsTable";
+import Box from "@/components/Box";
 
 type Props = {
   user?: User;
@@ -72,6 +73,21 @@ const Timesheets = ({ user }: Props) => {
   if (isLoading) {
     return <Loading />;
   }
+
+  if (filteredAssignments.length === 0) {
+    if (user) {
+      return (
+        <Box textAlign={"center"}>
+          <Box type="span">
+            There are no projects assign to you at this moment.{" "}
+          </Box>
+          <Box type="span">Please talk to your manager.</Box>
+        </Box>
+      );
+    }
+    return <Box>No timesheets found</Box>;
+  }
+
   return (
     <>
       <Grid container pb={3}>
