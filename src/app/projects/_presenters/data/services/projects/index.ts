@@ -41,3 +41,7 @@ export const updateProject = async (project: Project): Promise<Project> => {
 
   return fromApiParser(data);
 };
+
+export const deleteProject = async (project: Project) => {
+  await backstageApiClient.delete(`/projects/${project.id}.json`);
+};

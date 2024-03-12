@@ -11,10 +11,11 @@ import StatementsOfWork from "./_presenters/components/StatementsOfWork";
 
 interface Props {
   onSave: (project: Project) => void;
+  onDelete?: (project: Project) => void;
   project?: Project;
 }
 
-function ProjectForm({ project, onSave }: Props): JSX.Element {
+function ProjectForm({ project, onSave, onDelete }: Props): JSX.Element {
   const { hasPermission: hasFinancialPermission } = usePermissions({
     ability: abilities.change,
     target: targets.finances,
@@ -29,6 +30,7 @@ function ProjectForm({ project, onSave }: Props): JSX.Element {
       </Grid>
       <Grid item xs={12}>
         <BasicInfo
+          onDelete={onDelete}
           project={project}
           onSave={(project: Project) => {
             onSave(project);
