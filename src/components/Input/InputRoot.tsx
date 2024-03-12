@@ -67,11 +67,23 @@ export default styled(TextField)(
       },
     });
 
+    const hideNumberInputArrows = {
+      "& input[type='number']::-webkit-inner-spin-button, & input[type='number']::-webkit-outer-spin-button":
+        {
+          "-webkit-appearance": "none",
+          margin: 0,
+        },
+      "& input[type='number']": {
+        "-moz-appearance": "textfield",
+      },
+    };
+
     return {
       backgroundColor: disabled ? `${grey[200]} !important` : transparent.main,
       pointerEvents: disabled ? "none" : "auto",
       ...(error && errorStyles()),
       ...(success && successStyles()),
+      ...hideNumberInputArrows, // Apply the styles to hide number input arrows
     };
   }
 );
