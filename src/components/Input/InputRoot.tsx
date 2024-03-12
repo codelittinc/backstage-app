@@ -14,9 +14,10 @@ Coded by www.creative-tim.com
 */
 
 import { Theme, styled } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
+import TextField, { TextFieldProps } from "@mui/material/TextField";
+import { createRef, forwardRef, useEffect } from "react";
 
-export default styled(TextField)(
+const StyledTextField = styled(TextField)(
   ({ theme, ownerState }: { ownerState: any; theme?: Theme }) => {
     const { palette, functions } = theme;
     const { error, success, disabled } = ownerState;
@@ -70,11 +71,11 @@ export default styled(TextField)(
     const hideNumberInputArrows = {
       "& input[type='number']::-webkit-inner-spin-button, & input[type='number']::-webkit-outer-spin-button":
         {
-          "-webkit-appearance": "none",
+          WebkitAppearance: "none",
           margin: 0,
         },
       "& input[type='number']": {
-        "-moz-appearance": "textfield",
+        MozAppearance: "textfield", // For Firefox
       },
     };
 
@@ -87,3 +88,28 @@ export default styled(TextField)(
     };
   }
 );
+
+const InputRoot = forwardRef<any, TextFieldProps>(({ type, ...rest }, ref) => {
+  const inputRef = ref || createRef<HTMLInputElement>();
+
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => e.preventDefault();
+
+    const currentInput = inputRef.current as HTMLInputElement;
+    if (type === "number" && currentInput) {
+      currentInput.addEventListener("wheel", handleWheel, { passive: false });
+    }
+
+    return () => {
+      if (currentInput) {
+        currentInput.removeEventListener("wheel", handleWheel);
+      }
+    };
+  }, [inputRef, type]);
+
+  return <StyledTextField ref={inputRef} type={type} {...rest} />;
+});
+
+InputRoot.displayName = "InputRoot";
+
+export default InputRoot;
