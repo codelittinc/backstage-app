@@ -60,13 +60,12 @@ const Timesheets = ({ user }: Props) => {
       />
     ),
     [
-      users,
-      filteredAssignments,
-      projects,
-      filteredStatementsOfWork,
+      users.length,
+      filteredAssignments.length,
+      projects.length,
+      filteredStatementsOfWork.length,
       date,
-      filteredTimeEntries,
-      invalidateTimeEntries,
+      filteredTimeEntries.length,
     ]
   );
 
