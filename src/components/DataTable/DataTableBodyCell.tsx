@@ -31,12 +31,7 @@ function DataTableBodyCell({
           : `${borderWidth[1]} solid ${light.main}`,
       })}
     >
-      <Box
-        display="inline-block"
-        width="max-content"
-        color="text"
-        sx={{ verticalAlign: "middle" }}
-      >
+      <Box display="inline-block" color="text" sx={{ verticalAlign: "middle" }}>
         {children}
       </Box>
     </Box>

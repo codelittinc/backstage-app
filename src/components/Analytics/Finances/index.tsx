@@ -13,6 +13,7 @@ import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import DataTable from "@/components/DataTable";
 import DateRangePicker from "@/components/DateRangePicker";
 import Loading from "@/components/Loading";
+import PageFilterContainer from "@/components/PageFilterContainer";
 import Typography from "@/components/Typography";
 import routes from "@/routes";
 
@@ -157,25 +158,21 @@ const Finances = ({ project }: Props) => {
 
   return (
     <Box>
-      <Card>
-        <Grid container p={2}>
-          <Grid item xs={12} display={"flex"}>
-            <Typography variant="h6">
-              Start by selecting a time period for the data
-            </Typography>
-            <Grid item xs={2} ml={1}>
-              <DateRangePicker
-                startDate={startDate}
-                endDate={endDate}
-                onDateRangeChange={(startDate, endDate) => {
-                  updateDateRangeQuery(startDate, endDate);
-                }}
-                label=""
-              />
-            </Grid>
-          </Grid>
+      <PageFilterContainer>
+        <Typography variant="h6">
+          Start by selecting a time period for the data
+        </Typography>
+        <Grid item xs={2} ml={1}>
+          <DateRangePicker
+            startDate={startDate}
+            endDate={endDate}
+            onDateRangeChange={(startDate, endDate) => {
+              updateDateRangeQuery(startDate, endDate);
+            }}
+            label=""
+          />
         </Grid>
-      </Card>
+      </PageFilterContainer>
       <Grid container spacing={3} mt={3}>
         <Grid item xs={12} md={12}>
           <VerticalBarChart

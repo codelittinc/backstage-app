@@ -1,9 +1,9 @@
 import { Box, Card, Typography } from "@mui/material";
 
 import Loading from "@/components/Loading";
+import MetricCard from "@/components/MetricCard";
 
 import useAssignmentsController from "./_presenters/controllers/useAssignmentsController";
-import MetricCard from "@/components/MetricCard";
 
 type Props = {
   endDate: string;

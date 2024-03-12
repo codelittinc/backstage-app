@@ -1,7 +1,7 @@
 import Loading from "@/components/Loading";
+import MetricCard from "@/components/MetricCard";
 
 import useRequirementsController from "./_presenters/controllers/useRequirementsController";
-import MetricCard from "@/components/MetricCard";
 
 type Props = {
   endDate: string;

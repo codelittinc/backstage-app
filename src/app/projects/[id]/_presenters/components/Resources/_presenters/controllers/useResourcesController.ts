@@ -34,7 +34,7 @@ const useResourcesController = (
       getAssignments({
         startDate: startDate,
         endDate: endDate,
-        statementOfWorkId: statementOfWorkId,
+        statementOfWorkIds: [statementOfWorkId],
       }),
     enabled: !!statementOfWorkId && !!startDate && !!endDate,
   });
