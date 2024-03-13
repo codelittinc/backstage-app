@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
+import { onDeleteAction } from "@/app/_presenters/utils/actions";
 import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 import { toUSD } from "@/app/_presenters/utils/finances";
 import Button from "@/components/Button";
@@ -85,7 +86,7 @@ const StatmentsOfWorkTable: React.FC<Props> = ({ project }) => {
           <Button
             variant="text"
             color="error"
-            onClick={() => onDelete(original)}
+            onClick={() => onDeleteAction(() => onDelete(original))}
           >
             <Icon>delete</Icon>
           </Button>
