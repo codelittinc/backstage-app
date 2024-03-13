@@ -79,6 +79,8 @@ const StatementOfWorkForm: React.FC<Props> = ({
     defaultValues,
   });
 
+  const originalContractModel = statementOfWork?.contractModel;
+  const originalContractModelType = originalContractModel?.contractModelType;
   const contractModel = useWatch({
     control,
     name: "contractModel",
@@ -86,8 +88,7 @@ const StatementOfWorkForm: React.FC<Props> = ({
 
   const { contractModelType } = contractModel!;
 
-  const { id: contractModelId, contractModelType: originalContractModelType } =
-    contractModel!;
+  const { id: contractModelId } = contractModel!;
 
   useEffect(() => {
     if (contractModelType) {
