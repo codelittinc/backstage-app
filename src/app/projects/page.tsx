@@ -11,18 +11,18 @@ import DateRangePicker from "@/components/DateRangePicker";
 import DashboardLayout from "@/components/LayoutContainers/DashboardLayout";
 import Loading from "@/components/Loading";
 import ProtectedComponent from "@/components/ProtectedComponent";
+import usePermissions from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
 import Typography from "@/components/Typography";
+import { abilities, targets } from "@/permissions";
 import routes from "@/routes";
 
 import ComplexProjectCard from "./_presenters/components/ComplexProjectCard";
 import useProjectsController from "./_presenters/controllers/useProjectsController";
+import useDateRangeController from "../_presenters/controllers/queries/useDateRangeController";
 import {
   getFirstDayOfCurrentMonth,
   getLastDayOfCurrentMonth,
 } from "../_presenters/utils/date";
-import useDateRangeController from "../_presenters/controllers/queries/useDateRangeController";
-import usePermissions from "@/components/ProtectedComponent/_presenters/controllers/usePermissionsController";
-import { abilities, targets } from "@/permissions";
 
 const renderProjects = (
   projects: Project[],

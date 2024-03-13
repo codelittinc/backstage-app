@@ -10,8 +10,8 @@ import Header from "./_presenters/components/Header";
 import StatementsOfWork from "./_presenters/components/StatementsOfWork";
 
 interface Props {
-  onSave: (project: Project) => void;
   onDelete?: (project: Project) => void;
+  onSave: (project: Project) => void;
   project?: Project;
 }
 

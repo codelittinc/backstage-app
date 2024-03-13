@@ -5,10 +5,10 @@ import Box from "@/components/Box";
 import Button from "@/components/Button";
 
 type Props = {
-  children?: React.ReactNode;
-  onSave: () => void;
   cancelPath?: string;
+  children?: React.ReactNode;
   onDelete?: () => void;
+  onSave: () => void;
 };
 
 function Form({ onSave, cancelPath, onDelete, children }: Props): JSX.Element {

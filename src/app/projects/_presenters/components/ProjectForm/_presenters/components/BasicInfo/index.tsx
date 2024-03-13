@@ -16,8 +16,8 @@ import Typography from "@/components/Typography";
 import routes from "@/routes";
 
 type Props = {
-  onSave: (project: Project) => void;
   onDelete?: (project: Project) => void;
+  onSave: (project: Project) => void;
   project?: Project;
 };
 
