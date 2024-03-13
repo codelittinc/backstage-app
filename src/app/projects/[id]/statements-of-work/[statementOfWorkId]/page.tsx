@@ -9,7 +9,7 @@ import StatementOfWorkForm from "../_presenters/components/StatementOfWorkForm";
 function Page() {
   const { id, statementOfWorkId } = useParams();
 
-  const { onSave, statementOfWork, isLoading } =
+  const { onSave, statementOfWork, isLoading, onDelete } =
     useEditStatementOfWorkController(statementOfWorkId as string, id as string);
 
   if (isLoading) {
@@ -21,6 +21,7 @@ function Page() {
       statementOfWork={statementOfWork!}
       projectId={id as string}
       onSave={onSave}
+      onDelete={onDelete}
     />
   );
 }

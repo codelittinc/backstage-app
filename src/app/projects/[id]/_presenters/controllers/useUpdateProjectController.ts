@@ -35,7 +35,7 @@ const useUpdateProjectController = (projectId: number | string) => {
       });
       showSaveSuccessAlert();
     },
-    onMutate: (project: Project) => {
+    onMutate: () => {
       router.push(routes.projectsPath);
     },
   });

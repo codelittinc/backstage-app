@@ -12,15 +12,16 @@ import { mergeObjects } from "@/app/_presenters/utils/objects";
 import Box from "@/components/Box";
 import Form from "@/components/Form";
 import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
-import { Option } from "@/components/Form/FieldControllers/AutocompleteController";
 import DatePickerController from "@/components/Form/FieldControllers/DatePickerController";
 import TextInputController from "@/components/Form/FieldControllers/TextInputController";
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Typography from "@/components/Typography";
+import routes from "@/routes";
 
 import ContractModelComponent from "./_presenters/components/ContractModelComponent";
 
 interface Props {
+  onDelete?: (StatementOfWork: StatementOfWork) => void;
   onSave: (statementOfWork: StatementOfWork) => void;
   projectId: string;
   statementOfWork?: StatementOfWork;
@@ -64,6 +65,7 @@ const StatementOfWorkForm: React.FC<Props> = ({
   statementOfWork,
   projectId,
   onSave,
+  onDelete,
 }) => {
   const defaultValues = mergeObjects(
     getDefaultSow(projectId),
@@ -108,7 +110,15 @@ const StatementOfWorkForm: React.FC<Props> = ({
           <Box p={3}>
             <Typography variant="h5">Statement Of Work</Typography>
           </Box>
-          <Form onSave={() => handleSubmit(onSave)()}>
+          <Form
+            onSave={() => handleSubmit(onSave)()}
+            onDelete={
+              statementOfWork?.id
+                ? () => onDelete && onDelete(statementOfWork)
+                : undefined
+            }
+            cancelPath={routes.projectPath(projectId, 1)}
+          >
             <>
               <Grid item xs={12}>
                 <TextInputController
