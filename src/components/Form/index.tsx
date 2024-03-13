@@ -1,6 +1,7 @@
 import Grid from "@mui/material/Grid";
 import { useRouter } from "next/navigation";
 
+import { onDeleteAction } from "@/app/_presenters/utils/actions";
 import Box from "@/components/Box";
 import Button from "@/components/Button";
 
@@ -38,11 +39,7 @@ function Form({ onSave, cancelPath, onDelete, children }: Props): JSX.Element {
                 size="small"
                 ml={2}
                 onClick={() => {
-                  if (
-                    window.confirm("Are you sure you want to delete this item?")
-                  ) {
-                    onDelete();
-                  }
+                  onDeleteAction(onDelete);
                 }}
               >
                 Delete

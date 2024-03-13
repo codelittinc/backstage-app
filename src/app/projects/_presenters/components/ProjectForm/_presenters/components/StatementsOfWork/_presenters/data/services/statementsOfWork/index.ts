@@ -74,18 +74,11 @@ export const updateStatementOfWork = async ({
 };
 
 export const deleteStatementOfWork = async ({
-  projectId,
   statementOfWork,
 }: {
-  projectId: string | number;
   statementOfWork: StatementOfWork;
 }) => {
   await backstageApiClient.delete(
-    `/statement_of_works/${statementOfWork.id}.json`,
-    {
-      params: {
-        project_id: projectId,
-      },
-    }
+    `/statement_of_works/${statementOfWork.id}.json`
   );
 };

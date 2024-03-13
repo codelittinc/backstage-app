@@ -35,7 +35,7 @@ const useStatementsOfWorkController = (projectId: number | string) => {
 
   return {
     onDelete: (statementOfWork: StatementOfWork) => {
-      deleteMutation.mutate({ projectId, statementOfWork });
+      deleteMutation.mutate({ statementOfWork });
     },
     statementsOfWork: data,
     projects: projects,
