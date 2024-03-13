@@ -6,8 +6,10 @@ import FormField from "../FormField";
 interface AutocompleteProps {
   [key: string]: any;
   defaultValue?: any;
+  error?: boolean;
   freeSolo?: boolean;
   getOptionLabel?: (value: any) => string;
+  helperText?: string | undefined;
   isOptionEqualToValue?: (option: any, value: any) => boolean;
   label: string;
   multiple?: boolean;
@@ -16,8 +18,6 @@ interface AutocompleteProps {
   placeholder?: string;
   showArrows?: boolean;
   value?: any;
-  error?: boolean;
-  helperText?: string | undefined;
 }
 
 const Autocomplete = forwardRef(

@@ -19,10 +19,10 @@ interface Props {
     action?: (...arg: any) => void;
     menu?: ReactNode;
   };
+  hasUsersPermission?: boolean;
   image: string;
   members?: string[];
   title: string;
-  hasUsersPermission?: boolean;
 }
 
 function ComplexProjectCard({
