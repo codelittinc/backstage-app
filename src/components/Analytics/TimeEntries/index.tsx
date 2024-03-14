@@ -1,14 +1,17 @@
-import { Card, Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
+import { useState } from "react";
 
+import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 import { getLastSaturday, getLastSunday } from "@/app/_presenters/utils/date";
 import Box from "@/components/Box";
 import HorizontalBarChart from "@/components/Charts/HorizontalBarChart";
 import PieChart from "@/components/Charts/PieChart";
 import VerticalBarChart from "@/components/Charts/VerticalBarChart";
-import DateRangePicker from "@/components/DateRangePicker";
 import Loading from "@/components/Loading";
 import PageFilterContainer from "@/components/PageFilterContainer";
+import PeriodPageFilter from "@/components/PageFilters/PeriodPageFilter";
+import StatementOfWorkFilter from "@/components/PageFilters/StatementOfWorkFilter";
 
 import Assignments from "./_presenters/components/Assignments";
 import Requirements from "./_presenters/components/Requirements";
@@ -29,11 +32,12 @@ const TimeEntries = ({ project }: Props) => {
 
   const colors = ["success", "info", "dark", "warning", "error", "secondary"];
 
-  const { timeEntries: data, isLoading } = useTimeEntriesController(
-    startDate,
-    endDate,
-    project
-  );
+  const [statementOfWork, setStatementOfWork] = useState<StatementOfWork>();
+  const {
+    timeEntries: data,
+    statementsOfWork,
+    isLoading,
+  } = useTimeEntriesController(startDate, endDate, project, statementOfWork);
 
   if (isLoading) {
     return <Loading />;
@@ -136,22 +140,21 @@ const TimeEntries = ({ project }: Props) => {
       },
     ],
   };
+
   return (
     <Box>
       <PageFilterContainer>
-        <Typography variant="h6">
-          Start by selecting a time period for the data
-        </Typography>
-        <Grid item xs={2} ml={1}>
-          <DateRangePicker
-            startDate={startDate}
-            endDate={endDate}
-            onDateRangeChange={(startDate, endDate) => {
-              updateDateRangeQuery(startDate, endDate);
-            }}
-            label=""
-          />
-        </Grid>
+        <StatementOfWorkFilter
+          statementOfWork={statementOfWork}
+          statementsOfWork={statementsOfWork}
+          onChange={setStatementOfWork}
+          displayAllSelectOption={true}
+        />
+        <PeriodPageFilter
+          startDate={startDate}
+          endDate={endDate}
+          onChange={updateDateRangeQuery}
+        />
       </PageFilterContainer>
       {project && (
         <Grid container mb={3} mt={3}>

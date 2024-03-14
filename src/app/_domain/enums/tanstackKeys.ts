@@ -11,6 +11,7 @@ enum tanstackKeys {
   StatementsOfWork = "statementsOfWork",
   TimeEntries = "timeEntries",
   Users = "users",
+  analyics = "analytics",
   codeComments = "codeComments"
 }
 

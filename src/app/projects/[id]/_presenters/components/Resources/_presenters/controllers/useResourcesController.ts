@@ -8,9 +8,11 @@ import { getRequirements } from "@/app/_presenters/data/requirements";
 const useResourcesController = (
   startDate: string,
   endDate: string,
-  statementOfWork?: StatementOfWork
+  statementOfWork?: StatementOfWork,
+  project?: Project
 ) => {
   const statementOfWorkId = statementOfWork?.id;
+  const projectId = statementOfWorkId ? undefined : project?.id;
 
   const { data: requirements, isLoading: isLoadingRequirements } = useQuery({
     queryKey: [
@@ -18,14 +20,16 @@ const useResourcesController = (
       startDate,
       endDate,
       statementOfWorkId,
+      projectId,
     ],
     queryFn: () =>
       getRequirements({
         startDate: startDate,
         endDate: endDate,
         statementOfWorkId: statementOfWorkId,
+        projectId: projectId,
       }),
-    enabled: !!statementOfWorkId && !!startDate && !!endDate,
+    enabled: !!(statementOfWorkId || projectId) && !!startDate && !!endDate,
   });
 
   const { data: assignments, isLoading: isLoadingAssignmnents } = useQuery({
@@ -35,8 +39,9 @@ const useResourcesController = (
         startDate: startDate,
         endDate: endDate,
         statementOfWorkIds: [statementOfWorkId],
+        projectId,
       }),
-    enabled: !!statementOfWorkId && !!startDate && !!endDate,
+    enabled: !!(statementOfWorkId || projectId) && !!startDate && !!endDate,
   });
 
   return {
