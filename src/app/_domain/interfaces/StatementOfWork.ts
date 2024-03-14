@@ -1,7 +1,7 @@
 export type StatementOfWork = {
   contractModel?: ContractModel;
   endDate: string;
-  id?: number | string;
+  id?: number;
   name: string;
   projectId: number | string;
   startDate: string;
