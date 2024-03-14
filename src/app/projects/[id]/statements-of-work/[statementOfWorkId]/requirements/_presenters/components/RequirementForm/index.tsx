@@ -33,7 +33,7 @@ const getDefaultRequirement = (
   statementOfWorkId: statementOfWork.id as number,
 });
 
-const StatementOfWorkForm: React.FC<Props> = ({
+const RequirementForm: React.FC<Props> = ({
   requirement,
   statementOfWork,
   onSave,
@@ -105,4 +105,4 @@ const StatementOfWorkForm: React.FC<Props> = ({
   );
 };
 
-export default StatementOfWorkForm;
+export default RequirementForm;
