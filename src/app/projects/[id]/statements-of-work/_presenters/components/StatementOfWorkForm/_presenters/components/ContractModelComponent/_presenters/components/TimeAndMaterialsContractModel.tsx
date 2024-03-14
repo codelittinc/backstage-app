@@ -40,30 +40,7 @@ const TimeAndMaterialsContractModel = ({ control }: Props) => {
           name="contractModel.limitBy"
           options={limitByOptions}
           control={control}
-          getOptionLabel={(option: string | { id: string; name: string }) => {
-            if (typeof option === "string") {
-              return limitByOptions.find((model) => model.id === option)?.name;
-            } else {
-              return option.name;
-            }
-          }}
-          isOptionEqualToValue={(
-            option: { id: string; name: string },
-            value: string | { id: string; name: string }
-          ) => {
-            if (typeof value === "string") {
-              return option.id === value;
-            } else {
-              return option.id == value.id;
-            }
-          }}
-          processSelectedValue={(selectedValue: Option | string) => {
-            if (typeof selectedValue === "string") {
-              return selectedValue;
-            }
-
-            return selectedValue.id;
-          }}
+          withObjectValue={false}
           required
         />
       </Grid>
