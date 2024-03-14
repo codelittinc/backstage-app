@@ -13,6 +13,7 @@ enum tanstackKeys {
   Users = "users",
   codeComments = "codeComments",
   Skills = "skills",
+  analyics = "analytics",
 }
 
 export default tanstackKeys;
