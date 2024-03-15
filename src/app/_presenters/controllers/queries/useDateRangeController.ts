@@ -7,16 +7,7 @@ const useDateRangeController = (
   defaultStartDate?: Date,
   defaultEndDate?: Date
 ) => {
-  const { setCustomParams, getCustomParamValue } = useQueryParamController([
-    {
-      key: START_DATE_KEY,
-      defaultValue: defaultStartDate?.toISOString(),
-    },
-    {
-      key: END_DATE_KEY,
-      defaultValue: defaultEndDate?.toISOString(),
-    },
-  ]);
+  const { setCustomParams, getCustomParamValue } = useQueryParamController();
 
   const updateDateRangeQuery = (startDate: Date, endDate?: Date) => {
     setCustomParams([

@@ -1,4 +1,4 @@
-import { Card, Grid, Icon, Switch } from "@mui/material";
+import { Grid, Icon, Switch } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,10 +8,8 @@ import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 import { getStatementOfWorks } from "@/app/projects/_presenters/components/ProjectForm/_presenters/components/StatementsOfWork/_presenters/data/services/statementsOfWork";
-import Autocomplete from "@/components/Autocomplete";
 import Box from "@/components/Box";
 import Button from "@/components/Button";
-import DateRangePicker from "@/components/DateRangePicker";
 import Loading from "@/components/Loading";
 import MetricCard from "@/components/MetricCard";
 import PageFilterContainer from "@/components/PageFilterContainer";
@@ -22,6 +20,11 @@ import routes from "@/routes";
 
 import RequirementsTable from "./_presenters/components/RequirementsTable";
 import useResourcesController from "./_presenters/controllers/useResourcesController";
+import {
+  getFirstDayOfCurrentMonth,
+  getLastDayOfCurrentMonth,
+} from "@/app/_presenters/utils/date";
+import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 
 type Props = {
   project: Project;
@@ -54,10 +57,9 @@ const Resources = ({ project }: Props) => {
     queryFn: () => getStatementOfWorks(project.id!),
   });
 
-  const defaultDate = new Date();
   const { startDate, endDate, updateDateRangeQuery } = useDateRangeController(
-    defaultDate,
-    defaultDate
+    getFirstDayOfCurrentMonth(),
+    getLastDayOfCurrentMonth()
   );
 
   const statementsOfWorkFilter = statementsOfWork;

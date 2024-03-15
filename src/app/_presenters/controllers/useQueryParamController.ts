@@ -1,5 +1,75 @@
+import { add } from "date-fns";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+
+class Singleton {
+  private static instance: Singleton;
+  public readonly id: number;
+  private router?: AppRouterInstance;
+  private searchParams: URLSearchParams;
+  private customParams: PropCustomParams[] = [];
+
+  private constructor(searchParams: URLSearchParams) {
+    this.id = Math.floor(Math.random() * 10000);
+    this.searchParams = searchParams;
+    this.initializeUrlParams();
+  }
+
+  public static getInstance(urlSearchParams: URLSearchParams): Singleton {
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton(urlSearchParams);
+    }
+    return Singleton.instance;
+  }
+
+  public setRouter(router: AppRouterInstance): void {
+    this.router = router;
+  }
+
+  public addParams(newParams: PropCustomParams[]): void {
+    this.customParams = [...this.customParams, ...newParams].flat();
+
+    const allParamsHash = this.customParams.reduce((acc, param) => {
+      acc[param.key] = param.value;
+      return acc;
+    }, {});
+
+    const urlSearchParams = new URLSearchParams();
+    const newCustomParams: PropCustomParams[] = [];
+    Object.keys(allParamsHash).forEach((key: string) => {
+      urlSearchParams.set(key, allParamsHash[key] ?? "");
+      newCustomParams.push({ key, value: allParamsHash[key] ?? "" });
+    });
+
+    this.customParams = newCustomParams;
+
+    this.router?.replace(`?${urlSearchParams.toString()}`, { scroll: false });
+  }
+
+  public initializeUrlParams(): void {
+    const urlParams = Array.from(this.searchParams.entries()).map(
+      ([key, value]) => ({
+        key,
+        value,
+      })
+    );
+    this.addParams(urlParams);
+  }
+
+  public getParams(): PropCustomParams[] {
+    return this.customParams;
+  }
+
+  public getParamValue(
+    key: string,
+    defaultValue?: string | number
+  ): string | number | undefined {
+    return (
+      this.customParams.find((param: PropCustomParams) => param.key == key)
+        ?.value ?? defaultValue
+    );
+  }
+}
 
 interface PropCustomParams {
   defaultValue?: string | number;
@@ -7,72 +77,19 @@ interface PropCustomParams {
   value?: string | number;
 }
 
-const updateQueryParams = (
-  customParams: PropCustomParams[],
-  params: any,
-  router: any
-) => {
-  const currentParams = new URLSearchParams(params.toString());
-
-  customParams.forEach((param) => {
-    const { value } = param;
-    if (value !== undefined) {
-      currentParams.set(param.key, value.toString());
-    }
-  });
-
-  router.replace(`?${currentParams.toString()}`, { scroll: false });
-};
-
-export default function useQueryParamController(
-  customParams: PropCustomParams[] = []
-) {
+export default function useQueryParamController() {
   const router = useRouter();
   const params = useSearchParams();
 
-  const [customParamState, setCustomParamState] = useState<PropCustomParams[]>(
-    customParams.map((param) => {
-      return {
-        key: param.key,
-        value: params.get(param.key) || param.defaultValue,
-      };
-    })
-  );
+  const singletonInstance1 = Singleton.getInstance(params);
+  singletonInstance1.setRouter(router);
 
   return {
-    getCustomParamValue: (key: string, defaultValue: string | number) => {
-      const param = customParamState.find((param) => param.key === key);
-      return param?.value || defaultValue;
+    getCustomParamValue: (key: string, defaultValue?: string | number) => {
+      return singletonInstance1.getParamValue(key, defaultValue);
     },
-    getCustomParams: () => {
-      const params: { [key: string]: string | number } = {};
-
-      customParamState.forEach((param) => {
-        params[param.key] =
-          param.value !== undefined && isNaN(param.value as number)
-            ? param.value
-            : Number(param.value);
-      });
-
-      return params;
-    },
-    customParams: customParamState,
     setCustomParams: (customParams: PropCustomParams[]) => {
-      const newState: PropCustomParams[] = [...customParamState];
-
-      customParams.forEach((param) => {
-        const { key, value } = param;
-        const index = newState.findIndex((param) => param.key === key);
-
-        if (index !== -1) {
-          newState[index].value = value;
-        } else {
-          newState.push(param);
-        }
-      });
-
-      updateQueryParams(customParams, params, router);
-      setCustomParamState(newState);
+      singletonInstance1.addParams(customParams);
     },
   };
 }

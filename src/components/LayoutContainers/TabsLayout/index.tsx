@@ -1,5 +1,4 @@
 import { AppBar, Grid, Tab, Tabs } from "@mui/material";
-import { useState } from "react";
 
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 
@@ -35,19 +34,15 @@ const getTabs = (
   );
 };
 
+const TAB_KEY = "tab";
 function TabsLayout({ tabs, tabsChildren }: Props): JSX.Element {
-  const { setCustomParams, getCustomParams } = useQueryParamController([
-    {
-      key: "tab",
-      defaultValue: 0,
-    },
-  ]);
+  const { setCustomParams, getCustomParamValue } = useQueryParamController();
 
   const updateActiveTab = (value: number) => {
-    setCustomParams([{ key: "tab", value }]);
+    setCustomParams([{ key: TAB_KEY, value }]);
   };
 
-  const tab = getCustomParams().tab as number;
+  const tab = Number(getCustomParamValue(TAB_KEY, 0));
 
   return (
     <DashboardLayout>

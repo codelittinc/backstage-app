@@ -29,12 +29,7 @@ const StatementOfWorkFilter = ({
     ...[statementsOfWork || []],
   ].flat();
 
-  const { setCustomParams } = useQueryParamController([
-    {
-      key: KEY,
-      defaultValue: defaultStatementOfWork.id,
-    },
-  ]);
+  const { setCustomParams, getCustomParamValue } = useQueryParamController();
 
   const updateStatementOfWorkQuery = (statementOfWorkId: number) => {
     setCustomParams([
@@ -48,7 +43,15 @@ const StatementOfWorkFilter = ({
   useEffect(() => {
     if (statementsOfWork?.length > 0 && !statementOfWork) {
       if (displayAllSelectOption) {
-        onChange(statementsOfWorkFilterOptions[0] as StatementOfWork);
+        const statementOfWorkId = getCustomParamValue(
+          KEY,
+          defaultStatementOfWork.id
+        );
+        const sow = statementsOfWorkFilterOptions.find(
+          (sow) => sow.id === Number(statementOfWorkId)
+        );
+
+        onChange(sow as StatementOfWork);
       } else {
         onChange(statementsOfWork[0]);
       }
