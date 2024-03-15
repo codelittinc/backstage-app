@@ -303,8 +303,8 @@ function Sidenav({ color, brand, brandName, ...rest }: Props): JSX.Element {
       href: "/users",
       noCollapse: true,
       protectedLink: {
-        ability: abilities.change,
-        target: targets.user,
+        ability: abilities.view,
+        target: targets.users,
       },
     },
     {

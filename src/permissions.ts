@@ -5,7 +5,7 @@ export const abilities = {
 
 export const targets = {
   finances: "finances",
-  user: "user",
+  users: "users",
   analytics: "analytics",
   projects: "projects",
   timeEntries: "timeEntries",
