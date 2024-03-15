@@ -6,15 +6,24 @@ import { getAssignments } from "@/app/_presenters/data/assignments";
 const useAssignmentsController = (
   startDateFilter: string,
   endDateFilter: string,
-  project?: Project
+  statementOfWorkId: number,
+  projectId?: number
 ) => {
+  const customProjectId = statementOfWorkId ? undefined : projectId;
   const { data, isLoading } = useQuery({
-    queryKey: [tanstackKeys.Assignments, startDateFilter, endDateFilter],
+    queryKey: [
+      tanstackKeys.Assignments,
+      startDateFilter,
+      endDateFilter,
+      customProjectId,
+      statementOfWorkId,
+    ],
     queryFn: () =>
       getAssignments({
-        projectId: project?.id,
+        projectId: customProjectId,
         startDate: startDateFilter,
         endDate: endDateFilter,
+        statementOfWorkIds: [statementOfWorkId],
       }),
   });
 

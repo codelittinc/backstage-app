@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import Autocomplete from "@/components/Autocomplete";
+import customParamKeys from "@/app/_domain/enums/customParamKeys";
 
 type Props = {
-  displayAllSelectOption?: boolean;
   onChange: (statementOfWork: StatementOfWork) => void;
   statementOfWork?: StatementOfWork;
   statementsOfWork: StatementOfWork[];
@@ -17,11 +17,9 @@ const defaultStatementOfWork = {
   name: "All",
 };
 
-const KEY = "statementOfWork";
 const StatementOfWorkFilter = ({
   statementOfWork,
   statementsOfWork,
-  displayAllSelectOption = true,
   onChange,
 }: Props) => {
   const statementsOfWorkFilterOptions = [
@@ -34,7 +32,7 @@ const StatementOfWorkFilter = ({
   const updateStatementOfWorkQuery = (statementOfWorkId: number) => {
     setCustomParams([
       {
-        key: KEY,
+        key: customParamKeys.statementOfWorkId,
         value: statementOfWorkId,
       },
     ]);
@@ -42,19 +40,15 @@ const StatementOfWorkFilter = ({
 
   useEffect(() => {
     if (statementsOfWork?.length > 0 && !statementOfWork) {
-      if (displayAllSelectOption) {
-        const statementOfWorkId = getCustomParamValue(
-          KEY,
-          defaultStatementOfWork.id
-        );
-        const sow = statementsOfWorkFilterOptions.find(
-          (sow) => sow.id === Number(statementOfWorkId)
-        );
+      const statementOfWorkId = getCustomParamValue(
+        customParamKeys.statementOfWorkId,
+        defaultStatementOfWork.id
+      );
+      const sow = statementsOfWorkFilterOptions.find(
+        (sow) => sow.id === Number(statementOfWorkId)
+      );
 
-        onChange(sow as StatementOfWork);
-      } else {
-        onChange(statementsOfWork[0]);
-      }
+      onChange(sow as StatementOfWork);
     }
   }, [statementsOfWork]);
 

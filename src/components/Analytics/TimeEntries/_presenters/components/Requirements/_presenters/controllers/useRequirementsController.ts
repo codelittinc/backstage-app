@@ -6,15 +6,24 @@ import { getRequirements } from "@/app/_presenters/data/requirements";
 const useRequirementsController = (
   startDateFilter: string,
   endDateFilter: string,
-  project?: Project
+  projectId?: number,
+  statementOfWorkId?: number
 ) => {
+  const customProjectId = statementOfWorkId ? undefined : projectId;
   const { data, isLoading } = useQuery({
-    queryKey: [tanstackKeys.Requirements, startDateFilter, endDateFilter],
+    queryKey: [
+      tanstackKeys.Requirements,
+      startDateFilter,
+      endDateFilter,
+      customProjectId,
+      statementOfWorkId,
+    ],
     queryFn: () =>
       getRequirements({
-        projectId: project?.id,
+        projectId: customProjectId,
         startDate: startDateFilter,
         endDate: endDateFilter,
+        statementOfWorkId,
       }),
   });
 

@@ -148,7 +148,6 @@ const TimeEntries = ({ project }: Props) => {
           statementOfWork={statementOfWork}
           statementsOfWork={statementsOfWork}
           onChange={setStatementOfWork}
-          displayAllSelectOption={true}
         />
         <PeriodPageFilter
           startDate={startDate}

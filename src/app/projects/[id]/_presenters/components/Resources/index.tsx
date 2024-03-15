@@ -11,7 +11,6 @@ import { getStatementOfWorks } from "@/app/projects/_presenters/components/Proje
 import Box from "@/components/Box";
 import Button from "@/components/Button";
 import Loading from "@/components/Loading";
-import MetricCard from "@/components/MetricCard";
 import PageFilterContainer from "@/components/PageFilterContainer";
 import PeriodPageFilter from "@/components/PageFilters/PeriodPageFilter";
 import StatementOfWorkFilter from "@/components/PageFilters/StatementOfWorkFilter";
@@ -24,7 +23,8 @@ import {
   getFirstDayOfCurrentMonth,
   getLastDayOfCurrentMonth,
 } from "@/app/_presenters/utils/date";
-import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
+import Requirements from "@/components/Analytics/TimeEntries/_presenters/components/Requirements";
+import Assignments from "@/components/Analytics/TimeEntries/_presenters/components/Assignments";
 
 type Props = {
   project: Project;
@@ -93,17 +93,6 @@ const Resources = ({ project }: Props) => {
   const filteredAssignments = onlyDisplayActive
     ? filterItems(assignments)
     : assignments;
-
-  const requirementsCoverage = filteredRequirements.reduce(
-    (acc, requirement) => {
-      return acc + requirement.coverage;
-    },
-    0
-  );
-
-  const assinmentsCoverage = filteredAssignments.reduce((acc, assignment) => {
-    return acc + assignment.coverage;
-  }, 0);
 
   if (statementsOfWork?.length === 0) {
     return <Box>There are no statements of work for this project.</Box>;
@@ -175,12 +164,17 @@ const Resources = ({ project }: Props) => {
             alignItems="center"
             display={"flex"}
           >
-            <MetricCard
-              text="Required resources"
-              metric={requirementsCoverage}
+            <Requirements
+              startDate={startDate}
+              endDate={endDate}
+              project={project}
             />
             <Box mt={2}></Box>
-            <MetricCard text="Assigned resources" metric={assinmentsCoverage} />
+            <Assignments
+              startDate={startDate}
+              endDate={endDate}
+              project={project}
+            />
           </Grid>
         </Grid>
       </Grid>
