@@ -30,25 +30,6 @@ type Props = {
   project: Project;
 };
 
-type TableItem = {
-  endDate: string;
-  startDate: string;
-};
-
-const filterItems = (items: TableItem[]) => {
-  return items.filter((item) => {
-    const requirementStartDate = new Date(item.startDate);
-    const requirementEndDate = new Date(item.endDate);
-
-    if (
-      requirementStartDate <= new Date() &&
-      requirementEndDate >= new Date()
-    ) {
-      return true;
-    }
-  });
-};
-
 const Resources = ({ project }: Props) => {
   const router = useRouter();
 
@@ -86,14 +67,6 @@ const Resources = ({ project }: Props) => {
     project
   );
 
-  const [onlyDisplayActive, setOnlyDisplayActive] = useState<boolean>(true);
-  const filteredRequirements = onlyDisplayActive
-    ? filterItems(requirements)
-    : requirements;
-  const filteredAssignments = onlyDisplayActive
-    ? filterItems(assignments)
-    : assignments;
-
   if (statementsOfWork?.length === 0) {
     return <Box>There are no statements of work for this project.</Box>;
   }
@@ -115,20 +88,6 @@ const Resources = ({ project }: Props) => {
           endDate={endDate}
           onChange={updateDateRangeQuery}
         />
-        <Grid item xs={5} ml={1}>
-          <Box display="flex" alignItems="center" lineHeight={1}>
-            <Typography variant="body2">
-              Only display resources active today
-            </Typography>
-            <Box ml={1}></Box>
-            <Switch
-              checked={onlyDisplayActive}
-              onChange={() => {
-                setOnlyDisplayActive(!onlyDisplayActive);
-              }}
-            />
-          </Box>
-        </Grid>
       </PageFilterContainer>
       <Grid container spacing={3} mt={3}>
         <Grid item xs={12}>
@@ -152,8 +111,8 @@ const Resources = ({ project }: Props) => {
         </Grid>
         <Grid item xs={9}>
           <RequirementsTable
-            requirements={filteredRequirements}
-            assignments={filteredAssignments}
+            requirements={requirements}
+            assignments={assignments}
             project={project}
           />
         </Grid>
