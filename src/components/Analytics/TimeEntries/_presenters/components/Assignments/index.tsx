@@ -4,6 +4,8 @@ import Loading from "@/components/Loading";
 import MetricCard from "@/components/MetricCard";
 
 import useAssignmentsController from "./_presenters/controllers/useAssignmentsController";
+import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
+import customParamKeys from "@/app/_domain/enums/customParamKeys";
 
 type Props = {
   endDate: string;
@@ -12,10 +14,16 @@ type Props = {
 };
 
 const Assignments = ({ startDate, endDate, project }: Props): JSX.Element => {
+  const { getCustomParamValue } = useQueryParamController();
+  const statementOWorkId = getCustomParamValue(
+    customParamKeys.statementOfWorkId
+  );
+
   const { assignments, isLoading } = useAssignmentsController(
     startDate,
     endDate,
-    project
+    statementOWorkId as number,
+    project.id
   );
 
   if (isLoading) {
