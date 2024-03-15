@@ -1,8 +1,7 @@
-import { Card, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Link from "next/link";
 
 import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
-import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 import {
   getFirstDayOfCurrentMonth,
   getLastDayOfCurrentMonth,
