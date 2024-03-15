@@ -21,7 +21,9 @@ import RequirementsTable from "./_presenters/components/RequirementsTable";
 import useResourcesController from "./_presenters/controllers/useResourcesController";
 import {
   getFirstDayOfCurrentMonth,
+  getFirstDayOfTheWeek,
   getLastDayOfCurrentMonth,
+  getLastDayOfTheWeek,
 } from "@/app/_presenters/utils/date";
 import Requirements from "@/components/Analytics/TimeEntries/_presenters/components/Requirements";
 import Assignments from "@/components/Analytics/TimeEntries/_presenters/components/Assignments";
@@ -39,26 +41,12 @@ const Resources = ({ project }: Props) => {
   });
 
   const { startDate, endDate, updateDateRangeQuery } = useDateRangeController(
-    getFirstDayOfCurrentMonth(),
-    getLastDayOfCurrentMonth()
+    getFirstDayOfTheWeek(),
+    getLastDayOfTheWeek()
   );
 
   const statementsOfWorkFilter = statementsOfWork;
   const [statementOfWork, setStatementOfWork] = useState<StatementOfWork>();
-
-  useEffect(() => {
-    if (statementOfWork?.startDate) {
-      updateDateRangeQuery(
-        new Date(statementOfWork.startDate),
-        new Date(statementOfWork.endDate)
-      );
-    }
-    // eslint-disable-next-line
-  }, [
-    statementOfWork?.id,
-    statementOfWork?.startDate,
-    statementOfWork?.endDate,
-  ]);
 
   const { requirements, assignments } = useResourcesController(
     startDate,
