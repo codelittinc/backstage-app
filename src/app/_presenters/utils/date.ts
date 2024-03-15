@@ -42,12 +42,12 @@ export function formatDateToMonthDay(isoDate: string | Date): string {
   return `${month}/${day}`;
 }
 
-export const getFirstDayOfTheWeek = (date: Date | string): Date => {
-  return startOfWeek(new Date(date), { weekStartsOn: 0 });
+export const getFirstDayOfTheWeek = (date?: Date | string): Date => {
+  return startOfWeek(new Date(date || new Date()), { weekStartsOn: 0 });
 };
 
-export const getLastDayOfTheWeek = (date: Date | string): Date => {
-  return addDays(startOfWeek(new Date(date), { weekStartsOn: 0 }), 6);
+export const getLastDayOfTheWeek = (date?: Date | string): Date => {
+  return addDays(getFirstDayOfTheWeek(date), 6);
 };
 
 export const getDaysBetweenTwoDates = (
