@@ -39,13 +39,13 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
   const [openMenu, setOpenMenu] = useState<any>(false);
   const route = usePathname().split("/").slice(1);
 
-  const { hasPermissions: hasUsersPermission } = usePermissionsController({
+  const { hasPermission: hasUsersPermission } = usePermissionsController({
     ability: abilities.view,
-    target: targets.user,
+    target: targets.users,
   });
 
-  const { hasPermissions: hasProjectsPermissions } = usePermissionsController({
-    ability: abilities.view,
+  const { hasPermission: hasProjectsPermissions } = usePermissionsController({
+    ability: abilities.change,
     target: targets.projects,
   });
 
