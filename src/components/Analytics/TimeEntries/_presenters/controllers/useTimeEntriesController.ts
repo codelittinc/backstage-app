@@ -29,14 +29,12 @@ const useTimeEntriesController = (
         projectId,
         statementOfWork?.id
       ),
-    enabled: !!project || !!statementOfWork,
   });
 
   const { data: statementsOfWork, isLoading: isLoadingStatementsOfWork } =
     useQuery({
-      queryKey: [tanstackKeys.StatementsOfWork, project?.id!],
-      queryFn: () => getStatementOfWorks(project?.id!),
-      enabled: !!project,
+      queryKey: [tanstackKeys.StatementsOfWork, project?.id],
+      queryFn: () => getStatementOfWorks(project?.id, startDate, endDate),
     });
 
   return {
