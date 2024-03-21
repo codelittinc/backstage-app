@@ -77,9 +77,9 @@ const Resources = ({ project }: Props) => {
           onChange={updateDateRangeQuery}
         />
       </PageFilterContainer>
-      <Grid container spacing={3} mt={3}>
+      <Grid container spacing={3} mt={1}>
         <Grid item xs={12}>
-          <Box pb={3}>
+          <Box>
             <Button
               variant="gradient"
               color="info"

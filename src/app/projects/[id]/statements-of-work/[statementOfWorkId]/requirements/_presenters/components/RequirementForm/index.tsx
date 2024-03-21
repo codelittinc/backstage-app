@@ -14,6 +14,8 @@ import TextInputController from "@/components/Form/FieldControllers/TextInputCon
 import FormLayout from "@/components/LayoutContainers/FormLayout";
 import Loading from "@/components/Loading";
 import Typography from "@/components/Typography";
+import routes from "@/routes";
+import projectTabs from "@/app/projects/_domain/_enums/projectTabs";
 
 interface Props {
   onSave: (requirement: Requirement) => void;
@@ -60,7 +62,13 @@ const RequirementForm: React.FC<Props> = ({
           <Box p={3}>
             <Typography variant="h5">Requirement</Typography>
           </Box>
-          <Form onSave={() => handleSubmit(onSave)()}>
+          <Form
+            onSave={() => handleSubmit(onSave)()}
+            cancelPath={routes.projectPath(
+              statementOfWork.projectId,
+              projectTabs.resources
+            )}
+          >
             <>
               <Grid item xs={12} md={6}>
                 <AutocompleteController
