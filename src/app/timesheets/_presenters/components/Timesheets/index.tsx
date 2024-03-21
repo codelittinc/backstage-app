@@ -109,7 +109,9 @@ const Timesheets = ({ user }: Props) => {
             </Grid>
             <Grid item xs={12} md={3} lg={3}>
               <Box display="flex" alignItems="center" lineHeight={1}>
-                <Typography variant="subtitle1">Show weekends</Typography>
+                <Typography variant="subtitle1" fontWeight="light" color="text">
+                  Show weekends
+                </Typography>
                 <Box ml={1}></Box>
                 <Switch
                   checked={showWeekends}
