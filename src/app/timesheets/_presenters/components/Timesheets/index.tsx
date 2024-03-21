@@ -8,7 +8,7 @@ import DatePicker from "@/components/DatePicker";
 import Loading from "@/components/Loading";
 import PageFilterContainer from "@/components/PageFilterContainer";
 
-import useTimeEntriesController from "../../controllers/useTimeEntriesController";
+import useTimesheetsController from "../../controllers/useTimesheetsController";
 import { TimeEntry } from "../../domain/types/TimeEntry";
 import TimesheetsTable from "../TimesheetsTable";
 
@@ -26,7 +26,7 @@ const Timesheets = ({ user }: Props) => {
     projects = [],
     timeEntries = [],
     invalidateTimeEntries,
-  } = useTimeEntriesController();
+  } = useTimesheetsController();
 
   let filteredAssignments = assignments;
   let filteredStatementsOfWork = statementsOfWork;
