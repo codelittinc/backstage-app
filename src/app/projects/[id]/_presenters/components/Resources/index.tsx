@@ -83,15 +83,19 @@ const Resources = ({ project }: Props) => {
             <Button
               variant="gradient"
               color="info"
-              onClick={() =>
-                router.push(
-                  routes.requirementPath(
-                    "new",
-                    statementOfWork.id!,
-                    project.id!
-                  )
-                )
-              }
+              onClick={() => {
+                if (statementOfWork?.id == 0) {
+                  alert("Please select a specific statement of work");
+                } else {
+                  router.push(
+                    routes.requirementPath(
+                      "new",
+                      statementOfWork.id!,
+                      project.id!
+                    )
+                  );
+                }
+              }}
             >
               <Icon>add</Icon>&nbsp; Requirement
             </Button>
