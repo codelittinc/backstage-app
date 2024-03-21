@@ -35,6 +35,8 @@ const getTabs = (
 };
 
 const TAB_KEY = "tab";
+const DEFAULT_TAB = 0;
+
 function TabsLayout({ tabs, tabsChildren }: Props): JSX.Element {
   const { setCustomParams, getCustomParamValue } = useQueryParamController();
 
@@ -42,7 +44,11 @@ function TabsLayout({ tabs, tabsChildren }: Props): JSX.Element {
     setCustomParams([{ key: TAB_KEY, value }]);
   };
 
-  const tab = Number(getCustomParamValue(TAB_KEY, 0));
+  const tabsSize = tabs.length;
+  let tab = Number(getCustomParamValue(TAB_KEY, DEFAULT_TAB));
+  if (tab >= tabsSize) {
+    tab = DEFAULT_TAB;
+  }
 
   return (
     <DashboardLayout>
