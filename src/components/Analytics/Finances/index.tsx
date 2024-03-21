@@ -12,7 +12,7 @@ import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import DataTable from "@/components/DataTable";
 import DateRangePicker from "@/components/DateRangePicker";
 import Loading from "@/components/Loading";
-import PageFilterContainer from "@/components/PageFilterContainer";
+import PageFilterContainer from "@/components/PageFilters/PageFilterContainer";
 import Typography from "@/components/Typography";
 import routes from "@/routes";
 

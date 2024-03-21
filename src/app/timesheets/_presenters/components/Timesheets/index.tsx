@@ -1,12 +1,12 @@
-import { Grid } from "@mui/material";
-import { useMemo } from "react";
+import { Grid, Switch, Typography } from "@mui/material";
+import { useMemo, useState } from "react";
 
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import { User } from "@/app/_domain/interfaces/User";
 import Box from "@/components/Box";
 import DatePicker from "@/components/DatePicker";
 import Loading from "@/components/Loading";
-import PageFilterContainer from "@/components/PageFilterContainer";
+import PageFilterContainer from "@/components/PageFilters/PageFilterContainer";
 
 import useTimesheetsController from "../../controllers/useTimesheetsController";
 import { TimeEntry } from "../../domain/types/TimeEntry";
@@ -48,6 +48,8 @@ const Timesheets = ({ user }: Props) => {
     );
   }
 
+  const [showWeekends, setShowWeekends] = useState(false);
+
   const timesheets = useMemo(
     () => (
       <TimesheetsTable
@@ -58,6 +60,7 @@ const Timesheets = ({ user }: Props) => {
         date={new Date(date)}
         timeEntries={filteredTimeEntries}
         onChange={invalidateTimeEntries}
+        showWeekends={showWeekends}
       />
     ),
     [
@@ -67,6 +70,7 @@ const Timesheets = ({ user }: Props) => {
       filteredStatementsOfWork.length,
       date,
       filteredTimeEntries.length,
+      showWeekends,
     ]
   );
 
@@ -102,6 +106,18 @@ const Timesheets = ({ user }: Props) => {
                 }}
                 label="Week"
               />
+            </Grid>
+            <Grid item xs={12} md={3} lg={3}>
+              <Box display="flex" alignItems="center" lineHeight={1}>
+                <Typography variant="subtitle1">Show weekends</Typography>
+                <Box ml={1}></Box>
+                <Switch
+                  checked={showWeekends}
+                  onChange={() => {
+                    setShowWeekends(!showWeekends);
+                  }}
+                />
+              </Box>
             </Grid>
           </PageFilterContainer>
         </Grid>
