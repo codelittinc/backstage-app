@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 
 import { getPullRequests } from "../data/services/pullRequests";
+import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 
 const usePullRequestsController = (
   startDateFilter: string,
@@ -14,8 +15,8 @@ const usePullRequestsController = (
   const { data, isLoading } = useQuery({
     queryKey: [
       tanstackKeys.PullRequests,
-      startDateFilter,
-      endDateFilter,
+      formatDateToMonthDayYear(startDateFilter),
+      formatDateToMonthDayYear(endDateFilter),
       state,
     ],
     queryFn: () =>
