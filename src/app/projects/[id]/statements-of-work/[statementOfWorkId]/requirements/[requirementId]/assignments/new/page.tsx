@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 
 import Loading from "@/components/Loading";
 
-import useNewAssignmentController from "./_presenters/controllers/useNewRequirementController";
+import useNewAssignmentController from "./_presenters/controllers/useNewAssignmentController";
 import AssignmentForm from "../_presenters/components/AssignmentForm";
 
 function Page() {
