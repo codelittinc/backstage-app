@@ -24,7 +24,11 @@ export const getLastSaturday = (): Date => {
   return addDays(getLastSunday(), 6);
 };
 
-export function formatDateToMonthDayYear(isoDate: string | Date): string {
+export function formatDateToMonthDayYear(
+  isoDate?: string | Date
+): string | undefined {
+  if (!isoDate) return undefined;
+
   const date = new Date(isoDate);
   const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
   const day = date.getDate().toString().padStart(2, "0");
