@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 
 import { getCodeComments } from "../data/services/codeComments";
+import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 
 const useCodeCommentsController = (
   project: Project,
@@ -12,8 +13,8 @@ const useCodeCommentsController = (
   const { data, isLoading } = useQuery({
     queryKey: [
       tanstackKeys.codeComments,
-      startDateFilter,
-      endDateFilter,
+      formatDateToMonthDayYear(startDateFilter),
+      formatDateToMonthDayYear(endDateFilter),
       project.id,
     ],
     queryFn: () =>
