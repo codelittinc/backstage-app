@@ -10,6 +10,7 @@ import {
   updateStatementOfWork,
 } from "@/app/projects/_presenters/components/ProjectForm/_presenters/components/StatementsOfWork/_presenters/data/services/statementsOfWork";
 import routes from "@/routes";
+import projectTabs from "@/app/projects/_domain/_enums/projectTabs";
 
 const useNewStatementsOfWorkController = (
   statementOfWorkId: number | string,
@@ -26,6 +27,7 @@ const useNewStatementsOfWorkController = (
       queryClient.invalidateQueries({
         queryKey: [tanstackKeys.StatementsOfWork, statementOfWorkId],
       });
+      router.push(routes.projectPath(projectId as number, projectTabs.profile));
     },
   });
 
