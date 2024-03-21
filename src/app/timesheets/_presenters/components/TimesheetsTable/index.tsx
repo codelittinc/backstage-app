@@ -21,6 +21,7 @@ type Props = {
   statementsOfWork: StatementOfWork[];
   timeEntries: TimeEntry[];
   users: User[];
+  showWeekends: boolean;
 };
 
 const TimesheetsTable = ({
@@ -31,6 +32,7 @@ const TimesheetsTable = ({
   date,
   timeEntries,
   onChange,
+  showWeekends,
 }: Props) => {
   type StatementOrAssignment = StatementOfWork | Assignment;
   let combinedList: StatementOrAssignment[] = [];
@@ -53,7 +55,10 @@ const TimesheetsTable = ({
   const monday = getFirstDayOfTheWeek(date);
   const saturday = getLastDayOfTheWeek(date);
 
-  const dates = getDaysBetweenTwoDates(monday, saturday);
+  let dates = getDaysBetweenTwoDates(monday, saturday);
+  if (!showWeekends) {
+    dates = dates.filter((date) => date.getDay() !== 0 && date.getDay() !== 6);
+  }
 
   const processedData = combinedList.map((item: StatementOrAssignment) => {
     return {

@@ -9,7 +9,7 @@ import HorizontalBarChart from "@/components/Charts/HorizontalBarChart";
 import PieChart from "@/components/Charts/PieChart";
 import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 import Loading from "@/components/Loading";
-import PageFilterContainer from "@/components/PageFilterContainer";
+import PageFilterContainer from "@/components/PageFilters/PageFilterContainer";
 import PeriodPageFilter from "@/components/PageFilters/PeriodPageFilter";
 import StatementOfWorkFilter from "@/components/PageFilters/StatementOfWorkFilter";
 
