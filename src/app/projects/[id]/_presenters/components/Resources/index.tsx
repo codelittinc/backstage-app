@@ -11,7 +11,7 @@ import { getStatementOfWorks } from "@/app/projects/_presenters/components/Proje
 import Box from "@/components/Box";
 import Button from "@/components/Button";
 import Loading from "@/components/Loading";
-import PageFilterContainer from "@/components/PageFilterContainer";
+import PageFilterContainer from "@/components/PageFilters/PageFilterContainer";
 import PeriodPageFilter from "@/components/PageFilters/PeriodPageFilter";
 import StatementOfWorkFilter from "@/components/PageFilters/StatementOfWorkFilter";
 import Typography from "@/components/Typography";
