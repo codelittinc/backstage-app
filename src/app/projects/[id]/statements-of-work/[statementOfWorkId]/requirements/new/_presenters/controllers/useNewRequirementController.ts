@@ -6,6 +6,7 @@ import { createRequirement } from "@/app/_presenters/data/requirements";
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import { getStatementOfWork } from "@/app/projects/_presenters/components/ProjectForm/_presenters/components/StatementsOfWork/_presenters/data/services/statementsOfWork";
 import routes from "@/routes";
+import projectTabs from "@/app/projects/_domain/_enums/projectTabs";
 
 const useRequirementController = (
   statementOfWorkId: string,
@@ -27,13 +28,7 @@ const useRequirementController = (
         queryKey: [tanstackKeys.Requirements, projectId],
       });
 
-      router.push(
-        routes.requirementPath(
-          result.id as number,
-          result.statementOfWorkId,
-          projectId
-        )
-      );
+      router.push(routes.projectPath(projectId, projectTabs.resources));
     },
   });
 
