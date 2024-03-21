@@ -77,9 +77,15 @@ const TimesheetsTable = ({
 
   const getColumnHeader = (date: Date) => {
     const acessor = formatDateToMonthDayYear(date);
+    const Header = (
+      <>
+        {formatDateToMonthDay(date)}
+        <br /> {date.toLocaleDateString("en-US", { weekday: "long" })}
+      </>
+    );
 
     return {
-      Header: formatDateToMonthDay(date),
+      Header: Header,
       accessor: acessor,
       width: "auto",
       align: "center",

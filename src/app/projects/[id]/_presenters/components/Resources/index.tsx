@@ -1,7 +1,7 @@
-import { Grid, Icon, Switch } from "@mui/material";
+import { Grid, Icon } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
 
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
@@ -14,15 +14,12 @@ import Loading from "@/components/Loading";
 import PageFilterContainer from "@/components/PageFilters/PageFilterContainer";
 import PeriodPageFilter from "@/components/PageFilters/PeriodPageFilter";
 import StatementOfWorkFilter from "@/components/PageFilters/StatementOfWorkFilter";
-import Typography from "@/components/Typography";
 import routes from "@/routes";
 
 import RequirementsTable from "./_presenters/components/RequirementsTable";
 import useResourcesController from "./_presenters/controllers/useResourcesController";
 import {
-  getFirstDayOfCurrentMonth,
   getFirstDayOfTheWeek,
-  getLastDayOfCurrentMonth,
   getLastDayOfTheWeek,
 } from "@/app/_presenters/utils/date";
 import Requirements from "@/components/Analytics/TimeEntries/_presenters/components/Requirements";
