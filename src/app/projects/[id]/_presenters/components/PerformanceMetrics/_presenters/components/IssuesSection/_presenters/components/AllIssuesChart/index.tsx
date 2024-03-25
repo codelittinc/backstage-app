@@ -20,25 +20,42 @@ const IssuesChart = ({
   const { issues = [], isLoading } = useIssuesController(
     project,
     startDateFilter,
-    endDateFilter
+    endDateFilter,
+    true
   );
 
   if (isLoading) {
     return <Loading partial height="19.125rem" />;
   }
 
-  var issuesGrouped = groupByFieldAndInterval(issues, "closed_date", interval);
+  const bugs = issues.filter((issue) => issue.issueType === "Bug");
+  const bugsGrouped = groupByFieldAndInterval(bugs, "closedDate", interval);
 
-  const sortedLabels = issuesGrouped.map((issue) => issue.date).sort();
+  const nonBugs = issues.filter((issue) => issue.issueType !== "Bug");
+  const nonBugsGrouped = groupByFieldAndInterval(
+    nonBugs,
+    "closedDate",
+    interval
+  );
+
+  const sortedLabels = nonBugsGrouped.map((issue) => issue.date).sort();
 
   const tasks = {
     labels: sortedLabels,
     datasets: [
       {
-        label: "Issues",
+        label: "Tasks",
         data: sortedLabels.map((label) => {
-          return issuesGrouped.find((pr) => pr.date === label)?.objects.length;
+          return nonBugsGrouped.find((pr) => pr.date === label)?.objects.length;
         }),
+        color: "info",
+      },
+      {
+        label: "Bugs",
+        data: sortedLabels.map((label) => {
+          return bugsGrouped.find((pr) => pr.date === label)?.objects.length;
+        }),
+        color: "primary",
       },
     ],
   };

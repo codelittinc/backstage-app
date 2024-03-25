@@ -5,17 +5,7 @@ import Loading from "@/components/Loading";
 import { getChartItemColor } from "../../../../../utils/colors";
 import { groupByFieldAndInterval } from "../../../../../utils/grouping";
 import useIssuesController from "../../controllers/useIssuesController";
-
-function getUniqueUserIds(objects) {
-  if (!objects) return [];
-  const userIds = new Set();
-
-  objects.forEach((obj) => {
-    userIds.add(obj.user_id); // Updated to user_id
-  });
-
-  return [...userIds];
-}
+import { getUniqueUserIds } from "../../../../PullRequestsSection/_presenters/utils/issues";
 
 interface Props {
   endDateFilter?: string | undefined;
@@ -33,7 +23,8 @@ const IssuesChart = ({
   const { issues = [], isLoading } = useIssuesController(
     project,
     startDateFilter,
-    endDateFilter
+    endDateFilter,
+    true
   );
   const { users = [], isLoading: isUsersLoading } = useUsersController();
 
@@ -43,9 +34,9 @@ const IssuesChart = ({
 
   var issuesGrouped = groupByFieldAndInterval(
     issues,
-    "closed_date",
+    "closedDate",
     interval,
-    "user_id"
+    "userId"
   );
 
   const sortedLabels = [
@@ -112,7 +103,7 @@ const IssuesChart = ({
             return (
               issuesGrouped.find(
                 (issue) =>
-                  issue.date === sortedLabel && issue.user_id == user?.id
+                  issue.date === sortedLabel && issue.userId == user?.id
               )?.objects.length || null
             );
           }),
