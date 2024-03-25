@@ -11,7 +11,7 @@ interface Props {
   startDateFilter?: string | undefined;
 }
 
-const IssuesChart = ({
+const CreatedIssuesChart = ({
   project,
   startDateFilter,
   endDateFilter,
@@ -20,30 +20,41 @@ const IssuesChart = ({
   const { issues = [], isLoading } = useIssuesController(
     project,
     startDateFilter,
-    endDateFilter,
-    true
+    endDateFilter
   );
 
   if (isLoading) {
     return <Loading partial height="19.125rem" />;
   }
 
-  var issuesGrouped = groupByFieldAndInterval(issues, "closedDate", interval);
+  const bugs = issues.filter((issue) => issue.issueType === "Bug");
+  const bugsGrouped = groupByFieldAndInterval(bugs, "reportedAt", interval);
 
-  const sortedLabels = issuesGrouped.map((issue) => issue.date).sort();
+  const nonBugs = issues.filter((issue) => issue.issueType !== "Bug");
+  const nonBugsGrouped = groupByFieldAndInterval(
+    nonBugs,
+    "closedDate",
+    interval
+  );
+
+  const sortedLabels = nonBugsGrouped.map((issue) => issue.date).sort();
 
   const tasks = {
     labels: sortedLabels,
     datasets: [
       {
-        label: "Effort",
+        label: "Tasks",
         data: sortedLabels.map((label) => {
-          return (
-            issuesGrouped
-              .find((pr) => pr.date === label)
-              .objects.reduce((sum, item) => sum + item.effort, 0) || undefined
-          );
+          return nonBugsGrouped.find((pr) => pr.date === label)?.objects.length;
         }),
+        color: "info",
+      },
+      {
+        label: "Bugs",
+        data: sortedLabels.map((label) => {
+          return bugsGrouped.find((pr) => pr.date === label)?.objects.length;
+        }),
+        color: "primary",
       },
     ],
   };
@@ -51,10 +62,10 @@ const IssuesChart = ({
   return (
     <DefaultLineChart
       icon={{ component: "insights" }}
-      title="Effort of completed tasks"
+      title="Created tasks"
       chart={tasks}
     />
   );
 };
 
-export default IssuesChart; // Updated export
+export default CreatedIssuesChart; // Updated export

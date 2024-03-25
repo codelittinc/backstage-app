@@ -2,7 +2,7 @@ export function groupByFieldAndInterval(
   objects: any,
   dateField: string,
   interval: string,
-  groupField: string | null
+  groupField?: string
 ) {
   const grouped = {};
 
