@@ -5,8 +5,9 @@ import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 
 const useIssuesController = (
   project: Project,
-  startDateFilter: string | undefined,
-  endDateFilter: string | undefined
+  startDateFilter?: string,
+  endDateFilter?: string,
+  closed = false
 ) => {
   const { data, isLoading } = useQuery({
     queryKey: [
@@ -14,8 +15,9 @@ const useIssuesController = (
       project.id,
       formatDateToMonthDayYear(startDateFilter),
       formatDateToMonthDayYear(endDateFilter),
+      closed,
     ],
-    queryFn: () => getIssues(project, startDateFilter, endDateFilter),
+    queryFn: () => getIssues(project, closed, startDateFilter, endDateFilter),
   });
 
   return {

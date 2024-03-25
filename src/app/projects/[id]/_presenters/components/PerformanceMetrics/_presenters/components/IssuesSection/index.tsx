@@ -5,8 +5,10 @@ import Typography from "@/components/Typography";
 
 import AllIssuesChart from "./_presenters/components/AllIssuesChart";
 import AllIssuesEffortChart from "./_presenters/components/AllIssuesEffortChart";
-import IssuesChart from "./_presenters/components/IssuesChart ";
+import IssuesByUserChart from "./_presenters/components/IssuesByUserChart ";
 import IssuesEffortChart from "./_presenters/components/IssuesEffortChart ";
+import CreatedIssuesChart from "./_presenters/components/CreatedIssuesChart";
+import IssuesTable from "./_presenters/components/IssuesTable";
 
 interface Props {
   endDateFilter?: string | undefined;
@@ -37,6 +39,14 @@ const IssuesSection = ({
           />
         </Grid>
         <Grid item sm={6} xs={12} mt={3}>
+          <CreatedIssuesChart
+            project={project}
+            startDateFilter={startDateFilter}
+            endDateFilter={endDateFilter}
+            interval={interval}
+          />
+        </Grid>
+        <Grid item sm={6} xs={12} mt={3}>
           <AllIssuesEffortChart
             project={project}
             startDateFilter={startDateFilter}
@@ -44,20 +54,27 @@ const IssuesSection = ({
             interval={interval}
           />
         </Grid>
-        <Grid item sm={6} xs={12} mt={3}>
-          <IssuesChart
+        <Grid item xs={12} mt={3}>
+          <IssuesByUserChart
             project={project}
             startDateFilter={startDateFilter}
             endDateFilter={endDateFilter}
             interval={interval}
           />
         </Grid>
-        <Grid item sm={6} xs={12} mt={3}>
+        <Grid item xs={12} mt={3}>
           <IssuesEffortChart
             project={project}
             startDateFilter={startDateFilter}
             endDateFilter={endDateFilter}
             interval={interval}
+          />
+        </Grid>
+        <Grid item xs={12} mt={3}>
+          <IssuesTable
+            project={project}
+            startDateFilter={startDateFilter}
+            endDateFilter={endDateFilter}
           />
         </Grid>
       </Grid>
