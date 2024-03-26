@@ -6,6 +6,7 @@ import LayoutProvider from "@/providers/layout.provider";
 import QueryProvider from "@/providers/query.provider";
 import { MaterialUIControllerProvider } from "@/theme";
 import "material-icons/iconfont/material-icons.css";
+import "@/sentry";
 
 const inter = Inter({ subsets: ["latin"] });
 
