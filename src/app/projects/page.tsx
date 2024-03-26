@@ -127,7 +127,7 @@ function AllProjects(): JSX.Element {
                     <Button
                       variant="gradient"
                       color="info"
-                      onClick={() => router.push(routes.newProjectPath)}
+                      onClick={() => banana()}
                     >
                       <Icon>add</Icon>&nbsp; Add New
                     </Button>
