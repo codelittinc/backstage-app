@@ -73,14 +73,7 @@ function IssuesTable({
     ),
   };
 
-  return (
-    <DataTable
-      table={data}
-      entriesPerPage={false}
-      canSearch={false}
-      isSorted={true}
-    />
-  );
+  return <DataTable table={data} canSearch={true} isSorted={true} />;
 }
 
 export default IssuesTable;
