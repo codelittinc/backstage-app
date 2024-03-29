@@ -96,6 +96,7 @@ const TimesheetsTable = ({
         return (
           <TableCell
             date={new Date(date)}
+            assignments={assignments}
             timeEntries={timeEntries}
             userId={userId}
             statementOfWork={statementsOfWork}
