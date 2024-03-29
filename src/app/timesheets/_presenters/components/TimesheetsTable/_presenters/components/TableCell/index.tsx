@@ -15,6 +15,7 @@ type Props = {
   statementOfWork: StatementOfWork;
   timeEntries: TimeEntry[];
   userId: number;
+  assignments: Assignment[];
 };
 
 const TableCell = ({
@@ -23,6 +24,7 @@ const TableCell = ({
   userId,
   statementOfWork,
   onChange: onChangeCell,
+  assignments,
 }: Props) => {
   const formattedDate = dayjs(date).format("YYYY-MM-DD");
   const timeEntry = timeEntries.find(
@@ -44,17 +46,23 @@ const TableCell = ({
     return;
   }
 
+  const canAddHours = !!assignments.find(
+    (assignment) =>
+      new Date(assignment.startDate) <= date &&
+      new Date(assignment.endDate) >= date
+  );
   return (
     <Box width="100%">
       <FormField
         fullWidth={false}
         label=""
-        placeholder="0"
+        placeholder={canAddHours ? "0" : "N/A"}
         type="number"
-        value={hours}
+        value={canAddHours ? hours : undefined}
         onChange={onChange}
         required
         onBlur={save}
+        disabled={!canAddHours}
       />
     </Box>
   );
