@@ -66,10 +66,8 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
     name: "supportsDeploy",
   });
 
-  const { channels, projects, isLoading } =
+  const { channels, projects } =
     useRepositoryFormBasicInfoController(projectId);
-
-  if (isLoading) return <Loading />;
 
   return (
     <Card id="basic-info" sx={{ overflow: "visible" }}>
