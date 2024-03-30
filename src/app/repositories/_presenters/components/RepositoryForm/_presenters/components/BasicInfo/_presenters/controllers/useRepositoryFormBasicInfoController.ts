@@ -5,7 +5,7 @@ import useChannelsController from "./useChannelsController";
 const useRepositoryFormBasicInfoController = (
   projectId: number | undefined
 ) => {
-  const { projects, isLoading: isProjectsLoading } = useProjectsController();
+  const { projects } = useProjectsController();
 
   const finaltProjectId = projectId || projects?.[0]?.id;
 
@@ -13,13 +13,11 @@ const useRepositoryFormBasicInfoController = (
     (p: Project) => p.id === finaltProjectId
   )?.customer;
 
-  const { channels, isLoading: isChannelsLoading } =
-    useChannelsController(customer);
+  const { channels } = useChannelsController(customer);
 
   return {
-    channels: channels,
-    projects: projects,
-    isLoading: isChannelsLoading || isProjectsLoading,
+    channels: channels || [],
+    projects: projects || [],
   };
 };
 
