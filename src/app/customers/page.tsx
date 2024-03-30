@@ -27,7 +27,7 @@ function Customers(): JSX.Element {
 
   return (
     <TableLayout
-      onClickNew={() => isThisAFunction()}
+      onClickNew={() => router.push(routes.newCustomerPath)}
       buttonLabel="Add a customer"
       columns={columns}
       rows={customers}
