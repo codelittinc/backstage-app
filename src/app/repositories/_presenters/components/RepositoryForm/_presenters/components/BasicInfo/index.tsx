@@ -1,18 +1,14 @@
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import { useEffect, useState } from "react";
 import { DefaultValues, useForm, useWatch } from "react-hook-form";
 
 import { mergeObjects } from "@/app/_presenters/utils/objects";
-import Channel from "@/app/repositories/_domain/interfaces/Channel";
 import { Repository } from "@/app/repositories/_domain/interfaces/Repository";
 import Box from "@/components/Box";
 import Form from "@/components/Form";
 import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
-import { Option } from "@/components/Form/FieldControllers/AutocompleteController";
 import SwitchController from "@/components/Form/FieldControllers/SwitchController";
 import TextInputController from "@/components/Form/FieldControllers/TextInputController";
-import Loading from "@/components/Loading";
 import Typography from "@/components/Typography";
 
 import useRepositoryFormBasicInfoController from "./_presenters/controllers/useRepositoryFormBasicInfoController";

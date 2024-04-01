@@ -78,20 +78,6 @@ const Timesheets = ({ user }: Props) => {
     return <Loading />;
   }
 
-  if (filteredAssignments.length === 0) {
-    if (user) {
-      return (
-        <Box textAlign={"center"}>
-          <Box type="span">
-            There are no projects assign to you at this moment.{" "}
-          </Box>
-          <Box type="span">Please talk to your manager.</Box>
-        </Box>
-      );
-    }
-    return <Box>No timesheets found</Box>;
-  }
-
   return (
     <>
       <Grid container pb={3}>
@@ -124,7 +110,17 @@ const Timesheets = ({ user }: Props) => {
           </PageFilterContainer>
         </Grid>
       </Grid>
-      {timesheets}
+      {filteredAssignments.length === 0 && (
+        <Box textAlign={"center"}>
+          <Box type="span">
+            There are no projects assign to you in the selected period.{" "}
+          </Box>
+          <Box type="span">
+            Please talk to your manager if you should have any.
+          </Box>
+        </Box>
+      )}
+      {filteredAssignments.length > 0 && timesheets}
     </>
   );
 };

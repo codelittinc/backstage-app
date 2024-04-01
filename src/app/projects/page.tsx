@@ -23,6 +23,7 @@ import {
   getFirstDayOfCurrentMonth,
   getLastDayOfCurrentMonth,
 } from "../_presenters/utils/date";
+import { useEffect } from "react";
 
 const renderProjects = (
   projects: Project[],
@@ -65,6 +66,7 @@ function AllProjects(): JSX.Element {
   const router = useRouter();
   const defaultStartDate = getFirstDayOfCurrentMonth();
   const defaultEndDate = getLastDayOfCurrentMonth();
+
   const { hasPermission: hasProjectsPermission } = usePermissions({
     ability: abilities.change,
     target: targets.projects,
@@ -79,6 +81,10 @@ function AllProjects(): JSX.Element {
     defaultStartDate,
     defaultEndDate
   );
+
+  useEffect(() => {
+    updateDateRangeQuery(defaultStartDate, defaultEndDate);
+  });
 
   const { projects = [], isLoading } = useProjectsController(
     startDate,
