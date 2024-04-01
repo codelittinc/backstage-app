@@ -14,8 +14,6 @@ const useStatementsOfWorkController = (projectId: number | string) => {
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
 
-  const { projects, isLoading: isProjectsLoading } = useProjectsController();
-
   const deleteMutation = useMutation({
     mutationFn: deleteStatementOfWork,
     onSuccess: () => {
@@ -38,8 +36,7 @@ const useStatementsOfWorkController = (projectId: number | string) => {
       deleteMutation.mutate({ statementOfWork });
     },
     statementsOfWork: data,
-    projects: projects,
-    isLoading: isLoading || !data || isProjectsLoading,
+    isLoading: isLoading,
   };
 };
 
