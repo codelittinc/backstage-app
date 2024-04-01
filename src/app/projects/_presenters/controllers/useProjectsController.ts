@@ -13,6 +13,7 @@ const useProjectsController = (startDate?: string, endDate?: string) => {
       formatDateToMonthDayYear(endDate),
     ],
     queryFn: () => getProjects(startDate, endDate),
+    enabled: !!startDate && !!endDate,
   });
 
   return {
