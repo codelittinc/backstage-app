@@ -64,10 +64,15 @@ class Singleton {
     key: string,
     defaultValue?: string | number
   ): string | number | undefined {
-    return (
-      this.customParams.find((param: PropCustomParams) => param.key == key)
-        ?.value ?? defaultValue
-    );
+    const foundParam = this.customParams.find(
+      (param: PropCustomParams) => param.key == key
+    )?.value;
+
+    if (foundParam != "" && foundParam != undefined) {
+      return foundParam;
+    }
+
+    return defaultValue;
   }
 }
 
