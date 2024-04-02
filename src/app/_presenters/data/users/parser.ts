@@ -1,6 +1,5 @@
 import { ApiServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
 import { FromApiUser, ToApiUser, User } from "@/app/_domain/interfaces/User";
-import { fromApiParser as professionFromApiParser } from "@/app/_presenters/data/professions/parser";
 import { fromApiParser as customerFromApiParser } from "@/app/customers/_presenters/data/services/customers/parser";
 
 export const toApiParser = (user: User): ToApiUser => {
@@ -13,7 +12,7 @@ export const toApiParser = (user: User): ToApiUser => {
     last_name: user.lastName,
     seniority: user.seniority,
     google_id: user.googleId,
-    profession_id: user.profession.id,
+    profession_id: user.professionId,
     country: user.country,
     internal: user.internal,
     user_service_identifiers_attributes: user.servicesIdentifiers?.map(
@@ -42,7 +41,6 @@ export const fromApiParser = (user: FromApiUser): User => {
     contract_type,
     seniority,
     country,
-    profession,
     user_service_identifiers,
   } = user;
 
@@ -57,10 +55,10 @@ export const fromApiParser = (user: FromApiUser): User => {
     seniority: seniority,
     slug: slug,
     googleId: google_id,
-    profession: profession ?? professionFromApiParser(profession!),
     fullName: `${first_name} ${last_name}`,
     country: country,
     internal: user.internal,
+    professionId: user.profession_id,
     servicesIdentifiers: user_service_identifiers.map(
       (service: ApiServiceIdentifier) => ({
         id: service.id,

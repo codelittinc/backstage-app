@@ -30,7 +30,7 @@ const getDefaultUser = (professions: Profession[]) => ({
   internal: false,
   googleId: "",
   imageUrl: "",
-  profession: professions ? professions[0] : undefined,
+  profession_id: professions.length > 0 ? professions[0].id : undefined,
   active: true,
   servicesIdentifiers: [],
   seniority: "Senior",
@@ -88,10 +88,11 @@ function BasicInfo({ user, onSave }: Props): JSX.Element {
         <Grid item xs={12} md={6}>
           <AutocompleteController
             label="Profession"
-            name="profession"
+            name="professionId"
             options={professions}
             control={control}
             required
+            withObjectValue={false}
           />
         </Grid>
         <Grid item xs={12} md={6}></Grid>

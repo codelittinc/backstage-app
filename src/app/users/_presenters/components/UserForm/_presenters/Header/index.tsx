@@ -34,9 +34,6 @@ function Header({ user }: Props): JSX.Element {
               <Typography variant="h5" fontWeight="medium">
                 {name}
               </Typography>
-              <Typography variant="button" color="text" fontWeight="medium">
-                {user?.profession.name}
-              </Typography>
             </Box>
           </Grid>
         </Grid>

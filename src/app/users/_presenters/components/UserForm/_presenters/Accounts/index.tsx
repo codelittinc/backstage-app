@@ -144,12 +144,10 @@ function Accounts({ user, onSave }: Props): JSX.Element {
         <GithubUserAccountForm
           onChange={onChangeIdentifier}
           serviceIdentifier={githubIdentifier}
-          profession={user.profession}
         />
         <AzureDevopsDeveloperUserAccountForm
           onChange={onChangeIdentifier}
           serviceIdentifier={azureDevopsDevIdentifier}
-          profession={user.profession}
         />
 
         <Grid item xs={12} md={6} lg={3} sx={{ ml: "auto" }}>
