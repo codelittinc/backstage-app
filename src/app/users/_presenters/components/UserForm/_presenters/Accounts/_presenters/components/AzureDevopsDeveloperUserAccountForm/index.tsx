@@ -1,6 +1,5 @@
 import { Grid } from "@mui/material";
 
-import Profession from "@/app/_domain/interfaces/Profession";
 import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
 import useCustomersController from "@/app/customers/_presenters/controllers/useCustomersController";
 import Autocomplete from "@/components/Autocomplete";
@@ -11,20 +10,14 @@ import Typography from "@/components/Typography";
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;
-  profession: Profession;
   serviceIdentifier: ServiceIdentifier;
 }
 
 function AzureDevopsDeveloperUserAccountForm({
   serviceIdentifier,
   onChange,
-  profession,
 }: Props): JSX.Element {
   const { customers } = useCustomersController();
-
-  if (profession.name != "Engineer") {
-    return <></>;
-  }
 
   return (
     <>
