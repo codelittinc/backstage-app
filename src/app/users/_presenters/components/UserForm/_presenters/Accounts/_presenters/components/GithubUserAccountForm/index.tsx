@@ -1,6 +1,5 @@
 import { Grid } from "@mui/material";
 
-import Profession from "@/app/_domain/interfaces/Profession";
 import { ServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
 import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
@@ -9,19 +8,13 @@ import Typography from "@/components/Typography";
 
 interface Props {
   onChange: (serviceIdentifier: ServiceIdentifier) => void;
-  profession: Profession;
   serviceIdentifier: ServiceIdentifier;
 }
 
 function GithubUserAccountForm({
   serviceIdentifier,
   onChange,
-  profession,
 }: Props): JSX.Element {
-  if (profession.name != "Engineer") {
-    return <></>;
-  }
-
   return (
     <>
       <Box
