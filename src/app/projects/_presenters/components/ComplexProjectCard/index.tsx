@@ -44,13 +44,14 @@ function ComplexProjectCard({
     return (
       <Avatar
         key={memberKey}
-        src={member.src || defaultUser.src}
+        src={member.src || `https://robohash.org/${member.id}`}
         alt="member profile"
         onClick={() => {
           if (hasUsersPermission) {
             router.push(routes.userPath(member.id!));
           }
         }}
+        bgColor="light"
         size="xs"
         sx={({ borders: { borderWidth }, palette: { white } }) => ({
           border: `${borderWidth[2]} solid ${white.main}`,
