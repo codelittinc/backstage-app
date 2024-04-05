@@ -113,6 +113,20 @@ const BasicInfo: React.FC<Props> = ({ project, onSave, onDelete }) => {
               control={control}
             />
           </Grid>
+          <Grid item xs={12}>
+            <SwitchController
+              name="syncSourceControl"
+              label="Syncronize source control"
+              control={control}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <SwitchController
+              name="syncTicketTrackingSystem"
+              label="Syncronize ticket tracking system"
+              control={control}
+            />
+          </Grid>
         </>
       </Form>
     </Card>
