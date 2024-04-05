@@ -22,6 +22,8 @@ export interface ApiProjectTo {
   logo_url: string | null;
   name: string;
   slack_channel: string | null;
+  sync_source_control: boolean;
+  sync_ticket_tracking_system: boolean;
 }
 
 export function fromApiParser(project: ApiProjectFrom): Project {
@@ -57,5 +59,7 @@ export function toApiParser(project: Project): ApiProjectTo {
     customer_id: project.customer.id!,
     logo_url: project.logoUrl,
     logo_background_color: project.logoBackgroundColor,
+    sync_source_control: project.syncSourceControl,
+    sync_ticket_tracking_system: project.syncTicketTrackingSystem,
   };
 }

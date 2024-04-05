@@ -16,6 +16,6 @@ type Project = {
   participants?: Participant[];
   slackChannel: string | null;
   slug?: string;
-  syncSourceControl?: boolean;
-  syncTicketTrackingSystem?: boolean;
+  syncSourceControl: boolean;
+  syncTicketTrackingSystem: boolean;
 };
