@@ -12,7 +12,8 @@ enum tanstackKeys {
   TimeEntries = "timeEntries",
   Users = "users",
   analyics = "analytics",
-  codeComments = "codeComments"
+  codeComments = "codeComments",
+  DynamicDatasets = "dynamicDatasets",
 }
 
 export default tanstackKeys;

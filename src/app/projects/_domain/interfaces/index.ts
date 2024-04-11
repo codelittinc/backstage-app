@@ -1,7 +1,7 @@
 type Participant = {
   email: string;
   id: number;
-  imageUrl: string | null;
+  imageUrl?: string;
   name: string;
   slug: string;
 };
@@ -10,12 +10,14 @@ type Project = {
   billable: boolean;
   customer: Customer;
   id?: number;
-  logoBackgroundColor: string | undefined;
-  logoUrl: string | undefined;
+  logoBackgroundColor?: string;
+  logoUrl?: string;
   name: string;
   participants?: Participant[];
-  slackChannel: string | null;
+  slackChannel?: string;
   slug?: string;
   syncSourceControl: boolean;
   syncTicketTrackingSystem: boolean;
+  displayCodeMetrics: boolean;
+  displayTasksMetrics: boolean;
 };
