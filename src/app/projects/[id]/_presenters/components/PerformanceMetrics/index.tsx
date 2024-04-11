@@ -86,7 +86,6 @@ const Metrics = ({ project }: { project: Project }) => {
           interval={dateInterval}
         />
       }
-
       {showIssues && (
         <IssuesSection
           project={project}
