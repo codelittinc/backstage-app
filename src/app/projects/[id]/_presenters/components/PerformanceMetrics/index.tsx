@@ -9,6 +9,7 @@ import DateRangePicker from "@/components/DateRangePicker";
 
 import IssuesSection from "./_presenters/components/IssuesSection";
 import { PullRequestsSection } from "./_presenters/components/PullRequestsSection";
+import DynamicDatasetsSection from "./_presenters/components/DynamicDatasetsSection";
 
 const Metrics = ({ project }: { project: Project }) => {
   const defaultStartDate = getSameDayLastMonth(new Date());
@@ -21,8 +22,8 @@ const Metrics = ({ project }: { project: Project }) => {
 
   const { setCustomParams, getCustomParamValue } = useQueryParamController();
 
-  const showIssues = project.syncTicketTrackingSystem;
-  const showPullRequests = project.syncSourceControl;
+  const showIssues = project.displayTasksMetrics;
+  const showPullRequests = project.displayCodeMetrics;
   const hasData = showIssues || showPullRequests;
 
   const dateInterval = getCustomParamValue("interval", "weeks") as string;
@@ -77,6 +78,14 @@ const Metrics = ({ project }: { project: Project }) => {
           </Card>
         </Grid>
       )}
+      {
+        <DynamicDatasetsSection
+          project={project}
+          startDateFilter={startDate}
+          endDateFilter={endDate}
+          interval={dateInterval}
+        />
+      }
       {showIssues && (
         <IssuesSection
           project={project}

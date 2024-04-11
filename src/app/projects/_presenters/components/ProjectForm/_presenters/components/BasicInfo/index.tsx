@@ -127,6 +127,20 @@ const BasicInfo: React.FC<Props> = ({ project, onSave, onDelete }) => {
               control={control}
             />
           </Grid>
+          <Grid item xs={12}>
+            <SwitchController
+              name="displayCodeMetrics"
+              label="Display code metrics"
+              control={control}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <SwitchController
+              name="displayTasksMetrics"
+              label="Display tasks metrics"
+              control={control}
+            />
+          </Grid>
         </>
       </Form>
     </Card>

@@ -4,7 +4,6 @@ import Icon from "@mui/material/Icon";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
-import defaultUser from "@/assets/images/icons/users/default.jpg";
 import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
