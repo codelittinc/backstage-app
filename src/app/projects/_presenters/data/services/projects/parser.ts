@@ -1,29 +1,36 @@
-import { fromApiParser as customerFromApiParser } from "@/app/customers/_presenters/data/services/customers/parser";
+import {
+  ApiCustomer,
+  fromApiParser as customerFromApiParser,
+} from "@/app/customers/_presenters/data/services/customers/parser";
 
 export interface ApiProjectFrom {
   billable: boolean;
-  customer: Customer;
+  customer: ApiCustomer;
   id?: number;
-  logo_background_color: string | null;
-  logo_url: string | null;
+  logo_background_color?: string;
+  logo_url?: string;
   name: string;
   participants: Participant[];
-  slack_channel: string | null;
+  slack_channel?: string;
   slug: string;
   sync_source_control: boolean;
   sync_ticket_tracking_system: boolean;
+  display_code_metrics: boolean;
+  display_tasks_metrics: boolean;
 }
 
 export interface ApiProjectTo {
   billable: boolean;
   customer_id: number;
   id?: number;
-  logo_background_color: string | null;
-  logo_url: string | null;
+  logo_background_color?: string;
+  logo_url?: string;
   name: string;
-  slack_channel: string | null;
+  slack_channel?: string;
   sync_source_control: boolean;
   sync_ticket_tracking_system: boolean;
+  display_code_metrics: boolean;
+  display_tasks_metrics: boolean;
 }
 
 export function fromApiParser(project: ApiProjectFrom): Project {
@@ -47,6 +54,8 @@ export function fromApiParser(project: ApiProjectFrom): Project {
     })),
     syncSourceControl: project.sync_source_control,
     syncTicketTrackingSystem: project.sync_ticket_tracking_system,
+    displayCodeMetrics: project.display_code_metrics,
+    displayTasksMetrics: project.display_tasks_metrics,
   };
 }
 
@@ -61,5 +70,7 @@ export function toApiParser(project: Project): ApiProjectTo {
     logo_background_color: project.logoBackgroundColor,
     sync_source_control: project.syncSourceControl,
     sync_ticket_tracking_system: project.syncTicketTrackingSystem,
+    display_code_metrics: project.displayCodeMetrics,
+    display_tasks_metrics: project.displayTasksMetrics,
   };
 }

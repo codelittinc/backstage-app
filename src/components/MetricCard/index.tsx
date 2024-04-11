@@ -3,11 +3,12 @@ import { Box, Card } from "@mui/material";
 import Typography from "../Typography";
 
 type Props = {
-  metric: number;
+  metric: number | string;
   text: string;
 };
 
 const MetricCard = ({ text, metric }: Props) => {
+  const value = typeof metric === "string" ? metric : metric.toFixed(1);
   return (
     <Card>
       <Box
@@ -16,7 +17,7 @@ const MetricCard = ({ text, metric }: Props) => {
         flexDirection={"column"}
         alignItems={"center"}
       >
-        <Typography>{metric.toFixed(1)}</Typography>
+        <Typography>{value}</Typography>
         <Typography variant="h6">{text}</Typography>
       </Box>
     </Card>
