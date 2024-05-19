@@ -1,4 +1,4 @@
-import { Card, Grid, Typography } from "@mui/material";
+import { Card, Grid, Icon, Typography } from "@mui/material";
 
 import useDateRangeController from "@/app/_presenters/controllers/queries/useDateRangeController";
 import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
@@ -10,6 +10,7 @@ import DateRangePicker from "@/components/DateRangePicker";
 import IssuesSection from "./_presenters/components/IssuesSection";
 import { PullRequestsSection } from "./_presenters/components/PullRequestsSection";
 import DynamicDatasetsSection from "./_presenters/components/DynamicDatasetsSection";
+import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 
 const Metrics = ({ project }: { project: Project }) => {
   const defaultStartDate = getSameDayLastMonth(new Date());
@@ -86,6 +87,7 @@ const Metrics = ({ project }: { project: Project }) => {
           interval={dateInterval}
         />
       }
+
       {showIssues && (
         <IssuesSection
           project={project}
