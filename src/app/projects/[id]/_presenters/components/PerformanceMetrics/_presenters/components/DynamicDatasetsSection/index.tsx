@@ -4,6 +4,7 @@ import DynamicDataset from "./_domain/dynamicDataset";
 import DynamicMetricCard from "./_presenters/components/DynamicMetricCard";
 import Typography from "@/components/Typography";
 import Box from "@/components/Box";
+import DynamicVerticalBarChart from "./_presenters/components/DynamicVerticalBarChart";
 
 interface Props {
   endDateFilter?: string | undefined;
@@ -16,6 +17,10 @@ const AVAILABLE_COMPONENTS = [
   {
     component: DynamicMetricCard,
     key: "DynamicMetricCard",
+  },
+  {
+    component: DynamicVerticalBarChart,
+    key: "DynamicVerticalBarChart",
   },
 ];
 
