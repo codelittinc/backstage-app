@@ -1,21 +1,28 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
-import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import {
+  deleteRequirement,
   getRequirement,
   updateRequirement,
 } from "@/app/_presenters/data/requirements";
 import { useAppStore } from "@/app/_presenters/data/store/store";
 import { getStatementOfWork } from "@/app/projects/_presenters/components/ProjectForm/_presenters/components/StatementsOfWork/_presenters/data/services/statementsOfWork";
+import { useRouter } from "next/navigation";
+import routes from "@/routes";
+import projectTabs from "@/app/projects/_domain/_enums/projectTabs";
+import { useState } from "react";
 
-const useNewStatementsOfWorkController = (
+const useEditRequirementController = (
   requirementId: string,
   statementOfWorkId: string,
   projectId: string
 ) => {
   const { showSaveSuccessAlert } = useAppStore();
   const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const updateMutation = useMutation({
     mutationFn: updateRequirement,
@@ -29,7 +36,10 @@ const useNewStatementsOfWorkController = (
 
   const { data, isLoading } = useQuery({
     queryKey: [tanstackKeys.Requirements, requirementId],
-    queryFn: () => getRequirement(requirementId),
+    queryFn: () => {
+      return getRequirement(requirementId);
+    },
+    enabled: !isDeleted,
   });
 
   const { data: statementOfWork, isLoading: isLoadingStatementOfWork } =
@@ -38,14 +48,26 @@ const useNewStatementsOfWorkController = (
       queryFn: () => getStatementOfWork(statementOfWorkId, projectId),
     });
 
-  return {
-    onSave: (requirement: Requirement) => {
-      updateMutation.mutate(requirement);
+  const deleteMutation = useMutation({
+    mutationFn: deleteRequirement,
+    onSuccess: async () => {
+      router.push(
+        routes.projectPath(statementOfWork!.projectId, projectTabs.resources)
+      );
+      showSaveSuccessAlert();
+      setIsDeleted(true);
     },
+  });
+
+  return {
+    onSave: updateMutation.mutate,
     requirement: data,
     isLoading: isLoading || isLoadingStatementOfWork,
     statementOfWork: statementOfWork,
+    onDelete: (requirement: Requirement) => {
+      deleteMutation.mutate(requirement);
+    },
   };
 };
 
-export default useNewStatementsOfWorkController;
+export default useEditRequirementController;
