@@ -16,40 +16,26 @@ import Loading from "@/components/Loading";
 import Typography from "@/components/Typography";
 import routes from "@/routes";
 import projectTabs from "@/app/projects/_domain/_enums/projectTabs";
+import useRequirementFormController from "./presenters/controllers/useRequirementFormController";
 
 interface Props {
   onSave: (requirement: Requirement) => void;
+  onDelete?: (requirement: Requirement) => void;
   requirement?: Requirement;
   statementOfWork: StatementOfWork;
 }
 
-const getDefaultRequirement = (
-  statementOfWork: StatementOfWork,
-  professions: Profession[]
-): Requirement => ({
-  id: undefined,
-  coverage: 0,
-  professionId: professions[0]?.id,
-  startDate: statementOfWork.startDate,
-  endDate: statementOfWork.endDate,
-  statementOfWorkId: statementOfWork.id as number,
-});
-
-const RequirementForm: React.FC<Props> = ({
+const RequirementForm = ({
   requirement,
   statementOfWork,
   onSave,
-}) => {
-  const { professions, isLoading } = useProfessionsController();
-
-  const defaultValues = mergeObjects(
-    getDefaultRequirement(statementOfWork, professions || []),
-    requirement || {}
-  ) as DefaultValues<Requirement>;
-
-  const { handleSubmit, control } = useForm<Requirement>({
-    defaultValues,
-  });
+  onDelete,
+}: Props) => {
+  const { handleSubmit, control, isLoading, professions } =
+    useRequirementFormController({
+      statementOfWork,
+      requirement,
+    });
 
   if (isLoading) {
     return <Loading />;
@@ -64,6 +50,9 @@ const RequirementForm: React.FC<Props> = ({
           </Box>
           <Form
             onSave={() => handleSubmit(onSave)()}
+            onDelete={
+              onDelete && requirement ? () => onDelete(requirement) : undefined
+            }
             cancelPath={routes.projectPath(
               statementOfWork.projectId,
               projectTabs.resources
