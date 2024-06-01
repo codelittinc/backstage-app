@@ -18,6 +18,7 @@ interface Props {
   assignment?: Assignment;
   onSave: (assignment: Assignment) => void;
   requirement: Requirement;
+  onDelete?: (assignment: Assignment) => void;
 }
 
 const getDefaultRequirement = (
@@ -36,6 +37,7 @@ const AssignmentForm: React.FC<Props> = ({
   assignment,
   requirement,
   onSave,
+  onDelete,
 }) => {
   const { users, isLoading } = useUsersController();
 
@@ -59,7 +61,12 @@ const AssignmentForm: React.FC<Props> = ({
           <Box p={3}>
             <Typography variant="h5">Assignment</Typography>
           </Box>
-          <Form onSave={() => handleSubmit(onSave)()}>
+          <Form
+            onSave={() => handleSubmit(onSave)()}
+            onDelete={
+              onDelete && assignment ? () => onDelete(assignment) : undefined
+            }
+          >
             <>
               <Grid item xs={12} md={6}>
                 <AutocompleteController

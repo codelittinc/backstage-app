@@ -7,12 +7,13 @@ import useEditStatementOfWorkController from "./_presenters/controllers/useEditA
 import AssignmentForm from "../_presenters/components/AssignmentForm";
 
 function Page() {
-  const { requirementId, assignmentId } = useParams();
+  const { requirementId, assignmentId, id: projectId } = useParams();
 
-  const { onSave, requirement, assignment, isLoading } =
+  const { onSave, requirement, assignment, isLoading, onDelete } =
     useEditStatementOfWorkController(
       assignmentId as string,
-      requirementId as string
+      requirementId as string,
+      projectId as string
     );
 
   if (isLoading) {
@@ -24,6 +25,7 @@ function Page() {
       requirement={requirement!}
       assignment={assignment!}
       onSave={onSave}
+      onDelete={onDelete}
     />
   );
 }
