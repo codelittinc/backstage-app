@@ -11,8 +11,9 @@ import { Repository } from "../../../_domain/interfaces/Repository";
 
 type Props = {
   repository?: Repository;
+  onDelete?: () => void;
 };
-function RepositoryForm({ repository }: Props): JSX.Element {
+function RepositoryForm({ repository, onDelete }: Props): JSX.Element {
   const { onSave } = useRepositoryFormController();
 
   return (
@@ -21,7 +22,11 @@ function RepositoryForm({ repository }: Props): JSX.Element {
         <Header repository={repository} />
       </Grid>
       <Grid item xs={12}>
-        <BasicInfo repository={repository} onSave={onSave} />
+        <BasicInfo
+          repository={repository}
+          onSave={onSave}
+          onDelete={onDelete}
+        />
       </Grid>
       <>
         {!!repository?.id && (

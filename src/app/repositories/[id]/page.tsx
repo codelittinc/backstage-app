@@ -8,13 +8,15 @@ import RepositoryForm from "../_presenters/components/RepositoryForm/page";
 
 function Page(): JSX.Element {
   const { id } = useParams();
-  const { isLoading, repository } = useRepositoryController(id as string);
+  const { isLoading, repository, onDelete } = useRepositoryController(
+    id as string
+  );
 
   if (isLoading) {
     return <Loading />;
   }
 
-  return <RepositoryForm repository={repository!} />;
+  return <RepositoryForm repository={repository!} onDelete={onDelete} />;
 }
 
 export default Page;

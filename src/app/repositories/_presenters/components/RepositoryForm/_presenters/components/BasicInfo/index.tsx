@@ -35,9 +35,10 @@ const getDefaultRepository = (projectId: number | undefined) => ({
 type Props = {
   onSave: (repository: Repository) => void;
   repository?: Repository;
+  onDelete?: () => void;
 };
 
-function BasicInfo({ repository, onSave }: Props): JSX.Element {
+function BasicInfo({ repository, onSave, onDelete }: Props): JSX.Element {
   const defaultValues = mergeObjects(
     getDefaultRepository(repository?.projectId),
     repository || {}
@@ -70,7 +71,7 @@ function BasicInfo({ repository, onSave }: Props): JSX.Element {
       <Box p={3}>
         <Typography variant="h5">Basic Info</Typography>
       </Box>
-      <Form onSave={() => handleSubmit(onSave)()}>
+      <Form onSave={() => handleSubmit(onSave)()} onDelete={onDelete}>
         <Grid item xs={12} md={3}>
           <AutocompleteController
             label="Project"

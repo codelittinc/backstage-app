@@ -35,3 +35,12 @@ export const getRepository = async (id: number | undefined | string) => {
 
   return fromApiParser(data);
 };
+
+export const deleteRepository = async (id: number | string) => {
+  if (!id) {
+    return null;
+  }
+
+  const result = await roadrunnerApiClient.delete(`/repositories/${id}.json`);
+  return result.status === 204;
+};
