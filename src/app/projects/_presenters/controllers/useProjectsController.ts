@@ -5,7 +5,7 @@ import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { getProjects } from "../data/services/projects";
 import { formatDateToMonthDayYear } from "@/app/_presenters/utils/date";
 
-const useProjectsController = (startDate: string, endDate: string) => {
+const useProjectsController = (startDate?: string, endDate?: string) => {
   const { data, isLoading } = useQuery({
     queryKey: [
       tanstackKeys.Projects,
