@@ -98,7 +98,7 @@ export default function App({ children }: { children: React.ReactNode }) {
   const displaySidenav =
     layout === "dashboard" &&
     !pathname.startsWith("/users/sign-in") &&
-    pathname.startsWith("/project-dasboard");
+    !authKey;
 
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
