@@ -12,7 +12,12 @@ backstageApiClient.defaults.paramsSerializer = (p) => {
 };
 
 backstageApiClient.interceptors.request.use((config) => {
-  const { sessionUser } = useAppStore.getState();
+  const { sessionUser, projectAuthKey } = useAppStore.getState();
+
+  if (projectAuthKey) {
+    config.headers["Project-Auth-Key"] = projectAuthKey;
+    return config;
+  }
 
   if (!sessionUser) {
     throw new Error("Session user not found. Aborting request.");
