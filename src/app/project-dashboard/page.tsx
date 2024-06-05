@@ -7,6 +7,7 @@ import TimeEntries from "@/components/Analytics/TimeEntries";
 import Loading from "@/components/Loading";
 import { useEffect } from "react";
 import { useAppStore } from "../_presenters/data/store/store";
+import { DEFAULT_STATEMENT_OF_WORK } from "@/components/PageFilters/StatementOfWorkFilter";
 
 const ProjectDashboard = () => {
   const params = useSearchParams();
@@ -30,7 +31,12 @@ const ProjectDashboard = () => {
     return <Loading />;
   }
 
-  return <TimeEntries project={project} />;
+  return (
+    <TimeEntries
+      project={project}
+      defaultStatementOfWork={DEFAULT_STATEMENT_OF_WORK}
+    />
+  );
 };
 
 export default ProjectDashboard;
