@@ -22,20 +22,21 @@ const Requirements = ({ startDate, endDate, project }: Props): JSX.Element => {
     statementOWorkId as number
   );
 
+  let requirementsCoverage;
   if (isLoading) {
-    return <Loading />;
+    requirementsCoverage = "Loading...";
+  } else {
+    requirementsCoverage = requirements.reduce(
+      (acc: number, requirement: Requirement) => {
+        const { coverage } = requirement;
+
+        return acc + coverage;
+      },
+      0
+    );
+
+    requirementsCoverage = Math.round(requirementsCoverage);
   }
-
-  let requirementsCoverage = requirements.reduce(
-    (acc: number, requirement: Requirement) => {
-      const { coverage } = requirement;
-
-      return acc + coverage;
-    },
-    0
-  );
-
-  requirementsCoverage = Math.round(requirementsCoverage);
 
   return <MetricCard text="Required resources" metric={requirementsCoverage} />;
 };

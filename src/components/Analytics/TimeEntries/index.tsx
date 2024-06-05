@@ -19,9 +19,10 @@ import useTimeEntriesController from "./_presenters/controllers/useTimeEntriesCo
 
 type Props = {
   project?: Project;
+  defaultStatementOfWork?: StatementOfWork;
 };
 
-const TimeEntries = ({ project }: Props) => {
+const TimeEntries = ({ project, defaultStatementOfWork }: Props) => {
   const defaultStartDate = getLastSunday();
   const defaultEndDate = getLastSaturday();
 
@@ -32,7 +33,9 @@ const TimeEntries = ({ project }: Props) => {
 
   const colors = ["success", "info", "dark", "warning", "error", "secondary"];
 
-  const [statementOfWork, setStatementOfWork] = useState<StatementOfWork>();
+  const [statementOfWork, setStatementOfWork] = useState<StatementOfWork>(
+    defaultStatementOfWork
+  );
   const {
     timeEntries: data,
     statementsOfWork,
