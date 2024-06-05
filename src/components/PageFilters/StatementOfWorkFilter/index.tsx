@@ -12,7 +12,7 @@ type Props = {
   statementsOfWork: StatementOfWork[];
 };
 
-const defaultStatementOfWork = {
+export const DEFAULT_STATEMENT_OF_WORK = {
   id: 0,
   name: "All",
 };
@@ -23,7 +23,7 @@ const StatementOfWorkFilter = ({
   onChange,
 }: Props) => {
   const statementsOfWorkFilterOptions = [
-    defaultStatementOfWork,
+    DEFAULT_STATEMENT_OF_WORK,
     ...[statementsOfWork || []],
   ].flat();
 
@@ -42,7 +42,7 @@ const StatementOfWorkFilter = ({
     if (statementsOfWork?.length > 0 && !statementOfWork) {
       const statementOfWorkId = getCustomParamValue(
         customParamKeys.statementOfWorkId,
-        defaultStatementOfWork.id
+        DEFAULT_STATEMENT_OF_WORK.id
       );
       const sow = statementsOfWorkFilterOptions.find(
         (sow) => sow.id === Number(statementOfWorkId)

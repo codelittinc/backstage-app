@@ -26,19 +26,20 @@ const Assignments = ({ startDate, endDate, project }: Props): JSX.Element => {
     project.id
   );
 
+  let assinmentsCoverage;
   if (isLoading) {
-    return <Loading />;
+    assinmentsCoverage = "Loading...";
+  } else {
+    assinmentsCoverage = assignments.reduce(
+      (acc: number, assignment: Assignment) => {
+        const { coverage } = assignment;
+        return acc + coverage;
+      },
+      0
+    );
+
+    assinmentsCoverage = Math.round(assinmentsCoverage);
   }
-
-  let assinmentsCoverage = assignments.reduce(
-    (acc: number, assignment: Assignment) => {
-      const { coverage } = assignment;
-      return acc + coverage;
-    },
-    0
-  );
-
-  assinmentsCoverage = Math.round(assinmentsCoverage);
 
   return <MetricCard text="Assigned resources" metric={assinmentsCoverage} />;
 };
