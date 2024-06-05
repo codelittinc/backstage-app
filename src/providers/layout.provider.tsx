@@ -2,7 +2,7 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
 import { ThemeProvider } from "@mui/material/styles";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import brandDark from "@/assets/images/logo-ct-dark.png";
@@ -65,6 +65,9 @@ export default function App({ children }: { children: React.ReactNode }) {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
+  const params = useSearchParams();
+  const authKey = params.get("authKey");
+
   const configsButton = (
     <Box
       display="flex"
@@ -92,10 +95,15 @@ export default function App({ children }: { children: React.ReactNode }) {
   const displayConfigurator =
     process.env.NEXT_PUBLIC_DISPLAY_LAYOUT_CONFIGURATOR == "true";
 
+  const displaySidenav =
+    layout === "dashboard" &&
+    !pathname.startsWith("/users/sign-in") &&
+    pathname.startsWith("/project-dasboard");
+
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
-      {layout === "dashboard" && !pathname.startsWith("/users/sign-in") && (
+      {displaySidenav && (
         <>
           <Sidenav
             color={sidenavColor}
