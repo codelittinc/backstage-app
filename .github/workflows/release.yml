@@ -1,0 +1,36 @@
+name: QA Release
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Make HTTP Call to QA
+        id: http_call_qa
+        run: |
+          response=$(curl -s -o response.txt -w "%{http_code}" -X POST "https://api.roadrunner.codelitt.dev/flows?channel_name=team-backstage-deploy&user_id=U0EUQ8NHM&user_name=kaiomagalhaes&command=/roadrunner&text=update%20backstage-app%20qa")
+          if [ "$response" -ne 200 ]; then
+            echo "HTTP request failed with status $response"
+            cat response.txt
+            exit 1
+          fi
+          cat response.txt
+
+      - name: Wait for 10 seconds before deploying to PROD
+        run: sleep 10
+
+      - name: Make HTTP Call to PROD
+        id: http_call_prod
+        run: |
+          response=$(curl -s -o response.txt -w "%{http_code}" -X POST "https://api.roadrunner.codelitt.dev/flows?channel_name=team-backstage-deploy&user_id=U0EUQ8NHM&user_name=kaiomagalhaes&command=/roadrunner&text=update%20backstage-app%20prod")
+          if [ "$response" -ne 200 ]; then
+            echo "HTTP request failed with status $response"
+            cat response.txt
+            exit 1
+          fi
+          cat response.txt
