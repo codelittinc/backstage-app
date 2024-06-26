@@ -30,13 +30,13 @@ function ComplexProjectCard({
   title,
   dateTime,
   description,
-  members,
-  dropdown = false,
+  members = [],
+  dropdown,
   onClickTitle,
   hasUsersPermission,
 }: Props): JSX.Element {
   const router = useRouter();
-  const membersToRender = members?.length == 0 ? [""] : members;
+  const membersToRender = members;
   const renderMembers = membersToRender.map((member, key) => {
     const memberKey = `member-${key}`;
 
@@ -124,7 +124,7 @@ function ComplexProjectCard({
               </Icon>
             </Typography>
           )}
-          {dropdown.menu}
+          {dropdown?.menu}
         </Box>
         <Box my={2} lineHeight={1}>
           <Typography variant="button" fontWeight="light" color="text">
