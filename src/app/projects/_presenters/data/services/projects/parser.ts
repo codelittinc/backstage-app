@@ -17,6 +17,7 @@ export interface ApiProjectFrom {
   sync_ticket_tracking_system: boolean;
   display_code_metrics: boolean;
   display_tasks_metrics: boolean;
+  report_key: string;
 }
 
 export interface ApiProjectTo {
@@ -56,6 +57,7 @@ export function fromApiParser(project: ApiProjectFrom): Project {
     syncTicketTrackingSystem: project.sync_ticket_tracking_system,
     displayCodeMetrics: project.display_code_metrics,
     displayTasksMetrics: project.display_tasks_metrics,
+    reportKey: project.report_key,
   };
 }
 
