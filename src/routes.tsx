@@ -32,6 +32,8 @@ const routes = {
     projectId: number | string
   ) =>
     `/projects/${projectId}/statements-of-work/${statementOfWorkId}/requirements/${requirementId}/assignments/${assignmentId}`,
+  projectReportPath: (reportKey: string) =>
+    `/project-dashboard?authKey=${reportKey}`,
 };
 
 export default routes;
