@@ -1,21 +1,21 @@
 import { backstageApiClient } from "@/app/_presenters/data/auth/backstageApiAxios";
 
-export const getTimeEntriesAnalytics = async (
-  startDate: string,
-  endDate: string,
-  projectId?: number | string,
-  statementOfWorkId?: number
+export const getProjectProgressAnalytics = async (
+  projectId: number | string,
+  statementOfWorkId: number
 ) => {
   const { data } = await backstageApiClient.get(
-    `/analytics/time_entries.json`,
+    `/analytics/project_progress.json`,
     {
       params: {
         statement_of_work_id: statementOfWorkId,
         project_id: projectId,
-        start_date: startDate,
-        end_date: endDate,
       },
     }
   );
-  return data;
+
+  return {
+    contractHours: data.contract_hours,
+    consumedHours: data.consumed_hours,
+  };
 };
