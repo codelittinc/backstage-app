@@ -4,6 +4,8 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
+import Link from "next/link";
+import routes from "@/routes";
 
 type Props = {
   project?: Project;
@@ -11,6 +13,7 @@ type Props = {
 
 function Header({ project }: Props): JSX.Element {
   const name = project ? project.name : "New Project";
+  const reportKey = project?.reportKey;
 
   return (
     <Card id="profile">
@@ -31,6 +34,17 @@ function Header({ project }: Props): JSX.Element {
                 {name}
               </Typography>
             </Box>
+
+            {reportKey && (
+              <Typography variant="body2" color="textSecondary">
+                <Link
+                  href={routes.projectReportPath(reportKey)}
+                  target={"_blank"}
+                >
+                  Client report
+                </Link>
+              </Typography>
+            )}
           </Grid>
         </Grid>
       </Box>

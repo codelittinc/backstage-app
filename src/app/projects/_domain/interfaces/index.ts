@@ -20,4 +20,5 @@ type Project = {
   syncTicketTrackingSystem: boolean;
   displayCodeMetrics: boolean;
   displayTasksMetrics: boolean;
+  reportKey: string;
 };
