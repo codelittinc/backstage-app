@@ -6,6 +6,7 @@ import useReportsController from "./presenters/controllers/useReportsController"
 import Footer from "./presenters/components/Footer";
 import HoursConsumedGraph from "./presenters/components/Graphs/HoursConsumedGraph";
 import StatementOfWorkAutoComplete from "./presenters/components/StatementOfWorkAutocomplete";
+import HoursHistoryGraph from "./presenters/components/Graphs/HoursHistoryGraph";
 
 const ProjectDashboard = () => {
   const {
@@ -47,6 +48,9 @@ const ProjectDashboard = () => {
         >
           <Grid item xs={12} md={5}>
             <HoursConsumedGraph statementOfWork={selectedStatementOfWork} />
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <HoursHistoryGraph statementOfWork={selectedStatementOfWork} />
           </Grid>
         </Grid>
         <Footer />
