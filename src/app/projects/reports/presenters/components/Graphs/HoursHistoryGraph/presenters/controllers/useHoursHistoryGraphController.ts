@@ -76,7 +76,7 @@ const useHoursHistoryGraphController = ({ statementOfWork }: Props) => {
       );
       setInfo(monthlyData.filter((item) => item.workedHours > 0));
     });
-  }, []);
+  }, [id, startDate, endDate]);
 
   return {
     data: info,
