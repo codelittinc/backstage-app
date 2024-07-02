@@ -64,6 +64,7 @@ interface Props {
   sufix: string;
   title?: string;
   valueType: "number" | "currency";
+  stacked?: boolean;
 }
 
 function VerticalBarChart({
@@ -74,6 +75,7 @@ function VerticalBarChart({
   chart,
   valueType = "currency",
   sufix = "",
+  stacked = false,
 }: Props): JSX.Element {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
@@ -83,7 +85,7 @@ function VerticalBarChart({
         borderRadius: 4,
         backgroundColor: colors[dataset.color]
           ? colors[dataset.color || "dark"].main
-          : colors.dark.main,
+          : dataset.color || colors.dark.main,
         fill: false,
         maxBarThickness: 35,
       }))
@@ -93,7 +95,8 @@ function VerticalBarChart({
     chart.labels || [],
     chartDatasets,
     valueType,
-    sufix
+    sufix,
+    stacked
   );
 
   const renderChart = (

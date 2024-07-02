@@ -6,7 +6,13 @@ const formatCurrency = (value: number) => {
     minimumFractionDigits: 2,
   }).format(value)}`;
 };
-function configs(labels: any, datasets: any, valueType: string, sufix: string) {
+function configs(
+  labels: any,
+  datasets: any,
+  valueType: string,
+  sufix: string,
+  stacked: boolean
+) {
   return {
     data: {
       labels,
@@ -54,8 +60,10 @@ function configs(labels: any, datasets: any, valueType: string, sufix: string) {
               lineHeight: 2,
             },
           },
+          stacked,
         },
         x: {
+          stacked,
           grid: {
             drawBorder: false,
             display: false,
