@@ -1,7 +1,6 @@
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import useHoursConsumedGraphController from "./presenters/controllers/useHoursConsumedGraphController";
 import Loading from "@/components/Loading";
-import { Grid } from "@mui/material";
 import PieChart from "@/components/Charts/PieChart";
 
 type Props = {
@@ -24,8 +23,8 @@ const HoursConsumedGraph = ({ statementOfWork }: Props) => {
 
   const pieChartData = {
     labels: [
-      `Consumed hours: ${consumedHours}`,
-      `Available hours: ${contractHours - consumedHours}`,
+      `Consumed: ${consumedHours}`,
+      `Remaining: ${contractHours - consumedHours}`,
       `Contract hours: ${contractHours}`,
     ],
     datasets: {
@@ -35,13 +34,7 @@ const HoursConsumedGraph = ({ statementOfWork }: Props) => {
     },
   };
 
-  return (
-    <PieChart
-      icon={{ color: "success", component: "donut_small" }}
-      title="Hours consumed"
-      chart={pieChartData}
-    />
-  );
+  return <PieChart title="Contract hours to date" chart={pieChartData} />;
 };
 
 export default HoursConsumedGraph;
