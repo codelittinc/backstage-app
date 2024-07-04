@@ -2,7 +2,13 @@ import colors from "@/assets/theme/base/colors";
 
 const { gradients, dark } = colors;
 
-function configs(labels: any, datasets: any, valueType: string, sufix: string) {
+function configs(
+  labels: any,
+  datasets: any,
+  valueType: string,
+  sufix: string,
+  labelPosition: string
+) {
   const backgroundColors = [];
 
   if (datasets.backgroundColors) {
@@ -38,7 +44,7 @@ function configs(labels: any, datasets: any, valueType: string, sufix: string) {
       plugins: {
         legend: {
           display: true,
-          position: "right",
+          position: labelPosition,
         },
         datalabels: {
           color: "white",

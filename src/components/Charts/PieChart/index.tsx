@@ -55,6 +55,7 @@ interface Props {
   sufix?: string;
   title?: string;
   valueType?: "percentage" | "number";
+  labelPosition?: "top" | "bottom" | "left" | "right";
 }
 function PieChart({
   icon = { color: "info", component: "" },
@@ -64,12 +65,14 @@ function PieChart({
   chart,
   valueType = "percentage",
   sufix = "",
+  labelPosition = "right",
 }: Props): JSX.Element {
   const { data, options } = configs(
     chart.labels || [],
     chart.datasets || {},
     valueType,
-    sufix
+    sufix,
+    labelPosition
   );
 
   const renderChart = (

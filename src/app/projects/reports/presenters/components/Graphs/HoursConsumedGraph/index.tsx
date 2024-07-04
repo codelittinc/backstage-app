@@ -34,7 +34,13 @@ const HoursConsumedGraph = ({ statementOfWork }: Props) => {
     },
   };
 
-  return <PieChart title="Contract hours to date" chart={pieChartData} />;
+  return (
+    <PieChart
+      title="Contract hours to date"
+      chart={pieChartData}
+      labelPosition="bottom"
+    />
+  );
 };
 
 export default HoursConsumedGraph;
