@@ -61,7 +61,7 @@ interface Props {
       | "dark";
     component: ReactNode;
   };
-  sufix: string;
+  sufix?: string;
   title?: string;
   valueType: "number" | "currency";
 }
