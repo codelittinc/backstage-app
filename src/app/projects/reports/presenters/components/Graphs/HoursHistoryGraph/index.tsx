@@ -31,8 +31,6 @@ const HoursHistoryGraph = ({ statementOfWork }: Props) => {
     <VerticalBarChart
       title="Consumed hours by month to date"
       chart={barChartData}
-      height={"20rem"}
-      sufix={""}
       valueType={"number"}
     />
   );
