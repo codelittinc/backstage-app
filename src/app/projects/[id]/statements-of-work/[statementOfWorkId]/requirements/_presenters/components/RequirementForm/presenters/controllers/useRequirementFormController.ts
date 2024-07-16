@@ -2,7 +2,10 @@ import Profession from "@/app/_domain/interfaces/Profession";
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import useProfessionsController from "@/app/_presenters/controllers/useProfessionsController";
 import { mergeObjects } from "@/app/_presenters/utils/objects";
-import { DefaultValues, useForm } from "react-hook-form";
+import projectTabs from "@/app/projects/_domain/_enums/projectTabs";
+import routes from "@/routes";
+import { useRouter } from "next/navigation";
+import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 
 const getDefaultRequirement = (
   statementOfWork: StatementOfWork,
@@ -26,6 +29,7 @@ const useRequirementFormController = ({
   requirement,
 }: Props) => {
   const { professions, isLoading } = useProfessionsController();
+  const router = useRouter();
 
   const defaultValues = mergeObjects(
     getDefaultRequirement(statementOfWork, professions || []),
@@ -37,7 +41,12 @@ const useRequirementFormController = ({
   });
 
   return {
-    handleSubmit,
+    handleSubmit: (onValid: SubmitHandler<Requirement>) => {
+      router.push(
+        routes.projectPath(statementOfWork.projectId, projectTabs.resources)
+      );
+      return handleSubmit(onValid);
+    },
     control,
     isLoading,
     professions,
