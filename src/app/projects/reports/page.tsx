@@ -31,7 +31,7 @@ const ProjectDashboard = () => {
           </Typography>
         </Grid>
         <Grid xs={12} display={"flex"} justifyContent={"center"}>
-          <Grid xs={3}>
+          <Grid md={3} xs={12}>
             <StatementOfWorkAutoComplete
               statementsOfWork={statementsOfWork}
               selectedStatementOfWork={selectedStatementOfWork}
@@ -39,17 +39,11 @@ const ProjectDashboard = () => {
             />
           </Grid>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          justifyContent={"space-around"}
-          display="flex"
-          mt={5}
-        >
-          <Grid item xs={12} md={5}>
+        <Grid container justifyContent={"space-around"} display="flex" mt={5}>
+          <Grid item xs={12} md={5} pb={5}>
             <HoursConsumedGraph statementOfWork={selectedStatementOfWork} />
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={5} pb={5}>
             <HoursHistoryGraph statementOfWork={selectedStatementOfWork} />
           </Grid>
         </Grid>
