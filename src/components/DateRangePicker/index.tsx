@@ -13,10 +13,13 @@ const DateRangePicker = ({
   endDate,
   label = "Period",
 }: Props) => {
+  const formatDateAsUTC = (dateString: string) =>
+    new Date(`${dateString}T03:00:00Z`);
+
   return (
     <DatePicker
       label={label}
-      value={[new Date(startDate), new Date(endDate)]}
+      value={[formatDateAsUTC(startDate), formatDateAsUTC(endDate)]}
       onChange={(e: Array<Date>) => {
         if (e.length === 2) {
           onDateRangeChange?.(e[0], e[1]);
