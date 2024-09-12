@@ -14,6 +14,7 @@ enum tanstackKeys {
   analyics = "analytics",
   codeComments = "codeComments",
   DynamicDatasets = "dynamicDatasets",
+  Skills = "skills",
 }
 
 export default tanstackKeys;
