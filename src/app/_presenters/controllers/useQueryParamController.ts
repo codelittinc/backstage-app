@@ -29,7 +29,7 @@ class Singleton {
   public addParams(newParams: PropCustomParams[]): void {
     this.customParams = [...this.customParams, ...newParams].flat();
 
-    const allParamsHash = this.customParams.reduce((acc, param) => {
+    const allParamsHash = this.customParams.reduce((acc: any, param) => {
       acc[param.key] = param.value;
       return acc;
     }, {});

@@ -1,11 +1,11 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-import { AlertSlice, alertSlice } from "./slices/alertSlice";
-import { SessionUserSlice, sessionUserSlice } from "./slices/sessionUserSlice";
+import { AlertSlice, alertSlice } from './slices/alertSlice';
 import {
   ProjectAuthKeySlice,
   projectAuthKeySlice,
-} from "./slices/projectAuthKeySlice";
+} from './slices/projectAuthKeySlice';
+import { SessionUserSlice, sessionUserSlice } from './slices/sessionUserSlice';
 
 type StoreState = AlertSlice & SessionUserSlice & ProjectAuthKeySlice;
 
