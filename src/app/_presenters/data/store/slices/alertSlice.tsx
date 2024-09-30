@@ -1,6 +1,6 @@
-import { StateCreator } from "zustand";
+import { StateCreator } from 'zustand';
 
-import { ApiError } from "@/providers/query.provider";
+import { ApiError } from '@/providers/query.provider';
 
 interface Alert {
   autoHideDuration?: number;
@@ -31,17 +31,17 @@ export const alertSlice: StateCreator<AlertSlice> = (set) => ({
   showSaveSuccessAlert: async () => {
     set({
       alert: {
-        color: "success",
-        title: "Success!",
-        content: `your changes have been saved!`,
+        color: 'success',
+        title: 'Success!',
+        content: 'Your changes have been saved!',
       },
     });
   },
   showSaveErrorAlert: async (err: ApiError) => {
     set({
       alert: {
-        color: "error",
-        title: "Error!",
+        color: 'error',
+        title: 'Error!',
         content: `There was an error while saving. Error: ${JSON.stringify(
           err
         )}`,

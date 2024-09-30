@@ -9,7 +9,7 @@ type Props<T extends FieldValues> = {
   control: Control<T>;
   label: string;
   name: Path<T>;
-  options?: { id: number | string; name: string }[] | string[];
+  options?: { id: number | string; name: string }[] | string[] | number[];
   required?: boolean;
   withObjectValue?: boolean;
 };
@@ -49,7 +49,7 @@ const AutocompleteController = <T extends FieldValues>({
           onChange={(newValue: T) => {
             const isValueObject = typeof newValue === "object";
             let v = newValue;
-            if (!withObjectValue && isValueObject) {
+            if (!withObjectValue && newValue && isValueObject) {
               v = newValue.id;
             }
             onChange(v);

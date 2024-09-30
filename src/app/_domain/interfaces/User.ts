@@ -1,5 +1,6 @@
 import Permission from "./Permission";
 import { ApiServiceIdentifier, ServiceIdentifier } from "./ServiceIdentifier";
+import { Skill, UserSkill } from "./Skill";
 
 export type User = {
   active?: boolean;
@@ -17,7 +18,9 @@ export type User = {
   professionId?: number;
   seniority?: string;
   servicesIdentifiers: ServiceIdentifier[];
+  skills: Skill[];
   slug: string;
+  userSkills: UserSkill[];
 };
 
 export type ApiUser = {
@@ -34,12 +37,14 @@ export type ApiUser = {
   permissions: Permission[];
   profession_id?: number;
   seniority?: string;
+  skills: Skill[];
   slug: string;
   user_service_identifiers: ApiServiceIdentifier[];
+  user_skills: UserSkill[];
 };
 
 export type ToApiUser = {
   user_service_identifiers_attributes: [];
-} & Omit<ApiUser, "user_service_identifiers" | "slug" | "permissions">;
+} & Omit<ApiUser, "user_service_identifiers" | "slug"  | "permissions" | "skills">;
 
 export type FromApiUser = {} & ApiUser;
