@@ -10,7 +10,7 @@ type Props = {
   children?: React.ReactNode;
   hideCancelButton?: boolean;
   onDelete?: () => void;
-  onSave: () => void;
+  onSave?: () => void;
 };
 
 function Form({
@@ -55,16 +55,18 @@ function Form({
               </Button>
             </Box>
           )}
-          <Box ml={1}>
-            <Button
-              variant='gradient'
-              color='info'
-              size='small'
-              onClick={onSave}
-            >
-              Save
-            </Button>
-          </Box>
+          {onSave && (
+            <Box ml={1}>
+              <Button
+                variant='gradient'
+                color='info'
+                size='small'
+                onClick={onSave}
+              >
+                Save
+              </Button>
+            </Box> 
+          )}
         </Grid>
       </Grid>
     </Box>
