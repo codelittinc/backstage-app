@@ -1,9 +1,9 @@
 import skillLevelKeys from '@/app/_domain/enums/skillLevelKeys';
 
 export const LEVEL_LIST = [
-  `${skillLevelKeys.Beginner}`,
-  `${skillLevelKeys.Intermediate}`,
-  `${skillLevelKeys.Advanced}`,
+  skillLevelKeys.Beginner,
+  skillLevelKeys.Intermediate,
+  skillLevelKeys.Advanced,
 ];
 
 const currentYear = new Date().getFullYear();

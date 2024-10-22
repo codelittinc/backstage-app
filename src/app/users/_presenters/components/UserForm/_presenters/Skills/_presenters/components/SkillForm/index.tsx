@@ -1,6 +1,5 @@
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { Container, Grid, IconButton } from '@mui/material';
-import { useEffect } from 'react';
 import { UseFieldArrayRemove } from 'react-hook-form';
 
 import { Skill, UserSkill } from '@/app/_domain/interfaces/Skill';
@@ -26,15 +25,10 @@ function SkillForm({
   remove,
   index,
 }: Props): JSX.Element {
-  const { selectedSkill, setSelectedSkill } = useSkillFormController();
-
-  useEffect(() => {
-    if (skills && userSkill?.skillId) {
-      const skill = skills.find((s) => s.id === userSkill.skillId);
-      setSelectedSkill(skill || null);
-    }
-  }, [skills, userSkill, setSelectedSkill]);
-
+  const { selectedSkill } = useSkillFormController({
+    skills,
+    userSkill,
+  });
   if (!skills) {
     return <Loading />;
   }
