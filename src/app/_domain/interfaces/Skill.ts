@@ -9,6 +9,7 @@ export type UserSkill = {
   id?: number;
   lastAppliedYear: number;
   level: skillLevelKeys;
+  skill: Skill;
   skillId?: string | number;
   userId?: number;
   yearsOfExperience: number;
