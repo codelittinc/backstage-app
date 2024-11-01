@@ -46,8 +46,8 @@ const useTimesheetsController = () => {
 
   const { users, isLoading: isLoadingUsers } = useUsersController();
   const { projects, isLoading: isLoadingProjects } = useProjectsController(
-    date,
-    date
+    startDate,
+    endDate
   );
 
   const sowIds = statementsOfWork?.map((sow: StatementOfWork) => sow.id);
