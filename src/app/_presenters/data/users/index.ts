@@ -15,12 +15,14 @@ export const getUser = async (id: number | string): Promise<User> => {
 
 export const getUsers = async (
   onlyActive = true,
-  onlyInternal = false
+  onlyInternal = false,
+  skills = ""
 ): Promise<User[]> => {
   const { data } = await backstageApiClient.get(`/users.json`, {
     params: {
       only_active: onlyActive,
       only_internal: onlyInternal,
+      filter_by_skills: skills,
     },
   });
   return data.map(fromApiParser);

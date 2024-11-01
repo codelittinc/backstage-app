@@ -32,7 +32,7 @@ const BasicInfo: React.FC<Props> = ({ project, onSave, onDelete }) => {
   const defaultProject = {
     name: "",
     customer: !isCustomersLoading ? customers[0] : undefined,
-    slackChannel: !isChannelsLoading ? channels[0].id : undefined,
+    slackChannel: !isChannelsLoading ? channels[0]?.id : undefined,
     billable: false,
     logoUrl: "",
     logoBackgroundColor: "",

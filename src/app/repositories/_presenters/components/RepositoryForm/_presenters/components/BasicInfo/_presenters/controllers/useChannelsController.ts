@@ -26,7 +26,7 @@ const useChannelsController = (customer: Customer | undefined | null) => {
   }, [isError, customer, showAlert]);
 
   return {
-    channels: data,
+    channels: data ?? [],
     isLoading,
   };
 };

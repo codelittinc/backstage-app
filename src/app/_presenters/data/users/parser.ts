@@ -59,7 +59,7 @@ export const fromApiParser = (user: FromApiUser): User => {
     country: country,
     internal: user.internal,
     professionId: user.profession_id,
-    servicesIdentifiers: user_service_identifiers.map(
+    servicesIdentifiers: user_service_identifiers?.map(
       (service: ApiServiceIdentifier) => ({
         id: service.id,
         customer: customerFromApiParser(service.customer),

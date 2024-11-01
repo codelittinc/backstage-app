@@ -8,6 +8,7 @@ export const fromApiParser = (data: any): UserSkill => {
     yearsOfExperience: data.years_of_experience,
     lastAppliedYear: data.last_applied_in_year,
     level: data.level,
+    skill: data.skill,
   };
 };
 
