@@ -61,9 +61,13 @@ const TimesheetsTable = ({
   }
 
   const processedData = combinedList.map((item: StatementOrAssignment) => {
+    const projectId = (item as StatementOfWork).projectId;
     return {
-      projectId: (item as StatementOfWork).projectId,
+      projectName: projectId
+        ? projects.find((project) => project.id === projectId)?.name
+        : undefined,
       userId: (item as Assignment).userId,
+      assignmentId: (item as Assignment).id,
       statementsOfWork: (item as any).statementOfWork,
       sunday: dates[0],
       monday: dates[1],
@@ -91,12 +95,16 @@ const TimesheetsTable = ({
       align: "center",
       Cell: ({ row }: any) => {
         const { original } = row;
-        const { userId, statementsOfWork } = original;
+        const { userId, statementsOfWork, assignmentId } = original;
+        const userAssignments = assignments.filter(
+          (assignment) =>
+            assignment.userId === userId && assignment.id == assignmentId
+        );
 
         return (
           <TableCell
             date={new Date(date)}
-            assignments={assignments}
+            assignments={userAssignments}
             timeEntries={timeEntries}
             userId={userId}
             statementOfWork={statementsOfWork}
@@ -114,15 +122,11 @@ const TimesheetsTable = ({
       width: "auto",
       Cell: ({ row }: any) => {
         const {
-          original: { projectId },
+          original: { projectName },
         } = row;
 
-        if (projectId) {
-          return (
-            <Typography variant="h6">
-              {projects.find((project) => project.id === projectId)?.name}
-            </Typography>
-          );
+        if (projectName) {
+          return <Typography variant="h6">{projectName}</Typography>;
         }
 
         const {
