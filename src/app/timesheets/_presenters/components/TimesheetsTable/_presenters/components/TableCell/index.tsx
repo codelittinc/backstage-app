@@ -26,6 +26,9 @@ const TableCell = ({
   onChange: onChangeCell,
   assignments,
 }: Props) => {
+  if (!userId) {
+    return null;
+  }
   const formattedDate = dayjs(date).format("YYYY-MM-DD");
   const timeEntry = timeEntries.find(
     (entry) =>
@@ -49,6 +52,7 @@ const TableCell = ({
 
     return startDate <= compareDate && endDate >= compareDate;
   });
+
   return (
     <Box width="100%">
       <FormField
