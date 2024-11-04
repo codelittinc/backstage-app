@@ -26,9 +26,6 @@ const TableCell = ({
   onChange: onChangeCell,
   assignments,
 }: Props) => {
-  if (!userId) {
-    return null;
-  }
   const formattedDate = dayjs(date).format("YYYY-MM-DD");
   const timeEntry = timeEntries.find(
     (entry) =>
@@ -45,6 +42,9 @@ const TableCell = ({
     onChangeCell,
   });
 
+  if (!userId) {
+    return null;
+  }
   const canAddHours = !!assignments.find((assignment) => {
     const compareDate = new Date(date).setHours(0, 0, 0, 0);
     const startDate = new Date(assignment.startDate).setHours(0, 0, 0, 0);
