@@ -42,15 +42,13 @@ const TableCell = ({
     onChangeCell,
   });
 
-  if (!userId) {
-    return;
-  }
+  const canAddHours = !!assignments.find((assignment) => {
+    const compareDate = new Date(date).setHours(0, 0, 0, 0);
+    const startDate = new Date(assignment.startDate).setHours(0, 0, 0, 0);
+    const endDate = new Date(assignment.endDate).setHours(0, 0, 0, 0);
 
-  const canAddHours = !!assignments.find(
-    (assignment) =>
-      new Date(assignment.startDate) <= date &&
-      new Date(assignment.endDate) >= date
-  );
+    return startDate <= compareDate && endDate >= compareDate;
+  });
   return (
     <Box width="100%">
       <FormField
