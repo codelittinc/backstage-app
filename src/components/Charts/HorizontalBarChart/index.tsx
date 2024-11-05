@@ -61,6 +61,7 @@ interface Props {
       | "dark";
     component: ReactNode;
   };
+  labelFormatter?: (value: any) => string;
   title?: string;
 }
 
@@ -70,6 +71,7 @@ function HorizontalBarChart({
   description = "",
   height = "19.125rem",
   chart,
+  labelFormatter
 }: Props): JSX.Element {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
@@ -85,7 +87,20 @@ function HorizontalBarChart({
       }))
     : [];
 
-  const { data, options } = configs(chart.labels || [], chartDatasets);
+  const plugins: any = {};
+  if (labelFormatter) {
+    plugins["datalabels"] = {
+      color: "white",
+      anchor: "center",
+      formatter: labelFormatter,
+    };
+  }
+
+  const { data, options } = configs(
+    chart.labels || [], 
+    chartDatasets,
+    plugins
+  );
 
   const renderChart = (
     <Box py={2} pr={2} pl={icon.component ? 1 : 2}>

@@ -23,3 +23,11 @@ export type ApiUserSkill = {
   user_id?: number;
   years_of_experience: number;
 };
+
+export type SkillAnalytics = {
+  level: {
+    count: number;
+    name: string;
+  }[],
+  name: string;
+};
