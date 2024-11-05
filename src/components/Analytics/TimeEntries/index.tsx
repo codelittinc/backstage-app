@@ -18,8 +18,8 @@ import Requirements from "./_presenters/components/Requirements";
 import useTimeEntriesController from "./_presenters/controllers/useTimeEntriesController";
 
 type Props = {
-  project?: Project;
   defaultStatementOfWork?: StatementOfWork;
+  project?: Project;
 };
 
 const TimeEntries = ({ project, defaultStatementOfWork }: Props) => {

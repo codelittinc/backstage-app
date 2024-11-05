@@ -1,4 +1,4 @@
-function configs(labels: any, datasets: any) {
+function configs(labels: any, datasets: any, plugins: any = {}) {
   return {
     data: {
       labels,
@@ -18,10 +18,10 @@ function configs(labels: any, datasets: any) {
           anchor: "center",
           formatter: (value: number) => {
             if (value === 0) return "";
-
             return value.toFixed(1);
           },
         },
+        ...plugins,
       },
       scales: {
         y: {

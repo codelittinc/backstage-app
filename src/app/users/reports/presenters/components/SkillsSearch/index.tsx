@@ -3,13 +3,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, InputBase, Paper } from "@mui/material";
 
 type Props = {
+  onChangeSearch: (query: string, delay: number) => void;
   onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onSearch: () => void;
   query: string;
   setQuery: (query: string) => void;
 };
 
-const SkillsSearch = ({ onSearch, query, setQuery, onKeyPress }: Props) => {
+const SkillsSearch = ({ onSearch, query, setQuery, onKeyPress, onChangeSearch }: Props) => {
   return (
     <Paper
         component="div"
@@ -23,7 +24,13 @@ const SkillsSearch = ({ onSearch, query, setQuery, onKeyPress }: Props) => {
           placeholder="e.g. React, Node, Python"
           inputProps={{ 'aria-label': 'search skills' }}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            const length = e.target.value.length;
+            if (!length || length > 2) {
+              onChangeSearch(e.target.value, 1000);
+            }
+          }}
           onKeyUp={onKeyPress}
           autoFocus
         />
