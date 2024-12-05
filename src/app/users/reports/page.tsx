@@ -29,6 +29,8 @@ const UsersDashboard = () => {
     return <Loading />;
   }
 
+  console.log("user skills 222", userSkills);
+
   return (
     <Grid container>
       <Grid item xs={12} padding={5}>

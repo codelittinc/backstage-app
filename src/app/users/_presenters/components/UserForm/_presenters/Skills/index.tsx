@@ -24,6 +24,7 @@ function Skills({ userId }: Props): JSX.Element {
     remove,
     control,
   } = useSkillsController(userId);
+
   return (
     <Card id="skill-info" sx={{ overflow: "visible" }}>
       <Box

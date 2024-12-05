@@ -1,13 +1,16 @@
 "use client";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { Fragment } from 'react';
+import { Fragment } from "react";
+import { IconButton } from "@mui/material";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-import { UserSkill } from '@/app/_domain/interfaces/Skill';
-import { User } from '@/app/_domain/interfaces/User';
+import DataTable from "@/components/DataTable";
+import { UserSkill } from "@/app/_domain/interfaces/Skill";
+import { User } from "@/app/_domain/interfaces/User";
 
-import SkillsList from '../SkillsList';
+import SkillsList from "../SkillsList";
+import { Box } from "@mui/material";
+import Typography from "@/components/Typography";
 
 type Props = {
   onExpand: (userId: string | null) => void;
@@ -16,47 +19,118 @@ type Props = {
   users: User[] | undefined;
 };
 
-const UsersTable = ({
-  users, 
-  onExpand, 
-  selectedUser, 
-  userSkills 
-}: Props) => {
+const UsersTable = ({ users, onExpand, selectedUser, userSkills }: Props) => {
+  // Transform the users data to include both user rows and skill rows
+  const tableRows =
+    users?.flatMap((user) => {
+      const userRow = {
+        ...user,
+        isSkillRow: false,
+      };
+      const skillRow = {
+        id: `${user.id}-skills`,
+        isSkillRow: true,
+        parentId: user.id,
+        // Add any other necessary fields to avoid undefined errors
+        fullName: "",
+        email: "",
+        active: false,
+      };
+
+      return [userRow, skillRow];
+    }) || [];
+
+  const tableData = {
+    columns: [
+      {
+        Header: "Name",
+        accessor: "fullName",
+        width: "30%",
+        Cell: ({ row }: any) => {
+          const { original, active } = row;
+          if (original.isSkillRow) {
+            return (
+              <Box pl={4}>
+                <SkillsList
+                  user={users?.find((u) => u.id === original.parentId)}
+                  userSkills={userSkills}
+                  selectedUser={selectedUser}
+                />
+              </Box>
+            );
+          }
+          const icon = (
+            <div
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: "50%",
+                backgroundColor: active ? "#f44336" : "#4caf50",
+                margin: "0 auto",
+                marginRight: 10,
+              }}
+            />
+          );
+
+          return (
+            <Box display={"flex"} alignItems={"center"}>
+              {icon}
+              {original.fullName}
+            </Box>
+          );
+        },
+      },
+      {
+        Header: "Email",
+        accessor: "email",
+        width: "30%",
+        Cell: ({ row }: any) => {
+          const { original } = row;
+          if (original.isSkillRow) return null;
+          return original.email;
+        },
+      },
+      {
+        Header: "Actions",
+        accessor: "actions",
+        width: "10%",
+        Cell: ({ row }: any) => {
+          const { original } = row;
+          if (original.isSkillRow) return null;
+
+          const isExpanded = selectedUser === original.id?.toString();
+
+          return (
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => {
+                onExpand(isExpanded ? null : original.id?.toString());
+              }}
+            >
+              {isExpanded ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          );
+        },
+      },
+    ],
+    rows: tableRows.filter(
+      (row) =>
+        !row.isSkillRow ||
+        (row.isSkillRow &&
+          row.parentId?.toString() === selectedUser?.toString())
+    ),
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell component="th" scope="row">Users</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users?.map((user) => (
-            <Fragment key={user.id}>
-              <TableRow>
-                <TableCell>
-                  <IconButton
-                    aria-label="expand row"
-                    size="small"
-                    onClick={() => onExpand(selectedUser == user.id ? null : user.id!.toString())}
-                  >
-                    {selectedUser == user.id ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                  </IconButton>
-                </TableCell>
-                <TableCell>{user.fullName}</TableCell>
-                <TableCell>{user.email}</TableCell>
-              </TableRow>
-              <SkillsList 
-                user={user}
-                userSkills={userSkills} 
-                selectedUser={selectedUser} 
-              />
-            </Fragment>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Fragment>
+      <DataTable
+        table={tableData}
+        entriesPerPage={false}
+        canSearch
+        isSorted={true}
+      />
+    </Fragment>
   );
 };
 
