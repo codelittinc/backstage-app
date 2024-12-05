@@ -47,7 +47,8 @@ const UsersTable = ({ users, onExpand, selectedUser, userSkills }: Props) => {
         accessor: "fullName",
         width: "30%",
         Cell: ({ row }: any) => {
-          const { original, active } = row;
+          const { original } = row;
+          const { active } = original;
           if (original.isSkillRow) {
             return (
               <Box pl={4}>
@@ -59,13 +60,14 @@ const UsersTable = ({ users, onExpand, selectedUser, userSkills }: Props) => {
               </Box>
             );
           }
+
           const icon = (
             <div
               style={{
                 width: 8,
                 height: 8,
                 borderRadius: "50%",
-                backgroundColor: active ? "#f44336" : "#4caf50",
+                backgroundColor: active ? "#4caf50" : "#f44336",
                 margin: "0 auto",
                 marginRight: 10,
               }}
