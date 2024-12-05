@@ -23,7 +23,7 @@ const useReportsController = () => {
     refetch: usersRefetch,
   } = useQuery({
     queryKey: [tanstackKeys.Users, authKey],
-    queryFn: () => getUsers(true, false, query),
+    queryFn: () => getUsers(true, true, query),
     enabled: !!projectAuthKey,
     retry: false,
   });
