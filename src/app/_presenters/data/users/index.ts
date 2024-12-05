@@ -18,6 +18,7 @@ export const getUsers = async (
   onlyInternal = false,
   skills = ""
 ): Promise<User[]> => {
+  console.log(onlyInternal);
   const { data } = await backstageApiClient.get(`/users.json`, {
     params: {
       only_active: onlyActive,

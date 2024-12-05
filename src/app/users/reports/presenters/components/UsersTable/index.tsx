@@ -10,7 +10,6 @@ import { User } from "@/app/_domain/interfaces/User";
 
 import SkillsList from "../SkillsList";
 import { Box } from "@mui/material";
-import Typography from "@/components/Typography";
 
 type Props = {
   onExpand: (userId: string | null) => void;
