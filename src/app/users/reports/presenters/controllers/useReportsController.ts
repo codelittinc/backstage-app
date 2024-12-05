@@ -17,7 +17,11 @@ const useReportsController = () => {
   const [query, setQuery] = useState<string>("");
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
 
-  const { data: users, isLoading, refetch: usersRefetch } = useQuery({
+  const {
+    data: users,
+    isLoading,
+    refetch: usersRefetch,
+  } = useQuery({
     queryKey: [tanstackKeys.Users, authKey],
     queryFn: () => getUsers(true, false, query),
     enabled: !!projectAuthKey,
@@ -41,23 +45,23 @@ const useReportsController = () => {
   const refetch = () => {
     usersRefetch();
     skillsAnalyticsRefetch();
-  }
+  };
 
   const onSearch = () => {
     setSelectedUser(null);
     refetch();
-  }
+  };
 
   const onExpand = (userId: string | null) => {
     setSelectedUser(userId);
-  }
+  };
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       onSearch();
     }
-  }
+  };
 
   useEffect(() => {
     if (authKey) {
@@ -66,12 +70,38 @@ const useReportsController = () => {
   }, [authKey]);
 
   const onChangeSearch = useCallback(debounce(refetch, 500), []);
+  const filterSkillsAnalytics = () => {
+    if (!skillsAnalytics) return [];
+
+    return skillsAnalytics
+      .map((skill) => {
+        const hasAnyCount = skill.level.some((level) => level.count > 0);
+
+        if (!hasAnyCount) return null;
+
+        const filteredSkill = {
+          ...skill,
+          level: skill.level.filter((level) => level.count > 0),
+        };
+
+        return filteredSkill;
+      })
+      .filter((skill) => skill);
+  };
+  console.log(filterSkillsAnalytics());
 
   const buildSkillsAnalytics = () => {
-    const chartColors = ["success", "info", "dark", "warning", "error", "secondary"];
-    const skillLevels = ['beginner', 'intermediate', 'advanced'];
+    const chartColors = [
+      "success",
+      "info",
+      "dark",
+      "warning",
+      "error",
+      "secondary",
+    ];
+    const skillLevels = ["beginner", "intermediate", "advanced"];
     return {
-      labels: skillsAnalytics?.map((skill) => skill.name),
+      labels: filterSkillsAnalytics()?.map((skill) => skill.name),
       datasets: skillLevels.map((level, index) => ({
         label: level,
         color: chartColors[index],
@@ -84,7 +114,7 @@ const useReportsController = () => {
       formatter: (value: number) => {
         if (value === 0) return "";
         return value;
-      }
+      },
     };
   };
 

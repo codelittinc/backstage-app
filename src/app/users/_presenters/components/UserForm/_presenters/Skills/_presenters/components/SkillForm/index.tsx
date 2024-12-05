@@ -1,14 +1,14 @@
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import { Container, Grid, IconButton } from '@mui/material';
-import { UseFieldArrayRemove } from 'react-hook-form';
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { Container, Grid, IconButton } from "@mui/material";
+import { UseFieldArrayRemove } from "react-hook-form";
 
-import { Skill, UserSkill } from '@/app/_domain/interfaces/Skill';
-import AutocompleteController from '@/components/Form/FieldControllers/AutocompleteController';
-import TextInputController from '@/components/Form/FieldControllers/TextInputController';
-import Loading from '@/components/Loading';
+import { Skill, UserSkill } from "@/app/_domain/interfaces/Skill";
+import AutocompleteController from "@/components/Form/FieldControllers/AutocompleteController";
+import TextInputController from "@/components/Form/FieldControllers/TextInputController";
+import Loading from "@/components/Loading";
 
-import useSkillFormController from '../../controllers/useSkillFormController';
-import { LAST_APPLIED_YEARS, LEVEL_LIST } from '../../data/utils';
+import useSkillFormController from "../../controllers/useSkillFormController";
+import { LAST_APPLIED_YEARS, LEVEL_LIST } from "../../data/utils";
 
 interface Props {
   control: any;
@@ -29,18 +29,20 @@ function SkillForm({
     skills,
     userSkill,
   });
+
+  console.log(selectedSkill, skills, userSkill);
   if (!skills) {
     return <Loading />;
   }
   return (
-    <Container sx={{ width: '100%', display: 'flex', paddingBottom: '5px' }}>
+    <Container sx={{ width: "100%", display: "flex", paddingBottom: "5px" }}>
       <Grid container rowSpacing={1} columnSpacing={1} sx={{ marginLeft: 0 }}>
         <Grid item xs={11} sm={3} md={3}>
           <AutocompleteController
             name={`userSkills.${index}.skillId`}
             control={control}
             defaultValue={selectedSkill || null}
-            label='Technology'
+            label="Technology"
             options={
               skills as {
                 id: number | string;
@@ -55,7 +57,7 @@ function SkillForm({
           <AutocompleteController
             name={`userSkills.${index}.lastAppliedYear`}
             control={control}
-            label='Last Applied Year'
+            label="Last Applied Year"
             options={LAST_APPLIED_YEARS}
             required
             getOptionLabel={(option: Number) => {
@@ -65,18 +67,18 @@ function SkillForm({
         </Grid>
         <Grid item xs={12} sm={3} md={3}>
           <TextInputController
-            label='Year of Experience'
+            label="Year of Experience"
             name={`userSkills.${index}.yearsOfExperience`}
             required
             control={control}
-            type='number'
+            type="number"
           />
         </Grid>
         <Grid item xs={8} sm={3} md={3}>
           <AutocompleteController
             name={`userSkills.${index}.level`}
             control={control}
-            label='Level'
+            label="Level"
             options={LEVEL_LIST}
             required
             getOptionLabel={(option: String) => {
@@ -87,18 +89,18 @@ function SkillForm({
       </Grid>
       <div
         style={{
-          width: '45px',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          paddingTop: '8px',
+          width: "45px",
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          paddingTop: "8px",
         }}
       >
         <IconButton
-          aria-label='remove skill form'
-          color='primary'
+          aria-label="remove skill form"
+          color="primary"
           onClick={() => remove(index)}
-          sx={{ justifyContent: 'flex-end', padding: 0 }}
+          sx={{ justifyContent: "flex-end", padding: 0 }}
         >
           <RemoveCircleIcon />
         </IconButton>

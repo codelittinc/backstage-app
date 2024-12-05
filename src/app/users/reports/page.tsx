@@ -1,13 +1,14 @@
 "use client";
 import { Grid, Typography } from "@mui/material";
 
-import HorizontalBarChart from '@/components/Charts/HorizontalBarChart';
+import HorizontalBarChart from "@/components/Charts/HorizontalBarChart";
 import Loading from "@/components/Loading";
 
 import Footer from "./presenters/components/Footer";
-import SkillsSearch from './presenters/components/SkillsSearch';
-import UsersTable from './presenters/components/UsersTable';
+import SkillsSearch from "./presenters/components/SkillsSearch";
+import UsersTable from "./presenters/components/UsersTable";
 import useReportsController from "./presenters/controllers/useReportsController";
+import VerticalBarChart from "@/components/Charts/VerticalBarChart";
 
 const UsersDashboard = () => {
   const {
@@ -21,7 +22,7 @@ const UsersDashboard = () => {
     userSkills,
     onKeyPress,
     onChangeSearch,
-    skillsAnalytics
+    skillsAnalytics,
   } = useReportsController();
 
   if (isLoading) {
@@ -47,11 +48,16 @@ const UsersDashboard = () => {
             />
           </Grid>
         </Grid>
-        <Grid xs={12} md={6} style={{ marginTop: "32px" }}>
-          <HorizontalBarChart
+        <Grid xs={12} md={12} style={{ marginTop: "32px" }}>
+          <VerticalBarChart
             title="Skills Analytics"
             chart={skillsAnalytics}
-            labelFormatter={skillsAnalytics.formatter}
+            valueType="number"
+            formatter={(value: number) => {
+              if (value == 0) return "";
+
+              return value.toFixed(0);
+            }}
           />
         </Grid>
         <Grid container justifyContent={"space-around"} display="flex" mt={5}>

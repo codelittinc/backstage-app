@@ -13,11 +13,11 @@ import { useAppStore } from "../data/store/store";
 import { getUserSkills, updateUserSkills } from "../data/userSkills";
 
 const defaultUserSkill: UserSkill = {
-  lastAppliedYear: 2010,
+  lastAppliedYear: 2024,
   level: skillLevelKeys.Beginner,
   yearsOfExperience: 0,
-  skillId: undefined,
-  userId: undefined,
+  skillId: "",
+  userId: "",
 };
 
 const useSkillsController = (id: number | string) => {
@@ -62,7 +62,7 @@ const useSkillsController = (id: number | string) => {
 
   const { fields, append, remove, replace } = useFieldArray({
     control,
-    name: 'userSkills',
+    name: "userSkills",
   });
 
   const onSubmit = (data: { userSkills: UserSkill[] }) => {
@@ -77,6 +77,9 @@ const useSkillsController = (id: number | string) => {
     if (userSkills?.length) {
       reset({ userSkills });
       replace(userSkills);
+    } else {
+      reset({ userSkills: [defaultUserSkill] });
+      replace([defaultUserSkill]);
     }
   }, [userSkills, replace, reset]);
 
@@ -89,7 +92,7 @@ const useSkillsController = (id: number | string) => {
     handleSubmit,
     fields,
     remove,
-    control
+    control,
   };
 };
 

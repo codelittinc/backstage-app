@@ -74,6 +74,7 @@ function VerticalBarChart({
   chart,
   valueType = "currency",
   sufix = "",
+  formatter,
 }: Props): JSX.Element {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
@@ -93,7 +94,8 @@ function VerticalBarChart({
     chart.labels || [],
     chartDatasets,
     valueType,
-    sufix
+    sufix,
+    formatter
   );
 
   const renderChart = (

@@ -1,9 +1,10 @@
-import { UserSkill } from '@/app/_domain/interfaces/Skill';
+import { UserSkill } from "@/app/_domain/interfaces/Skill";
 
 export const fromApiParser = (data: any): UserSkill => {
+  console.log("data", data);
   return {
     id: data.id,
-    skillId: data.skill_id,
+    skillId: data.skill.id,
     userId: data.user_id,
     yearsOfExperience: data.years_of_experience,
     lastAppliedYear: data.last_applied_in_year,

@@ -6,7 +6,13 @@ const formatCurrency = (value: number) => {
     minimumFractionDigits: 2,
   }).format(value)}`;
 };
-function configs(labels: any, datasets: any, valueType: string, sufix: string) {
+function configs(
+  labels: any,
+  datasets: any,
+  valueType: string,
+  sufix: string,
+  formatter: (value: number) => string
+) {
   return {
     data: {
       labels,
@@ -23,9 +29,13 @@ function configs(labels: any, datasets: any, valueType: string, sufix: string) {
         },
         datalabels: {
           enable: false,
-          color: "black",
+          color: "white",
           anchor: "center",
           formatter: (value: number) => {
+            if (formatter) {
+              return formatter(value);
+            }
+
             if (valueType === "currency") {
               return formatCurrency(value);
             }
@@ -36,6 +46,7 @@ function configs(labels: any, datasets: any, valueType: string, sufix: string) {
       },
       scales: {
         y: {
+          stacked: true,
           grid: {
             drawBorder: false,
             display: true,
@@ -56,6 +67,7 @@ function configs(labels: any, datasets: any, valueType: string, sufix: string) {
           },
         },
         x: {
+          stacked: true,
           grid: {
             drawBorder: false,
             display: false,
