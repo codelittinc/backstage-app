@@ -34,6 +34,7 @@ const useReportsController = () => {
     enabled: !!selectedUser,
     retry: false,
   });
+  console.log(selectedUser);
 
   const { data: skillsAnalytics, refetch: skillsAnalyticsRefetch } = useQuery({
     queryKey: [tanstackKeys.analyics, authKey],

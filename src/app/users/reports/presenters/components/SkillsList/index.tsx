@@ -20,11 +20,7 @@ const SkillsList = ({ selectedUser, userSkills, user }: Props) => {
               Skills:
             </Typography>
             {userSkills?.map(({ id, skill }) => (
-              <Chip
-                key={id}
-                label={skill.name} 
-                style={{ marginRight: 5 }}
-              />
+              <Chip key={id} label={skill.name} style={{ margin: 2 }} />
             ))}
           </Box>
         </Collapse>
