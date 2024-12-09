@@ -34,7 +34,6 @@ const useReportsController = () => {
     enabled: !!selectedUser,
     retry: false,
   });
-  console.log(selectedUser);
 
   const { data: skillsAnalytics, refetch: skillsAnalyticsRefetch } = useQuery({
     queryKey: [tanstackKeys.analyics, authKey],
@@ -87,9 +86,9 @@ const useReportsController = () => {
 
         return filteredSkill;
       })
-      .filter((skill) => skill);
+      .filter((skill) => skill)
+      .sort((a, b) => a.name.localeCompare(b.name));
   };
-  console.log(filterSkillsAnalytics());
 
   const buildSkillsAnalytics = () => {
     const chartColors = [
@@ -106,7 +105,7 @@ const useReportsController = () => {
       datasets: skillLevels.map((level, index) => ({
         label: level,
         color: chartColors[index],
-        data: skillsAnalytics?.map((label) => {
+        data: filterSkillsAnalytics()?.map((label) => {
           const skill = skillsAnalytics?.find((pr) => pr.name === label.name);
           const count = skill?.level.find((l) => l.name === level)?.count || 0;
           return count;

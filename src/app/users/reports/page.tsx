@@ -1,7 +1,6 @@
 "use client";
 import { Grid, Typography } from "@mui/material";
 
-import HorizontalBarChart from "@/components/Charts/HorizontalBarChart";
 import Loading from "@/components/Loading";
 
 import Footer from "./presenters/components/Footer";
@@ -51,6 +50,9 @@ const UsersDashboard = () => {
         <Grid xs={12} md={12} style={{ marginTop: "32px" }}>
           <VerticalBarChart
             title="Skills Analytics"
+            verticalStacked={true}
+            horizontalStacked={true}
+            labelColor="white"
             chart={skillsAnalytics}
             valueType="number"
             formatter={(value: number) => {
