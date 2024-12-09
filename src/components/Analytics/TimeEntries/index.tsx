@@ -191,6 +191,7 @@ const TimeEntries = ({ project, defaultStatementOfWork }: Props) => {
             height="21rem"
             valueType="number"
             sufix="Hours"
+            ignoreZero={true}
           />
         </Grid>
         <Grid item xs={12}>

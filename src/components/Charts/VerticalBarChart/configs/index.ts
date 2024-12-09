@@ -14,7 +14,8 @@ function configs(
   formatter: (value: number) => string,
   verticalStacked: boolean,
   horizontalStacked: boolean,
-  labelColor: string
+  labelColor: string,
+  ignoreZero: boolean
 ) {
   return {
     data: {
@@ -35,6 +36,10 @@ function configs(
           color: labelColor,
           anchor: "center",
           formatter: (value: number) => {
+            if (ignoreZero && value === 0) {
+              return "";
+            }
+
             if (formatter) {
               return formatter(value);
             }
