@@ -61,6 +61,9 @@ interface Props {
       | "dark";
     component: ReactNode;
   };
+  labelColor?: string;
+  verticalStacked?: boolean;
+  horizontalStacked?: boolean;
   sufix?: string;
   title?: string;
   valueType: "number" | "currency";
@@ -75,6 +78,9 @@ function VerticalBarChart({
   valueType = "currency",
   sufix = "",
   formatter,
+  verticalStacked = false,
+  horizontalStacked = false,
+  labelColor = "black",
 }: Props): JSX.Element {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
@@ -95,7 +101,10 @@ function VerticalBarChart({
     chartDatasets,
     valueType,
     sufix,
-    formatter
+    formatter,
+    verticalStacked,
+    horizontalStacked,
+    labelColor
   );
 
   const renderChart = (

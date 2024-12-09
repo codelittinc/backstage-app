@@ -16,9 +16,6 @@ const SkillsList = ({ selectedUser, userSkills, user }: Props) => {
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
         <Collapse in={selectedUser == user.id} timeout="auto" unmountOnExit>
           <Box sx={{ margin: 1 }}>
-            <Typography variant="h6" gutterBottom component="div">
-              Skills:
-            </Typography>
             {userSkills?.map(({ id, skill }) => (
               <Chip key={id} label={skill.name} style={{ margin: 2 }} />
             ))}

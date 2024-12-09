@@ -11,7 +11,10 @@ function configs(
   datasets: any,
   valueType: string,
   sufix: string,
-  formatter: (value: number) => string
+  formatter: (value: number) => string,
+  verticalStacked: boolean,
+  horizontalStacked: boolean,
+  labelColor: string
 ) {
   return {
     data: {
@@ -29,7 +32,7 @@ function configs(
         },
         datalabels: {
           enable: false,
-          color: "white",
+          color: labelColor,
           anchor: "center",
           formatter: (value: number) => {
             if (formatter) {
@@ -46,7 +49,7 @@ function configs(
       },
       scales: {
         y: {
-          stacked: true,
+          stacked: verticalStacked,
           grid: {
             drawBorder: false,
             display: true,
@@ -67,7 +70,7 @@ function configs(
           },
         },
         x: {
-          stacked: true,
+          stacked: horizontalStacked,
           grid: {
             drawBorder: false,
             display: false,
