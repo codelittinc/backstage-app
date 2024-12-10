@@ -1,8 +1,9 @@
-import skillLevelKeys from '../enums/skillLevelKeys';
+import skillLevelKeys from "../enums/skillLevelKeys";
 
 export type Skill = {
   id?: string | number;
   name: string;
+  professionArea: string;
 };
 
 export type UserSkill = {
@@ -28,6 +29,7 @@ export type SkillAnalytics = {
   level: {
     count: number;
     name: string;
-  }[],
+  }[];
   name: string;
+  professional_area: string;
 };
