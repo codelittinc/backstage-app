@@ -135,6 +135,31 @@ const useReportsController = () => {
     });
   };
 
+  const buildPieChartData = () => {
+    if (!skillsAnalytics) return null;
+
+    // Sum up all levels for each skill
+    const skillTotals = skillsAnalytics
+      .filter((skill) =>
+        professionAreas.includes(skill.professional_area.toLowerCase())
+      )
+      .map((skill) => ({
+        name: skill.name,
+        total: skill.level.reduce((sum, level) => sum + level.count, 0),
+      }))
+      .sort((a, b) => b.total - a.total) // Sort by total descending
+      .slice(0, 5); // Get top 5
+
+    return {
+      labels: skillTotals.map((skill) => skill.name),
+      datasets: {
+        label: "Top Skills",
+        data: skillTotals.map((skill) => skill.total),
+        backgroundColors: ["info", "primary", "dark", "secondary", "warning"],
+      },
+    };
+  };
+
   return {
     users,
     isLoading,
@@ -149,6 +174,7 @@ const useReportsController = () => {
     skillsAnalytics: buildSkillsAnalytics(),
     professionAreas,
     toggleProfessionArea,
+    topSkillsPieChart: buildPieChartData(),
   };
 };
 
