@@ -127,7 +127,7 @@ const UsersTable = ({ users, onExpand, selectedUser, userSkills }: Props) => {
     <Fragment>
       <DataTable
         table={tableData}
-        entriesPerPage={false}
+        withPagination={false}
         canSearch
         isSorted={true}
       />
