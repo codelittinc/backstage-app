@@ -16,6 +16,10 @@ const useReportsController = () => {
   const { setProjectAuthKey, projectAuthKey } = useAppStore();
   const [query, setQuery] = useState<string>("");
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
+  const [professionAreas, setProfessionAreas] = useState<string[]>([
+    "engineering",
+    "design",
+  ]);
 
   const {
     data: users,
@@ -74,6 +78,9 @@ const useReportsController = () => {
     if (!skillsAnalytics) return [];
 
     return skillsAnalytics
+      .filter((skill) =>
+        professionAreas.includes(skill.professional_area?.toLowerCase())
+      )
       .map((skill) => {
         const hasAnyCount = skill.level.some((level) => level.count > 0);
 
@@ -118,6 +125,16 @@ const useReportsController = () => {
     };
   };
 
+  const toggleProfessionArea = (area: string) => {
+    setProfessionAreas((prev) => {
+      if (prev.includes(area)) {
+        if (prev.length === 1) return prev;
+        return prev.filter((a) => a !== area);
+      }
+      return [...prev, area];
+    });
+  };
+
   return {
     users,
     isLoading,
@@ -130,6 +147,8 @@ const useReportsController = () => {
     onKeyPress,
     onChangeSearch,
     skillsAnalytics: buildSkillsAnalytics(),
+    professionAreas,
+    toggleProfessionArea,
   };
 };
 

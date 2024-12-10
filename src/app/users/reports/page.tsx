@@ -1,5 +1,5 @@
 "use client";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Chip, Stack } from "@mui/material";
 
 import Loading from "@/components/Loading";
 
@@ -22,6 +22,8 @@ const UsersDashboard = () => {
     onKeyPress,
     onChangeSearch,
     skillsAnalytics,
+    professionAreas,
+    toggleProfessionArea,
   } = useReportsController();
 
   if (isLoading) {
@@ -46,6 +48,24 @@ const UsersDashboard = () => {
               onChangeSearch={onChangeSearch}
             />
           </Grid>
+        </Grid>
+        <Grid xs={12} display={"flex"} justifyContent={"center"} mt={2}>
+          <Stack direction="row" spacing={1}>
+            <Chip
+              label="Engineering"
+              color={
+                professionAreas.includes("engineering") ? "primary" : "default"
+              }
+              onClick={() => toggleProfessionArea("engineering")}
+              clickable
+            />
+            <Chip
+              label="Design"
+              color={professionAreas.includes("design") ? "primary" : "default"}
+              onClick={() => toggleProfessionArea("design")}
+              clickable
+            />
+          </Stack>
         </Grid>
         <Grid xs={12} md={12} style={{ marginTop: "32px" }}>
           <VerticalBarChart
