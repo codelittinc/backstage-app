@@ -8,6 +8,7 @@ import SkillsSearch from "./presenters/components/SkillsSearch";
 import UsersTable from "./presenters/components/UsersTable";
 import useReportsController from "./presenters/controllers/useReportsController";
 import VerticalBarChart from "@/components/Charts/VerticalBarChart";
+import PieChart from "@/components/Charts/PieChart";
 
 const UsersDashboard = () => {
   const {
@@ -24,6 +25,7 @@ const UsersDashboard = () => {
     skillsAnalytics,
     professionAreas,
     toggleProfessionArea,
+    topSkillsPieChart,
   } = useReportsController();
 
   if (isLoading) {
@@ -67,20 +69,30 @@ const UsersDashboard = () => {
             />
           </Stack>
         </Grid>
-        <Grid xs={12} md={12} style={{ marginTop: "32px" }}>
-          <VerticalBarChart
-            title="Skills Analytics"
-            verticalStacked={true}
-            horizontalStacked={true}
-            labelColor="white"
-            chart={skillsAnalytics}
-            valueType="number"
-            formatter={(value: number) => {
-              if (value == 0) return "";
-
-              return value.toFixed(0);
-            }}
-          />
+        <Grid container spacing={3} mt={2}>
+          <Grid item xs={12} md={8}>
+            <VerticalBarChart
+              title="Skills Analytics"
+              verticalStacked={true}
+              horizontalStacked={true}
+              labelColor="white"
+              chart={skillsAnalytics}
+              valueType="number"
+              formatter={(value: number) => {
+                if (value == 0) return "";
+                return value.toFixed(0);
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            {topSkillsPieChart && (
+              <PieChart
+                title="Top 5 Skills Distribution"
+                chart={topSkillsPieChart}
+                valueType="number"
+              />
+            )}
+          </Grid>
         </Grid>
         <Grid container justifyContent={"space-around"} display="flex" mt={5}>
           <Grid item xs={12} md={12} pb={12}>
