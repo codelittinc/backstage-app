@@ -2,6 +2,8 @@ import { StateCreator } from 'zustand';
 
 import { ApiError } from '@/providers/query.provider';
 
+import { ApiError } from "@/providers/query.provider";
+
 interface Alert {
   autoHideDuration?: number;
   bgWhite?: boolean;
