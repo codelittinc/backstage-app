@@ -67,6 +67,7 @@ interface Props {
   sufix?: string;
   title?: string;
   valueType: "number" | "currency";
+  ignoreZero?: boolean;
 }
 
 function VerticalBarChart({
@@ -81,6 +82,7 @@ function VerticalBarChart({
   verticalStacked = false,
   horizontalStacked = false,
   labelColor = "black",
+  ignoreZero = false,
 }: Props): JSX.Element {
   const chartDatasets = chart.datasets
     ? chart.datasets.map((dataset) => ({
@@ -104,7 +106,8 @@ function VerticalBarChart({
     formatter,
     verticalStacked,
     horizontalStacked,
-    labelColor
+    labelColor,
+    ignoreZero
   );
 
   const renderChart = (
