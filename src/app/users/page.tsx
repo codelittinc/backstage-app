@@ -6,9 +6,16 @@ import TableLayout from "@/components/LayoutContainers/TableLayout";
 import routes from "@/routes";
 
 import useUsersController from "../_presenters/controllers/useUsersController";
+import useProjectsController from "../projects/_presenters/controllers/useProjectsController";
+import { Box } from "@mui/material";
 
 function Users(): JSX.Element {
   const { users = [], isLoading } = useUsersController();
+  const { projects } = useProjectsController();
+  const reportKey = projects?.find(
+    (project: Project) => project.reportKey
+  )?.reportKey;
+
   const columns = [
     {
       Header: "Name",
@@ -40,7 +47,15 @@ function Users(): JSX.Element {
     },
   ];
 
-  return <TableLayout columns={columns} rows={users} isLoading={isLoading} />;
+  return (
+    <>
+      <TableLayout columns={columns} rows={users} isLoading={isLoading}>
+        <Box display="flex" justifyContent="flex-end">
+          <Link href={routes.usersReportPath(reportKey)}>User reports</Link>
+        </Box>
+      </TableLayout>
+    </>
+  );
 }
 
 export default Users;

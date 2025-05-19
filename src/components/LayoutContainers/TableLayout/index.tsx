@@ -15,6 +15,7 @@ interface Props {
   onClickNew?: () => void;
   rows: any[];
   sortable?: boolean;
+  children?: React.ReactNode;
 }
 
 function TableLayout({
@@ -24,6 +25,7 @@ function TableLayout({
   onClickNew,
   buttonLabel,
   sortable = false,
+  children,
 }: Props): JSX.Element {
   const data = {
     columns: columns,
@@ -46,6 +48,7 @@ function TableLayout({
             </Box>
           </Grid>
           <Grid item xs={12}>
+            {children}
             <Card>
               {isLoading ? (
                 <Loading />
