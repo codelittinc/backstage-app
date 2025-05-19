@@ -1,3 +1,5 @@
+import Assignment from "@/app/_domain/interfaces/Assignment";
+
 export const fromApiParser = (data: any): Assignment => {
   return {
     id: data.id,
@@ -9,6 +11,7 @@ export const fromApiParser = (data: any): Assignment => {
     endDate: data.end_date,
     userId: data.user_id,
     statementOfWorkId: data.statement_of_work_id,
+    feedback: data.feedback,
   };
 };
 
@@ -20,5 +23,6 @@ export const toApiParser = (data: Assignment): any => {
     start_date: data.startDate,
     end_date: data.endDate,
     user_id: data.userId,
+    feedback: data.feedback,
   };
 };

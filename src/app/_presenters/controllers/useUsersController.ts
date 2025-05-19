@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 
 import { getUsers } from "../data/users";
-import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
 
 const useUsersController = (onlyActive = true, onlyInternal = false) => {
   const { data, isLoading } = useQuery({
