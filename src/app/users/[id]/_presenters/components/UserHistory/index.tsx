@@ -65,11 +65,6 @@ const UserHistory = ({ user }: Props) => {
       width: "30%",
     },
     {
-      Header: "Professional Area",
-      accessor: "skill.professionArea",
-      width: "30%",
-    },
-    {
       Header: "Level",
       accessor: "level",
       width: "20%",
