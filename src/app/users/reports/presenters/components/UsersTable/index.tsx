@@ -3,10 +3,12 @@ import { Fragment } from "react";
 import { IconButton } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Link from "next/link";
 
 import DataTable from "@/components/DataTable";
 import { UserSkill } from "@/app/_domain/interfaces/Skill";
 import { User } from "@/app/_domain/interfaces/User";
+import routes from "@/routes";
 
 import SkillsList from "../SkillsList";
 import { Box } from "@mui/material";
@@ -76,7 +78,12 @@ const UsersTable = ({ users, onExpand, selectedUser, userSkills }: Props) => {
           return (
             <Box display={"flex"} alignItems={"center"}>
               {icon}
-              {original.fullName}
+              <Link
+                href={`${routes.userPath(original.id)}?tab=1`}
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                {original.fullName}
+              </Link>
             </Box>
           );
         },
