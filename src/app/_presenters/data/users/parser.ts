@@ -1,6 +1,7 @@
 import { ApiServiceIdentifier } from "@/app/_domain/interfaces/ServiceIdentifier";
 import { FromApiUser, ToApiUser, User } from "@/app/_domain/interfaces/User";
 import { fromApiParser as customerFromApiParser } from "@/app/customers/_presenters/data/services/customers/parser";
+import { fromApiParser as userSkillFromApiParser } from "@/app/_presenters/data/userSkills/parser";
 
 export const toApiParser = (user: User): ToApiUser => {
   return {
@@ -16,15 +17,13 @@ export const toApiParser = (user: User): ToApiUser => {
     country: user.country,
     internal: user.internal,
     user_service_identifiers_attributes: user.servicesIdentifiers?.map(
-      (service) => {
-        return {
-          id: service.id,
-          service_name: service.serviceName,
-          identifier: service.identifier,
-          customer_id: service.customer.id!,
-        };
-      }
-    ),
+      (service) => ({
+        id: service.id,
+        service_name: service.serviceName,
+        identifier: service.identifier,
+        customer_id: service.customer.id!,
+      })
+    ) as any[],
   };
 };
 
@@ -42,6 +41,8 @@ export const fromApiParser = (user: FromApiUser): User => {
     seniority,
     country,
     user_service_identifiers,
+    user_skills,
+    skills,
   } = user;
 
   return {
@@ -59,14 +60,15 @@ export const fromApiParser = (user: FromApiUser): User => {
     country: country,
     internal: user.internal,
     professionId: user.profession_id,
-    servicesIdentifiers: user_service_identifiers?.map(
-      (service: ApiServiceIdentifier) => ({
+    servicesIdentifiers:
+      user_service_identifiers?.map((service: ApiServiceIdentifier) => ({
         id: service.id,
         customer: customerFromApiParser(service.customer),
         serviceName: service.service_name,
         identifier: service.identifier,
-      })
-    ),
+      })) || [],
     permissions: user.permissions,
+    skills: skills || [],
+    userSkills: user_skills?.map(userSkillFromApiParser) || [],
   };
 };
