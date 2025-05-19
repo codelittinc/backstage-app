@@ -54,6 +54,7 @@ const renderProjects = (
             })}
             onClickTitle={onClickTitle}
             hasUsersPermission={hasUsersPermission}
+            reportKey={project.reportKey}
           />
         </Box>
       </Grid>

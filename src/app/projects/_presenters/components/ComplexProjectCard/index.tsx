@@ -8,6 +8,9 @@ import Avatar from "@/components/Avatar";
 import Box from "@/components/Box";
 import Typography from "@/components/Typography";
 import routes from "@/routes";
+import Link from "next/link";
+import ProtectedComponent from "@/components/ProtectedComponent";
+import { targets, abilities } from "@/permissions";
 
 interface Props {
   [key: string]: any;
@@ -22,6 +25,7 @@ interface Props {
   image: string;
   members?: string[];
   title: string;
+  reportKey: string;
 }
 
 function ComplexProjectCard({
@@ -34,6 +38,7 @@ function ComplexProjectCard({
   dropdown,
   onClickTitle,
   hasUsersPermission,
+  reportKey,
 }: Props): JSX.Element {
   const router = useRouter();
   const membersToRender = members;
@@ -91,19 +96,37 @@ function ComplexProjectCard({
             }}
           />
           <Box ml={2} mt={-2} lineHeight={0} sx={{ overflow: "hidden" }}>
-            <Typography
-              variant="h6"
-              textTransform="capitalize"
-              fontWeight="medium"
-              onClick={onClickTitle}
-              sx={{
-                textWrap: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {title}
-            </Typography>
+            <Box display="flex" flexDirection="column">
+              <Typography
+                variant="h6"
+                textTransform="capitalize"
+                fontWeight="medium"
+                onClick={onClickTitle}
+                sx={{
+                  textWrap: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {title}
+              </Typography>
+              {reportKey && (
+                <ProtectedComponent
+                  ability={abilities.change}
+                  target={targets.projects}
+                >
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    fontSize={13}
+                  >
+                    <Link href={routes.projectReportPath(reportKey)}>
+                      Client report
+                    </Link>
+                  </Typography>
+                </ProtectedComponent>
+              )}
+            </Box>
             {members.length > -1 ? (
               <Box display="flex">{renderMembers}</Box>
             ) : null}
