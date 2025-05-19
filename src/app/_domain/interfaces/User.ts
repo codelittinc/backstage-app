@@ -44,7 +44,15 @@ export type ApiUser = {
 };
 
 export type ToApiUser = {
-  user_service_identifiers_attributes: [];
-} & Omit<ApiUser, "user_service_identifiers" | "slug"  | "permissions" | "skills">;
+  user_service_identifiers_attributes: {
+    id?: number;
+    service_name: string;
+    identifier: string;
+    customer_id: number;
+  }[];
+} & Omit<
+  ApiUser,
+  "user_service_identifiers" | "slug" | "permissions" | "skills"
+>;
 
 export type FromApiUser = {} & ApiUser;

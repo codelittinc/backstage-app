@@ -10,6 +10,7 @@ import { abilities, targets } from "@/permissions";
 import PerformanceMetrics from "./_presenters/components/PerformanceMetrics";
 import useEditUserController from "./_presenters/controllers/useEditUserController";
 import UserForm from "../_presenters/components/UserForm";
+import UserHistory from "./_presenters/components/UserHistory";
 
 function Page(): JSX.Element {
   const { id } = useParams();
@@ -20,7 +21,7 @@ function Page(): JSX.Element {
 
   const { user, onSave, isLoading } = useEditUserController(id as string);
 
-  const tabs = ["Profile"];
+  const tabs = ["Profile", "History"];
 
   if (isLoading || !user) {
     return <Loading />;
@@ -33,6 +34,9 @@ function Page(): JSX.Element {
   const tabsChildren = [
     <Grid item xs={8} key="user-form">
       <UserForm user={user} onSave={onSave} />
+    </Grid>,
+    <Grid item xs={12} key="user-history">
+      <UserHistory user={user} />
     </Grid>,
     <PerformanceMetrics key="performance-metrics" />,
   ];
