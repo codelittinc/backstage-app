@@ -208,7 +208,7 @@ const useUserHistoryController = (
         projectName: project?.name || "N/A",
         startDate: assignment.startDate,
         endDate: assignment.endDate,
-        coverage: `${assignment.coverage}%`,
+        coverage: assignment.coverage,
       };
     }) || []
   ).filter(Boolean);
