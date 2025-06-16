@@ -9,6 +9,8 @@ import { Card, Grid } from "@mui/material";
 import Box from "@/components/Box";
 import Form from "@/components/Form";
 import { useCallback, useRef, useState } from "react";
+import ProtectedComponent from "@/components/ProtectedComponent";
+import { abilities, targets } from "@/permissions";
 
 type Props = {
   user: User;
@@ -123,25 +125,26 @@ const UserHistory = ({ user: initialUser }: Props) => {
         </Card>
       </Grid>
 
-      <Grid item xs={12}>
-        <Card>
-          <Box p={3}>
-            <Typography variant="h5" mb={3}>
-              History
-            </Typography>
-            <Form onSave={handleFormSubmit}>
-              <Grid item xs={12}>
-                <RichTextEditor
-                  ref={richTextEditorRef}
-                  content={localContent}
-                  readOnly={false}
-                  onChange={handleContentChange}
-                />
-              </Grid>
-            </Form>
-          </Box>
-        </Card>
-      </Grid>
+      <ProtectedComponent ability={abilities.change} target={targets.users}>
+        <Grid item xs={12}>
+          <Card>
+            <Box p={3}>
+              <Typography variant="h5" mb={3}>
+                History
+              </Typography>
+              <Form onSave={handleFormSubmit}>
+                <Grid item xs={12}>
+                  <RichTextEditor
+                    ref={richTextEditorRef}
+                    content={localContent}
+                    onChange={handleContentChange}
+                  />
+                </Grid>
+              </Form>
+            </Box>
+          </Card>
+        </Grid>
+      </ProtectedComponent>
 
       <Grid item xs={12}>
         <Card>
