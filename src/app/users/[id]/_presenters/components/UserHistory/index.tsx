@@ -7,9 +7,8 @@ import useUserHistoryController from "../../controllers/useUserHistoryController
 import RichTextEditor from "../RichTextEditor";
 import { Card, Grid } from "@mui/material";
 import Box from "@/components/Box";
-import Button from "@/components/Button";
 import Form from "@/components/Form";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 
 type Props = {
   user: User;
@@ -18,15 +17,14 @@ type Props = {
 const UserHistory = ({ user: initialUser }: Props) => {
   const {
     user,
-    isEditing,
     isLoading,
     userProfile,
     projectHistory,
     userSkills,
-    startEditing,
     handleUserUpdate,
   } = useUserHistoryController(initialUser);
 
+  const [localContent, setLocalContent] = useState(user.history || "");
   const richTextEditorRef = useRef<{ handleSave: () => Promise<void> } | null>(
     null
   );
@@ -35,6 +33,10 @@ const UserHistory = ({ user: initialUser }: Props) => {
     if (richTextEditorRef.current) {
       await richTextEditorRef.current.handleSave();
     }
+  }, []);
+
+  const handleContentChange = useCallback((content: string) => {
+    setLocalContent(content);
   }, []);
 
   if (isLoading) {
@@ -122,76 +124,26 @@ const UserHistory = ({ user: initialUser }: Props) => {
         </Card>
       </Grid>
 
-      {user.history && !isEditing && (
-        <Grid item xs={12}>
-          <Card>
-            <Box p={3}>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                mb={3}
-              >
-                <Typography variant="h5">History</Typography>
-                <Button
-                  onClick={startEditing}
-                  variant="gradient"
-                  color="dark"
-                  size="small"
-                >
-                  Edit History
-                </Button>
-              </Box>
-              <RichTextEditor
-                user={user}
-                onSave={handleUserUpdate}
-                readOnly={true}
-              />
-            </Box>
-          </Card>
-        </Grid>
-      )}
-
-      {isEditing && (
-        <Grid item xs={12}>
-          <Card>
-            <Box p={3}>
-              <Typography variant="h5" mb={3}>
-                Edit History
-              </Typography>
-              <Form onSave={handleFormSubmit}>
-                <Grid item xs={12}>
-                  <RichTextEditor
-                    ref={richTextEditorRef}
-                    user={user}
-                    onSave={handleUserUpdate}
-                    readOnly={false}
-                  />
-                </Grid>
-              </Form>
-            </Box>
-          </Card>
-        </Grid>
-      )}
-
-      {!user.history && !isEditing && (
-        <Grid item xs={12}>
-          <Card>
-            <Box p={3}>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Typography variant="h5">History</Typography>
-                <Button variant="outlined" onClick={startEditing} size="small">
-                  Add History
-                </Button>
-              </Box>
-            </Box>
-          </Card>
-        </Grid>
-      )}
+      <Grid item xs={12}>
+        <Card>
+          <Box p={3}>
+            <Typography variant="h5" mb={3}>
+              History
+            </Typography>
+            <Form onSave={handleFormSubmit}>
+              <Grid item xs={12}>
+                <RichTextEditor
+                  ref={richTextEditorRef}
+                  user={{ ...user, history: localContent }}
+                  onSave={handleUserUpdate}
+                  readOnly={false}
+                  onChange={handleContentChange}
+                />
+              </Grid>
+            </Form>
+          </Box>
+        </Card>
+      </Grid>
 
       <Grid item xs={12}>
         <Card>

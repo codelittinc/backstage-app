@@ -1,5 +1,10 @@
 import { useState, useCallback } from "react";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import {
+  useQueries,
+  useQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { getAssignments } from "@/app/_presenters/data/assignments";
 import { getRequirements } from "@/app/_presenters/data/requirements";
@@ -7,10 +12,12 @@ import { getStatementOfWorks } from "@/app/projects/_presenters/components/Proje
 import { User } from "@/app/_domain/interfaces/User";
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
 import Assignment from "@/app/_domain/interfaces/Assignment";
-import Requirement from "@/app/_domain/interfaces/Requirement";
+import { Requirement } from "@/app/_domain/interfaces/Requirement";
 import { Project } from "@/app/_domain/interfaces/Project";
 import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
 import { getUser, updateUser } from "@/app/_presenters/data/users";
+import { useAppStore } from "@/app/_presenters/data/store/store";
+import { ApiError } from "@/providers/query.provider";
 
 type ProjectHistoryItem = {
   id?: number;
@@ -74,6 +81,26 @@ const useUserHistoryController = (
   const [user, setUser] = useState<User>(initialUser);
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { showSaveSuccessAlert, showSaveErrorAlert } = useAppStore();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: updateUser,
+    onSuccess: (result) => {
+      showSaveSuccessAlert();
+      setUser(result);
+      queryClient.invalidateQueries({
+        queryKey: [tanstackKeys.Users, result.id],
+      });
+    },
+    onError: (error: unknown) => {
+      if (error && typeof error === "object" && "response" in error) {
+        showSaveErrorAlert(error as ApiError);
+      } else {
+        showSaveErrorAlert({ unknownError: ["An unknown error occurred"] });
+      }
+    },
+  });
 
   const startEditing = useCallback(() => {
     setIsEditing(true);
@@ -83,18 +110,17 @@ const useUserHistoryController = (
     setIsEditing(false);
   }, []);
 
-  const handleUserUpdate = useCallback(async (updatedUser: User) => {
-    try {
-      setIsLoading(true);
-      const savedUser = await updateUser(updatedUser);
-      setUser(savedUser);
-      setIsEditing(false);
-    } catch (error) {
-      console.error("Failed to update user:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const handleUserUpdate = useCallback(
+    async (updatedUser: User) => {
+      try {
+        await mutation.mutateAsync(updatedUser);
+      } catch (error) {
+        // Error is handled by mutation's onError
+        console.error("Error updating user:", error);
+      }
+    },
+    [mutation]
+  );
 
   const refreshUser = useCallback(async () => {
     if (!user.id) return;
