@@ -10,7 +10,7 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import { useEffect, forwardRef, useImperativeHandle } from "react";
+import { useEffect, forwardRef, useImperativeHandle, useCallback } from "react";
 import FormatBoldIcon from "@mui/icons-material/FormatBold";
 import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
@@ -29,24 +29,23 @@ export type RichTextEditorRef = {
 type Props = {
   user: User;
   onSave?: (updatedUser: User) => void;
+  onChange?: (content: string) => void;
   readOnly?: boolean;
 };
 
 const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
-  ({ user, onSave, readOnly = false }, ref) => {
+  ({ user, onSave, onChange, readOnly = false }, ref) => {
     const {
       content,
-      isEditing,
       isSaving,
       editor,
       setEditor,
       handleContentChange,
-      handleFormatClick,
-      addLink,
       handleSave,
     } = useRichTextEditorController({
       user,
       onSave,
+      onChange,
       readOnly,
     });
 
@@ -56,7 +55,11 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
 
     const tipTapEditor = useEditor({
       extensions: [
-        StarterKit,
+        StarterKit.configure({
+          heading: {
+            levels: [1, 2, 3],
+          },
+        }),
         Link.configure({
           openOnClick: false,
         }),
@@ -69,15 +72,17 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
       },
       editorProps: {
         attributes: {
-          class: "prose prose-sm focus:outline-none max-w-none",
+          class:
+            "prose prose-sm focus:outline-none max-w-none min-h-[100px] p-4",
         },
       },
-      onTransaction: () => {
-        if (editor !== tipTapEditor) {
-          setEditor(tipTapEditor);
-        }
-      },
     });
+
+    useEffect(() => {
+      if (tipTapEditor) {
+        setEditor(tipTapEditor);
+      }
+    }, [tipTapEditor, setEditor]);
 
     useEffect(() => {
       if (tipTapEditor && content !== tipTapEditor.getHTML()) {
@@ -112,12 +117,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
               <ToggleButton
                 value="bold"
                 selected={tipTapEditor?.isActive("bold")}
-                onClick={() =>
-                  handleFormatClick(
-                    () =>
-                      tipTapEditor?.chain().focus().toggleBold().run() || false
-                  )
-                }
+                onClick={() => tipTapEditor?.chain().focus().toggleBold().run()}
               >
                 <FormatBoldIcon />
               </ToggleButton>
@@ -127,11 +127,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
                 value="italic"
                 selected={tipTapEditor?.isActive("italic")}
                 onClick={() =>
-                  handleFormatClick(
-                    () =>
-                      tipTapEditor?.chain().focus().toggleItalic().run() ||
-                      false
-                  )
+                  tipTapEditor?.chain().focus().toggleItalic().run()
                 }
               >
                 <FormatItalicIcon />
@@ -142,11 +138,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
                 value="underline"
                 selected={tipTapEditor?.isActive("underline")}
                 onClick={() =>
-                  handleFormatClick(
-                    () =>
-                      tipTapEditor?.chain().focus().toggleUnderline().run() ||
-                      false
-                  )
+                  tipTapEditor?.chain().focus().toggleUnderline().run()
                 }
               >
                 <FormatUnderlinedIcon />
@@ -160,11 +152,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
                 value="bulletList"
                 selected={tipTapEditor?.isActive("bulletList")}
                 onClick={() =>
-                  handleFormatClick(
-                    () =>
-                      tipTapEditor?.chain().focus().toggleBulletList().run() ||
-                      false
-                  )
+                  tipTapEditor?.chain().focus().toggleBulletList().run()
                 }
               >
                 <FormatListBulletedIcon />
@@ -175,11 +163,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
                 value="orderedList"
                 selected={tipTapEditor?.isActive("orderedList")}
                 onClick={() =>
-                  handleFormatClick(
-                    () =>
-                      tipTapEditor?.chain().focus().toggleOrderedList().run() ||
-                      false
-                  )
+                  tipTapEditor?.chain().focus().toggleOrderedList().run()
                 }
               >
                 <FormatListNumberedIcon />
@@ -193,14 +177,11 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
                 value="heading"
                 selected={tipTapEditor?.isActive("heading")}
                 onClick={() =>
-                  handleFormatClick(
-                    () =>
-                      tipTapEditor
-                        ?.chain()
-                        .focus()
-                        .toggleHeading({ level: 2 })
-                        .run() || false
-                  )
+                  tipTapEditor
+                    ?.chain()
+                    .focus()
+                    .toggleHeading({ level: 2 })
+                    .run()
                 }
               >
                 <TitleIcon />
@@ -211,11 +192,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
                 value="blockquote"
                 selected={tipTapEditor?.isActive("blockquote")}
                 onClick={() =>
-                  handleFormatClick(
-                    () =>
-                      tipTapEditor?.chain().focus().toggleBlockquote().run() ||
-                      false
-                  )
+                  tipTapEditor?.chain().focus().toggleBlockquote().run()
                 }
               >
                 <FormatQuoteIcon />
@@ -226,8 +203,13 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
           <Tooltip title="Add Link">
             <IconButton
               size="small"
-              onClick={addLink}
-              color={tipTapEditor?.isActive("link") ? "primary" : "default"}
+              onClick={() => {
+                if (!tipTapEditor) return;
+                const url = window.prompt("Enter URL");
+                if (url) {
+                  tipTapEditor.chain().focus().setLink({ href: url }).run();
+                }
+              }}
             >
               <LinkIcon />
             </IconButton>
@@ -237,37 +219,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
     };
 
     return (
-      <Paper
-        variant="outlined"
-        sx={{
-          "& .ProseMirror": {
-            minHeight: "200px",
-            outline: "none",
-            p: 2,
-            "& p": { marginBottom: 2 },
-            "& ul, & ol": { paddingLeft: 2 },
-            "& a": { color: "primary.main", textDecoration: "underline" },
-            "& blockquote": {
-              borderLeft: "3px solid",
-              borderColor: "divider",
-              pl: 2,
-              py: 1,
-              my: 2,
-              fontStyle: "italic",
-            },
-            "& h1, & h2, & h3": {
-              fontWeight: "bold",
-              mb: 2,
-            },
-            "& h1": { fontSize: "1.8rem" },
-            "& h2": { fontSize: "1.5rem" },
-            "& h3": { fontSize: "1.2rem" },
-            "&:focus": {
-              outline: "none",
-            },
-          },
-        }}
-      >
+      <Paper variant="outlined">
         <MenuBar />
         <EditorContent editor={tipTapEditor} />
       </Paper>
