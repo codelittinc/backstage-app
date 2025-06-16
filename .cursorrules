@@ -1,0 +1,10 @@
+{
+  "rules": [
+    {
+      "name": "Controller Directory Structure",
+      "description": "Controllers must be placed in the controllers directory of their respective component",
+      "pattern": "src/app/**/_presenters/components/**/controllers/*.ts",
+      "message": "Controllers must be placed in the controllers directory of their respective component"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-type Requirement = {
+export type Requirement = {
   coverage: number;
   createdAt?: string;
   endDate: string;
