@@ -30,7 +30,6 @@ function SkillForm({
     userSkill,
   });
 
-  console.log(selectedSkill, skills, userSkill);
   if (!skills) {
     return <Loading />;
   }

@@ -35,7 +35,7 @@ function Page(): JSX.Element {
     <Grid item xs={8} key="user-form">
       <UserForm user={user} onSave={onSave} />
     </Grid>,
-    <Grid item xs={12} key="user-history">
+    <Grid item xs={12} key="user-skills">
       <UserHistory user={user} />
     </Grid>,
     <PerformanceMetrics key="performance-metrics" />,

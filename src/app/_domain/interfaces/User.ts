@@ -10,6 +10,7 @@ export type User = {
   firstName: string;
   fullName: string;
   googleId: string;
+  history?: string;
   id?: number | string;
   imageUrl: string;
   internal: boolean;
@@ -30,6 +31,7 @@ export type ApiUser = {
   email: string;
   first_name: string;
   google_id: string;
+  history?: string;
   id?: number;
   image_url: string;
   internal: boolean;

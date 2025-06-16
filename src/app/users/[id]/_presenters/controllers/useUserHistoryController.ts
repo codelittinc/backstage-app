@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import tanstackKeys from "@/app/_domain/enums/tanstackKeys";
 import { getAssignments } from "@/app/_presenters/data/assignments";
@@ -5,7 +6,11 @@ import { getRequirements } from "@/app/_presenters/data/requirements";
 import { getStatementOfWorks } from "@/app/projects/_presenters/components/ProjectForm/_presenters/components/StatementsOfWork/_presenters/data/services/statementsOfWork";
 import { User } from "@/app/_domain/interfaces/User";
 import { StatementOfWork } from "@/app/_domain/interfaces/StatementOfWork";
+import Assignment from "@/app/_domain/interfaces/Assignment";
+import Requirement from "@/app/_domain/interfaces/Requirement";
+import { Project } from "@/app/_domain/interfaces/Project";
 import useProjectsController from "@/app/projects/_presenters/controllers/useProjectsController";
+import { getUser, updateUser } from "@/app/_presenters/data/users";
 
 type ProjectHistoryItem = {
   id?: number;
@@ -13,7 +18,7 @@ type ProjectHistoryItem = {
   projectName: string;
   startDate: string;
   endDate: string;
-  coverage: number;
+  coverage: string;
   role: string;
 };
 
@@ -28,7 +33,83 @@ type UserProfile = {
   professionId?: number;
 };
 
-const useUserHistoryController = (user: User) => {
+export type UseUserHistoryControllerProps = User;
+
+type UseUserHistoryControllerReturn = {
+  user: User;
+  isEditing: boolean;
+  isLoading: boolean;
+  userProfile: {
+    fullName: string;
+    email: string;
+    country: string;
+    contractType?: string;
+    seniority?: string;
+    internal: boolean;
+    active: boolean;
+  };
+  projectHistory: Array<{
+    customer: string;
+    projectName: string;
+    startDate: string;
+    endDate: string;
+    coverage: string;
+  }>;
+  userSkills: Array<{
+    skill: {
+      name: string;
+    };
+    level: string;
+    yearsOfExperience: number;
+  }>;
+  startEditing: () => void;
+  stopEditing: () => void;
+  handleUserUpdate: (updatedUser: User) => void;
+  refreshUser: () => Promise<void>;
+};
+
+const useUserHistoryController = (
+  initialUser: UseUserHistoryControllerProps
+): UseUserHistoryControllerReturn => {
+  const [user, setUser] = useState<User>(initialUser);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const startEditing = useCallback(() => {
+    setIsEditing(true);
+  }, []);
+
+  const stopEditing = useCallback(() => {
+    setIsEditing(false);
+  }, []);
+
+  const handleUserUpdate = useCallback(async (updatedUser: User) => {
+    try {
+      setIsLoading(true);
+      const savedUser = await updateUser(updatedUser);
+      setUser(savedUser);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Failed to update user:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const refreshUser = useCallback(async () => {
+    if (!user.id) return;
+
+    try {
+      setIsLoading(true);
+      const updatedUser = await getUser(user.id);
+      setUser(updatedUser);
+    } catch (error) {
+      console.error("Failed to refresh user:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [user.id]);
+
   // Set fixed date range from Jan 1, 2020 to end of today
   const startDate = "2020-01-01T00:00:00.000Z";
   const today = new Date();
@@ -88,28 +169,20 @@ const useUserHistoryController = (user: User) => {
         (req: Requirement) => req.id === assignment.requirementId
       );
 
-      console.log("requirement", requirement);
       const statementOfWork = statementsOfWork?.find(
         (sow: StatementOfWork) => sow.id === assignment.statementOfWorkId
       );
-
-      console.log("statementOfWork", statementOfWork);
-
       const project = projects.find(
         (project: Project) => project.id === statementOfWork.projectId
       );
 
-      debugger;
-      console.log("project", project);
-
-      debugger;
       return {
         id: assignment.id,
         customer: project?.customer?.name || "N/A",
         projectName: project?.name || "N/A",
         startDate: assignment.startDate,
         endDate: assignment.endDate,
-        coverage: assignment.coverage,
+        coverage: `${assignment.coverage}%`,
       };
     }) || []
   ).filter(Boolean);
@@ -137,11 +210,25 @@ const useUserHistoryController = (user: User) => {
     (a, b) => b.yearsOfExperience - a.yearsOfExperience
   );
 
+  const userSkills = sortedUserSkills.map((skill) => ({
+    skill: {
+      name: skill.skill.name,
+    },
+    level: skill.level,
+    yearsOfExperience: skill.yearsOfExperience,
+  }));
+
   return {
+    user,
+    isEditing,
+    isLoading: isLoadingAssignments || isLoadingRequirements || isLoadingSOWs,
     userProfile,
     projectHistory,
-    userSkills: sortedUserSkills,
-    isLoading: isLoadingAssignments || isLoadingRequirements || isLoadingSOWs,
+    userSkills,
+    startEditing,
+    stopEditing,
+    handleUserUpdate,
+    refreshUser,
   };
 };
 
