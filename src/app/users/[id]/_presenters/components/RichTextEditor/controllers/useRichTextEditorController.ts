@@ -1,22 +1,16 @@
-import { useState, useCallback } from "react";
-import { User } from "@/app/_domain/interfaces/User";
+import { useCallback, useState } from "react";
 import { Editor } from "@tiptap/react";
 
 export type UseRichTextEditorControllerProps = {
-  user: User;
-  onSave?: (updatedUser: User) => void;
+  initialContent: string;
   onChange?: (content: string) => void;
-  readOnly?: boolean;
 };
 
 export default function useRichTextEditorController({
-  user,
-  onSave,
+  initialContent,
   onChange,
-  readOnly = false,
 }: UseRichTextEditorControllerProps) {
-  const [content, setContent] = useState(user.history || "");
-  const [isSaving, setIsSaving] = useState(false);
+  const [content, setContent] = useState(initialContent);
   const [editor, setEditor] = useState<Editor | null>(null);
 
   const handleContentChange = useCallback(
@@ -29,28 +23,15 @@ export default function useRichTextEditorController({
     [onChange]
   );
 
-  const handleSave = useCallback(async () => {
-    if (!onSave || !editor) return;
-    try {
-      setIsSaving(true);
-      const updatedUser = {
-        ...user,
-        history: editor.getHTML(),
-      };
-      await onSave(updatedUser);
-    } catch (error) {
-      console.error("Failed to save:", error);
-    } finally {
-      setIsSaving(false);
-    }
-  }, [editor, onSave, user]);
+  const getContent = useCallback(() => {
+    return editor?.getHTML() || content;
+  }, [editor, content]);
 
   return {
     content,
-    isSaving,
     editor,
     setEditor,
     handleContentChange,
-    handleSave,
+    getContent,
   };
 }
