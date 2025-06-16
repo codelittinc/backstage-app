@@ -4,7 +4,7 @@ import Loading from "@/components/Loading";
 import Typography from "@/components/Typography";
 import { User } from "@/app/_domain/interfaces/User";
 import useUserHistoryController from "../../controllers/useUserHistoryController";
-import RichTextEditor from "../RichTextEditor";
+import RichTextEditor, { RichTextEditorRef } from "../RichTextEditor";
 import { Card, Grid } from "@mui/material";
 import Box from "@/components/Box";
 import Form from "@/components/Form";
@@ -25,15 +25,14 @@ const UserHistory = ({ user: initialUser }: Props) => {
   } = useUserHistoryController(initialUser);
 
   const [localContent, setLocalContent] = useState(user.history || "");
-  const richTextEditorRef = useRef<{ handleSave: () => Promise<void> } | null>(
-    null
-  );
+  const richTextEditorRef = useRef<RichTextEditorRef>(null);
 
   const handleFormSubmit = useCallback(async () => {
     if (richTextEditorRef.current) {
-      await richTextEditorRef.current.handleSave();
+      const content = richTextEditorRef.current.getContent();
+      await handleUserUpdate({ ...user, history: content });
     }
-  }, []);
+  }, [handleUserUpdate, user]);
 
   const handleContentChange = useCallback((content: string) => {
     setLocalContent(content);
@@ -134,8 +133,7 @@ const UserHistory = ({ user: initialUser }: Props) => {
               <Grid item xs={12}>
                 <RichTextEditor
                   ref={richTextEditorRef}
-                  user={{ ...user, history: localContent }}
-                  onSave={handleUserUpdate}
+                  content={localContent}
                   readOnly={false}
                   onChange={handleContentChange}
                 />
