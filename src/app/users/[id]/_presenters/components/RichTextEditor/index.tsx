@@ -11,7 +11,7 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import { useEffect, forwardRef, useImperativeHandle } from "react";
+import { useEffect, forwardRef, useImperativeHandle, useCallback } from "react";
 import FormatBoldIcon from "@mui/icons-material/FormatBold";
 import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
@@ -73,7 +73,10 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
       content: content || "<p></p>",
       editable: true,
       onUpdate: ({ editor }) => {
-        handleContentChange(editor.getHTML());
+        const newContent = editor.getHTML();
+        if (newContent !== content) {
+          handleContentChange(newContent);
+        }
       },
       editorProps: {
         attributes: {
@@ -84,18 +87,14 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
     });
 
     useEffect(() => {
-      if (editor) {
-        setEditor(editor);
-      }
-    }, [editor, setEditor]);
-
-    useEffect(() => {
       if (editor && content !== editor.getHTML()) {
-        editor.commands.setContent(content);
+        editor.commands.setContent(content || "<p></p>");
       }
     }, [content, editor]);
 
-    const MenuBar = () => {
+    const MemoizedMenuBar = useCallback(() => {
+      if (!editor) return null;
+
       return (
         <Box
           sx={{
@@ -206,7 +205,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
           </Tooltip>
         </Box>
       );
-    };
+    }, [editor]);
 
     return (
       <Paper
@@ -234,7 +233,7 @@ const RichTextEditor = forwardRef<RichTextEditorRef, Props>(
           },
         }}
       >
-        <MenuBar />
+        <MemoizedMenuBar />
         <EditorContent editor={editor} />
       </Paper>
     );
