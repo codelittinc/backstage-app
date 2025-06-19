@@ -1,4 +1,3 @@
-import { Grid } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { usePathname } from "next/navigation";
@@ -14,7 +13,6 @@ import {
   useMaterialUIController,
 } from "@/theme";
 
-import BackstageAutocomplete from "./_presenters/components/BackstageAutocomplete";
 import { navbar, navbarContainer, navbarRow } from "./styles";
 import usePermissionsController from "../ProtectedComponent/_presenters/controllers/usePermissionsController";
 
@@ -38,16 +36,6 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
   } = controller;
   const [openMenu, setOpenMenu] = useState<any>(false);
   const route = usePathname().split("/").slice(1);
-
-  const { hasPermission: hasUsersPermission } = usePermissionsController({
-    ability: abilities.view,
-    target: targets.users,
-  });
-
-  const { hasPermission: hasProjectsPermissions } = usePermissionsController({
-    ability: abilities.change,
-    target: targets.projects,
-  });
 
   useEffect(() => {
     // Setting the navbar type
@@ -123,19 +111,6 @@ function DashboardNavbar({ absolute, light, isMini }: Props): JSX.Element {
             light={light}
           />
         </Box>
-        {isMini || !(hasProjectsPermissions && hasUsersPermission) ? null : (
-          <Box sx={(theme) => navbarRow(theme, { isMini })}>
-            <Grid
-              container
-              sx={{ display: { xs: "none", sm: "none", md: "block" } }}
-              spacing={2}
-            >
-              <Grid item xs={12} minWidth={200}>
-                <BackstageAutocomplete />
-              </Grid>
-            </Grid>
-          </Box>
-        )}
       </Toolbar>
     </AppBar>
   );
