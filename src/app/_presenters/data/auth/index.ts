@@ -16,9 +16,11 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     session: async ({ session, token }) => {
+      console.log("Session", session);
+      console.log("Token", token);
       const { user } = session;
       if (!user) {
-        return {};
+        return session;
       }
 
       const data = {
@@ -26,22 +28,29 @@ export const authOptions: NextAuthOptions = {
         google_id: token.id as string,
         name: user.name!,
         image: session!.user!.image,
+        idToken: token.idToken,
       };
 
       return {
+        ...session,
         user: {
           ...data,
         },
       };
     },
-    jwt: ({ token, user }) => {
+    jwt: ({ token, user, account }) => {
+      // Store the Google ID token when first signing in (more stable than access token)
+      if (account) {
+        token.idToken = account.id_token;
+        token.accessToken = account.access_token; // Keep access token for immediate use
+      }
+
+      // Add user ID when user is available
       if (user) {
         const u = user as unknown as any;
-        return {
-          ...token,
-          id: u.id,
-        };
+        token.id = u.id;
       }
+
       return token;
     },
   },
