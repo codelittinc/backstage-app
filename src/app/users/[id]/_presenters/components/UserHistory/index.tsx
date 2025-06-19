@@ -125,7 +125,7 @@ const UserHistory = ({ user: initialUser }: Props) => {
         </Card>
       </Grid>
 
-      <ProtectedComponent ability={abilities.change} target={targets.users}>
+      <ProtectedComponent ability={abilities.view} target={targets.users}>
         <Grid item xs={12}>
           <Card>
             <Box p={3}>
