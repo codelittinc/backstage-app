@@ -19,6 +19,7 @@ export type User = {
   permissions: Permission[];
   profession?: Profession;
   professionId?: number;
+  rehireable?: boolean;
   seniority?: string;
   servicesIdentifiers: ServiceIdentifier[];
   skills: Skill[];
@@ -41,6 +42,7 @@ export type ApiUser = {
   permissions: Permission[];
   profession?: Profession;
   profession_id?: number;
+  rehireable?: boolean;
   seniority?: string;
   skills: Skill[];
   slug: string;

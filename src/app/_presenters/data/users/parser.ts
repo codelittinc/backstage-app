@@ -17,6 +17,7 @@ export const toApiParser = (user: User): ToApiUser => {
     country: user.country,
     internal: user.internal,
     history: user.history,
+    rehireable: user.rehireable,
     user_skills: user.userSkills,
     user_service_identifiers_attributes: user.servicesIdentifiers?.map(
       (service) => ({
@@ -64,6 +65,7 @@ export const fromApiParser = (user: FromApiUser): User => {
     internal: user.internal,
     profession: user.profession,
     professionId: user.profession_id,
+    rehireable: user.rehireable,
     history: history,
     servicesIdentifiers:
       user_service_identifiers?.map((service: ApiServiceIdentifier) => ({
