@@ -32,6 +32,7 @@ const getDefaultUser = (professions: Profession[]) => ({
   imageUrl: "",
   profession_id: professions.length > 0 ? professions[0].id : undefined,
   active: true,
+  rehireable: false,
   servicesIdentifiers: [],
   seniority: "Senior",
   contractType: "Salary",
@@ -106,6 +107,15 @@ function BasicInfo({ user, onSave }: Props): JSX.Element {
             control={control}
           />
         </Grid>
+        <ProtectedComponent ability={abilities.view} target={targets.users}>
+          <Grid item xs={12} md={6}>
+            <SwitchController
+              name="rehireable"
+              label="Rehireable"
+              control={control}
+            />
+          </Grid>
+        </ProtectedComponent>
         {internal && (
           <>
             <Grid item xs={12} md={6}>
