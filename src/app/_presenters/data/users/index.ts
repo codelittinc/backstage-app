@@ -16,13 +16,18 @@ export const getUser = async (id: number | string): Promise<User> => {
 export const getUsers = async (
   onlyActive = true,
   onlyInternal = false,
-  skills = ""
+  skills = "",
+  onlyRehireable = false,
+  professionIds: number[] = []
 ): Promise<User[]> => {
   const { data } = await backstageApiClient.get(`/users.json`, {
     params: {
       only_active: onlyActive,
       only_internal: onlyInternal,
       filter_by_skills: skills,
+      only_rehireable: onlyRehireable,
+      profession_ids:
+        professionIds.length > 0 ? professionIds.join(",") : undefined,
     },
   });
   return data.map(fromApiParser);
