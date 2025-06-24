@@ -62,6 +62,7 @@ export const fromApiParser = (user: FromApiUser): User => {
     fullName: `${first_name} ${last_name}`,
     country: country,
     internal: user.internal,
+    profession: user.profession,
     professionId: user.profession_id,
     history: history,
     servicesIdentifiers:

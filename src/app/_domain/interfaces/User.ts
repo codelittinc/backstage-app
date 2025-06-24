@@ -1,4 +1,5 @@
 import Permission from "./Permission";
+import Profession from "./Profession";
 import { ApiServiceIdentifier, ServiceIdentifier } from "./ServiceIdentifier";
 import { Skill, UserSkill } from "./Skill";
 
@@ -16,6 +17,7 @@ export type User = {
   internal: boolean;
   lastName: string;
   permissions: Permission[];
+  profession?: Profession;
   professionId?: number;
   seniority?: string;
   servicesIdentifiers: ServiceIdentifier[];
@@ -37,6 +39,7 @@ export type ApiUser = {
   internal: boolean;
   last_name: string;
   permissions: Permission[];
+  profession?: Profession;
   profession_id?: number;
   seniority?: string;
   skills: Skill[];
