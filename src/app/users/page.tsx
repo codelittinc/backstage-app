@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FormControlLabel,
   Switch,
@@ -14,17 +14,31 @@ import {
 import TableLayout from "@/components/LayoutContainers/TableLayout";
 import PageFilterContainer from "@/components/PageFilters/PageFilterContainer";
 import routes from "@/routes";
+import customParamKeys from "@/app/_domain/enums/customParamKeys";
+import useQueryParamController from "@/app/_presenters/controllers/useQueryParamController";
 
 import useUsersController from "../_presenters/controllers/useUsersController";
 import useProjectsController from "../projects/_presenters/controllers/useProjectsController";
 import useProfessionsController from "../_presenters/controllers/useProfessionsController";
 
 function Users(): JSX.Element {
-  // Filter state - active, internal, and rehireable true by default
-  const [filterActive, setFilterActive] = useState(true);
-  const [filterInternal, setFilterInternal] = useState(true);
-  const [filterRehireable, setFilterRehireable] = useState(true);
-  const [selectedProfessions, setSelectedProfessions] = useState<number[]>([]);
+  const { setCustomParams, getCustomParamValue } = useQueryParamController();
+
+  // Get filter values from URL params with defaults
+  const filterActive =
+    getCustomParamValue(customParamKeys.userFilterActive, "true") === "true";
+  const filterInternal =
+    getCustomParamValue(customParamKeys.userFilterInternal, "true") === "true";
+  const filterRehireable =
+    getCustomParamValue(customParamKeys.userFilterRehireable, "true") ===
+    "true";
+  const selectedProfessionsParam = getCustomParamValue(
+    customParamKeys.userSelectedProfessions,
+    ""
+  ) as string;
+  const selectedProfessions = selectedProfessionsParam
+    ? selectedProfessionsParam.split(",").map(Number)
+    : [];
 
   const { professions = [] } = useProfessionsController();
   const { users = [], isLoading } = useUsersController(
@@ -37,6 +51,34 @@ function Users(): JSX.Element {
   const reportKey = projects?.find(
     (project: Project) => project.reportKey
   )?.reportKey;
+
+  // Update URL params when filters change
+  const updateFilterActive = (value: boolean) => {
+    setCustomParams([
+      { key: customParamKeys.userFilterActive, value: value.toString() },
+    ]);
+  };
+
+  const updateFilterInternal = (value: boolean) => {
+    setCustomParams([
+      { key: customParamKeys.userFilterInternal, value: value.toString() },
+    ]);
+  };
+
+  const updateFilterRehireable = (value: boolean) => {
+    setCustomParams([
+      { key: customParamKeys.userFilterRehireable, value: value.toString() },
+    ]);
+  };
+
+  const updateSelectedProfessions = (professionIds: number[]) => {
+    setCustomParams([
+      {
+        key: customParamKeys.userSelectedProfessions,
+        value: professionIds.length > 0 ? professionIds.join(",") : "",
+      },
+    ]);
+  };
 
   const columns = [
     {
@@ -104,7 +146,7 @@ function Users(): JSX.Element {
                 control={
                   <Switch
                     checked={filterActive}
-                    onChange={(e) => setFilterActive(e.target.checked)}
+                    onChange={(e) => updateFilterActive(e.target.checked)}
                     color="primary"
                   />
                 }
@@ -116,7 +158,7 @@ function Users(): JSX.Element {
                 control={
                   <Switch
                     checked={filterInternal}
-                    onChange={(e) => setFilterInternal(e.target.checked)}
+                    onChange={(e) => updateFilterInternal(e.target.checked)}
                     color="primary"
                   />
                 }
@@ -128,7 +170,7 @@ function Users(): JSX.Element {
                 control={
                   <Switch
                     checked={filterRehireable}
-                    onChange={(e) => setFilterRehireable(e.target.checked)}
+                    onChange={(e) => updateFilterRehireable(e.target.checked)}
                     color="primary"
                   />
                 }
@@ -144,7 +186,7 @@ function Users(): JSX.Element {
                   selectedProfessions.includes(profession.id)
                 )}
                 onChange={(event, newValue) => {
-                  setSelectedProfessions(newValue.map((prof) => prof.id));
+                  updateSelectedProfessions(newValue.map((prof) => prof.id));
                 }}
                 renderTags={(value, getTagProps) =>
                   value.map((option, index) => (
